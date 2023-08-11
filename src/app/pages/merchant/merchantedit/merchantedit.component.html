@@ -1,0 +1,473 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+          
+
+            <div class="card">
+
+                <div class="card-body form-steps">
+
+                    <div class="col-md-12">
+
+                        <ul ngbNav #PillsJustified="ngbNav" [activeId]="activeTab" class="nav nav-pills nav-justified mb-3">
+                            <li [ngbNavItem]="1" class="nav-item waves-effect waves-light">
+                                <a ngbNavLink>Merchant Information</a>
+                                <ng-template ngbNavContent>
+
+                                    <div class="wbody">
+                                        <div class="live-preview">
+
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="btn-left mb-2">
+                                                        <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
+                                                            class="form-label mt-2">
+                                                            <h6 class="heads">Merchant Details</h6>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                            <div class="card">
+                                                <div class="card-body">
+                
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-8">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Merchant (Organization) Name </label>
+                                                                <input type="text" class="form-control" placeholder="Enter Merchant (Organization) Name">
+                                                            </div>
+                                                        </div>
+                        
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="labelInput" class="form-label">Email Id</label>
+                                                                <div class="form-icon right">
+                                                                    <input type="text" class="form-control" placeholder="Enter Email Id">
+                                                                    <i class="ri-mail-unread-line"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                        
+                                                    </div>
+                        
+                                                    <div class="row mb-3">
+
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Phone No. </label>
+                                                                <input type="text" class="form-control" placeholder="Enter Phone No.">
+                                                            </div>
+                                                        </div>
+                
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Contact Person Name </label>
+                                                                <input type="text" class="form-control" placeholder="Enter Contact Person Name">
+                                                            </div>
+                                                        </div>
+                        
+                                                    </div>
+                
+
+                                                    <!-- <div class="row mb-1">
+                        
+                                                        <div class="col-md-4">
+                                                            <div class="position-relative auth-pass-inputgroup">
+                                                                <label for="labelInput" class="form-label">Password </label>
+                                                                <input [type]="fieldTextType1 ? 'text' : 'password'" class="form-control" placeholder="Enter Password">
+                                                                <button class="btn btn-link position-absolute end-0 top-20 text-decoration-none text-muted" type="button" id="password-addon">
+                                                                    <i class="mdi align-middle"[ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1}" (click)="toggleFieldTextType1()"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Organization Name </label>
+                                                                <input type="text" class="form-control" placeholder="Enter Organization Name">
+                                                            </div>
+                                                        </div>
+                        
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Category </label>
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option hidden value="" disabled selected>Select Category</option>
+                                                                    <option>Data</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                        
+                                                    
+                                                    </div> -->
+                
+                                                </div>
+                                            </div>
+                
+                                            <hr>
+                
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="btn-left mb-2">
+                                                        <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
+                                                            class="form-label mt-2">
+                                                            <h6 class="heads">POS Details</h6>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                
+                                            <div class="card mb-1">
+                                                <div class="card-body">
+                
+                                                    <div class="row mb-3">
+
+                                                        <div class="col-md-8">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">POS Name </label>
+                                                                <input type="text" class="form-control" placeholder="Enter POS Name">
+                                                            </div>
+                                                        </div>
+                
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Category </label>
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option hidden value="" disabled selected>Select Category</option>
+                                                                    <option>Data</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                        
+                                                    </div>
+                
+                                                    <div class="row mb-3">
+                
+                                                        <div class="col-md-8">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">POS Address </label>
+                                                                <textarea class="form-control" rows="1" placeholder="Enter POS Address"></textarea>
+                                                            </div>
+                                                        </div>
+                
+                                                    </div>
+                        
+                                                    <div class="row mb-3">
+                        
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Zip (PIN) Code </label>
+                                                                <input type="text" class="form-control" placeholder="Enter Zip (PIN) Code">
+                                                            </div>
+                                                        </div>
+                        
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">State </label>
+                                                                <ng-select [items]="Default" bindLabel="name" >
+                                                                    <ng-template ng-optgroup-tmp let-item="item">
+                                                                    </ng-template>
+                                                                </ng-select>
+                                                            </div>
+                                                        </div>
+                
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Country </label>
+                                                                <ng-select [items]="Default" bindLabel="name" >
+                                                                    <ng-template ng-optgroup-tmp let-item="item">
+                                                                    </ng-template>
+                                                                </ng-select>
+                                                            </div>
+                                                        </div>
+                        
+                                                    </div>
+                        
+                                                    <div class="row mb-1">
+                        
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Latitude </label>
+                                                                <input type="text" class="form-control" placeholder="Enter Latitude">
+                                                            </div>
+                                                        </div>
+                        
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Longitude </label>
+                                                                <input type="text" class="form-control" placeholder="Enter Longitude">
+                                                            </div>
+                                                        </div>
+                        
+                                                    </div>
+                
+                                                </div>
+                                            </div>
+
+                                            <hr>
+                
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="btn-left mb-2">
+                                                        <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
+                                                            class="form-label mt-2">
+                                                            <h6 class="heads">Verification</h6>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card mb-1">
+                                                <div class="card-body">
+                
+                                                    <div class="row mb-3">
+                
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Status </label>
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option hidden value="" disabled selected>New</option>
+                                                                    <option>Data</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                        
+                                                        <div class="col-md-8">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Remarks / Notes </label> <label for="basiInput" class="form-label lbl-btn" (click)="openModal(content)"><i class="ri-eye-fill label-icon align-middle me-2"></i>View History</label>
+                                                                <textarea class="form-control" rows="1" placeholder="Enter Remarks / Notes"></textarea>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <!-- Modal -->
+                                                        <ng-template #content role="document" let-modal>
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title mt-0">Remarks / Notes History</h5>
+                                                                <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table-bordered table-striped align-middle table-nowrap mb-0">
+                                                                        <thead class="table-light">
+                                                                            <tr>
+                                                                                <th scope="col" class="col-ch text-center">No.</th>
+                                                                                <th scope="col" class="col-up">Status</th>
+                                                                                <th scope="col" class="col-nm">Remarks / Notes</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td class="text-center">1</td>
+                                                                                <td>Data</td>
+                                                                                <td>Data</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="text-center">2</td>
+                                                                                <td>Data</td>
+                                                                                <td>Data</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td class="text-center">3</td>
+                                                                                <td>Data</td>
+                                                                                <td>Data</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Close</button>
+                                                            </div>
+                                                        </ng-template>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                
+                                        </div>
+
+                                        <div class="card-footer wizfooter mt-3">
+                                            <div class="row align-items-center gy-3">
+                                                <div class="col-sm">
+                                                    <div class="d-flex flex-wrap my-n1">
+                                                        <div>
+                                                            <i
+                                                                class="ri-information-line text-muted align-bottom me-1"></i>
+                                                            Tip
+                                                            : (<span class="mnd-fld">*</span>) fields are mandatory.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-auto">
+                                                    <div class="col-lg-12">
+                                                        <div class="text-end d-flex align-items-start gap-2 ">
+                                                            <button type="button" class="btn btn-info ms-auto"><i class="ri-close-line label-icon align-middle me-2"></i>Cancel</button>
+                                                            <button type="submit" class="btn btn-success"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Update</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </ng-template>
+                            </li>
+                            <li [ngbNavItem]="2" class="nav-item waves-effect waves-light">
+                                <a ngbNavLink>SMS Template Information</a>
+                                <ng-template ngbNavContent>
+                                    
+                                    <div class="wbody">
+
+                                        <div class="live-preview">
+
+                                            <div class="row mb-1">
+                                                <div class="col-md-4">
+                                                    <div class="btn-left mb-2">
+                                                        <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
+                                                            class="form-label mt-2">
+                                                            <h6 class="heads">SMS Template List</h6>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="btn-right mt-1">
+                                                        <div class="flex-shrink-0">
+                                                            <div class="gridjs-search">
+                                                                <input type="search" placeholder="Type keyword..." aria-label="Type a keyword..."class="gridjs-input gridjs-search-input" >
+                                                                <button routerLink="../merchantaddedit" type="button" class="btn btn-info ms-auto"> <i class="ri-add-fill cardicon label-icon align-middle"></i>Add</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped align-middle table-nowrap mb-0">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th scope="col">Message Type</th>
+                                                            <th scope="col">Merchant ID</th>
+                                                            <th scope="col">Message Content</th>
+                                                            <th scope="col" class="w-10 text-center">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>Data</td>
+                                                            <td>Data</td>
+                                                            <td>Data</td>
+                                                            <td class="w-10 text-center">
+                                                                <div class="gap-3">
+                                                                    <a  class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                                                    &nbsp;&nbsp;
+                                                                    <a class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                    
+                                            <div class="text-center mt-3">
+                                                <div class="gridjs-pagination">
+                                                    <div class="gridjs-pages">
+                                                        <button tabindex="0" role="button" title="Previous" aria-label="Previous">Previous</button>
+                                                        <button tabindex="0" role="button">1</button>
+                                                        <button tabindex="0" role="button" title="Next" aria-label="Next">Next</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="card mb-1">
+                                                <div class="card-body">
+                
+                                                    <div class="row mb-3">
+                
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Message Type </label>
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option hidden value="" disabled selected>Select Message Type</option>
+                                                                    <option>Data</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                        
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Merchant ID </label>
+                                                                <select class="form-select" aria-label="Default select example">
+                                                                    <option hidden value="" disabled selected>Select Merchant ID</option>
+                                                                    <option>Data</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                        
+                                                    </div>
+
+                                                    <div class="row mb-1">
+                
+                                                        <div class="col-md-12">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Message Content </label>
+                                                                <textarea class="form-control" rows="2" placeholder="Enter Message Content"></textarea>
+                                                            </div>
+                                                        </div>
+                        
+                                                    </div>
+
+                                                    <div class="card-footer wizfooter mt-3">
+                                                        <div class="row align-items-center gy-3">
+                                                            <div class="col-sm">
+                                                                <div class="d-flex flex-wrap my-n1">
+                                                                    <div>
+                                                                        <i
+                                                                            class="ri-information-line text-muted align-bottom me-1"></i>
+                                                                        Tip
+                                                                        : ( ) fields are mandatory.
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-sm-auto">
+                                                                <div class="col-lg-12">
+                                                                    <div class="text-end d-flex align-items-start gap-2 ">
+                                                                        <button type="button" class="btn btn-info ms-auto"><i class="ri-close-line label-icon align-middle me-2"></i>Cancel</button>
+                                                                        <button type="submit" class="btn btn-success"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                        
+                                                </div>
+                                            </div>
+                
+
+
+                                        </div>
+
+                                       
+                                    </div>
+
+                                </ng-template>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content text-muted">
+                            <div [ngbNavOutlet]="PillsJustified"></div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,170 @@
+<div class="container">
+    <br />
+    <div class="row">
+        <div class="col-lg-12">
+            <form [formGroup]="uploadForm" (ngSubmit)="Submit(uploadForm.value)" autocomplete="off">
+
+                <div class="card">
+
+                    <div class="card-header align-items-center d-flex">
+                        <i class="ri-user-fill cardicon"></i>
+                        <h4 class="card-title mb-0 flex-grow-1">User Information</h4>
+                        <div class="flex-shrink-0">
+                            <!-- left side view -->
+                        </div>
+                    </div>
+
+
+                    <div class="card-body">
+
+
+
+                        <div class="live-preview">
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <div>
+                                        <label for="basiInput" class="form-label">First Name<span class="mnd-fld">*</span></label>
+                                        <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
+                                            formControlName="firstName" required minlength="3"
+                                            [ngClass]="{ 'is-invalid': submitted && f['firstName'].errors }"
+                                            (keypress)="blockSpaces($event)" placeholder="Enter First Name">
+                                        <div *ngIf="submitted && f['firstName'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['firstName'].errors['required']">First Name is required</div>
+                                            <div *ngIf="f['firstName'].errors['minlength']">First Name least 3 char long
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div>
+                                        <label for="basiInput" class="form-label">Last Name<span class="mnd-fld">*</span></label>
+                                        <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
+                                            formControlName="lastName" required minlength="3"
+                                            [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }"
+                                            (keypress)="blockSpaces($event)" placeholder="Enter Last Name">
+                                        <div *ngIf="submitted && f['lastName'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['lastName'].errors['required']">Last Name is required</div>
+                                            <div *ngIf="f['lastName'].errors['minlength']">Last Name least 3 char long
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div>
+                                        <label for="labelInput" class="form-label">Email Id<span class="mnd-fld">*</span></label>
+                                        <div class="form-icon right">
+                                            <input type="email" class="form-control form-control-icon"
+                                                formControlName="email" minlength="3" required
+                                                (keypress)="blockSpaces($event)"
+                                                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                                                pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" placeholder="Enter Email Id"> <i
+                                                class="ri-mail-unread-line"></i>
+                                            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['email'].errors['required']">Email Id is required</div>
+                                                <div *ngIf="f['email'].errors['pattern']">Please enter valid Email
+                                                </div>
+                                                <div *ngIf="f['email'].errors['exists']">{{ emailExistsError }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+
+                                <div class="col-md-4">
+                                    <div>
+                                        <label for="labelInput" class="form-label">Mobile No.<span class="mnd-fld">*</span></label>
+                                        <input type="text" class="form-control" (keypress)="keyPressOnlynum($event)"
+                                            formControlName="mobileNumber" required pattern="[0-9]+" C="10"
+                                            maxlength="10" minlength="10"
+                                            [ngClass]="{ 'is-invalid': submitted && f['mobileNumber'].errors }"
+                                            (keypress)="blockSpaces($event)" placeholder="Enter Mobile No.">
+
+                                        <div *ngIf="submitted && f['mobileNumber'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['mobileNumber'].errors['required']">Mobile No. is required
+                                            </div>
+                                            <div *ngIf="f['mobileNumber'].errors['minlength']">Please enter valid Mobile
+                                                No.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="position-relative auth-pass-inputgroup">
+                                        <label for="labelInput" class="form-label">Password<span class="mnd-fld">*</span></label>
+                                        <input [type]="fieldTextType1 ? 'text' : 'password'" class="form-control"
+                                            (keypress)="blockSpaces($event)" formControlName="password"
+                                            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+                                            minlength="6" placeholder="Enter Password">
+                                        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['password'].errors['required']">Password is required</div>
+                                            <div *ngIf="f['password'].errors['minlength']">Password at least 6 digits
+                                                long</div>
+
+                                        </div>
+                                        <button
+                                            class="btn btn-link position-absolute end-0 top-20 text-decoration-none text-muted"
+                                            type="button" id="password-addon"><i class="mdi align-middle"
+                                                [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1}"
+                                                (click)="toggleFieldTextType1()"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div>
+                                        <label for="basiInput" class="form-label">Role<span class="mnd-fld">*</span></label>
+                                        <select class="form-select" aria-label="Default select example"
+                                            [(ngModel)]="selectedRole" formControlName="roleId" required
+                                            [ngClass]="{ 'is-invalid': submitted && f['roleId'].errors }">
+                                            <option *ngFor="let Role of RoleList" [value]="Role.roleId">{{ Role.role }}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="submitted && f['roleId'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['roleId'].errors['required']">Please Select Role</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- hiddenfield -->
+                                <input formControlName="userId" hidden>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card-footer">
+                        <div class="row align-items-center gy-3">
+                            <div class="col-sm">
+                                <div class="d-flex flex-wrap my-n1">
+                                    <div>
+                                        <i class="ri-information-line text-muted align-bottom me-1"></i>
+                                        Tip
+                                        : (<span class="mnd-fld">*</span>) fields are mandatory.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-auto">
+                                <div class="col-lg-12">
+                                    <div class="text-end d-flex align-items-start gap-2 ">
+                                        <button [routerLink]="['/pages/master/user/userlist']" type="button"
+                                            class="btn btn-info ms-auto"><i
+                                                class="ri-close-line label-icon align-middle me-2"></i> Cancel</button>
+                                        <button type="submit" class="btn btn-success" [disabled]="!uploadForm.valid"><i
+                                                class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+        </div><!--end col-->
+    </div><!--end row-->
+</div>

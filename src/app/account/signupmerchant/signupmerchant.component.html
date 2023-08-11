@@ -1,0 +1,252 @@
+<div class="auth-page-wrapper pt-5">
+    <!-- auth page bg -->
+    <div class="auth-one-bg-position auth-one-bg" id="auth-particles">
+        <div class="bg-overlay"></div>
+
+        <div class="shape">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="0 0 1440 120">
+                <path d="M 0,36 C 144,53.6 432,123.2 720,124 C 1008,124.8 1296,56.8 1440,40L1440 140L0 140z"></path>
+            </svg>
+        </div>
+    </div>
+  
+    <!-- auth page content -->
+    <div class="auth-page-content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center mt-sm-1 text-white-50">
+                        <div>
+                            <a href="" class="d-inline-block auth-logo authlogo">
+                                <img src="assets/images/logo.png" alt="" height="100" style="border-radius: 10px;">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+  
+            <div class="row justify-content-center">
+                <div class="col-md-8" *ngIf="showDiv.current">
+                    <div class="card mt-4">
+  
+                        <div class="card-body p-4" >
+                            <div class="text-center mt-2">
+                                <h5 class="text-primary">Signup Here!</h5>
+                            </div>
+                            <div class="p-2 mt-4">
+                      
+  
+                                <div class="live-preview"  >
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="btn-left mb-2">
+                                                <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
+                                                    class="form-label mt-2">
+                                                    <h6 class="heads">Merchant Details</h6>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                            
+        
+                                            <div class="row mb-3">
+                                                <div class="col-md-8">
+                                                    <div>
+                                                        <label for="basiInput" class="form-label">Merchant (Organization) Name </label>
+                                                        <input type="text" class="form-control" placeholder="Enter Merchant (Organization) Name">
+                                                    </div>
+                                                </div>
+                
+                                                <div class="col-md-4">
+                                                    <div>
+                                                        <label for="basiInput" class="form-label">Phone No. </label>
+                                                        <input type="text" class="form-control" placeholder="Enter Phone No.">
+                                                    </div>
+                                                </div>
+                
+                                            </div>
+                
+                                            <div class="row mb-3">
+        
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <label for="labelInput" class="form-label">Email Id</label>
+                                                        <div class="form-icon right">
+                                                            <input type="text" class="form-control" placeholder="Enter Email Id">
+                                                            <i class="ri-mail-unread-line"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+        
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <label for="basiInput" class="form-label">Contact Person Name </label>
+                                                        <input type="text" class="form-control" placeholder="Enter Contact Person Name">
+                                                    </div>
+                                                </div>
+                
+                                            </div>
+        
+                                  
+        
+                                    <hr>
+        
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="btn-left mb-2">
+                                                <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
+                                                    class="form-label mt-2">
+                                                    <h6 class="heads">POS Details</h6>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                          
+        
+                                            <div class="row mb-3">
+        
+                                                <div class="col-md-8">
+                                                    <div>
+                                                        <label for="basiInput" class="form-label">POS Name </label>
+                                                        <input type="text" class="form-control" placeholder="Enter POS Name">
+                                                    </div>
+                                                </div>
+        
+                                                <div class="col-md-4">
+                                                    <div>
+                                                        <label for="basiInput" class="form-label">Category </label>
+                                                        <select class="form-select" aria-label="Default select example">
+                                                            <option hidden value="" disabled selected>Select Category</option>
+                                                            <option>Data</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                
+                                            </div>
+        
+                                            <div class="row mb-3">
+        
+                                                <div class="col-md-12">
+                                                    <div>
+                                                        <label for="basiInput" class="form-label">POS Address </label>
+                                                        <textarea class="form-control" rows="1" placeholder="Enter POS Address"></textarea>
+                                                    </div>
+                                                </div>
+        
+                                            </div>
+                
+                                            <div class="row mb-3">
+                
+                                                <div class="col-md-4">
+                                                    <div>
+                                                        <label for="basiInput" class="form-label">Zip (PIN) Code </label>
+                                                        <input type="text" class="form-control" placeholder="Enter Zip (PIN) Code">
+                                                    </div>
+                                                </div>
+                
+                                                <div class="col-md-4">
+                                                    <div>
+                                                        <label for="basiInput" class="form-label">State </label>
+                                                        <ng-select [items]="Default" bindLabel="name" >
+                                                            <ng-template ng-optgroup-tmp let-item="item">
+                                                            </ng-template>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+        
+                                                <div class="col-md-4">
+                                                    <div>
+                                                        <label for="basiInput" class="form-label">Country </label>
+                                                        <ng-select [items]="Default" bindLabel="name" >
+                                                            <ng-template ng-optgroup-tmp let-item="item">
+                                                            </ng-template>
+                                                        </ng-select>
+                                                    </div>
+                                                </div>
+                
+                                            </div>
+                
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="text-center gap-2 mt-2">
+                                                        <button type="submit" class="btn btn-primary" (click)="showDiv.current = false;showDiv.next = true"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                       
+        
+                                </div>
+
+                            </div>
+                        </div> 
+
+                    </div>
+                </div>
+
+
+                <div class="col-md-5" *ngIf="showDiv.next">
+                    <div class="card mt-4">
+  
+                        <div class="card-body p-4" *ngIf="showDiv.next">
+                            <div class="text-center mt-2">
+                                <h5 class="text-primary">OTP Verification</h5>
+                            </div>
+                            <div class="p-2 mt-4">
+
+                                <div class="live-preview" >
+
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <div>
+                                                <label for="basiInput" class="form-label">Enter OPT </label>
+                                                <input type="text" class="form-control" placeholder="Enter OTP">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="text-center gap-2 mt-2">
+                                                <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div> 
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            
+        </div>
+       
+    </div>
+  
+  
+    <!-- footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <p class="mb-0 text-muted">&copy; 2023 BlooTusk. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end Footer -->
+  </div>
+  <!-- end auth-page-wrapper -->
+  
+
