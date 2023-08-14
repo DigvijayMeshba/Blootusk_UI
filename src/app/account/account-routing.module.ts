@@ -5,9 +5,9 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from "./login/login.component";
 import { ForgotpasswordComponent } from "./forgotpassword/forgotpassword.component";
 import { ChangepasswordComponent } from "./changepassword/changepassword.component";
-import { SignupComponent } from "./signup/signup.component";
 import { SignupmerchantComponent } from "./signupmerchant/signupmerchant.component";
 import { SignupuserComponent } from "./signupuser/signupuser.component";
+import { OptverifyComponent } from "./optverify/optverify.component";
 
 const routes: Routes = [
 
@@ -27,8 +27,8 @@ const routes: Routes = [
   },
 
   {
-    path: "signup",
-    component: SignupComponent
+    path: "otpverify",
+    component: OptverifyComponent
   },
 
   {

@@ -25,18 +25,18 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
-import { SignupComponent } from './signup/signup.component';
 import { SignupuserComponent } from './signupuser/signupuser.component';
 import { SignupmerchantComponent } from './signupmerchant/signupmerchant.component';
+import { OptverifyComponent } from './optverify/optverify.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     ToastsContainer,
     ChangepasswordComponent,
-    SignupComponent,
     SignupuserComponent,
     SignupmerchantComponent,
+    OptverifyComponent,
   ],
   imports: [
     CommonModule,
