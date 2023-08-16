@@ -6,7 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./signupmerchant.component.scss']
 })
 export class SignupmerchantComponent {
-
+  fieldTextType1!: boolean;
+  fieldTextType2!: boolean;
   selectedAccount = 'Select';
   Default = [
     { name: 'Data 1' },
@@ -16,6 +17,14 @@ export class SignupmerchantComponent {
   showDiv = {
     current : true,
     next : false
+  }
+
+  toggleFieldTextType1() {
+    this.fieldTextType1 = !this.fieldTextType1;
+  }
+
+  toggleFieldTextType2() {
+    this.fieldTextType2 = !this.fieldTextType2;
   }
 
 }
