@@ -18,7 +18,7 @@
                                         <div class="live-preview">
 
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-6">
                                                     <div class="btn-left mb-2">
                                                         <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
                                                             class="form-label mt-2">
@@ -26,8 +26,13 @@
                                                         </label>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-6 text-end">
+                                                    <label class="form-label mt-1">
+                                                        <h6 class="heads">Merchant Code : M#########</h6>
+                                                    </label>
+                                                </div>
                                             </div>
-                
+
                                             <div class="card">
                                                 <div class="card-body">
                 
@@ -55,8 +60,8 @@
 
                                                         <div class="col-md-4">
                                                             <div>
-                                                                <label for="basiInput" class="form-label">Phone No. </label>
-                                                                <input type="text" class="form-control" placeholder="Enter Phone No.">
+                                                                <label for="basiInput" class="form-label">Mobile No. </label>
+                                                                <input type="text" class="form-control" placeholder="Enter Mobile No.">
                                                             </div>
                                                         </div>
                 
@@ -66,12 +71,7 @@
                                                                 <input type="text" class="form-control" placeholder="Enter Contact Person Name">
                                                             </div>
                                                         </div>
-                        
-                                                    </div>
-                
 
-                                                    <!-- <div class="row mb-1">
-                        
                                                         <div class="col-md-4">
                                                             <div class="position-relative auth-pass-inputgroup">
                                                                 <label for="labelInput" class="form-label">Password </label>
@@ -81,26 +81,8 @@
                                                                 </button>
                                                             </div>
                                                         </div>
-
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <label for="basiInput" class="form-label">Organization Name </label>
-                                                                <input type="text" class="form-control" placeholder="Enter Organization Name">
-                                                            </div>
-                                                        </div>
                         
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <label for="basiInput" class="form-label">Category </label>
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option hidden value="" disabled selected>Select Category</option>
-                                                                    <option>Data</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                        
-                                                    
-                                                    </div> -->
+                                                    </div>
                 
                                                 </div>
                                             </div>
@@ -227,7 +209,7 @@
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Status </label>
                                                                 <select class="form-select" aria-label="Default select example">
-                                                                    <option hidden value="" disabled selected>New</option>
+                                                                    <option hidden value="" disabled selected>Select Status</option>
                                                                     <option>Data</option>
                                                                 </select>
                                                             </div>
@@ -252,33 +234,51 @@
                                                                     <table class="table table-bordered table-striped align-middle table-nowrap mb-0">
                                                                         <thead class="table-light">
                                                                             <tr>
-                                                                                <th scope="col" class="col-ch text-center">No.</th>
-                                                                                <th scope="col" class="col-up">Status</th>
-                                                                                <th scope="col" class="col-nm">Remarks / Notes</th>
+                                                                                <th scope="col">Date</th>
+                                                                                <th scope="col">Status</th>
+                                                                                <th scope="col">Remarks / Notes</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td class="text-center">1</td>
                                                                                 <td>Data</td>
-                                                                                <td>Data</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td class="text-center">2</td>
                                                                                 <td>Data</td>
                                                                                 <td>Data</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td class="text-center">3</td>
+                                                                                <td>Data</td>
                                                                                 <td>Data</td>
                                                                                 <td>Data</td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
+
+                                                                <hr>
+
+                                                                <div class="row text-end">
+                                                                    <label for="basiInput" class="form-label lbl-btn" (click)="showDiv.inputs = true;showDiv.buttons = true"><i class="ri-add-fill label-icon align-middle me-2"></i>Add Remarks / Notes</label>
+                                                                </div>
+
+                                                                <div *ngIf="showDiv.inputs">
+                                                                    <div class="row">
+
+                                                                        <div class="col-md-12">
+                                                                            <div>
+                                                                                <label for="basiInput" class="form-label">Remarks / Notes </label> 
+                                                                                <textarea class="form-control" rows="1" placeholder="Enter Remarks / Notes"></textarea>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+
                                                             </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-primary" (click)="modal.close('Close click')">Close</button>
+
+                                                            <div class="modal-footer" *ngIf="showDiv.buttons">
+                                                                <button type="button" class="btn btn-info ms-auto" (click)="modal.close('Close click')"><i class="ri-close-line label-icon align-middle me-2"></i> Cancel</button>
+                                                                <button type="submit" class="btn btn-success"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
                                                             </div>
                                                         </ng-template>
 
@@ -336,7 +336,7 @@
                                                     <div class="btn-right mt-1">
                                                         <div class="flex-shrink-0">
                                                             <div class="gridjs-search">
-                                                                <input type="search" placeholder="Type keyword..." aria-label="Type a keyword..."class="gridjs-input gridjs-search-input" >
+                                                                <!-- <input type="search" placeholder="Type keyword..." aria-label="Type a keyword..."class="gridjs-input gridjs-search-input" > -->
                                                                 <button routerLink="../merchantaddedit" type="button" class="btn btn-info ms-auto"> <i class="ri-add-fill cardicon label-icon align-middle"></i>Add</button>
                                                             </div>
                                                         </div>
@@ -429,7 +429,7 @@
                                                                         <i
                                                                             class="ri-information-line text-muted align-bottom me-1"></i>
                                                                         Tip
-                                                                        : ( ) fields are mandatory.
+                                                                        : (<span class="mnd-fld">*</span>) fields are mandatory.
                                                                     </div>
                                                                 </div>
                                                             </div>
