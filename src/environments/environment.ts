@@ -8,10 +8,10 @@ export const environment = {
   url: '',
 
   //comment while publish
-  // urlAddress: 'https://localhost:5001',
+  // urlAddress: 'https://localhost:5001',34.66.214.227/api/Authenticate/AdminLogin
 
   //Uncomment while publish
-  urlAddress: 'http://csapi.meshbagroup.com',
+  urlAddress: 'http://34.66.214.227',
 
 
   defaultauth: 'fackbackend',

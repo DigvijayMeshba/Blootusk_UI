@@ -38,9 +38,11 @@
                             <div class="p-2 mt-4">
                       
   
-                                <div class="live-preview"  >
+                                <div class="live-preview">
 
-                                    <div class="row">
+                               <form [formGroup]="uploadForm" fxLayout="row wrap"
+                               (ngSubmit)="createMerchant(uploadForm.value)">
+                                           <div class="row">
                                         <div class="col-md-12">
                                             <div class="btn-left mb-2">
                                                 <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
@@ -49,22 +51,44 @@
                                                 </label>
                                             </div>
                                         </div>
-                                    </div>
-        
-                            
+                                           </div>                                   
         
                                             <div class="row mb-3">
                                                 <div class="col-md-8">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Merchant (Organization) Name </label>
-                                                        <input type="text" class="form-control" placeholder="Enter Merchant (Organization) Name">
+                                                      
+                                                        <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
+                                                        formControlName="organizationName" required minlength="3"
+                                                        [ngClass]="{ 'is-invalid': submitted && f['organizationName'].errors }"
+                                                       
+                                                        (keypress)="blockSpaces($event)" placeholder="Enter Merchant (Organization) Name">
+                                                    <div *ngIf="submitted && f['organizationName'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f['organizationName'].errors['required']">Merchant Name is required</div>
+                                                        <div *ngIf="f['organizationName'].errors['minlength']">Merchant Name least 3 char long
+                                                        </div>
+            
+                                                    </div>
+                                                    
+                                                    
                                                     </div>
                                                 </div>
                 
                                                 <div class="col-md-4">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Phone No. </label>
-                                                        <input type="text" class="form-control" placeholder="Enter Phone No.">
+                                                       
+                                                        <input type="text" class="form-control" (keypress)="keyPressOnlynum($event)"
+                                                        formControlName="phoneNumber" required pattern="[0-9]+" C="10"
+                                                        maxlength="10" minlength="10"
+                                                        [ngClass]="{ 'is-invalid': submitted && f['phoneNumber'].errors }"
+                                                        (keypress)="blockSpaces($event)" placeholder="Enter Phone No.">            
+                                                    <div *ngIf="submitted && f['phoneNumber'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f['phoneNumber'].errors['required']">Phone No. is required
+                                                        </div>
+                                                        <div *ngIf="f['phoneNumber'].errors['minlength']">Phone enter valid Mobile
+                                                            No.</div>
+                                                    </div>
                                                     </div>
                                                 </div>
                 
@@ -76,7 +100,16 @@
                                                     <div>
                                                         <label for="labelInput" class="form-label">Email Id</label>
                                                         <div class="form-icon right">
-                                                            <input type="text" class="form-control" placeholder="Enter Email Id">
+                                                            <input (keypress)="blockSpaces($event)" type="email" class="form-control"
+                                                            id="email" formControlName="email"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                                                            placeholder="Enter email"
+                                                            pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                                                        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                                            <div *ngIf="f['email'].errors['required']">Email is required</div>
+                                                            <div *ngIf="f['email'].errors['pattern']">Please enter valid Email
+                                                            </div>
+                                                        </div>
                                                             <i class="ri-mail-unread-line"></i>
                                                         </div>
                                                     </div>
@@ -85,7 +118,22 @@
                                                 <div class="col-md-6">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Contact Person Name </label>
-                                                        <input type="text" class="form-control" placeholder="Enter Contact Person Name">
+                                                        
+
+
+                                                        <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
+                                                        formControlName="contactPersonName" required minlength="3"
+                                                        [ngClass]="{ 'is-invalid': submitted && f['contactPersonName'].errors }"
+                                                       
+                                                        placeholder="Enter Contact Person Name">
+                                                    <div *ngIf="submitted && f['contactPersonName'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f['contactPersonName'].errors['required']">Contact Person Name is required</div>
+                                                        <div *ngIf="f['contactPersonName'].errors['minlength']">Contact Person least 3 char long
+                                                        </div>
+                                                    </div>
+                                                   
+                                                   
+                                                   
                                                     </div>
                                                 </div>
                 
@@ -97,8 +145,20 @@
                                                     <div>
                                                         <label for="basiInput" class="form-label">Password</label>
                                                         <div class="position-relative auth-pass-inputgroup">
-                                                            <input [type]="fieldTextType1 ? 'text' : 'password'" class="form-control pe-5 password-input" placeholder="Enter Password" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  formControlName="password" >
-                                                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle" [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1 }" (click)="toggleFieldTextType1()"></i></button>
+                                                            <input [type]="fieldTextType1 ? 'text' : 'password'"
+                                                            class="form-control pe-5" placeholder="Enter password"
+                                                            id="password-input" formControlName="password"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+                                                            minlength="6">
+                                                        <button
+                                                            class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted btn-eye"
+                                                            type="button" id="password-addon"><i class="mdi align-middle pass-eye" [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1
+                                                             }" (click)="toggleFieldTextType1()"></i></button>
+                                                        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                                            <div *ngIf="f['password'].errors['required']">Password is required</div>
+                                                            <div *ngIf="f['password'].errors['minlength']">Password at least 6  digits long</div>
+                                                        </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -107,9 +167,20 @@
                                                     <div>
                                                         <label for="basiInput" class="form-label">Confirm Password</label>
                                                         <div class="position-relative auth-pass-inputgroup">
-                                                            <input [type]="fieldTextType2 ? 'text' : 'password'" class="form-control pe-5 password-input" placeholder="Enter Password" id="password-input" aria-describedby="passwordInput" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  formControlName="password" >
-                                                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle" [ngClass]="{'mdi-eye-off-outline': !fieldTextType2, 'mdi-eye-outline': fieldTextType2 }" (click)="toggleFieldTextType2()"></i></button>
+                                                      <input [type]="fieldTextType1 ? 'text' : 'password'"
+                                                            class="form-control pe-5" placeholder="Enter password"
+                                                            id="password-input" formControlName="password"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+                                                            minlength="6">
+                                                        <button
+                                                            class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted btn-eye"
+                                                            type="button" id="password-addon"><i class="mdi align-middle pass-eye" [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1
+                                                             }" (click)="toggleFieldTextType1()"></i></button>
+                                                        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                                            <div *ngIf="f['password'].errors['required']">Password is required</div>
+                                                            <div *ngIf="f['password'].errors['minlength']">Password at least 6  digits long</div>
                                                         </div>
+                                                               </div>
                                                     </div>
                                                 </div>
                 
@@ -129,9 +200,6 @@
                                             </div>
                                         </div>
                                     </div>
-        
-                          
-        
                                             <div class="row mb-3">
         
                                                 <div class="col-md-8">
@@ -164,7 +232,7 @@
         
                                             </div>
                 
-                                            <div class="row mb-3">
+                                            <div class="row mb-3"> 
                 
                                                 <div class="col-md-4">
                                                     <div>
@@ -198,11 +266,12 @@
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="text-center gap-2 mt-2">
-                                                        <button type="submit" class="btn btn-primary" (click)="showDiv.current = false;showDiv.next = true"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+                                                        <button type="submit" class="btn btn-primary" (click)="submit()"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
-                                       
+                                      
+                                  </form> 
         
                                 </div>
 
@@ -214,44 +283,48 @@
 
 
                 <div class="col-md-5" *ngIf="showDiv.next">
+                    <form [formGroup]="uploadForm" fxLayout="row wrap"
+                    (ngSubmit)="SubmitForm(uploadForm.value)">
+                 
                     <div class="card mt-4">
-  
+    
                         <div class="card-body p-4" *ngIf="showDiv.next">
                             <div class="text-center mt-2">
                                 <h5 class="text-primary">OTP Verification</h5>
                             </div>
                             <div class="p-2 mt-4">
-
+    
                                 <div class="live-preview" >
-
+    
                                     <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div>
                                                 <label for="basiInput" class="form-label">Enter OPT </label>
-                                                <input type="text" class="form-control" placeholder="Enter OTP">
+                                                <input type="text"  formControlName="otp" class="form-control" placeholder="Enter OTP">
                                             </div>
                                         </div>
                                     </div>
-
+    
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="text-center gap-2 mt-2">
-                                                <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+                                                <button type="submit" class="btn btn-primary" ><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
+    
                             </div>
                         </div> 
-
+    
                     </div>
+                    </form>
                 </div>
-
-
-
             </div>
             
+
+           
+
         </div>
        
     </div>

@@ -1,6 +1,9 @@
 export interface UserForAuthenticationDto {
       password: string;
-      emailId:string;
+      username:string;
+      deviceID: string,
+      deviceOS: string,
+
   }
 
   export interface AuthResponseDto {
