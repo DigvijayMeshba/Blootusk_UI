@@ -8,6 +8,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class MerchanteditComponent {
 
+  showDiv = {
+    inputs : false,
+    buttons : false
+  }
+
   constructor(private modalService: NgbModal) { }
 
   activeTab = 1;
