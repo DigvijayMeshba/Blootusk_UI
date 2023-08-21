@@ -11,7 +11,7 @@
                         </div>
                     </div>
                 </div>
-
+ 
 
 
                 <div class="card-body">
@@ -25,14 +25,14 @@
                                     <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Merchant Code </label>
-                                            <input type="text" class="form-control" placeholder="Enter Merchant Code">
+                                            <input type="text" class="form-control" [(ngModel)]="merchnatCode" placeholder="Enter Merchant Code">
                                         </div>
                                     </div>
     
                                     <div class="col-md-8">
                                         <div>
                                             <label for="labelInput" class="form-label">Merchant Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter Merchant Name">
+                                            <input type="text" class="form-control" [(ngModel)]="merchnatName" placeholder="Enter Merchant Name">
                                         </div>
                                     </div>
     
@@ -43,7 +43,7 @@
                                     <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Mobile No.</label>
-                                            <input type="text" class="form-control" placeholder="Enter Mobile No.">
+                                            <input type="text" class="form-control" [(ngModel)]="mobileNo" placeholder="Enter Mobile No.">
                                         </div>
                                     </div>
 
@@ -59,7 +59,7 @@
 
                                     <div class="col-md-4">
                                         <div class="mt-4 text-end">
-                                            <button type="button" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
+                                            <button type="button" (click)="GetAllMerchantList()" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
                                         </div>
                                     </div>
                                     
@@ -83,18 +83,20 @@
                                         <th scope="col" class="w-10 text-center">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody *ngFor="let object of getPageData()">
                                     <tr>
+                                        <td>{{object.merchantCode}}</td>
+                                        <td>{{object.merchantName}}</td>
+                                        <td>{{object.merchantPhoneNumber}}</td>
                                         <td>Data</td>
-                                        <td>Data</td>
-                                        <td>Data</td>
-                                        <td>Data</td>
-                                        <td>Data</td>
-                                        <td class="w-10 text-center">
+                                        <td>{{object.approvalStatus}}</td>
+
+
+                                        <td class="w-10 text-center">                                          
                                             <div class="gap-3">
-                                                <a  class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                                <a [routerLink]="['../merchantedit',object.merchantId]"class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
                                                 &nbsp;&nbsp;
-                                                <a class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
+                                                <a (click)="deleterecord(object);"  class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
                                             </div>
                                         </td>
                                     </tr>

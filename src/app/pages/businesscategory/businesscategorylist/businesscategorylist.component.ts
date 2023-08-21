@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+import { catchError, throwError } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import Swal from 'sweetalert2';
+import { listCatagory } from '../bisnesscatagory';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-businesscategorylist',
@@ -13,20 +16,52 @@ export class BusinesscategorylistComponent {
     public page: number = 1;
     public count = 8;
     public SearchKeyword: any;
+    uploadForm!:FormGroup;
+    submitted = false;
+    get f() { return this.uploadForm.controls; }
+  
   
     constructor(public appService: AppService) { }
   
     ngOnInit(): void {
-      this.GetAllUserList();
+     // this.GetAllUserList();
+      this.uploadForm = new FormGroup({
+        categoryName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        rewardPoint: new FormControl('', []),    
+      });
+    
     }
   
     //List of All Company
     public GetAllUserList() {
       this.appService.GetAll("api/User/GetAllUser").subscribe(data => {
         this.BusinesscategoryList = data;
+        
       }
       );
     }
+ 
+
+ public Searchdata(formData: any) {
+      debugger;
+      let ListCategoryModel: listCatagory = {
+      "categoryName": formData.categoryName,
+      "rewardPoint": formData.rewardPoint,      
+          
+    }
+  if(this.uploadForm.valid)
+  {  
+      this.appService.GetAllList('api/CategoryMaster/GetAllCategory', ListCategoryModel)
+      .pipe(
+        catchError((error) => {          
+          return throwError(error); 
+        })).subscribe((data: any) => {      
+          
+      console.log(data);
+      },);  
+
+    }  
+  }
   
     deleterecord(object: any) {
       Swal.fire({
@@ -43,10 +78,10 @@ export class BusinesscategorylistComponent {
           const index: number = this.BusinesscategoryList.indexOf(object);
           if (index !== -1) {
             this.BusinesscategoryList.splice(index, 1);
-            this.appService.Delete(`api/User/DeleteUser?userId=${object.userId}`, {}).subscribe(data => {
+            this.appService.Delete(`api/CategoryMaster/DeleteCategory?categoryId=${object.userId}`, {}).subscribe(data => {
               Swal.fire({
                 title: 'Deleted!',
-                text: 'The user has been deleted successfully.',
+                text: 'The Category has been deleted successfully.',
                 icon: 'success',
                 confirmButtonColor: '#364574'
               });

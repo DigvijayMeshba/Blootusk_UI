@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AppService } from 'src/app/app.service';
+import { Component } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, UntypedFormGroup, Validators,AbstractControl, ValidationErrors } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Location } from '@angular/common';
-// import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
-import { AuthenticationService } from 'src/app/core/services/authentication.service';
-import { TokenStorageService } from 'src/app/core/services/token-storage.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from 'src/app/app.service';
+import { AuthenticationService } from 'src/app/core/services/auth.service';
 import Swal from 'sweetalert2';
-import { addCatagory, editCatagory } from '../bisnesscatagory';
+import { TokenStorageService } from 'src/app/core/services/token-storage.service';
+import { data } from 'jquery';
+import { catchError, throwError } from 'rxjs';
+import { addCatagory } from '../bisnesscatagory';
+
 
 @Component({
   selector: 'app-businesscategoryadd',
@@ -20,7 +21,7 @@ export class BusinesscategoryaddComponent {
     public RoleList: any = [];
     selectedRole: any;
     userId: string | any;
-  
+    uploadForm!:FormGroup;  
     fieldTextType1!: boolean;
     submitted = false;
   
@@ -30,38 +31,52 @@ export class BusinesscategoryaddComponent {
       this.fieldTextType1 = !this.fieldTextType1;
     }
   
-    uploadForm = new FormGroup({
-      catagoryId: new FormControl('', []),
-      catagoryName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      rewardPoint: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      recStatus: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      createdBy: new FormControl('', []),
-      createdDate: new FormControl('', []),
-      modifyBy: new FormControl('', []),
-      modifyDate: new FormControl('', []),
+    
+    constructor(public formBuilder: FormBuilder,public appService: AppService,
+      private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
+      private router: Router,)
+     {
      
-    });
+     
+    }
   
-  
-    constructor(public formBuilder: FormBuilder, public appService: AppService, public snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router, private location: Location,
-  
-      private _authService: AuthenticationService,
-      private _router: Router,) { }
-  
-    ngOnInit(): void {
+      ngOnInit(): void {
+
       debugger
-      this.userId = this.route.snapshot.params['id'];      
-      this.getRoleMaster();
+      this.uploadForm = new FormGroup({
+        catagoryId: new FormControl('', []),
+        categoryName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        rewardPoint: new FormControl('', []),
+        recStatus: new FormControl('', []),
+        // createdBy: new FormControl('', []),
+        // createdDate: new FormControl('', []),
+        // modifyBy: new FormControl('', []),
+        // modifyDate: new FormControl('', []),
+
+      });
+    
     }
     get f() { return this.uploadForm.controls; }
   
+
+    public validateControl = (controlName: string) => {
+      return this.uploadForm.controls[controlName].invalid && this.uploadForm.controls[controlName].touched
+    }
+  
+    public hasError = (controlName: string, errorName: string) => {
+      return this.uploadForm.controls[controlName].hasError(errorName)
+    }
     public getRoleMaster() {
       this.appService.GetAll("api/DropdownHelper/GetAllRoles").subscribe(data => {
         this.RoleList = data;
       });
     }
   
+    public submit() {
+   
+      this.submitted = true;
+      
+    }
     blockSpaces(event: KeyboardEvent) {
       if (event.key === ' ') {
         event.preventDefault();
@@ -89,17 +104,7 @@ export class BusinesscategoryaddComponent {
       }
     }
   
-    public Submit(userObject: any) {
-      debugger
-      this.submitted = true;
-      // if (this.uploadForm.valid) {
-  
-      if (userObject.userId == "") {
-        this.createUser(userObject);
-      }      
-     
-    }
-    
+        
     successmsg() {
       Swal.fire({
         title: 'User Added Successfully',
@@ -122,22 +127,32 @@ export class BusinesscategoryaddComponent {
       });
     }
     //create new user
-    public createUser(formData: any) {
+    public createCatagory(formData: any) {
+      debugger;
       let AdduserModel: addCatagory = {
       "catgoryId":formData.catagoryId,
-      "catagoryName": formData.catagoryName,
+      "categoryName": formData.categoryName,
       "rewardPoint": formData.rewardPoint,
       "recStatus": formData.recStatus,
-      "createBy": formData.createBy,
-      "createDate": formData.createDate,
-      "modifyBy": formData.modifyBy,
-      "modifyDate": formData.modifyDate }
-  
-      this.appService.Add('api/User/AddUser', AdduserModel).subscribe((data: any) => {
+      // "createBy": formData.createBy,
+      // "createDate": formData.createDate,
+      // "modifyBy": formData.modifyBy,
+      // "modifyDate": formData.modifyDate 
+    
+    }
+  if(this.uploadForm.valid)
+  {  
+      this.appService.Add('api/CategoryMaster/AddEditCategory', AdduserModel)
+      .pipe(
+        catchError((error) => {          
+          return throwError(error); 
+        })
+      ) 
+      .subscribe((data: any) => {
         debugger
         console.log("dataaaaaaaaaaaaaa", data)
   
-        if (data.message == "User Added Successfully.") {
+        if (data.message == "Catagory Added Successfully.") {
           this.successmsg()
           this.router.navigate(['../userlist'], { relativeTo: this.route });
         }         
@@ -149,5 +164,5 @@ export class BusinesscategoryaddComponent {
       },);
   
     }  
-
+  }
   }

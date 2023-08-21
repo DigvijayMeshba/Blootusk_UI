@@ -8,7 +8,9 @@ import Swal from 'sweetalert2';
 import { UserForOtp, signupMerchant } from './signupMerchant';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { data } from 'jquery';
-import { catchError, throwError } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
+import Validation from '../matchpassword.validator';
+
 
 
 const MERCHANT_KEY = 'Merchant';
@@ -20,6 +22,13 @@ const MERCHANT_KEY = 'Merchant';
  
 
 export class SignupmerchantComponent {
+  CatagoryList: any[] = []; 
+   StateList: any[] = [];
+   CountryList: any[] = [];    
+   selectedCategoryId!:number;
+   selectedCountryId!:number;
+   selectedStateId!:number;
+
   fieldTextType1!: boolean;
   fieldTextType2!: boolean;
   selectedAccount = 'Select';
@@ -33,6 +42,8 @@ export class SignupmerchantComponent {
     current : true,
     next : false
   }
+  compareControlName!: string;
+
   
 
   toggleFieldTextType1() {
@@ -49,46 +60,34 @@ export class SignupmerchantComponent {
   userId: string | any;
   public roleId: any;
   prvopt :any;
+  prvemailopt:any;
 
   constructor(public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
     private router: Router,)
    {
-   
-   
-  }
+      
+   }
 
    ngOnInit(): void {
+    debugger;
 
-    //this.merchantId = this.route.snapshot.params['id'];  
+    let addUserDeatil = this.tokenStorage.getUser();
+    console.log(addUserDeatil);
+    this.GetCountryList();
+    this.getCatagoryList(); 
+    this.GetStateList();
     this.uploadForm = new FormGroup({
      
       merchantCode: new FormControl('', []),
       organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]),     
-      posInfo : new FormGroup({
-        posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-        catagoryId: new FormControl('', []),
-        posAddress: new FormControl('', []),
-        zip: new FormControl('', []),
-        state: new FormControl('', []),
-        country: new FormControl('', []),
-        posid:new FormControl('', []),
-        merchantId:new FormControl('', []),
-        poscode: new FormControl('', []),
-        latitude: new FormControl('', []),
-        longitude: new FormControl('', []),
-       }),
-         
-      // remarkList: new FormGroup( {
-      //     remarkID: new FormControl('', []),
-      //     remark: new FormControl('', []),
-      //   }),
-
-        isPhoneNumberValidate:new FormControl('', []),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirmPassword: new FormControl('', [Validators.required]),
+     
+      contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]), 
+      isPhoneNumberValidate:new FormControl('', []),
         isEmailValidate: new FormControl('', []),
         approvalStatus:new FormControl('', []),
         recStatus:new FormControl('', []),
@@ -100,8 +99,27 @@ export class SignupmerchantComponent {
         createdDate: new FormControl('', []),
         modifyBy: new FormControl('', []),
         modifyDate: new FormControl('', []),
-        otp: new FormControl('',[]),    
-    });
+        phoneNumberOTP: new FormControl('',[]),       
+      posInfo : new FormGroup({
+        posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        categoryId: new FormControl('', [Validators.required]),
+        posAddress: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        zip: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        stateId: new FormControl('', [Validators.required]),
+        countryId: new FormControl('', [Validators.required]),
+        posid:new FormControl('', []),
+        merchantId:new FormControl('', []),
+        poscode: new FormControl('', []),
+        latitude: new FormControl('', []),
+        longitude: new FormControl('', []),
+       }),
+      
+    },
+    
+     { 
+      validators: [Validation.match('password', 'confirmPassword')]
+     }
+    );
 
    if (this.tokenStorage.getToken()) {
     this.isLoggedIn = true;
@@ -115,7 +133,7 @@ export class SignupmerchantComponent {
   
   get f() { return this.uploadForm.controls; }
 
-  
+
   public validateControl = (controlName: string) => {
     return this.uploadForm.controls[controlName].invalid && this.uploadForm.controls[controlName].touched
   }
@@ -127,6 +145,39 @@ export class SignupmerchantComponent {
   public getRoleMaster() {
     this.appService.GetAll("api/DropdownHelper/GetAllRoles").subscribe(data => {
       
+    });
+  }
+  validate(control: AbstractControl): ValidationErrors | null {
+    const controlToCompare = control.parent?.get(this.compareControlName);
+
+    if (controlToCompare && controlToCompare.value !== control.value) {
+      return { compareWith: true };
+    }
+
+    return null;
+  }
+
+  getCatagoryList() {
+    this.appService.GetAll("api/CategoryMaster/GetCategoryDDL").subscribe(
+    (x: any) => {
+      this.CatagoryList = x.responseData;
+      console.log(x.responseData);
+    });
+  }
+  
+   GetCountryList() {
+    this.appService.GetAll("api/Merchant/GetCountryDDL").subscribe(
+      (x: any) => {
+        this.CountryList = x.responseData;
+        console.log(x.responseData);
+      });
+  }
+
+   GetStateList()
+  {
+    this.appService.GetAll("api/Merchant/GetStateDDL").subscribe(
+      (data:any) => {
+      this.StateList = data.responseData;
     });
   }
 
@@ -159,23 +210,8 @@ export class SignupmerchantComponent {
 
   public submit() {
    
-    this.submitted = true;
+    this.submitted = true;   
     
-    // if (userObject.userId == "") {
-    //   this.createMerchant(userObject);
-    // }      
-   
-  }
-  
-  successmsg() {
-    Swal.fire({
-      title: 'User Added Successfully',
-      icon: 'success',
-      // showCancelButton: true,
-      confirmButtonColor: '#364574',
-      cancelButtonColor: 'rgb(243, 78, 78)',
-      confirmButtonText: 'OK'
-    });
   }
 
   //create new user
@@ -186,18 +222,13 @@ export class SignupmerchantComponent {
     const userForOtp: UserForOtp = {
       email: AdduserModel.email,
       phoneNumber: AdduserModel.phoneNumber,
-      otp: '',
-      isOTPSent: true
-     
-    }
-    AdduserModel.merchantCode = "123";
-
+      emailOTP :'',
+      phoneNumberOTP: '',
+     }   
       this.tokenStorage.Merchantdata(AdduserModel);
-      
-      this.showDiv = {
-        current : false,
-        next : true
-      }
+
+      if(this.uploadForm.valid)
+      {
       this.appService.Add('api/Merchant/SendOTP',userForOtp)
       .pipe(
         catchError((error) => {          
@@ -205,57 +236,137 @@ export class SignupmerchantComponent {
         })
       )   
         .subscribe((res: any) => {
-          debugger;
-          console.log('data',res)
-          if (res.responseData.otp != undefined) {      
-
-            this.tokenStorage.SaveOtp(res.responseData.otp);
-
+        
+          let statuscode : number = res.responseStatusCode;
+          switch(statuscode)
+          {
+            case 200:
+              this.showDiv = {
+                current : false,
+                next : true
+              }
+              if (res.responseData.phoneNumberOTP != undefined ||
+                res.responseData.emailOTP != undefined ) {      
+  
+                this.tokenStorage.SavePhoneOtp(res.responseData.phoneNumberOTP);
+                this.tokenStorage.SaveEmailOtp(res.responseData.emailOTP);
+                
+              }
+              break;
+              case 212 :
+                alert("Something Went wrong");
+                this.showDiv = {
+                  current : true,
+                  next : false
+                }
+                break;
+                
+              case  500 : 
+                alert("Error Status ")
+                this.showDiv = {
+                  current : true,
+                  next : false
+                }
+                break;
+                
+              case 601 :
+                  alert("Phone Number is Duplicate")
+                  this.showDiv = {
+                    current : true,
+                    next : false
+                  }
+                break;
+                
+              case 602:
+                alert("Duplicate Email")
+                this.showDiv = {
+                  current : true,
+                  next : false
+                }
+                break;
+             
+              case 603:
+                  alert("Duplicate Category Status ")  
+                  this.showDiv = {
+                    current : true,
+                    next : false
+                  }          
+                break;
+              
+              case 400:              
+                  alert("Bad Request Status")  
+                  this.showDiv = {
+                    current : true,
+                    next : false
+                  }     
+                  break;
+  
           }
-     }) 
-     
-  }   
+        
+     })    
+    }  
+  } 
 
   SubmitForm(formData: UserForOtp)
   {
-    debugger;
     let AdduserOtpModel: UserForOtp = formData;
-
+    let addUserDeatil = this.tokenStorage.getUser();   
     let AddMerchantDtail=   this.tokenStorage.getMerchant();
     AddMerchantDtail.posInfo.posid = 0;
     AddMerchantDtail.posInfo.merchantId = 0;    
-    AddMerchantDtail.isEmailValidate =true;
-    AddMerchantDtail.isPhoneNumberValidate = true;
-
+    AddMerchantDtail.isEmailValidate = 1;
+    AddMerchantDtail.isPhoneNumberValidate = 1;
+    AddMerchantDtail.createdBy = addUserDeatil.adminID;
+    AddMerchantDtail.modifyBy = 0;
+    AddMerchantDtail.createdDate = new Date();
+    AddMerchantDtail.modifyDate = new Date();
     AddMerchantDtail.merchantId = 0;
-    this.prvopt = this.tokenStorage.getOtp();
+    
+    this.prvopt = this.tokenStorage.getPhoneNOOtp();
+    this.prvemailopt = this.tokenStorage.getEmailOtp();
 
-    if(formData.otp == this.prvopt)
+    if(formData.phoneNumberOTP == this.prvopt || formData.emailOTP == this.prvemailopt)
     {      
-   console.log(AddMerchantDtail);
+       console.log(AddMerchantDtail);
       this.appService.Add('api/Merchant/AddMerchant', AddMerchantDtail).subscribe((data: any) => {
-        debugger
-        console.log("dataaaaaaaaaaaaaa", data)
-  
-        if (data.message == "User Added Successfully.") {
-          this.successmsg()
-          this.router.navigate(['../userlist'], { relativeTo: this.route });
-        }         
-        else {
-          alert("Something Went wrong")
+        let statuscode : number = data.responseStatusCode;
+        switch(statuscode)
+        {
+          case 200:
+            alert("SMerchant Added Successfully.")
+            break;
+            case 212 :
+              alert("Something Went wrong");
+              break;
+              
+            case  500 : 
+              alert("Error Status ")
+              break;
+              
+            case 601 :
+                alert("Phone Number is Duplicate")
+              break;
+              
+            case 602:
+              alert("Duplicate Email")
+              break;
+           
+            case 603:
+                alert("Duplicate Category Status ")            
+              break;
+            
+            case 400:              
+                alert("Bad Request Status")       
+                break;
+
         }
-  
+            
       },);
-
     }
-    else{
-     
-        alert("Otp Not Valid")
-      
-    }
-
-   
+    else
+    {     
+        alert("Otp Not Valid")      
+    }   
   }
-
 }
 

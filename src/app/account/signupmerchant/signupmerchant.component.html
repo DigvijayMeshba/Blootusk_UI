@@ -58,11 +58,11 @@
                                                     <div>
                                                         <label for="basiInput" class="form-label">Merchant (Organization) Name </label>
                                                       
-                                                        <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
+                                                        <input type="text" class="form-control" 
                                                         formControlName="organizationName" required minlength="3"
                                                         [ngClass]="{ 'is-invalid': submitted && f['organizationName'].errors }"
                                                        
-                                                        (keypress)="blockSpaces($event)" placeholder="Enter Merchant (Organization) Name">
+                                                        placeholder="Enter Merchant (Organization) Name">
                                                     <div *ngIf="submitted && f['organizationName'].errors" class="invalid-feedback">
                                                         <div *ngIf="f['organizationName'].errors['required']">Merchant Name is required</div>
                                                         <div *ngIf="f['organizationName'].errors['minlength']">Merchant Name least 3 char long
@@ -78,6 +78,7 @@
                                                     <div>
                                                         <!-- <label for="basiInput" class="form-label">Phone No. </label> -->
                                                         <label for="basiInput" class="form-label">Mobile No. </label>
+                                                        
                                                         <input type="text" class="form-control" (keypress)="keyPressOnlynum($event)"
                                                         formControlName="phoneNumber" required pattern="[0-9]+" C="10"
                                                         maxlength="10" minlength="10"
@@ -89,6 +90,7 @@
                                                         <div *ngIf="f['phoneNumber'].errors['minlength']">Phone enter valid Mobile
                                                             No.</div>
                                                     </div>
+
                                                     </div>
                                                 </div>
                 
@@ -118,9 +120,6 @@
                                                 <div class="col-md-6">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Contact Person Name </label>
-                                                        
-
-
                                                         <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
                                                         formControlName="contactPersonName" required minlength="3"
                                                         [ngClass]="{ 'is-invalid': submitted && f['contactPersonName'].errors }"
@@ -157,6 +156,7 @@
                                                         <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
                                                             <div *ngIf="f['password'].errors['required']">Password is required</div>
                                                             <div *ngIf="f['password'].errors['minlength']">Password at least 6  digits long</div>
+                                                          
                                                         </div>
 
                                                         </div>
@@ -168,26 +168,28 @@
                                                         <label for="basiInput" class="form-label">Confirm Password</label>
                                                         <div class="position-relative auth-pass-inputgroup">
                                                       <input [type]="fieldTextType1 ? 'text' : 'password'"
-                                                            class="form-control pe-5" placeholder="Enter password"
-                                                            id="password-input" formControlName="password"
-                                                            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
-                                                            minlength="6">
+                                                            class="form-control pe-5" placeholder="Enter confirmPassword"
+                                                            id="password-input" formControlName="confirmPassword"
+                                                            [ngClass]="{ 'is-invalid': f['confirmPassword'].errors }"        
+                                                                              minlength="6">
                                                         <button
                                                             class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted btn-eye"
                                                             type="button" id="password-addon"><i class="mdi align-middle pass-eye" [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1
                                                              }" (click)="toggleFieldTextType1()"></i></button>
-                                                        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
-                                                            <div *ngIf="f['password'].errors['required']">Password is required</div>
-                                                            <div *ngIf="f['password'].errors['minlength']">Password at least 6  digits long</div>
+                                                       
+                                                             <div *ngIf="f['confirmPassword'].errors" class="invalid-feedback">
+                                                            <div *ngIf="f['confirmPassword'].errors?.['required']">Password is required</div>
+                                                            <div *ngIf="f['confirmPassword'].errors?.['matching']">
+                                                                Confirm Password does not matchsss
+                                                              </div>
                                                         </div>
+
+                                                        
                                                                </div>
                                                     </div>
                                                 </div>
                 
                                             </div>
-        
-                                  
-        
                                     <hr>
         
                                     <div class="row">
@@ -200,21 +202,25 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div formGroupName="posInfo">
                                             <div class="row mb-3">
-        
                                                 <div class="col-md-8">
                                                     <div>
                                                         <label for="basiInput" class="form-label">POS Name </label>
-                                                        <input type="text" class="form-control" placeholder="Enter POS Name">
+                                                        <input type="text" id="posName" formControlName="posName" class="form-control" placeholder="Enter POS Name">                                                      
+                                                    
                                                     </div>
                                                 </div>
         
                                                 <div class="col-md-4">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Category </label>
-                                                        <select class="form-select" aria-label="Default select example">
-                                                            <option hidden value="" disabled selected>Select Category</option>
-                                                            <option>Data</option>
+                                                        <select class="form-select" aria-label="Default select example" formControlName ="categoryId" >
+                                                                <option *ngFor="let category of CatagoryList" [value]="category.categoryId">
+                                                                  {{ category.categoryName }}
+                                                                </option>
+                                                              
                                                         </select>
                                                     </div>
                                                 </div>
@@ -226,7 +232,7 @@
                                                 <div class="col-md-12">
                                                     <div>
                                                         <label for="basiInput" class="form-label">POS Address </label>
-                                                        <textarea class="form-control" rows="1" placeholder="Enter POS Address"></textarea>
+                                                        <textarea class="form-control" formControlName="posAddress" rows="1" placeholder="Enter POS Address"></textarea>
                                                     </div>
                                                 </div>
         
@@ -237,32 +243,36 @@
                                                 <div class="col-md-4">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Zip (PIN) Code </label>
-                                                        <input type="text" class="form-control" placeholder="Enter Zip (PIN) Code">
+                                                        <input type="text" class="form-control" formControlName="zip" placeholder="Enter Zip (PIN) Code">
                                                     </div>
                                                 </div>
                 
-                                                <div class="col-md-4">
+                                                 <div class="col-md-4">
                                                     <div>
                                                         <label for="basiInput" class="form-label">State </label>
-                                                        <ng-select [items]="Default" bindLabel="name" >
-                                                            <ng-template ng-optgroup-tmp let-item="item">
-                                                            </ng-template>
-                                                        </ng-select>
+                                                        <select class="form-select" aria-label="Default  select example" formControlName ="stateId">
+                                                            <option *ngFor="let State of StateList" [value]="State.stateId">
+                                                                {{ State.stateName}}
+                                                            </option>
+                                                        </select>                                                       
                                                     </div>
                                                 </div>
         
                                                 <div class="col-md-4">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Country </label>
-                                                        <ng-select [items]="Default" bindLabel="name" >
-                                                            <ng-template ng-optgroup-tmp let-item="item">
-                                                            </ng-template>
-                                                        </ng-select>
+                                                        <select class="form-select" aria-label="Default select example"  formControlName ="countryId">
+                                                            <option  *ngFor="let Country of CountryList" [value]="Country.countryId">
+                                                                {{Country.countryName}}
+                                                            </option>
+                                                        </select>
                                                     </div>
                                                 </div>
                 
                                             </div>
-                
+
+
+                                   </div>
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="text-center gap-2 mt-2">
@@ -300,7 +310,7 @@
                                         <div class="col-md-12">
                                             <div>
                                                 <label for="basiInput" class="form-label">Enter OPT </label>
-                                                <input type="text"  formControlName="otp" class="form-control" placeholder="Enter OTP">
+                                                <input type="text"  formControlName="phoneNumberOTP" class="form-control" placeholder="Enter OTP">
                                             </div>
                                         </div>
                                     </div>

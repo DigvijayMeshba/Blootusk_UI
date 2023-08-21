@@ -2,7 +2,8 @@
     <div class="row">
         <div class="col-lg-12">
 
-            <form autocomplete="off">
+            <form [formGroup]="uploadForm" fxLayout="row wrap"
+            (ngSubmit)="updateCatagory(uploadForm.value)">
 
                 <div class="card">
 
@@ -21,14 +22,37 @@
                             <div class="col-md-6">
                                 <div>
                                     <label for="basiInput" class="form-label">Category Name<span class="mnd-fld">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Enter Category Name">
+                                   
+                                    <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
+                                    formControlName="catagoryName" required minlength="3"
+                                    [ngClass]="{ 'is-invalid': submitted && f['lastName'].errors }"
+                                    placeholder="Enter catagory Name">
+                                <div *ngIf="submitted && f['catagoryName'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['catagoryName'].errors['required']">catagory Name  is required</div>
+                                    <div *ngIf="f['catagoryName'].errors['minlength']">catagory Name least 3 char long
+                                    </div>
+
+                                </div>
+
+
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div>
                                     <label for="basiInput" class="form-label">Reward Point<span class="mnd-fld">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Enter Reward Point">
+                                    <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
+                                    formControlName="rewardPoint" required minlength="3"
+                                    [ngClass]="{ 'is-invalid': submitted && f['rewardPoint'].errors }"
+                                    (keypress)="blockSpaces($event)" placeholder="Enter Reward Point">
+                                <div *ngIf="submitted && f['rewardPoint'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['rewardPoint'].errors['required']">reward Point  is required</div>
+                                    <div *ngIf="f['rewardPoint'].errors['minlength']">reward Point  least 3 char long
+                                    </div>
+
+                                </div>
+                                
+                                
                                 </div>
                             </div>
 

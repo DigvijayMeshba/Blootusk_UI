@@ -20,7 +20,7 @@ export class BusinesscategoryeditComponent {
  public RoleList: any = [];
   selectedRole: any;
   catagoryId: string | any;
-
+  uploadForm!:FormGroup;    
   fieldTextType1!: boolean;
   submitted = false;
 
@@ -30,19 +30,7 @@ export class BusinesscategoryeditComponent {
     this.fieldTextType1 = !this.fieldTextType1;
   }
 
-  uploadForm = new FormGroup({
-    catagoryId: new FormControl('', []),
-    catagoryName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    rewardPoint: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    recStatus: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-    createdBy: new FormControl('', []),
-    createdDate: new FormControl('', []),
-    modifyBy: new FormControl('', []),
-    modifyDate: new FormControl('', []),
-   
-  });
-
+ 
   constructor(public formBuilder: FormBuilder, public appService: AppService, public snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router, private location: Location,
 
     private _authService: AuthenticationService,
@@ -51,6 +39,20 @@ export class BusinesscategoryeditComponent {
   ngOnInit(): void {
     debugger
     this.catagoryId = this.route.snapshot.params['id'];
+
+    this.uploadForm = new FormGroup({
+      catagoryId: new FormControl('', []),
+      categoryName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      rewardPoint: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      recStatus: new FormControl('', [Validators.required, Validators.minLength(3)]),
+      mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      createdBy: new FormControl('', []),
+      createdDate: new FormControl('', []),
+      modifyBy: new FormControl('', []),
+      modifyDate: new FormControl('', []),
+     
+    });
+  
     this.getcatagorybyId(this.catagoryId);
     this.getRoleMaster();
   }
@@ -92,7 +94,7 @@ export class BusinesscategoryeditComponent {
   public Submit(userObject: any) {
     debugger
     this.submitted = true;   
-      this.updateUser(userObject);   
+        
   }
   
   successmsg() {
@@ -107,16 +109,16 @@ export class BusinesscategoryeditComponent {
   }
  
 
-  public updateUser(formData: any) {
+  public updateCatagory(formData: any) {
     debugger
     let edituserModel: editCatagory = {
-      "catagoryName": formData.catagoryName,
+      "categoryName": formData.categoryName,
       "rewardPoint": formData.rewardPoint,
       "recStatus": formData.recStatus,
-      "createBy": formData.createBy,
-      "createDate": formData.createDate,
-      "modifyBy": formData.modifyBy,
-      "modifyDate": formData.modifyDate
+      // "createBy": formData.createBy,
+      // "createDate": formData.createDate,
+      // "modifyBy": formData.modifyBy,
+      // "modifyDate": formData.modifyDate
     }
 
     this.appService.edit('api/User/EditUser', edituserModel).subscribe((data: any)  => {
@@ -137,7 +139,7 @@ export class BusinesscategoryeditComponent {
   public getcatagorybyId(catagoryId: any) {
     if (catagoryId > 0) {
       this.appService.getById("api/User/GetCatagoryUserId/", catagoryId).subscribe(data => {
-        this.uploadForm.controls['catagoryName'].setValue(data.catagoryName);
+        this.uploadForm.controls['categoryName'].setValue(data.categoryName);
         this.uploadForm.controls['rewardPoint'].setValue(data.rewardPoint);
         this.uploadForm.controls['recStatus'].setValue(data.recStatus);
         this.uploadForm.controls['createdBy'].setValue(data.createBy);

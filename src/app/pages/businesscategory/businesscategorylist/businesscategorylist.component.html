@@ -12,12 +12,12 @@
                     </div>
                 </div>
 
-
-
                 <div class="card-body">
 
                     <div class="live-preview">
 
+                        <form [formGroup]="uploadForm" fxLayout="row wrap"  >
+                       
                         <div class="card">
                             <div class="card-body">
 
@@ -26,7 +26,19 @@
                                     <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Category Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter Category Name">
+                                            <!-- <input type="text" class="form-control" placeholder="Enter Category Name">
+                                            -->
+                                            <input type="text" class="form-control"
+                                            formControlName="categoryName" required minlength="3"
+                                            [ngClass]="{ 'is-invalid': submitted && f['categoryName'].errors }"
+                                             placeholder="Enter catagory Name">
+                                        <div *ngIf="submitted && f['categoryName'].errors" class="invalid-feedback">
+                                            <div *ngIf="f['categoryName'].errors['required']">catagory Name  is required</div>
+                                            <div *ngIf="f['categoryName'].errors['minlength']">catagory Name least 3 char long
+                                            </div>
+        
+                                        </div>
+                                     
                                         </div>
                                     </div>
 
@@ -39,15 +51,15 @@
 
                                     <div class="col-md-4">
                                         <div class="mt-4 text-end">
-                                            <button type="button" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
+                                            <button type="button" (click)="Searchdata(uploadForm.value)" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
                                         </div>
-                                    </div>
-                                    
+                                    </div>                                   
     
                                 </div>
 
                             </div>
                         </div>
+</form>
 
                         <hr>
 
@@ -61,16 +73,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Data</td>
-                                        <td>Data</td>
+                                    <tr *ngFor="let object of getPageData()">
+                                        
+                                        <td>{{object.categoryName}}</td>
+                                        <td>{{object.rewardPoint}}</td>
+                                       
                                         <td class="w-10 text-center">
+
+                                            <!-- <button routerLink="../businesscategoryadd" type="button" class="btn btn-info ms-auto"> <i class="ri-add-fill cardicon label-icon align-middle"></i>Add</button>
+                    -->
                                             <div class="gap-3">
+                                                <a routerLink="'../businesscategoryedit',object.categoryId"class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                                &nbsp;&nbsp;
+                                                <a (click)="deleterecord(object)"  class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
+                                            </div>
+
+                                            <!-- <div class="gap-3">
                                                 <a  class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
                                                 &nbsp;&nbsp;
                                                 <a class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
                                             </div>
+                                             -->
                                         </td>
+
                                     </tr>
                                 </tbody>
                             </table>
@@ -85,6 +110,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        
                     </div>
 
                 </div>

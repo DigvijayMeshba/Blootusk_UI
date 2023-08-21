@@ -2,8 +2,7 @@
     <div class="row">
         <div class="col-lg-12">
 
-            <form autocomplete="off">
-
+          
                 <div class="card">
 
                     <div class="card-header align-items-center d-flex">
@@ -13,12 +12,13 @@
                             <!-- left side view -->
                         </div>
                     </div>
-
+                    <form [formGroup]="uploadForm" fxLayout="row wrap"
+                    (ngSubmit)="createMerchant(uploadForm.value)">
+                   
 
                     <div class="card-body">
 
                         <div class="live-preview">
-
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="btn-left mb-2">
@@ -37,7 +37,19 @@
                                         <div class="col-md-8">
                                             <div>
                                                 <label for="basiInput" class="form-label">Merchant (Organization) Name </label>
-                                                <input type="text" class="form-control" placeholder="Enter Merchant (Organization) Name">
+                                                <input type="text" class="form-control" 
+                                                formControlName="organizationName" required minlength="3"
+                                                [ngClass]="{ 'is-invalid': submitted && f['organizationName'].errors }"
+                                               
+                                                placeholder="Enter Merchant (Organization) Name">
+                                            <div *ngIf="submitted && f['organizationName'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['organizationName'].errors['required']">Merchant Name is required</div>
+                                                <div *ngIf="f['organizationName'].errors['minlength']">Merchant Name least 3 char long
+                                                </div>
+    
+                                            </div>
+                                            
+                                            
                                             </div>
                                         </div>
         
@@ -45,7 +57,16 @@
                                             <div>
                                                 <label for="labelInput" class="form-label">Email Id</label>
                                                 <div class="form-icon right">
-                                                    <input type="text" class="form-control" placeholder="Enter Email Id">
+                                                    <input (keypress)="blockSpaces($event)" type="email" class="form-control"
+                                                    id="email" formControlName="email"
+                                                    [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+                                                    placeholder="Enter email"
+                                                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                                                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                                    <div *ngIf="f['email'].errors['required']">Email is required</div>
+                                                    <div *ngIf="f['email'].errors['pattern']">Please enter valid Email
+                                                    </div>
+                                                </div>
                                                     <i class="ri-mail-unread-line"></i>
                                                 </div>
                                             </div>
@@ -57,18 +78,42 @@
 
                                         <div class="col-md-4">
                                             <div>
-                                                <label for="basiInput" class="form-label">Mobile No. </label>
-                                                <input type="text" class="form-control" placeholder="Enter Mobile No.">
+                                                <label for="basiInput" class="form-label">Phone No. </label>
+                                                <input type="text" class="form-control" (keypress)="keyPressOnlynum($event)"
+                                                formControlName="phoneNumber" required pattern="[0-9]+" C="10"
+                                                maxlength="10" minlength="10"
+                                                [ngClass]="{ 'is-invalid': submitted && f['phoneNumber'].errors }"
+                                                (keypress)="blockSpaces($event)" placeholder="Enter Phone No.">            
+                                            <div *ngIf="submitted && f['phoneNumber'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['phoneNumber'].errors['required']">Phone No. is required
+                                                </div>
+                                                <div *ngIf="f['phoneNumber'].errors['minlength']">Phone enter valid Mobile
+                                                    No.</div>
+                                            </div>
+
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div>
                                                 <label for="basiInput" class="form-label">Contact Person Name </label>
-                                                <input type="text" class="form-control" placeholder="Enter Contact Person Name">
+                                                <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
+                                                        formControlName="contactPersonName" required minlength="3"
+                                                        [ngClass]="{ 'is-invalid': submitted && f['contactPersonName'].errors }"
+                                                       
+                                                        placeholder="Enter Contact Person Name">
+                                                    <div *ngIf="submitted && f['contactPersonName'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f['contactPersonName'].errors['required']">Contact Person Name is required</div>
+                                                        <div *ngIf="f['contactPersonName'].errors['minlength']">Contact Person least 3 char long
+                                                        </div>
+                                                    </div>
                                             </div>
                                         </div>
+        
+                                    </div>
 
+                                    <!-- <div class="row mb-1">
+                        
                                         <div class="col-md-4">
                                             <div class="position-relative auth-pass-inputgroup">
                                                 <label for="labelInput" class="form-label">Password </label>
@@ -78,8 +123,25 @@
                                                 </button>
                                             </div>
                                         </div>
+
+                                        <div class="col-md-4">
+                                            <div>
+                                                <label for="basiInput" class="form-label">Organization Name </label>
+                                                <input type="text" class="form-control" placeholder="Enter Organization Name">
+                                            </div>
+                                        </div>
         
-                                    </div>
+                                        <div class="col-md-4">
+                                            <div>
+                                                <label for="basiInput" class="form-label">Category </label>
+                                                <select class="form-select" aria-label="Default select example">
+                                                    <option hidden value="" disabled selected>Select Category</option>
+                                                    <option>Data</option>
+                                                </select>
+                                            </div>
+                                        </div>
+        
+                                    </div> -->
 
                                 </div>
                             </div>
@@ -98,24 +160,27 @@
                             </div>
 
                             <div class="card mb-1">
-                                <div class="card-body">
+                                <div class="card-body" formGroupName="posInfo">
 
                                     <div class="row mb-3">
 
                                         <div class="col-md-8">
                                             <div>
                                                 <label for="basiInput" class="form-label">POS Name </label>
-                                                <input type="text" class="form-control" placeholder="Enter POS Name">
+                                                <input type="text" class="form-control" formControlName="posName" placeholder="Enter POS Name">
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
                                             <div>
                                                 <label for="basiInput" class="form-label">Category </label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option hidden value="" disabled selected>Select Category</option>
-                                                    <option>Data</option>
-                                                </select>
+                                                <select class="form-select" aria-label="Default select example" formControlName ="categoryId" >
+                                                    <option *ngFor="let category of CatagoryLists" [value]="category.categoryId">
+                                                      {{ category.categoryName }}
+                                                    </option>
+                                                  
+                                            </select>
+
                                             </div>
                                         </div>
         
@@ -126,7 +191,7 @@
                                         <div class="col-md-8">
                                             <div>
                                                 <label for="basiInput" class="form-label">POS Address </label>
-                                                <textarea class="form-control" rows="1" placeholder="Enter POS Address"></textarea>
+                                                <textarea class="form-control" rows="1" formControlName="posAddress" placeholder="Enter POS Address"></textarea>
                                             </div>
                                         </div>
 
@@ -137,15 +202,15 @@
                                         <div class="col-md-4">
                                             <div>
                                                 <label for="basiInput" class="form-label">Zip (PIN) Code </label>
-                                                <input type="text" class="form-control" placeholder="Enter Zip (PIN) Code">
+                                                <input type="text" class="form-control" placeholder="Enter Zip (PIN) Code" formControlName="zip"> 
                                             </div>
                                         </div>
         
                                         <div class="col-md-4">
                                             <div>
                                                 <label for="basiInput" class="form-label">State </label>
-                                                <ng-select [items]="Default" bindLabel="name" >
-                                                    <ng-template ng-optgroup-tmp let-item="item">
+                                                <ng-select [items]="StateLists" bindLabel="stateName" bindValue="stateId" formControlName="stateId" >
+                                                    <ng-template ng-optgroup-tmp let-item="item" >
                                                     </ng-template>
                                                 </ng-select>
                                             </div>
@@ -154,10 +219,10 @@
                                         <div class="col-md-4">
                                             <div>
                                                 <label for="basiInput" class="form-label">Country </label>
-                                                <ng-select [items]="Default" bindLabel="name" >
+                                                <ng-select [items]="CountryLists" bindLabel="countryName" bindValue="countryId"  formControlName ="countryId" >
                                                     <ng-template ng-optgroup-tmp let-item="item">
                                                     </ng-template>
-                                                </ng-select>
+                                                </ng-select>                                                
                                             </div>
                                         </div>
         
@@ -168,14 +233,14 @@
                                         <div class="col-md-4">
                                             <div>
                                                 <label for="basiInput" class="form-label">Latitude </label>
-                                                <input type="text" class="form-control" placeholder="Enter Latitude">
+                                                <input type="text" class="form-control" placeholder="Enter Latitude" formControlName ="latitude">
                                             </div>
                                         </div>
         
                                         <div class="col-md-4">
                                             <div>
                                                 <label for="basiInput" class="form-label">Longitude </label>
-                                                <input type="text" class="form-control" placeholder="Enter Longitude">
+                                                <input type="text" class="form-control" placeholder="Enter Longitude" formControlName ="longitude">
                                             </div>
                                         </div>
         
@@ -183,46 +248,6 @@
 
                                 </div>
                             </div>
-
-                            <hr>
-                
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="btn-left mb-2">
-                                        <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
-                                            class="form-label mt-2">
-                                            <h6 class="heads">Verification</h6>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card mb-1">
-                                <div class="card-body">
-
-                                    <div class="row mb-3">
-
-                                        <div class="col-md-4">
-                                            <div>
-                                                <label for="basiInput" class="form-label">Status </label>
-                                                <select class="form-select" aria-label="Default select example">
-                                                    <option hidden value="" disabled selected>Select Status</option>
-                                                    <option>Data</option>
-                                                </select>
-                                            </div>
-                                        </div>
-        
-                                        <div class="col-md-8">
-                                            <div>
-                                                <label for="basiInput" class="form-label">Remarks / Notes </label> 
-                                                <textarea class="form-control" rows="1" placeholder="Enter Remarks / Notes"></textarea>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>                            
 
                         </div>
 
@@ -248,9 +273,9 @@
                             </div>
                         </div>
                     </div>
-
+</form>
                 </div>
-            </form>
+           
 
         </div>
     </div>

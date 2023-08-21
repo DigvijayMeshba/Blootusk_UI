@@ -5,6 +5,7 @@ import { EnvironmentUrlService } from './core/services/env-url';
 import { TokenStorageService } from './core/services/token-storage.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/helpers/auth.interceptor';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class AppService {
@@ -24,11 +25,22 @@ export class AppService {
     return `${envAddress}/${route}`;
   }
 
-  public GetAll = (route: string) => {
+  public GetAll = (route: string):Observable<any> => {
     return this.http.get<any>(this.createCompleteRoute(route, this._envUrl.urlAddress), { headers: this.headers });
   }
 
-  // Delete Record
+  public GetAllBusinessCatagory = (route: string) => {
+    return this.http.get<any>(this.createCompleteRoute(route, this._envUrl.urlAddress), { headers: this.headers });
+  }
+
+
+    // Add New Record
+    public GetAllList = (route: string, body: any) => {
+      return this.http.post(this.createCompleteRoute(route, this._envUrl.urlAddress), body, { headers: this.headers });
+    }
+ 
+
+  // Delete Record 
   public Delete = (route: string, body: any) => {
     return this.http.delete(this.createCompleteRoute(route, this._envUrl.urlAddress),{ headers: this.headers });
   }

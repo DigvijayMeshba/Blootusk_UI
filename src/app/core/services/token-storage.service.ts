@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'currentUser';
 const MERCHANT_KEY = 'Merchant';
-const OTP_KEY = 'otp'
+const OTP_KEY = 'phoneNumberOTP'
+const OTPEMAIL_KEY = 'phoneNumberOTP'
 
 
 @Injectable({
@@ -35,16 +36,30 @@ export class TokenStorageService {
     return {};
   }
 
-  public SaveOtp(otp:any): void {
+  public SavePhoneOtp(phoneNootp:any): void {
     window.localStorage.removeItem(OTP_KEY);
 
-    window.localStorage.setItem(OTP_KEY, JSON.stringify(otp));
+    window.localStorage.setItem(OTP_KEY, JSON.stringify(phoneNootp));
   }
 
-  public getOtp(): any {
-    const otp = window.localStorage.getItem(OTP_KEY);
-    if (otp) {
-      return JSON.parse(otp);
+  public getPhoneNOOtp(): any {
+    const phoneNootp = window.localStorage.getItem(OTP_KEY);
+    if (phoneNootp) {
+      return JSON.parse(phoneNootp);
+    }
+    return {};
+  }
+
+  public SaveEmailOtp(emailotp:any): void {
+    window.localStorage.removeItem(OTPEMAIL_KEY);
+
+    window.localStorage.setItem(OTP_KEY, JSON.stringify(emailotp));
+  }
+
+  public getEmailOtp(): any {
+    const emailotp = window.localStorage.getItem(OTPEMAIL_KEY);
+    if (emailotp) {
+      return JSON.parse(emailotp);
     }
     return {};
   }

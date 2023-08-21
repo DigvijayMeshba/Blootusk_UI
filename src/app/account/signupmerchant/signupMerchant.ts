@@ -73,7 +73,8 @@ export interface signupMerchant
 export interface UserForOtp
 {
   phoneNumber: string;
-  email: string;
-  otp: string
-  isOTPSent: true;
+  emailOTP: string;
+  email:string;
+  phoneNumberOTP: string
+ // isOTPSent: true;
 }
