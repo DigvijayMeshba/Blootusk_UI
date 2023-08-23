@@ -51,7 +51,7 @@
                                             
                                             
                                             </div>
-                                        </div>
+                                        </div> 
         
                                         <div class="col-md-4">
                                             <div>
@@ -62,11 +62,11 @@
                                                     [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
                                                     placeholder="Enter email"
                                                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-                                                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                                <!-- <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
                                                     <div *ngIf="f['email'].errors['required']">Email is required</div>
                                                     <div *ngIf="f['email'].errors['pattern']">Please enter valid Email
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                     <i class="ri-mail-unread-line"></i>
                                                 </div>
                                             </div>
@@ -84,12 +84,12 @@
                                                 maxlength="10" minlength="10"
                                                 [ngClass]="{ 'is-invalid': submitted && f['phoneNumber'].errors }"
                                                 (keypress)="blockSpaces($event)" placeholder="Enter Phone No.">            
-                                            <div *ngIf="submitted && f['phoneNumber'].errors" class="invalid-feedback">
+                                            <!-- <div *ngIf="submitted && f['phoneNumber'].errors" class="invalid-feedback">
                                                 <div *ngIf="f['phoneNumber'].errors['required']">Phone No. is required
                                                 </div>
                                                 <div *ngIf="f['phoneNumber'].errors['minlength']">Phone enter valid Mobile
                                                     No.</div>
-                                            </div>
+                                            </div> -->
 
                                             </div>
                                         </div>
@@ -102,11 +102,11 @@
                                                         [ngClass]="{ 'is-invalid': submitted && f['contactPersonName'].errors }"
                                                        
                                                         placeholder="Enter Contact Person Name">
-                                                    <div *ngIf="submitted && f['contactPersonName'].errors" class="invalid-feedback">
+                                                    <!-- <div *ngIf="submitted && f['contactPersonName'].errors" class="invalid-feedback">
                                                         <div *ngIf="f['contactPersonName'].errors['required']">Contact Person Name is required</div>
                                                         <div *ngIf="f['contactPersonName'].errors['minlength']">Contact Person least 3 char long
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                             </div>
                                         </div>
         

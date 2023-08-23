@@ -35,7 +35,7 @@ export class BusinesscategorylistComponent {
     //List of All Company
     public GetAllUserList() {
       this.appService.GetAll("api/User/GetAllUser").subscribe(data => {
-        this.BusinesscategoryList = data;
+       
         
       }
       );
@@ -45,25 +45,29 @@ export class BusinesscategorylistComponent {
  public Searchdata(formData: any) {
       debugger;
       let ListCategoryModel: listCatagory = {
-      "categoryName": formData.categoryName,
-      "rewardPoint": formData.rewardPoint,      
+      "categoryName": formData.categoryName == ''? "":formData.categoryName,
+      "rewardPoint": formData.rewardPoint==''? 0:formData.rewardPoint
+
+
+        
+
           
     }
-  if(this.uploadForm.valid)
-  {  
+  
       this.appService.GetAllList('api/CategoryMaster/GetAllCategory', ListCategoryModel)
       .pipe(
         catchError((error) => {          
           return throwError(error); 
         })).subscribe((data: any) => {      
-          
+          this.BusinesscategoryList = data.responseData;
       console.log(data);
       },);  
 
-    }  
+    
   }
   
     deleterecord(object: any) {
+      debugger;
       Swal.fire({
         title: 'Confirmation',
         text: 'Are you sure you want to delete this user?',
@@ -78,13 +82,15 @@ export class BusinesscategorylistComponent {
           const index: number = this.BusinesscategoryList.indexOf(object);
           if (index !== -1) {
             this.BusinesscategoryList.splice(index, 1);
-            this.appService.Delete(`api/CategoryMaster/DeleteCategory?categoryId=${object.userId}`, {}).subscribe(data => {
-              Swal.fire({
-                title: 'Deleted!',
-                text: 'The Category has been deleted successfully.',
-                icon: 'success',
-                confirmButtonColor: '#364574'
-              });
+            this.appService.Delete(`api/CategoryMaster/DeleteCategory?categoryId=${object.categoryId}`, {}).subscribe(data => {
+             
+                Swal.fire({
+                  title: 'Deleted!',
+                  text: 'The Category has been deleted successfully.',
+                  icon: 'success',
+                  confirmButtonColor: '#364574'
+                });
+             
             });
           }
         }

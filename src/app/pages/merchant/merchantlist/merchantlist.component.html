@@ -83,18 +83,19 @@
                                         <th scope="col" class="w-10 text-center">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngFor="let object of getPageData()">
+                                <tbody *ngFor="let object of MerchantList">
                                     <tr>
                                         <td>{{object.merchantCode}}</td>
-                                        <td>{{object.merchantName}}</td>
-                                        <td>{{object.merchantPhoneNumber}}</td>
-                                        <td>Data</td>
+                                        <td>{{object.organizationName}}</td>
+                                        <td>{{object.phoneNumber}}</td>
+                                        <td>{{object.email }}</td>
                                         <td>{{object.approvalStatus}}</td>
 
 
                                         <td class="w-10 text-center">                                          
                                             <div class="gap-3">
-                                                <a [routerLink]="['../merchantedit',object.merchantId]"class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                                <a [routerLink]="['/merchant/merchantedit', object.merchantId]" class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                              
                                                 &nbsp;&nbsp;
                                                 <a (click)="deleterecord(object);"  class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
                                             </div>

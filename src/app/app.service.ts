@@ -36,6 +36,7 @@ export class AppService {
 
     // Add New Record
     public GetAllList = (route: string, body: any) => {
+      console.log(body)
       return this.http.post(this.createCompleteRoute(route, this._envUrl.urlAddress), body, { headers: this.headers });
     }
  
@@ -43,6 +44,11 @@ export class AppService {
   // Delete Record 
   public Delete = (route: string, body: any) => {
     return this.http.delete(this.createCompleteRoute(route, this._envUrl.urlAddress),{ headers: this.headers });
+  }
+
+  // Delete Record 
+  public DeleteMerchant = (path: any, Id: any) => {
+    return this.http.post(this.createCompleteRoute(path + Id, this._envUrl.urlAddress),{ headers: this.headers });
   }
 
   // Add New Record
@@ -55,6 +61,10 @@ export class AppService {
     return this.http.get<any>(this.createCompleteRoute(path + Id, this._envUrl.urlAddress),{ headers: this.headers });
   }
 
+   // getById
+   public getByIdMerchant = (path: any, Id: any) => {   
+    return this.http.post<any>(this.createCompleteRoute(path + Id, this._envUrl.urlAddress), { headers: this.headers });
+  }
 
   public edit = (route: string, body: any) => {
     return this.http.put(this.createCompleteRoute(route, this._envUrl.urlAddress), body, { headers: this.headers });

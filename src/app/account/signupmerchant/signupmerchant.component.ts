@@ -99,14 +99,18 @@ export class SignupmerchantComponent {
         createdDate: new FormControl('', []),
         modifyBy: new FormControl('', []),
         modifyDate: new FormControl('', []),
-        phoneNumberOTP: new FormControl('',[]),       
-      posInfo : new FormGroup({
+        phoneNumberOTP: new FormControl('',[]),   
+        emailOTP : new FormControl('',[]),    
+       posInfo : new FormGroup({
         posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
         categoryId: new FormControl('', [Validators.required]),
         posAddress: new FormControl('', [Validators.required, Validators.minLength(3)]),
         zip: new FormControl('', [Validators.required, Validators.minLength(3)]),
         stateId: new FormControl('', [Validators.required]),
         countryId: new FormControl('', [Validators.required]),
+        countryName: new FormControl('', []),
+        stateName: new FormControl('', []),
+        categoryName: new FormControl('', []),
         posid:new FormControl('', []),
         merchantId:new FormControl('', []),
         poscode: new FormControl('', []),
@@ -322,6 +326,13 @@ export class SignupmerchantComponent {
     AddMerchantDtail.modifyDate = new Date();
     AddMerchantDtail.merchantId = 0;
     
+    AddMerchantDtail.stateName = ""? "":AddMerchantDtail.stateName,
+    AddMerchantDtail.categoryName = ""? "":AddMerchantDtail.categoryName,
+    AddMerchantDtail.countryName = ""? "":AddMerchantDtail.countryName,
+   
+
+    console.log(AddMerchantDtail);
+
     this.prvopt = this.tokenStorage.getPhoneNOOtp();
     this.prvemailopt = this.tokenStorage.getEmailOtp();
 
@@ -333,7 +344,9 @@ export class SignupmerchantComponent {
         switch(statuscode)
         {
           case 200:
-            alert("SMerchant Added Successfully.")
+            alert("Merchant Added Successfully.")
+            this.router.navigate(['/dashboards/dashboard'], { relativeTo: this.route });
+   
             break;
             case 212 :
               alert("Something Went wrong");

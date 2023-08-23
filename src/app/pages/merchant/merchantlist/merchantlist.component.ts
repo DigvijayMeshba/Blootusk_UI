@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import Swal from 'sweetalert2';
 import { listMerchant } from '../merchant';
+import { catchError, pipe, throwError } from 'rxjs';
 
 @Component({
   selector: 'app-merchantlist',
@@ -42,18 +43,22 @@ export class MerchantlistComponent {
 
     let edituserModel: listMerchant = {
       "merchantCode": this.merchnatCode,
-      "merchantPhoneNumber": this.mobileNo,
-      
+      "merchantPhoneNumber": this.mobileNo,      
       "merchantName": this.merchnatName,
       "approvalStatus": this.approvalStatus      
     }   
-console.log(edituserModel);
-debugger;
-      this.appService.GetAllList("api/Merchant/GetAllMerchant",edituserModel).subscribe(data => {
-        this.MerchantList = data;      
-        console.log(data);
-      });
-    }
+    console.log(edituserModel);
+    debugger;
+          this.appService.GetAllList("api/Merchant/GetAllMerchant",edituserModel)
+            .pipe(
+              catchError((error) => {          
+                return throwError(error); 
+              })).subscribe((data: any) => {      
+                this.MerchantList = data.responseData;
+            console.log(data);
+            },);  
+        
+      }
   
     deleterecord(object: any) {
       Swal.fire({
@@ -70,7 +75,8 @@ debugger;
           const index: number = this.MerchantList.indexOf(object);
           if (index !== -1) {
             this.MerchantList.splice(index, 1);
-            this.appService.Delete(`api/Merchant/DeleteMerchant?merchantId=${object.merchantId}`, {}).subscribe(data => {
+            this.appService.DeleteMerchant("api/Merchant/DeleteMerchant/", parseInt(object.merchantId)).subscribe(data => {     
+  
               Swal.fire({
                 title: 'Deleted!',
                 text: 'The merchantId has been deleted successfully.',

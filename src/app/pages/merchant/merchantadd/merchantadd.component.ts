@@ -81,7 +81,7 @@ export class MerchantaddComponent {
       organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      //password: new FormControl('', [Validators.required, Validators.maxLength(10)]),
       contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]),     
       posInfo : new FormGroup({
         posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -92,6 +92,9 @@ export class MerchantaddComponent {
         categoryId : new FormControl('',[]),
         posid:new FormControl('', []),
         merchantId:new FormControl('', []),
+        countryName: new FormControl('', []),
+        stateName: new FormControl('', []),
+        categoryName: new FormControl('', []),
         poscode: new FormControl('', []),
         latitude: new FormControl('', []),
         longitude: new FormControl('', []),
@@ -211,70 +214,89 @@ export class MerchantaddComponent {
     debugger;
     let AddMerchantModel: addMerchant = formData;  
     debugger;    
-
-    AddMerchantModel.posInfo.posid = 0;
-    AddMerchantModel.posInfo.merchantId = 0;    
-    AddMerchantModel.isEmailValidate = 1;
-    AddMerchantModel.isPhoneNumberValidate = 1;
-    AddMerchantModel.createdBy = 0;
-    AddMerchantModel.modifyBy = 0;
-    AddMerchantModel.createdDate = new Date(); 
-    AddMerchantModel.modifyDate = new Date();
-    AddMerchantModel.merchantId = 0;
-   
+    if(this.uploadForm.valid)
+    {
+      AddMerchantModel.posInfo.posid = 0;
+      AddMerchantModel.posInfo.merchantId = 0;    
+      AddMerchantModel.isEmailValidate = 1;
+      AddMerchantModel.isPhoneNumberValidate = 1;
+      AddMerchantModel.createdBy = 0;
+      AddMerchantModel.modifyBy = 0;
+      AddMerchantModel.createdDate = new Date(); 
+      AddMerchantModel.modifyDate = new Date();
+      AddMerchantModel.merchantId = 0;
+      AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
+      AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
+      AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
+      console.log(AddMerchantModel);
+        this.appService.Add('api/Merchant/AddMerchant', AddMerchantModel)      
+        .pipe(
+          catchError((error) => {          
+            return throwError(error); // Throw the error to propagate it further
+          })
+        )   
+          .subscribe((res: any) => {
+            debugger;
+            console.log('data',res)
+  
+            if(res.responseStatusCode == 200)
+            {           
+              this.successmsg();
+            }
+            else if(res.responseStatusCode == 212)
+            {
+              alert("Something Went wrong")
+             
+            }
+            else if(res.responseStatusCode == 500)
+            {
+              alert("Error Status ")
+              
+            }
+            else if(res.responseStatusCode == 601)
+            {
+              Swal.fire({
+                title:'Duplication Error',
+                text: 'Phone Number is Duplicate.',
+                icon: 'success',
+                confirmButtonColor: '#364574'
+              });
+             
+            }
+            else if(res.responseStatusCode == 602)
+            {
+              Swal.fire({
+                title:'Duplication Error',
+                text: 'Duplicate Email.',
+                icon: 'success',
+                confirmButtonColor: '#364574'
+              });
+              
+            }
+            else if(res.responseStatusCode == 603)
+            {
+              Swal.fire({
+                title:'Duplication Error',
+                text: 'const int DuplicateCategory Status',
+                icon: 'success',
+                confirmButtonColor: '#364574'
+              });              
+            }
+            else if(res.responseStatusCode == 400)
+            {
+              alert("Bad Request Status")
+             
+            }
+            else{
+              alert("Something Went wrong")
+              
+            }
+  
+         
+       }) 
+        
+    }
     
-      this.appService.Add('api/Merchant/AddMerchant', AddMerchantModel)      
-      .pipe(
-        catchError((error) => {          
-          return throwError(error); // Throw the error to propagate it further
-        })
-      )   
-        .subscribe((res: any) => {
-          debugger;
-          console.log('data',res)
-
-          if(res.responseStatusCode == 200)
-          {           
-            this.successmsg();
-          }
-          else if(res.responseStatusCode == 212)
-          {
-            alert("Something Went wrong")
-           
-          }
-          else if(res.responseStatusCode == 500)
-          {
-            alert("Error Status ")
-            
-          }
-          else if(res.responseStatusCode == 601)
-          {
-            alert("Phone Number is Duplicate")
-           
-          }
-          else if(res.responseStatusCode == 602)
-          {
-            alert("Duplicate Email")
-            
-          }
-          else if(res.responseStatusCode == 603)
-          {
-            alert("Duplicate Category Status ")
-            
-          }
-          else if(res.responseStatusCode == 400)
-          {
-            alert("Bad Request Status")
-           
-          }
-          else{
-            alert("Something Went wrong")
-            
-          }
-
-       
-     }) 
-      
   }   
 
   

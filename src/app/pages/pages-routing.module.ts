@@ -19,11 +19,11 @@ const routes: Routes = [
 
   { path: "merchant/merchantlist",component: MerchantlistComponent },
   { path: "merchant/merchantadd",component: MerchantaddComponent },
-  { path: "merchant/merchantedit",component: MerchanteditComponent },
+  { path: "merchant/merchantedit/:id",component: MerchanteditComponent },
 
   { path: "businesscategory/businesscategorylist",component: BusinesscategorylistComponent },
   { path: "businesscategory/businesscategoryadd",component: BusinesscategoryaddComponent },
-  { path: "businesscategory/businesscategoryedit",component: BusinesscategoryeditComponent },
+  { path: "businesscategory/businesscategoryedit/:id",component: BusinesscategoryeditComponent },
 
   {
     path: 'dashboards', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule)

@@ -20,12 +20,15 @@ export interface signupMerchant
           posid: number;
           merchantId: number;
           categoryId: number;
+          categoryName: string,
           poscode: string;
           posname: string;
           posaddress: string;
           zip: string;
           stateId: number;
+          stateName: number;
           countryId: number;
+          countryName:string;
           latitude: string;
           longitude: string
         },

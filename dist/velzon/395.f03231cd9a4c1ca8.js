@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkvelzon=self.webpackChunkvelzon||[]).push([[395],{2395:(M,n,s)=>{s.r(n),s.d(n,{BusinesscategoryModule:()=>t});var _=s(9197),o=s(6895),a=s(4006),l=s(8796),E=s(4650);class t{static#s=this.\u0275fac=function(u){return new(u||t)};static#t=this.\u0275mod=E.oAB({type:t});static#n=this.\u0275inj=E.cJS({imports:[o.ez,l.A0,a.u5,a.UX,_.Bz,_.Bz]})}}}]);

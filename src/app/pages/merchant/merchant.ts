@@ -26,6 +26,10 @@ export interface addMerchant
           zip: string;
           stateId :number;         
           countryId: number;
+          countryName:string;
+          
+          stateName: string;
+          categoryName: string;
           latitude: string;
           longitude: string
         }
@@ -56,8 +60,8 @@ export interface editMerchant
        deviceId: string;
        deviceOs: string;
        token: string;
-       isPhoneNumberValidate: true;
-       isEmailValidate: true;
+       isPhoneNumberValidate: number;
+       isEmailValidate: number;
        approvalStatus: string;
        recStatus: string;
        remark: string;
@@ -68,12 +72,19 @@ export interface editMerchant
          poscode: string;
          posname: string;
          posaddress: string;
+         countryName:string;
+          stateName: string;
+          categoryName: string;
          zip: string;
          stateId: number;
          countryId: number;
          latitude: string;
          longitude: string
        }      
+       createdBy: number;
+       createdDate:Date;
+       modifyBy: number;
+       modifyDate: Date;
   }
 
   export interface remarkHistory

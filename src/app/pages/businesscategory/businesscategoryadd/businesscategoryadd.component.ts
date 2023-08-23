@@ -107,7 +107,7 @@ export class BusinesscategoryaddComponent {
         
     successmsg() {
       Swal.fire({
-        title: 'User Added Successfully',
+        title: 'Category Added Successfully',
         icon: 'success',
         // showCancelButton: true,
         confirmButtonColor: '#364574',
@@ -149,17 +149,13 @@ export class BusinesscategoryaddComponent {
         })
       ) 
       .subscribe((data: any) => {
-        debugger
-        console.log("dataaaaaaaaaaaaaa", data)
-  
-        if (data.message == "Catagory Added Successfully.") {
+      
+        if (data.responseStatusCode == 200 ) {
           this.successmsg()
-          this.router.navigate(['../userlist'], { relativeTo: this.route });
+          this.router.navigate(['/businesscategory/businesscategorylist'], { relativeTo: this.route });
         }         
   
-        else {
-          alert("Something Went wrong")
-        }
+      
   
       },);
   

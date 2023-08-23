@@ -15,6 +15,9 @@
                                 <ng-template ngbNavContent>
 
                                     <div class="wbody">
+                                        <form [formGroup]="uploadForm" fxLayout="row wrap"
+                                        (ngSubmit)="updateMerchant(uploadForm.value)">                                       
+
                                         <div class="live-preview">
 
                                             <div class="row">
@@ -28,7 +31,7 @@
                                                 </div>
                                                 <div class="col-md-6 text-end">
                                                     <label class="form-label mt-1">
-                                                        <h6 class="heads">Merchant Code : M#########</h6>
+                                                        <h6 class="heads" ></h6>
                                                     </label>
                                                 </div>
                                             </div>
@@ -40,7 +43,7 @@
                                                         <div class="col-md-8">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Merchant (Organization) Name </label>
-                                                                <input type="text" class="form-control" placeholder="Enter Merchant (Organization) Name">
+                                                                <input type="text" class="form-control" formControlName="organizationName" placeholder="Enter Merchant (Organization) Name">
                                                             </div>
                                                         </div>
                         
@@ -48,7 +51,7 @@
                                                             <div>
                                                                 <label for="labelInput" class="form-label">Email Id</label>
                                                                 <div class="form-icon right">
-                                                                    <input type="text" class="form-control" placeholder="Enter Email Id">
+                                                                    <input type="text" class="form-control" formControlName="email" placeholder="Enter Email Id">
                                                                     <i class="ri-mail-unread-line"></i>
                                                                 </div>
                                                             </div>
@@ -61,21 +64,21 @@
                                                         <div class="col-md-4">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Mobile No. </label>
-                                                                <input type="text" class="form-control" placeholder="Enter Mobile No.">
+                                                                <input type="text" class="form-control" formControlName="phoneNumber" placeholder="Enter Mobile No.">
                                                             </div>
                                                         </div>
                 
                                                         <div class="col-md-4">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Contact Person Name </label>
-                                                                <input type="text" class="form-control" placeholder="Enter Contact Person Name">
+                                                                <input type="text" class="form-control" formControlName="contactPersonName" placeholder="Enter Contact Person Name">
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-4">
                                                             <div class="position-relative auth-pass-inputgroup">
                                                                 <label for="labelInput" class="form-label">Password </label>
-                                                                <input [type]="fieldTextType1 ? 'text' : 'password'" class="form-control" placeholder="Enter Password">
+                                                                <input [type]="fieldTextType1 ? 'text' : 'password'" class="form-control" placeholder="Enter Password" formControlName="password">
                                                                 <button class="btn btn-link position-absolute end-0 top-20 text-decoration-none text-muted" type="button" id="password-addon">
                                                                     <i class="mdi align-middle"[ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1}" (click)="toggleFieldTextType1()"></i>
                                                                 </button>
@@ -101,24 +104,25 @@
                                             </div>
                 
                                             <div class="card mb-1">
-                                                <div class="card-body">
+                                                <div class="card-body" formGroupName="posInfo">
                 
                                                     <div class="row mb-3">
 
                                                         <div class="col-md-8">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">POS Name </label>
-                                                                <input type="text" class="form-control" placeholder="Enter POS Name">
+                                                                <input type="text" class="form-control" formControlName="posname" placeholder="Enter POS Name">
                                                             </div>
                                                         </div>
                 
                                                         <div class="col-md-4">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Category </label>
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option hidden value="" disabled selected>Select Category</option>
-                                                                    <option>Data</option>
-                                                                </select>
+                                                                <select class="form-select" aria-label="Default select example" formControlName ="categoryId" >
+                                                                    <option *ngFor="let category of CatagoryLists" [value]="category.categoryId">
+                                                                      {{ category.categoryName }}
+                                                                    </option>                                                                  
+                                                            </select>
                                                             </div>
                                                         </div>
                         
@@ -129,7 +133,7 @@
                                                         <div class="col-md-8">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">POS Address </label>
-                                                                <textarea class="form-control" rows="1" placeholder="Enter POS Address"></textarea>
+                                                                <textarea class="form-control" rows="1" placeholder="Enter POS Address" formControlName="posAddress"></textarea>
                                                             </div>
                                                         </div>
                 
@@ -140,27 +144,33 @@
                                                         <div class="col-md-4">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Zip (PIN) Code </label>
-                                                                <input type="text" class="form-control" placeholder="Enter Zip (PIN) Code">
+                                                                <input type="text" class="form-control" placeholder="Enter Zip (PIN) Code" formControlName="zip">
                                                             </div>
                                                         </div>
                         
                                                         <div class="col-md-4">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">State </label>
-                                                                <ng-select [items]="Default" bindLabel="name" >
-                                                                    <ng-template ng-optgroup-tmp let-item="item">
+                                                                <!-- <ng-select [items]="StateLists" bindLabel="stateName" bindValue="stateId" formControlName="stateId" >
+                                                                    <ng-template ng-optgroup-tmp let-item="item" >
                                                                     </ng-template>
-                                                                </ng-select>
+                                                                </ng-select> -->
+
+                                                                <select class="form-select" aria-label="Default  select example" formControlName ="stateId">
+                                                                    <option *ngFor="let State of StateLists" [value]="State.stateId">
+                                                                        {{ State.stateName}}
+                                                                    </option>
+                                                                </select>  
                                                             </div>
                                                         </div>
                 
                                                         <div class="col-md-4">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Country </label>
-                                                                <ng-select [items]="Default" bindLabel="name" >
+                                                                <ng-select [items]="CountryLists" bindLabel="countryName" bindValue="countryId"  formControlName ="countryId" >
                                                                     <ng-template ng-optgroup-tmp let-item="item">
                                                                     </ng-template>
-                                                                </ng-select>
+                                                                </ng-select> 
                                                             </div>
                                                         </div>
                         
@@ -256,26 +266,30 @@
                                                                 </div>
 
                                                                 <div *ngIf="showDiv.inputs">
+
+                                                                    <form [formGroup]="remarkForm" fxLayout="row wrap"
+                                                                    (ngSubmit)="AddRemark(remarkForm.value)">
+                                                               
                                                                     <div class="row">
 
                                                                         <div class="col-md-12">
                                                                             <div>
                                                                                 <label for="basiInput" class="form-label">Remarks / Notes </label> 
-                                                                                <textarea class="form-control" rows="1" [(ngModel)]="remark" placeholder="Enter Remarks / Notes"></textarea>
+                                                                                <textarea class="form-control" rows="1" formControlName="remark" placeholder="Enter Remarks / Notes"></textarea>
                                                                             </div>
                                                                         </div>
 
                                                                     </div>
-
+                                                                    <div class="modal-footer mt-3" >
+                                                                        <button type="button" class="btn btn-info ms-auto" (click)="modal.close('Close click')"><i class="ri-close-line label-icon align-middle me-2"></i> Cancel</button>
+                                                                        <button type="submit" class="btn btn-success"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+                                                                    </div>
+                                                              </form>
                                                                 </div>
 
                                                             </div>
 
-                                                            <div class="modal-footer" *ngIf="showDiv.buttons">
-                                                                <button type="button" class="btn btn-info ms-auto" (click)="modal.close('Close click')"><i class="ri-close-line label-icon align-middle me-2"></i> Cancel</button>
-                                                                <button type="submit" class="btn btn-success"  (click)="AddRemark()"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
-                                                            </div>
-                                                        </ng-template>
+                                                         </ng-template>
 
                                                     </div>
 
@@ -306,6 +320,7 @@
                                                 </div>
                                             </div>
                                         </div>
+</form>
                                     </div>
 
                                 </ng-template>

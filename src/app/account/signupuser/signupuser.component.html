@@ -36,13 +36,7 @@
                                 <h5 class="text-primary">Signup Here!</h5>
                             </div>
 
-                            <div class="alert alert-borderless alert-warning text-center mb-2 mx-2" role="alert">
-                              
-                                <br>
-                                Your merchant name is ____________________.
-                                <br><br>
-                            
-                            </div>
+                          
 
 
                             <div class="p-2 ">
@@ -55,6 +49,16 @@
                                     (ngSubmit)="createUser(uploadForm.value)">
                                    
         
+                                    <div class="alert alert-borderless alert-warning text-center mb-2 mx-2" role="alert">
+                                
+                                        <br>
+                                        Your merchant name is 
+                                        <span class="merchant-name-placeholder"> {{merchantName}}</span>.
+                                        <label></label>
+        
+                                        <br><br>
+                                    
+                                    </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-12">
                                                     <div>
@@ -119,6 +123,9 @@
 
 
                 <div class="col-md-5" *ngIf="showDiv.next">
+                    <form [formGroup]="Otporm" fxLayout="row wrap"
+                    (ngSubmit)="SubmitForm(Otporm.value)">
+                 
                     <div class="card mt-4">
   
                         <div class="card-body p-4" *ngIf="showDiv.next">
@@ -133,7 +140,7 @@
                                         <div class="col-md-12">
                                             <div>
                                                 <label for="basiInput" class="form-label">Enter OPT </label>
-                                                <input type="text" class="form-control" placeholder="Enter OTP">
+                                                <input type="text" class="form-control" formControlName="phoneNumberOTP" placeholder="Enter OTP">
                                             </div>
                                         </div>
                                     </div>
@@ -151,6 +158,7 @@
                         </div> 
 
                     </div>
+                    </form>
                 </div>
 
 

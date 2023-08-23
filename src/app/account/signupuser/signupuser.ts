@@ -1,16 +1,16 @@
-export interface SignupuserComponent
+export interface Signupuser
 {
     email: string;
     phoneNumber:string;
     emailOTP :string;
     phoneNumberOTP: string;
-    userId: number;
-    userCode:string,
+    customerID: number;
+    customerCode:string,
     posid: number;
     merchantCode:string,
     name:string;
     isPhoneNumberValidate: number;
-    isEmailValidate: number;
+    merchantID:number;
     stopMessage: number;
     referCode:string,
     referBy:string,
@@ -21,4 +21,15 @@ export interface SignupuserComponent
     createdDate:Date,
     modifyBy: number;
     modifyDate:Date;
+
+    
+}
+
+export interface UserForOtp
+{
+  phoneNumber: string;
+  emailOTP: string;
+  email:string;
+  phoneNumberOTP: string
+ // isOTPSent: true;
 }

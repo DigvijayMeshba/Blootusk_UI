@@ -14,13 +14,14 @@ export class addCatagory
 export interface listCatagory 
 {
   categoryName: string;
-  rewardPoint :string;
+  rewardPoint :number;
 }
-export class editCatagory
+export interface editCatagory
 {
-"categoryName": string;
-"rewardPoint": number;
-"recStatus": string;
+  categoryId : number;
+categoryName: string;
+rewardPoint: number;
+recStatus: string;
 // "createBy": number;
 // "createDate":Date;
 // "modifyBy": number;

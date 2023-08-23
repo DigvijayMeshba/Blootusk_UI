@@ -39,9 +39,9 @@ export class BusinesscategoryeditComponent {
   ngOnInit(): void {
     debugger
     this.catagoryId = this.route.snapshot.params['id'];
-
+    this.getcatagorybyId(this.catagoryId);
     this.uploadForm = new FormGroup({
-      catagoryId: new FormControl('', []),
+      categoryId: new FormControl('', []),
       categoryName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       rewardPoint: new FormControl('', [Validators.required, Validators.minLength(3)]),
       recStatus: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -51,10 +51,7 @@ export class BusinesscategoryeditComponent {
       modifyBy: new FormControl('', []),
       modifyDate: new FormControl('', []),
      
-    });
-  
-    this.getcatagorybyId(this.catagoryId);
-    this.getRoleMaster();
+    });  
   }
   get f() { return this.uploadForm.controls; }
 
@@ -112,23 +109,18 @@ export class BusinesscategoryeditComponent {
   public updateCatagory(formData: any) {
     debugger
     let edituserModel: editCatagory = {
+      "categoryId":this.catagoryId,
       "categoryName": formData.categoryName,
       "rewardPoint": formData.rewardPoint,
       "recStatus": formData.recStatus,
-      // "createBy": formData.createBy,
-      // "createDate": formData.createDate,
-      // "modifyBy": formData.modifyBy,
-      // "modifyDate": formData.modifyDate
     }
 
-    this.appService.edit('api/User/EditUser', edituserModel).subscribe((data: any)  => {
+    this.appService.Add('api/CategoryMaster/AddEditCategory', edituserModel).subscribe((data: any)  => {
       debugger
-      if (data.message == "User Updated Successfully.") {
-        this.successmsg()
-
-        this.router.navigate(['/pages/master/user/userlist'], { relativeTo: this.route });
-      }      
-
+      if (data.responseStatusCode == 200) {
+        this.successmsg()                                            
+        this.router.navigate(['/businesscategory/businesscategorylist'], { relativeTo: this.route });
+      }  
       else {
         alert("Something Went wrong")
       }
@@ -137,15 +129,18 @@ export class BusinesscategoryeditComponent {
 
   ///GetUserById
   public getcatagorybyId(catagoryId: any) {
+    debugger
     if (catagoryId > 0) {
-      this.appService.getById("api/User/GetCatagoryUserId/", catagoryId).subscribe(data => {
-        this.uploadForm.controls['categoryName'].setValue(data.categoryName);
-        this.uploadForm.controls['rewardPoint'].setValue(data.rewardPoint);
-        this.uploadForm.controls['recStatus'].setValue(data.recStatus);
-        this.uploadForm.controls['createdBy'].setValue(data.createBy);
-        this.uploadForm.controls['createdDate'].setValue(data.createDate);
-        this.uploadForm.controls['modifyBy'].setValue(data.modifyBy);
-        this.uploadForm.controls['modifyDate'].setValue(data.modifyDate);
+      this.appService.getById("api/CategoryMaster/GetCategoryById/", catagoryId).subscribe(data => {
+        this.uploadForm.controls['categoryId'].setValue(data.responseData.catagoryId);
+       
+        this.uploadForm.controls['categoryName'].setValue(data.responseData.categoryName);
+        this.uploadForm.controls['rewardPoint'].setValue(data.responseData.rewardPoint);
+        this.uploadForm.controls['recStatus'].setValue(data.responseData.recStatus);
+        this.uploadForm.controls['createdBy'].setValue(data.responseData.createBy);
+        this.uploadForm.controls['createdDate'].setValue(data.responseData.createDate);
+        this.uploadForm.controls['modifyBy'].setValue(data.responseData.modifyBy);
+        this.uploadForm.controls['modifyDate'].setValue(data.responseData.modifyDate);
       });
     }
   }

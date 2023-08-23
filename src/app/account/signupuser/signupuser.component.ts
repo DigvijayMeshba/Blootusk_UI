@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { UserForOtp, signupMerchant } from '../signupmerchant/signupMerchant';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { AppService } from 'src/app/app.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { catchError, throwError } from 'rxjs';
+import { Signupuser, UserForOtp } from './signupuser';
+
 
 @Component({
   selector: 'app-signupuser',
@@ -33,8 +34,7 @@ export class SignupuserComponent {
     selectedStateId!:number;  
     fieldTextType1!: boolean;
     fieldTextType2!: boolean;   
-    submitted = false;
-    merchantId: string | any;    
+    submitted = false; 
     compareControlName!: string;  
     
   
@@ -48,12 +48,13 @@ export class SignupuserComponent {
   
     SignupForm!: UntypedFormGroup;
     uploadForm!:FormGroup;  
-    isLoggedIn = false;
-    userId: string | any;
+    Otporm!:FormGroup;
+    isLoggedIn = false;   
     merchantCode :any;
     public roleId: any;
     prvopt :any;
     prvemailopt:any;
+    merchantName!:string;
   
     constructor(public formBuilder: FormBuilder,public appService: AppService,
       private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
@@ -63,7 +64,10 @@ export class SignupuserComponent {
      }
   
      ngOnInit(): void {
-      // this.GetMerchantName(this.merchantCode);
+      this.merchantCode = this.route.snapshot.params['id'];
+      this.GetMerchantName(this.merchantCode);
+
+
        let addUserDeatil = this.tokenStorage.getUser();
       this.uploadForm = new FormGroup({       
         merchantCode: new FormControl('', []),
@@ -71,14 +75,27 @@ export class SignupuserComponent {
         phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
         isPhoneNumberValidate:new FormControl('', []),
         
-      }     
+        merchantID: new FormControl('', []),
+        referCode : new FormControl('', []),
+        referBy: new FormControl('', []),
+        rewardPoint: new FormControl('', []),
+        recStatus: new FormControl('', []),
+        approvalStatus: new FormControl('', []),
+         
+      }),
+      this.Otporm =new FormGroup({
+        phoneNumber: new FormControl('', []),
+  emailOTP: new FormControl('', []),
+        phoneNumberOTP : new FormControl('', []),
+         email: new FormControl('', []),
+
+      }
        
       );
   
      if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.roleId = this.tokenStorage.getUser().roleId;
-      this.userId = this.tokenStorage.getUser().userId;
+      this.roleId = this.tokenStorage.getUser().roleId;      
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
     }
@@ -90,9 +107,9 @@ export class SignupuserComponent {
     GetMerchantName(merchantCode:any)
     {
       debugger
-      this.merchantCode = 'M1110002';
       this.appService.getById("api/Merchant/GetMarchantByCode/",merchantCode).subscribe(data => {
         console.log(data);
+       this.merchantName = data.responseData.organizationName;
       });
     }
   
@@ -147,18 +164,16 @@ export class SignupuserComponent {
     }
   
     public submit() {
-     
       this.submitted = true;   
-      
     }
   
     //create new user
-    public createUser(formData: signupMerchant) {
+    public createUser(formData: Signupuser) {
       debugger;
-      let AdduserModel: signupMerchant = formData;  
+      let AdduserModel: Signupuser = formData;  
   
       const userForOtp: UserForOtp = {
-        email: AdduserModel.email,
+        email: "",
         phoneNumber: AdduserModel.phoneNumber,
         emailOTP :'',
         phoneNumberOTP: '',
@@ -167,7 +182,7 @@ export class SignupuserComponent {
   
         if(this.uploadForm.valid)
         {
-        this.appService.Add('api/Merchant/SendOTP',userForOtp)
+        this.appService.Add('api/User/UserVerification',userForOtp)
         .pipe(
           catchError((error) => {          
             return throwError(error); // Throw the error to propagate it further
@@ -183,11 +198,10 @@ export class SignupuserComponent {
                   current : false,
                   next : true
                 }
-                if (res.responseData.phoneNumberOTP != undefined ||
-                  res.responseData.emailOTP != undefined ) {      
+                if (res.responseData.phoneNumberOTP != undefined 
+                 ) {      
     
-                  this.tokenStorage.SavePhoneOtp(res.responseData.phoneNumberOTP);
-                  this.tokenStorage.SaveEmailOtp(res.responseData.emailOTP);
+                  this.tokenStorage.SaveUSerPhoneOtp(res.responseData.phoneNumberOTP);
                   
                 }
                 break;
@@ -245,39 +259,49 @@ export class SignupuserComponent {
       }  
     } 
   
-    SubmitForm(formData: UserForOtp)
+    SubmitForm(formDdt: UserForOtp)
     {
-      let AdduserOtpModel: UserForOtp = formData;
+      debugger;
+      let AdduserOtpModel: UserForOtp = formDdt;
       let addUserDeatil = this.tokenStorage.getUser();   
-      let AddMerchantDtail=   this.tokenStorage.getMerchant();
-      AddMerchantDtail.posInfo.posid = 0;
-      AddMerchantDtail.posInfo.merchantId = 0;    
-      AddMerchantDtail.isEmailValidate = 1;
-      AddMerchantDtail.isPhoneNumberValidate = 1;
-      AddMerchantDtail.createdBy = addUserDeatil.adminID;
-      AddMerchantDtail.modifyBy = 0;
-      AddMerchantDtail.createdDate = new Date();
-      AddMerchantDtail.modifyDate = new Date();
-      AddMerchantDtail.merchantId = 0;
+      let AddUsertDtail=   this.tokenStorage.getMerchant();   
+     
+      AddUsertDtail.merchantCode = this.merchantCode;
+       AddUsertDtail.isPhoneNumberValidate = 0;
+      AddUsertDtail.createdBy = 0;
+      AddUsertDtail.modifyBy = 0;
+      AddUsertDtail.createdDate = new Date();
+      AddUsertDtail.modifyDate = new Date();
+       AddUsertDtail.merchantID = 28;
+      // AddUsertDtail.referCode ="";
+       AddUsertDtail.referBy=0;
+       AddUsertDtail.rewardPoint=0;
+      AddUsertDtail.customerID=0;
+      AddUsertDtail.customerCode ="";
+      // AddUsertDtail.recStatus ="";
+      // AddUsertDtail.approvalStatus=""
+       AddUsertDtail.stopMessage =0;
+      //stopMessage
+    
       
-      AddMerchantDtail.merchantCode="M1110002";
-      this.prvopt = this.tokenStorage.getPhoneNOOtp();
-      this.prvemailopt = this.tokenStorage.getEmailOtp();
-  
-      if(formData.phoneNumberOTP == this.prvopt || formData.emailOTP == this.prvemailopt)
+      this.prvopt = this.tokenStorage.getUserPhoneNoOtp();
+      
+      if(formDdt.phoneNumberOTP == this.prvopt )
       {      
-         console.log(AddMerchantDtail);
-        this.appService.Add('api/Merchant/AddMerchant', AddMerchantDtail).subscribe((data: any) => {
+         console.log(AddUsertDtail);
+        this.appService.Add('api/User/AddCustomer', AddUsertDtail).subscribe((data: any) => {
           let statuscode : number = data.responseStatusCode;
           switch(statuscode)
           {
             case 200:
-              alert("SMerchant Added Successfully.")
+              alert("User Added Successfully.")
+             
+              this.router.navigate(['/dashboards/dashboard'], { relativeTo: this.route });
+   
               break;
               case 212 :
                 alert("Something Went wrong");
-                break;
-                
+                break;                
               case  500 : 
                 alert("Error Status ")
                 break;

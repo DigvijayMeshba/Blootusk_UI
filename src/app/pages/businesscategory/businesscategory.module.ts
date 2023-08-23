@@ -25,6 +25,7 @@ import { BusinesscategoryeditComponent } from './businesscategoryedit/businessca
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule
     
   ],
   exports: [RouterModule]

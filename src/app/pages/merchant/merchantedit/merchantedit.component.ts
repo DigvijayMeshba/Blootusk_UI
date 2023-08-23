@@ -27,12 +27,16 @@ export class MerchanteditComponent {
 
   activeTab = 1;
   uploadForm!:FormGroup;  
+  remarkForm!:FormGroup;
   isLoggedIn = false;
   userId: string | any;
   merchantId:string| any;
   public roleId: any;
   submitted = false;
   fieldTextType1!: boolean;
+  StateLists: any[] = [];
+  CatagoryLists: any[] = [];  
+  CountryLists: any[] = []; 
   
   remark!:string;
   toggleFieldTextType1() {
@@ -54,6 +58,12 @@ export class MerchanteditComponent {
   get f() { return this.uploadForm.controls; }
 
   ngOnInit(): void {
+    this.merchantId = this.route.snapshot.params['id'];
+    this.GetCountryList();
+    this.getCatagoryList(); 
+    this.GetStateList();
+    this.getMerchantbyId(this.merchantId);
+   
   this.uploadForm = new FormGroup({
      
       merchantCode: new FormControl('', []),
@@ -63,11 +73,16 @@ export class MerchanteditComponent {
       password: new FormControl('', [Validators.required, Validators.maxLength(10)]),
       contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]),     
       posInfo : new FormGroup({
-        posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        posname: new FormControl('', [Validators.required, Validators.minLength(3)]),
         categoryId: new FormControl('', []),
         posAddress: new FormControl('', []),
         zip: new FormControl('', []),
         state: new FormControl('', []),
+        countryName: new FormControl('', []),
+        stateName: new FormControl('', []),
+        categoryName: new FormControl('', []),
+        countryId :new FormControl('', []),
+        stateId :new FormControl('', []),
         country: new FormControl('', []),
         posid:new FormControl('', []),
         merchantId:new FormControl('', []),
@@ -87,7 +102,8 @@ export class MerchanteditComponent {
         createdDate: new FormControl('', []),
         modifyBy: new FormControl('', []),
         modifyDate: new FormControl('', []),
-        phoneNumberOTP: new FormControl('',[]),    
+        phoneNumberOTP: new FormControl('',[]), 
+       
     });
 
    if (this.tokenStorage.getToken()) {
@@ -97,7 +113,38 @@ export class MerchanteditComponent {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
   }
+
+  this.remarkForm =new FormGroup({
+    remark: new FormControl('', []),  
+    merchantID: new FormControl('', []),  
+    approvalStatus: new FormControl('', []),  
+    remarkDate: new FormControl('', []),  
+  });
     
+  }
+
+  getCatagoryList() {
+    this.appService.GetAll("api/CategoryMaster/GetCategoryDDL").subscribe(
+    (x: any) => {
+      this.CatagoryLists = x.responseData;
+      console.log(x.responseData);
+    });
+  }
+  
+   GetCountryList() {
+    this.appService.GetAll("api/Merchant/GetCountryDDL").subscribe(
+      (x: any) => {
+        this.CountryLists = x.responseData;
+        console.log(x.responseData);
+      });
+  }
+
+   GetStateList()
+  {
+    this.appService.GetAll("api/Merchant/GetStateDDL").subscribe(
+      (data:any) => {
+      this.StateLists = data.responseData;
+    });
   }
 
   public validateControl = (controlName: string) => {
@@ -115,8 +162,6 @@ export class MerchanteditComponent {
   }
   openModal(content: any) {
     this.modalService.open(content, { size: 'lg' });
-   
-
   }
 
   blockSpaces(event: KeyboardEvent) {
@@ -157,7 +202,7 @@ public submit() {
 
 successmsg() {
   Swal.fire({
-    title: 'Merchant UPdated Successfully',
+    title: 'Merchant Updated Successfully',
     icon: 'success',
     // showCancelButton: true,
     confirmButtonColor: '#364574',
@@ -167,61 +212,73 @@ successmsg() {
 }
 
 public getMerchantbyId(merchantId: any) {
-  debugger;
-  merchantId =3;
+ 
   if (merchantId > 0) {
-    this.appService.getById("api/Merchant/GetMerchantById/", merchantId).pipe(
-      catchError((error)=>{
-      return throwError(error);
-    }))    
-    .subscribe(data => {
-
+    this.appService.getByIdMerchant("api/Merchant/GetMerchantById/", merchantId).subscribe(data => {     
+   
       console.log(data.responseData)
-      // this.uploadForm.controls['merchantId'].setValue(data.merchantId);
-      // this.uploadForm.controls['merchantCode'].setValue(data.merchantCode);
-      // this.uploadForm.controls['phoneNumber'].setValue(data.phoneNumber);
-      // this.uploadForm.controls['email'].setValue(data.email);
-      // this.uploadForm.controls['password'].setValue(data.password);
-      // this.uploadForm.controls['organizationName'].setValue(data.organizationName);
-      // this.uploadForm.controls['contactPersonName'].setValue(data.contactPersonName);
-      // this.uploadForm.controls['deviceId'].setValue(data.deviceId);
-      // this.uploadForm.controls['deviceOs'].setValue(data.deviceOs);
-      // this.uploadForm.controls['token'].setValue(data.token);
-      // this.uploadForm.controls['isPhoneNumberValidate: true'].setValue(data.isPhoneNumberValidate);
-      // this.uploadForm.controls['isEmailValidate: true'].setValue(data.isEmailValidate);
-      // this.uploadForm.controls['approvalStatus'].setValue(data.approvalStatus);
-      // this.uploadForm.controls['recStatus'].setValue(data.recStatus);
-      // this.uploadForm.controls['remark'].setValue(data.remark);
-      // this.uploadForm.controls['posname'].setValue(data.posInfo.posname);
-    
+
+      this.uploadForm.patchValue({
+        phoneNumber: data.responseData.phoneNumber,
+        email: data.responseData.email,
+        password: data.responseData.password,
+        organizationName: data.responseData.organizationName,
+        contactPersonName: data.responseData.contactPersonName,           
+        posInfo:{
+          posid: data.responseData.posInfo.posid,
+          zip: data.responseData.posInfo.zip,        
+          merchantId: data.responseData.posInfo.merchantId,           
+          poscode: data.responseData.posInfo.poscode,    
+          countryName:data.responseData.posInfo.countryName,    
+          stateName: data.responseData.posInfo.stateName,    
+          categoryName: data.responseData.posInfo.categoryName,    
+          latitude: data.responseData.posInfo.latitude,    
+          longitude: data.responseData.posInfo.longitude,    
+          posAddress: data.responseData.posInfo.posaddress,
+          posname: data.responseData.posInfo.posname,
+          stateId: data.responseData.posInfo.stateId,
+          countryId: data.responseData.posInfo.countryId,
+          categoryId: data.responseData.posInfo.categoryId,
+        },
+        createdBy: data.responseData.createdBy,
+        createdDate:data.responseData.createdDate,
+        modifyBy:data.responseData.modifyBy,
+        modifyDate: data.responseData.modifyDate,  
+      });
+
 
     });
   }
 }
 
 //create Remark 
-AddRemark()
+AddRemark(formDt: remarkHistory)
 {
   debugger;
-  let AddRemarkModel: remarkHistory = {
-    "remarkID": 0 ,
-    "remark": this.remark, 
-    "merchantID": 0, 
-    "approvalStatus" :' ',
-    "remarkDate": new Date()
+  let AddRemarkModel: remarkHistory = formDt;  
+  
+  const remarkdetail = { ...formDt };   
+  remarkdetail.merchantID = this.merchantId;
+  remarkdetail.remarkDate = new Date();
+  const addremarks: remarkHistory = {
+    remark: remarkdetail.remark,
+    remarkID: remarkdetail.merchantID,            
+     merchantID: this.merchantId,
+        approvalStatus: "",
+     remarkDate:  remarkdetail.remarkDate, 
+    
   }
-  this.appService.Add('api/Merchant/AddMerchantRemark', AddRemarkModel).subscribe((data: any) => {
+  this.appService.Add('api/Merchant/AddMerchantRemark', remarkdetail).subscribe((data: any) => {
     debugger
-    console.log("dataaaaaaaaaaaaaa", data)
-
-    if (data.message == "User Added Successfully.") {
-      this.successmsg()
-      this.router.navigate(['../userlist'], { relativeTo: this.route });
+  
+    console.log(data.responseData)
+    if (data.responseData == 200) {
+     
+      alert("Remark added")
+      this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });    
     }
 
-    else {
-      alert("Something Went wrong")
-    }
+   
 
   },);
 }
@@ -229,11 +286,23 @@ AddRemark()
 
   public updateMerchant(formData: editMerchant) {
     debugger;
-    let AdduserModel: editMerchant = formData;  
-
-    AdduserModel.merchantCode = "123";     
+    let AddMerchantModel: editMerchant = formData;  
+       AddMerchantModel.merchantId = this.merchantId,
+       AddMerchantModel.posInfo.merchantId = this.merchantId,
+       AddMerchantModel.isEmailValidate = 1;
+       AddMerchantModel.isPhoneNumberValidate = 1;
+       AddMerchantModel.posInfo.posid = 0,
+       AddMerchantModel.createdBy = this.userId;
+       AddMerchantModel.modifyBy = 0;
+       AddMerchantModel.createdDate = new Date(); 
+       AddMerchantModel.modifyDate = new Date();
        
-        this.appService.Add('api/Merchant/AddMerchant', AdduserModel)
+       AddMerchantModel.posInfo.stateName = "";
+       AddMerchantModel.posInfo.categoryName = "";
+       AddMerchantModel.posInfo.countryName = "";
+     
+    console.log(AddMerchantModel);
+         this.appService.Add('api/Merchant/EditMerchant', AddMerchantModel)
         .pipe(
           catchError((error) => {          
             return throwError(error); // Throw the error to propagate it further

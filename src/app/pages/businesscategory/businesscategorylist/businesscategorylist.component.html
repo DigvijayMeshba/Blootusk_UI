@@ -45,7 +45,7 @@
                                     <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Reward Points</label>
-                                            <input type="text" class="form-control" placeholder="Enter Reward Points">
+                                            <input type="text" formControlName="rewardPoint" class="form-control" formc placeholder="Enter Reward Points">
                                         </div>
                                     </div>
 
@@ -73,7 +73,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let object of getPageData()">
+                                    <tr *ngFor="let object of BusinesscategoryList">
                                         
                                         <td>{{object.categoryName}}</td>
                                         <td>{{object.rewardPoint}}</td>
@@ -83,7 +83,7 @@
                                             <!-- <button routerLink="../businesscategoryadd" type="button" class="btn btn-info ms-auto"> <i class="ri-add-fill cardicon label-icon align-middle"></i>Add</button>
                     -->
                                             <div class="gap-3">
-                                                <a routerLink="'../businesscategoryedit',object.categoryId"class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                                <a [routerLink]="['/businesscategory/businesscategoryedit', object.categoryId]" class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
                                                 &nbsp;&nbsp;
                                                 <a (click)="deleterecord(object)"  class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
                                             </div>
