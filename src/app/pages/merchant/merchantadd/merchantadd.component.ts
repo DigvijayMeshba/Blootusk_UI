@@ -66,8 +66,7 @@ export class MerchantaddComponent {
     private router: Router,)
    {
    
-   
-  }
+   }
 
    ngOnInit(): void {
     let addUserDeatil = this.tokenStorage.getUser();    
@@ -228,6 +227,7 @@ export class MerchantaddComponent {
       AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
       AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
       AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
+      AddMerchantModel.password="123456"
       console.log(AddMerchantModel);
         this.appService.Add('api/Merchant/AddMerchant', AddMerchantModel)      
         .pipe(

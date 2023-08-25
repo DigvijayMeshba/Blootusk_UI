@@ -220,7 +220,13 @@
                                                                 <label for="basiInput" class="form-label">Status </label>
                                                                 <select class="form-select" aria-label="Default select example">
                                                                     <option hidden value="" disabled selected>Select Status</option>
-                                                                    <option>Data</option>
+                                                                    <option>New</option>
+                                                                    <option>Inprogress</option>
+                                                                    <option>Verfied</option>
+                                                                    <option>Rejected</option>
+
+
+                                                                    
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -250,11 +256,11 @@
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            <!-- <tr *ngFor="let object of getRemarkData()">
-                                                                                <td>{{object.Date}}</td>
-                                                                                <td>{{object.Status}}</td>
-                                                                                <td>{{object.Remarks}}</td>
-                                                                            </tr> -->
+                                                                            <tr *ngFor="let object of RemarkList">
+                                                                                <td>{{object.remarkDate | date:'dd/MM/yyyy'}}</td>
+                                                                                <td>{{object.approvalStatus}}</td>
+                                                                                <td>{{object.remark}}</td>
+                                                                            </tr>
                                                                         </tbody>
                                                                     </table>
                                                                 </div>

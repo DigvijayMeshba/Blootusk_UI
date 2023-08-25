@@ -100,7 +100,6 @@
                                                 <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
                                                         formControlName="contactPersonName" required minlength="3"
                                                         [ngClass]="{ 'is-invalid': submitted && f['contactPersonName'].errors }"
-                                                       
                                                         placeholder="Enter Contact Person Name">
                                                     <!-- <div *ngIf="submitted && f['contactPersonName'].errors" class="invalid-feedback">
                                                         <div *ngIf="f['contactPersonName'].errors['required']">Contact Person Name is required</div>

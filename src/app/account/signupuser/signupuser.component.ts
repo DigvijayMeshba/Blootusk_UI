@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
@@ -8,13 +8,14 @@ import { catchError, throwError } from 'rxjs';
 import { Signupuser, UserForOtp } from './signupuser';
 
 
+
 @Component({
   selector: 'app-signupuser',
   templateUrl: './signupuser.component.html',
   styleUrls: ['./signupuser.component.scss']
 })
 export class SignupuserComponent {
-
+  
   selectedAccount = 'Select';
   Default = [
     { name: 'Data 1' },
@@ -25,7 +26,8 @@ export class SignupuserComponent {
     current : true, 
     next : false
   }
-
+  reCAPTCHAToken: string = "";
+  tokenVisible: boolean = false;
     CatagoryList: any[] = []; 
      StateList: any[] = [];
      CountryList: any[] = [];    
@@ -54,11 +56,13 @@ export class SignupuserComponent {
     public roleId: any;
     prvopt :any;
     prvemailopt:any;
+    captchaResponse!: string;
     merchantName!:string;
+    isCaptchaVerified = false;
   
     constructor(public formBuilder: FormBuilder,public appService: AppService,
       private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-      private router: Router,)
+      private router: Router)
      {
         
      }
@@ -74,7 +78,6 @@ export class SignupuserComponent {
         name: new FormControl('', [Validators.required, Validators.minLength(3)]),
         phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
         isPhoneNumberValidate:new FormControl('', []),
-        
         merchantID: new FormControl('', []),
         referCode : new FormControl('', []),
         referBy: new FormControl('', []),
@@ -85,13 +88,10 @@ export class SignupuserComponent {
       }),
       this.Otporm =new FormGroup({
         phoneNumber: new FormControl('', []),
-  emailOTP: new FormControl('', []),
+        emailOTP: new FormControl('', []),
         phoneNumberOTP : new FormControl('', []),
          email: new FormControl('', []),
-
-      }
-       
-      );
+      });
   
      if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
@@ -99,8 +99,7 @@ export class SignupuserComponent {
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.router.onSameUrlNavigation = 'reload';
     }
-      
-    }
+  }
     
     get f() { return this.uploadForm.controls; }
   
@@ -164,12 +163,21 @@ export class SignupuserComponent {
     }
   
     public submit() {
+      
       this.submitted = true;   
     }
-  
+    onCaptchaVerificationSuccess() {
+      this.isCaptchaVerified = true;
+    }
     //create new user
     public createUser(formData: Signupuser) {
-      debugger;
+
+      if (this.isCaptchaVerified) {
+        // Perform signup form submission
+        console.log('Form submitted successfully!');
+      } else {
+        console.log('CAPTCHA verification failed');
+      }
       let AdduserModel: Signupuser = formData;  
   
       const userForOtp: UserForOtp = {
@@ -261,6 +269,8 @@ export class SignupuserComponent {
   
     SubmitForm(formDdt: UserForOtp)
     {
+
+    
       debugger;
       let AdduserOtpModel: UserForOtp = formDdt;
       let addUserDeatil = this.tokenStorage.getUser();   

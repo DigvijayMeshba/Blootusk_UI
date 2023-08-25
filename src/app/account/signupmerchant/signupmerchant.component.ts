@@ -10,6 +10,7 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
 import { data } from 'jquery';
 import { Observable, catchError, throwError } from 'rxjs';
 import Validation from '../matchpassword.validator';
+import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
 
 
@@ -64,12 +65,21 @@ export class SignupmerchantComponent {
 
   constructor(public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-    private router: Router,)
+    private router: Router,private EncrDecr: EncrDecrServiceService)
    {
       
    }
 
    ngOnInit(): void {
+
+//adding form encr/Decr 
+debugger;
+var encrypted = this.EncrDecr.set('12$#@BLOO$^@TUSK', 'M1110001');
+var decrypted = this.EncrDecr.get('12$#@BLOO$^@TUSK', encrypted);
+
+console.log('Encrypted :' + encrypted);
+console.log('Decrypted :' + decrypted);
+
     debugger;
 
     let addUserDeatil = this.tokenStorage.getUser();
@@ -274,7 +284,12 @@ export class SignupmerchantComponent {
                 break;
                 
               case 601 :
-                  alert("Phone Number is Duplicate")
+                Swal.fire({
+                  title:'Duplication Error',
+                  text: 'Phone Number is Duplicate.',
+                  icon: 'success',
+                  confirmButtonColor: '#364574'
+                });
                   this.showDiv = {
                     current : true,
                     next : false
@@ -282,7 +297,12 @@ export class SignupmerchantComponent {
                 break;
                 
               case 602:
-                alert("Duplicate Email")
+                Swal.fire({
+                  title:'Duplication Error',
+                  text: 'Duplicate Email.',
+                  icon: 'success',
+                  confirmButtonColor: '#364574'
+                });
                 this.showDiv = {
                   current : true,
                   next : false
@@ -290,7 +310,13 @@ export class SignupmerchantComponent {
                 break;
              
               case 603:
-                  alert("Duplicate Category Status ")  
+                Swal.fire({
+                  title:'Duplication Error',
+                  text: 'Duplicate Category Status.',
+                  icon: 'success',
+                  confirmButtonColor: '#364574'
+                });
+                 // alert("Duplicate Category Status ")  
                   this.showDiv = {
                     current : true,
                     next : false
@@ -336,7 +362,7 @@ export class SignupmerchantComponent {
     this.prvopt = this.tokenStorage.getPhoneNOOtp();
     this.prvemailopt = this.tokenStorage.getEmailOtp();
 
-    if(formData.phoneNumberOTP == this.prvopt || formData.emailOTP == this.prvemailopt)
+    if(formData.phoneNumberOTP == this.prvopt && formData.emailOTP == this.prvemailopt)
     {      
        console.log(AddMerchantDtail);
       this.appService.Add('api/Merchant/AddMerchant', AddMerchantDtail).subscribe((data: any) => {

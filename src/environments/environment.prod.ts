@@ -3,7 +3,8 @@ export const environment = {
   url:'',
 
   //uncomment while publish
-  urlAddress: 'http://csapi.meshbagroup.com',
+  urlAddress: 'http://34.66.214.227',
+  
 
   defaultauth: 'fackbackend',
   firebaseConfig: {

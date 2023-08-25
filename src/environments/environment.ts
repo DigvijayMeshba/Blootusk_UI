@@ -4,11 +4,9 @@
 
 export const environment = {
   production: false,
-
   url: '',
 
-  //comment while publish
-  // urlAddress: 'https://localhost:5001',34.66.214.227/api/Authenticate/AdminLogin
+  
 
   //Uncomment while publish
   urlAddress: 'http://34.66.214.227',

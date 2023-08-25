@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 //Wizard
@@ -29,6 +30,10 @@ import { SignupuserComponent } from './signupuser/signupuser.component';
 import { SignupmerchantComponent } from './signupmerchant/signupmerchant.component';
 import { OptverifyComponent } from './optverify/optverify.component';
 
+import { ImageCaptchaComponent } from './image-captcha/image-captcha.component';
+
+
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -37,6 +42,7 @@ import { OptverifyComponent } from './optverify/optverify.component';
     SignupuserComponent,
     SignupmerchantComponent,
     OptverifyComponent,
+    ImageCaptchaComponent,
   ],
   imports: [
     CommonModule,
@@ -51,7 +57,8 @@ import { OptverifyComponent } from './optverify/optverify.component';
     SharedModule,
     NgxPaginationModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+ 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

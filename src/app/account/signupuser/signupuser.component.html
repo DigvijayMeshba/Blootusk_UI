@@ -107,8 +107,12 @@
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <div class="text-center gap-2 mt-2">
+
+                                                        <app-image-captcha></app-image-captcha>
                                                         <button type="submit" class="btn btn-primary" ><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
                                                     </div>
+
+                                                  
                                                 </div>
                                             </div>
                                        
@@ -148,8 +152,13 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="text-center gap-2 mt-2">
+                                                <div class="g-recaptcha" data-sitekey="6Lcrm84nAAAAAC7WUu1W_idnIbROE0oSNPit5HSr"></div>
                                                 <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
                                             </div>
+
+                                            <div *ngIf="tokenVisible"> reCAPTCHA Token <br />
+                                                <p style="color: red">{{reCAPTCHAToken}}</p>
+                                              </div>
                                         </div>
                                     </div>
                                 </div>

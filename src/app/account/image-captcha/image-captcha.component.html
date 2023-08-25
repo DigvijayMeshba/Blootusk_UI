@@ -1,0 +1,21 @@
+<div class="captcha-container col-md-12 ">
+    <p>Enter the text shown below:</p>
+    <h2>{{ generatedText }}</h2>
+
+<div class="row">
+
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-6">
+        <input type="text" class="form-control "  [(ngModel)]="userText" placeholder="Enter the text" />
+      
+        <button class="btn btn-primary mt-2 mb-2" (click)="verifyCaptcha()">Verify</button>    
+    </div>
+    <div class="col-md-3">
+
+    </div>
+   </div>
+
+    <div *ngIf="isVerified" class="success">{{capchatext}}</div>
+ </div>

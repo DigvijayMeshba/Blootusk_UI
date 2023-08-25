@@ -3,6 +3,7 @@ import { AppService } from 'src/app/app.service';
 import Swal from 'sweetalert2';
 import { listMerchant } from '../merchant';
 import { catchError, pipe, throwError } from 'rxjs';
+import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
 @Component({
   selector: 'app-merchantlist',
@@ -10,7 +11,6 @@ import { catchError, pipe, throwError } from 'rxjs';
   styleUrls: ['./merchantlist.component.scss']
 })
 export class MerchantlistComponent {
-
 
     public MerchantList: any = [];
     public NewUserList: any = [];
@@ -23,7 +23,7 @@ export class MerchantlistComponent {
     approvalStatus:string;
     
   
-    constructor(public appService: AppService) {
+    constructor(public appService: AppService,private EncrDecr: EncrDecrServiceService) {
 
       this.merchnatCode ='';
       this.merchnatName = '';
@@ -31,9 +31,7 @@ export class MerchantlistComponent {
       this.approvalStatus = '';
      }
   
-    ngOnInit(): void {      
-
-    
+    ngOnInit(): void {          
    //   this.GetAllUserList();
     }
   
@@ -49,6 +47,8 @@ export class MerchantlistComponent {
     }   
     console.log(edituserModel);
     debugger;
+    //var encrypted = this.EncrDecr.set('123456$#@$^@1ERF', 'M1110001');
+       edituserModel.merchantPhoneNumber = this.EncrDecr.set('123456$#@$^@1ERF', edituserModel.merchantPhoneNumber);
           this.appService.GetAllList("api/Merchant/GetAllMerchant",edituserModel)
             .pipe(
               catchError((error) => {          

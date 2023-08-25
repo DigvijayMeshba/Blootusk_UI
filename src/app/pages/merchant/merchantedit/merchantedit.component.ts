@@ -8,6 +8,7 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
 import Swal from 'sweetalert2';
 import { editMerchant, remarkHistory } from '../merchant';
 import { catchError, throwError } from 'rxjs';
+import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
 @Component({
   selector: 'app-merchantedit',
@@ -23,7 +24,7 @@ export class MerchanteditComponent {
 
   constructor(private modalService: NgbModal,public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-    private router: Router,) { }
+    private router: Router,private EncrDecr: EncrDecrServiceService) { }
 
   activeTab = 1;
   uploadForm!:FormGroup;  
@@ -37,6 +38,7 @@ export class MerchanteditComponent {
   StateLists: any[] = [];
   CatagoryLists: any[] = [];  
   CountryLists: any[] = []; 
+  public RemarkList: any = [];
   
   remark!:string;
   toggleFieldTextType1() {
@@ -52,7 +54,8 @@ export class MerchanteditComponent {
  
   getRemarkData()
   {
-    this.appService.getById("api/Merchant/GetRemarkHistory",this.merchantId).subscribe(data => {      
+    this.appService.getById("api/Merchant/GetRemarkHistory/",this.merchantId).subscribe(data => {  
+      this.RemarkList = data.responseData;
     });
   }
   get f() { return this.uploadForm.controls; }
@@ -162,6 +165,8 @@ export class MerchanteditComponent {
   }
   openModal(content: any) {
     this.modalService.open(content, { size: 'lg' });
+    this.getRemarkData();
+  
   }
 
   blockSpaces(event: KeyboardEvent) {
@@ -190,10 +195,8 @@ keyPressOnlynum(event: any) {
   }
 }
 
-public submit() {
- 
-  this.submitted = true;
-  
+public submit() { 
+  this.submitted = true;  
   // if (userObject.userId == "") {
   //   this.createMerchant(userObject);
   // }      
@@ -214,13 +217,14 @@ successmsg() {
 public getMerchantbyId(merchantId: any) {
  
   if (merchantId > 0) {
-    this.appService.getByIdMerchant("api/Merchant/GetMerchantById/", merchantId).subscribe(data => {     
+    this.appService.getById("api/Merchant/GetMerchantById/", merchantId).subscribe(data => {     
    
       console.log(data.responseData)
 
       this.uploadForm.patchValue({
-        phoneNumber: data.responseData.phoneNumber,
-        email: data.responseData.email,
+        phoneNumber: this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 
+        email: this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email),
+
         password: data.responseData.password,
         organizationName: data.responseData.organizationName,
         contactPersonName: data.responseData.contactPersonName,           
@@ -245,8 +249,6 @@ public getMerchantbyId(merchantId: any) {
         modifyBy:data.responseData.modifyBy,
         modifyDate: data.responseData.modifyDate,  
       });
-
-
     });
   }
 }
@@ -269,17 +271,19 @@ AddRemark(formDt: remarkHistory)
     
   }
   this.appService.Add('api/Merchant/AddMerchantRemark', remarkdetail).subscribe((data: any) => {
-    debugger
-  
-    console.log(data.responseData)
-    if (data.responseData == 200) {
-     
-      alert("Remark added")
-      this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });    
-    }
-
+    debugger  
    
-
+    if (data.responseData == 200) {    
+      
+      Swal.fire({
+        title:'Remark added',
+        text: 'Phone Number is Duplicate.',
+        icon: 'success',
+        confirmButtonColor: '#364574'
+      });
+  
+      this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });    
+    }   
   },);
 }
 
@@ -315,7 +319,13 @@ AddRemark(formDt: remarkHistory)
             if(res.responseStatusCode == 200)
             {
              
-              alert("Merchant Update successfully")
+              Swal.fire({
+                title:'Merchant Update successfully',
+                text: 'Phone Number is Duplicate.',
+                icon: 'success',
+                confirmButtonColor: '#364574'
+              });
+            
             }
             else if(res.responseStatusCode == 212)
             {

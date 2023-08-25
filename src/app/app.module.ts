@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
-
 // Auth
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -31,6 +30,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AppService } from 'src/app/app.service';
 
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { APP_BASE_HREF } from '@angular/common';
+import { EncrDecrServiceService } from './encr-decr-service.service';
+
 
 
 export function createTranslateLoader(http: HttpClient): any {
@@ -46,6 +48,7 @@ if (environment.defaultauth === 'firebase') {
 @NgModule({
   declarations: [
     AppComponent,
+    
   ],
   imports: [
     TranslateModule.forRoot({
@@ -66,12 +69,18 @@ if (environment.defaultauth === 'firebase') {
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
-    FlatpickrModule
+    FlatpickrModule,
+   
+    
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
+    
+    {provide: APP_BASE_HREF, useValue: 'UI'},
+    EncrDecrServiceService,
+   
     AppService
   ],
   bootstrap: [AppComponent]
