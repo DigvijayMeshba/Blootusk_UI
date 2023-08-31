@@ -26,12 +26,11 @@ export interface addMerchant
           zip: string;
           stateId :number;         
           countryId: number;
-          countryName:string;
-          
+          countryName:string;          
           stateName: string;
           categoryName: string;
           latitude: string;
-          longitude: string
+          longitude: string;
         }
         createdBy: number;
         createdDate:Date;
@@ -94,4 +93,10 @@ export interface editMerchant
         merchantID: number,
         approvalStatus: string,
         remarkDate: Date
+  }
+
+  export enum Status {
+    New,
+    Rejected,
+    Verified,
   }

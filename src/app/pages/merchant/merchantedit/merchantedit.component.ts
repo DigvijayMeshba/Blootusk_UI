@@ -6,7 +6,7 @@ import { AppService } from 'src/app/app.service';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import Swal from 'sweetalert2';
-import { editMerchant, remarkHistory } from '../merchant';
+import { Status, editMerchant, remarkHistory } from '../merchant';
 import { catchError, throwError } from 'rxjs';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
@@ -34,12 +34,22 @@ export class MerchanteditComponent {
   merchantId:string| any;
   public roleId: any;
   submitted = false;
-  fieldTextType1!: boolean;
+  fieldTextType1!: boolean; 
   StateLists: any[] = [];
   CatagoryLists: any[] = [];  
   CountryLists: any[] = []; 
   public RemarkList: any = [];
   
+  approvstatus!:string;
+  
+  statusLists = [   
+    { name: 'New', id:'N' },
+    { name: 'In Progress', id:'I' },
+    { name: 'Verified', id:'V' },   
+    { name: 'Rejected' , id:'R' },
+  ];
+
+
   remark!:string;
   toggleFieldTextType1() {
     this.fieldTextType1 = !this.fieldTextType1;
@@ -56,11 +66,13 @@ export class MerchanteditComponent {
   {
     this.appService.getById("api/Merchant/GetRemarkHistory/",this.merchantId).subscribe(data => {  
       this.RemarkList = data.responseData;
+      console.log( data.responseData)
     });
   }
   get f() { return this.uploadForm.controls; }
 
   ngOnInit(): void {
+    console.log(this.statusLists);
     this.merchantId = this.route.snapshot.params['id'];
     this.GetCountryList();
     this.getCatagoryList(); 
@@ -73,19 +85,19 @@ export class MerchanteditComponent {
       organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]),     
       posInfo : new FormGroup({
         posname: new FormControl('', [Validators.required, Validators.minLength(3)]),
-        categoryId: new FormControl('', []),
-        posAddress: new FormControl('', []),
-        zip: new FormControl('', []),
+        categoryId: new FormControl('', [Validators.required]),
+        posAddress: new FormControl('',[ Validators.required, Validators.minLength(6)]),
+        zip: new FormControl('', [Validators.required, Validators.minLength(6)]),
+        stateId: new FormControl('', [Validators.required]),
+        countryId: new FormControl('', [Validators.required]),       
         state: new FormControl('', []),
         countryName: new FormControl('', []),
         stateName: new FormControl('', []),
         categoryName: new FormControl('', []),
-        countryId :new FormControl('', []),
-        stateId :new FormControl('', []),
         country: new FormControl('', []),
         posid:new FormControl('', []),
         merchantId:new FormControl('', []),
@@ -175,15 +187,26 @@ export class MerchanteditComponent {
     }
   }
 
+   allowOnlySpaces(event:any) {
+    if (event.key !== ' ' && !/^[a-zA-Z]*$/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+//Validation for only enter Character
   keyPressOnlyChar(event: any) {
     var inp = String.fromCharCode(event.keyCode);
-    if (/[a-zA-Z]/.test(inp)) {
+    if (/[a-zA-Z]/.test(inp) ) {
       return true;
     } else {
       event.preventDefault();
       return false;
     }
   }
+
+ 
+
+
 //Validation for only enter number
 keyPressOnlynum(event: any) {
   var inp = String.fromCharCode(event.keyCode);
@@ -197,10 +220,7 @@ keyPressOnlynum(event: any) {
 
 public submit() { 
   this.submitted = true;  
-  // if (userObject.userId == "") {
-  //   this.createMerchant(userObject);
-  // }      
- 
+  
 }
 
 successmsg() {
@@ -222,10 +242,13 @@ public getMerchantbyId(merchantId: any) {
       console.log(data.responseData)
 
       this.uploadForm.patchValue({
-        phoneNumber: this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 
-        email: this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email),
 
-        password: data.responseData.password,
+        phoneNumber: this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 
+         email: this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email),
+
+        //phoneNumber:data.responseData.phoneNumber,
+        //email:data.responseData.email,
+        password: this.EncrDecr.get('12$#@BLOO$^@TUSK',data.responseData.password),
         organizationName: data.responseData.organizationName,
         contactPersonName: data.responseData.contactPersonName,           
         posInfo:{
@@ -248,6 +271,7 @@ public getMerchantbyId(merchantId: any) {
         createdDate:data.responseData.createdDate,
         modifyBy:data.responseData.modifyBy,
         modifyDate: data.responseData.modifyDate,  
+        approvalStatus : data.responseData.approvalStatus
       });
     });
   }
@@ -258,36 +282,65 @@ AddRemark(formDt: remarkHistory)
 {
   debugger;
   let AddRemarkModel: remarkHistory = formDt;  
+
+  if(this.approvstatus == 'N')
+  {
+    this.approvstatus = 'New';
+  }
+  else if(this.approvstatus == 'I')
+  {
+    this.approvstatus = 'In Progress';
+  }
+ else if(this.approvstatus == 'V')
+  {
+    this.approvstatus = 'Verified';
+  }
+  else(this.approvstatus == 'R')
+  {
+    this.approvstatus = 'Rejected';
+  }
   
   const remarkdetail = { ...formDt };   
-  remarkdetail.merchantID = this.merchantId;
   remarkdetail.remarkDate = new Date();
+  remarkdetail.merchantID = this.merchantId;
+  remarkdetail.approvalStatus = this.approvstatus;
+  
   const addremarks: remarkHistory = {
     remark: remarkdetail.remark,
-    remarkID: remarkdetail.merchantID,            
-     merchantID: this.merchantId,
-        approvalStatus: "",
-     remarkDate:  remarkdetail.remarkDate, 
-    
+    remarkID: 0,            
+    merchantID: this.merchantId,
+    approvalStatus: this.approvstatus,
+    remarkDate:  remarkdetail.remarkDate,     
   }
+
+  console.log(remarkdetail);
+  debugger;
   this.appService.Add('api/Merchant/AddMerchantRemark', remarkdetail).subscribe((data: any) => {
     debugger  
    
-    if (data.responseData == 200) {    
+    if (data.responseStatusCode == 200) {    
       
       Swal.fire({
-        title:'Remark added',
-        text: 'Phone Number is Duplicate.',
+        title:'Remark added',      
         icon: 'success',
         confirmButtonColor: '#364574'
       });
   
-      this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });    
+
+                                              
+     // this.router.navigate(['/merchant/merchantedit',this.merchantId], { relativeTo: this.route });    
+
+      this.modalService.dismissAll();
     }   
   },);
 }
 
 
+CancelForm()
+{
+  this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
+  
+}
   public updateMerchant(formData: editMerchant) {
     debugger;
     let AddMerchantModel: editMerchant = formData;  
@@ -295,7 +348,6 @@ AddRemark(formDt: remarkHistory)
        AddMerchantModel.posInfo.merchantId = this.merchantId,
        AddMerchantModel.isEmailValidate = 1;
        AddMerchantModel.isPhoneNumberValidate = 1;
-       AddMerchantModel.posInfo.posid = 0,
        AddMerchantModel.createdBy = this.userId;
        AddMerchantModel.modifyBy = 0;
        AddMerchantModel.createdDate = new Date(); 
@@ -304,9 +356,14 @@ AddRemark(formDt: remarkHistory)
        AddMerchantModel.posInfo.stateName = "";
        AddMerchantModel.posInfo.categoryName = "";
        AddMerchantModel.posInfo.countryName = "";
-     
+       AddMerchantModel.password=this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.password);
+       AddMerchantModel.phoneNumber =  this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.phoneNumber);
+     AddMerchantModel.email = this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.email);
     console.log(AddMerchantModel);
-         this.appService.Add('api/Merchant/EditMerchant', AddMerchantModel)
+       
+    if(this.uploadForm.valid)
+    {
+    this.appService.Add('api/Merchant/EditMerchant', AddMerchantModel)
         .pipe(
           catchError((error) => {          
             return throwError(error); // Throw the error to propagate it further
@@ -317,14 +374,15 @@ AddRemark(formDt: remarkHistory)
             console.log('data',res)
   
             if(res.responseStatusCode == 200)
-            {
-             
+            {             
               Swal.fire({
                 title:'Merchant Update successfully',
-                text: 'Phone Number is Duplicate.',
                 icon: 'success',
                 confirmButtonColor: '#364574'
               });
+
+              this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
+    
             
             }
             else if(res.responseStatusCode == 212)
@@ -364,7 +422,8 @@ AddRemark(formDt: remarkHistory)
   
          
        }) 
-         
+    
+      }
       
       
   }   

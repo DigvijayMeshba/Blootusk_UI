@@ -44,8 +44,8 @@ export class BusinesscategoryeditComponent {
       categoryId: new FormControl('', []),
       categoryName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       rewardPoint: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      recStatus: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      mobileNumber: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      recStatus: new FormControl('', []),
+      mobileNumber: new FormControl('', []),
       createdBy: new FormControl('', []),
       createdDate: new FormControl('', []),
       modifyBy: new FormControl('', []),
@@ -77,6 +77,8 @@ export class BusinesscategoryeditComponent {
     }
   }
 
+
+
   ///Validation for only enter number
   keyPressOnlynum(event: any) {
     var inp = String.fromCharCode(event.keyCode);
@@ -88,15 +90,22 @@ export class BusinesscategoryeditComponent {
     }
   }
 
-  public Submit(userObject: any) {
-    debugger
-    this.submitted = true;   
-        
+  public submit() {
+   
+    this.submitted = true;
+    
   }
   
+  public validateControl = (controlName: string) => {
+    return this.uploadForm.controls[controlName].invalid && this.uploadForm.controls[controlName].touched
+  }
+
+  public hasError = (controlName: string, errorName: string) => {
+    return this.uploadForm.controls[controlName].hasError(errorName)
+  }
   successmsg() {
     Swal.fire({
-      title: 'Catagory Updated Successfully',
+      title: 'Category Updated Successfully',
       icon: 'success',
       // showCancelButton: true,
       confirmButtonColor: '#364574',
@@ -115,6 +124,9 @@ export class BusinesscategoryeditComponent {
       "recStatus": formData.recStatus,
     }
 
+    if(this.uploadForm.valid)
+    {
+    
     this.appService.Add('api/CategoryMaster/AddEditCategory', edituserModel).subscribe((data: any)  => {
       debugger
       if (data.responseStatusCode == 200) {
@@ -122,11 +134,25 @@ export class BusinesscategoryeditComponent {
         this.router.navigate(['/businesscategory/businesscategorylist'], { relativeTo: this.route });
       }  
       else {
-        alert("Something Went wrong")
+        
+        Swal.fire({
+          title: 'Something Went wrong',
+          icon: 'warning',         
+          confirmButtonColor: '#364574',
+          cancelButtonColor: 'rgb(243, 78, 78)',
+          confirmButtonText: 'OK'
+        });
       }
     },);
   }
+  }
 
+
+  CancelForm()
+  {
+    this.router.navigate(['/businesscategory/businesscategorylist'], { relativeTo: this.route });
+    
+  }
   ///GetUserById
   public getcatagorybyId(catagoryId: any) {
     debugger

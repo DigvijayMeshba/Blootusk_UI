@@ -6,6 +6,13 @@
     padding-top: 3px;
     font-size: 13px;
 }
+.form-control.is-invalid {
+
+    background-image: none !important;
+}
+.madatory{
+    color: red;
+}
 
 hr {
     opacity: 0.3 !important;

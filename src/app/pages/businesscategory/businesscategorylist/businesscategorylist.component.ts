@@ -47,22 +47,40 @@ export class BusinesscategorylistComponent {
       let ListCategoryModel: listCatagory = {
       "categoryName": formData.categoryName == ''? "":formData.categoryName,
       "rewardPoint": formData.rewardPoint==''? 0:formData.rewardPoint
-
-
-        
-
-          
     }
-  
-      this.appService.GetAllList('api/CategoryMaster/GetAllCategory', ListCategoryModel)
-      .pipe(
-        catchError((error) => {          
-          return throwError(error); 
-        })).subscribe((data: any) => {      
-          this.BusinesscategoryList = data.responseData;
-      console.log(data);
-      },);  
+  if(ListCategoryModel.categoryName !=''|| ListCategoryModel.rewardPoint != 0)
+  {
+    this.appService.GetAllList('api/CategoryMaster/GetAllCategory', ListCategoryModel)
+    .pipe(
+      catchError((error) => {          
+        return throwError(error); 
+      })).subscribe((data: any) => {      
+        this.BusinesscategoryList = data.responseData;
+    
 
+    if(data.responseData.length == 0)
+    {
+      Swal.fire({
+        title:'Data not found',
+        icon: 'info',
+        confirmButtonColor: '#364574'
+      });
+    }
+
+    },);  
+
+  }
+  else
+    {
+    
+    Swal.fire({
+      title:'warning',
+      text: 'Please Fill Category Or Reward POint',
+      icon: 'warning',
+      confirmButtonColor: '#364574'
+    });    
+  }
+     
     
   }
   
@@ -70,7 +88,7 @@ export class BusinesscategorylistComponent {
       debugger;
       Swal.fire({
         title: 'Confirmation',
-        text: 'Are you sure you want to delete this user?',
+        text: 'Are you sure you want to delete this Business Category?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#364574',
@@ -86,7 +104,7 @@ export class BusinesscategorylistComponent {
              
                 Swal.fire({
                   title: 'Deleted!',
-                  text: 'The Category has been deleted successfully.',
+                  text: 'Category has been Deleted Successfully.',
                   icon: 'success',
                   confirmButtonColor: '#364574'
                 });

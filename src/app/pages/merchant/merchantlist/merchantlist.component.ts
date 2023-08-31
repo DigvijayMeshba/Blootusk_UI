@@ -21,7 +21,14 @@ export class MerchantlistComponent {
     merchnatName :string;
     mobileNo:string;
     approvalStatus:string;
+    test :any;
     
+    statusLists = [
+      { name: 'New', id:'N' },
+      { name: 'In Progress', id:'I' },
+      { name: 'Verified', id:'V' },   
+      { name: 'Rejected' , id:'R' },
+    ];
   
     constructor(public appService: AppService,private EncrDecr: EncrDecrServiceService) {
 
@@ -40,23 +47,56 @@ export class MerchantlistComponent {
 
 
     let edituserModel: listMerchant = {
-      "merchantCode": this.merchnatCode,
-      "merchantPhoneNumber": this.mobileNo,      
-      "merchantName": this.merchnatName,
-      "approvalStatus": this.approvalStatus      
+      "merchantCode": this.merchnatCode == ''? "":this.merchnatCode,
+      "merchantPhoneNumber": this.mobileNo == ''? "":this.mobileNo,      
+      "merchantName": this.merchnatName == ''? "":this.merchnatName,
+      "approvalStatus": this.approvalStatus == ''? "":this.approvalStatus     
     }   
     console.log(edituserModel);
     debugger;
     //var encrypted = this.EncrDecr.set('123456$#@$^@1ERF', 'M1110001');
-       edituserModel.merchantPhoneNumber = this.EncrDecr.set('123456$#@$^@1ERF', edituserModel.merchantPhoneNumber);
-          this.appService.GetAllList("api/Merchant/GetAllMerchant",edituserModel)
-            .pipe(
-              catchError((error) => {          
-                return throwError(error); 
-              })).subscribe((data: any) => {      
-                this.MerchantList = data.responseData;
-            console.log(data);
-            },);  
+    if( edituserModel.merchantPhoneNumber != '')
+    {
+      edituserModel.merchantPhoneNumber = this.EncrDecr.set('12$#@BLOO$^@TUSK', edituserModel.merchantPhoneNumber);
+    }
+
+    if(edituserModel.merchantCode != ''|| edituserModel.merchantName != ''||edituserModel.merchantPhoneNumber != ''|| edituserModel.approvalStatus !='')
+    {
+      this.appService.GetAllList("api/Merchant/GetAllMerchant",edituserModel)
+      .pipe(
+        catchError((error) => {          
+          return throwError(error); 
+        })).subscribe((data: any) => {    
+          
+          console.log(data.responseData)
+          this.MerchantList = data.responseData  
+
+         if(data.responseData[0].approvalStatus == "I")
+         {
+            this.MerchantList.approvalStatus = 'InProgress';
+         }
+         
+          if(data.responseData.length == 0)
+          {
+            Swal.fire({
+              title:'Data not found',
+              icon: 'info',
+              confirmButtonColor: '#364574'
+            });
+          }
+        
+      },);  
+  
+    }
+    else
+    {
+      Swal.fire({
+        title:'Oops...',
+        text:'Please fill at least one field',
+        icon: 'info',
+        confirmButtonColor: '#364574'
+      });
+    }
         
       }
   

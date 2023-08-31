@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkblootusk=self.webpackChunkblootusk||[]).push([[395],{2395:(M,_,s)=>{s.r(_),s.d(_,{BusinesscategoryModule:()=>t});var a=s(9197),E=s(6895),n=s(4006),l=s(8796),o=s(4650);class t{static#s=this.\u0275fac=function(u){return new(u||t)};static#t=this.\u0275mod=o.oAB({type:t});static#_=this.\u0275inj=o.cJS({imports:[E.ez,l.A0,n.u5,n.UX,a.Bz,a.Bz]})}}}]);

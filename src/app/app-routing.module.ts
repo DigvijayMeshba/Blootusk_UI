@@ -18,9 +18,9 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
     preloadingStrategy: PreloadAllModules, // <- comment this line for activate lazy load
-    /// relativeLinkResolution: 'legacy',
-    //initialNavigation: 'enabled',  // for one load page, without reload
-    //useHash: true,
+     //relativeLinkResolution: 'legacy',
+    // initialNavigation: 'enabled',  // for one load page, without reload
+      useHash: true,
 })
   ],
   exports: [RouterModule]

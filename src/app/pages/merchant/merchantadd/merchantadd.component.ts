@@ -9,6 +9,7 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
 import { data } from 'jquery';
 import { catchError, throwError } from 'rxjs';
 import { addMerchant } from '../merchant';
+import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
 @Component({
   selector: 'app-merchantadd',
@@ -37,7 +38,7 @@ export class MerchantaddComponent {
   fieldTextType2!: boolean;
   submitted = false;
   merchantId: string | any;
-  
+  compareControlName!: string;
   
   showDiv = {
     current : true,
@@ -54,7 +55,8 @@ export class MerchantaddComponent {
   }
 
   SignupForm!: UntypedFormGroup;
-  uploadForm!:FormGroup;  
+  uploadForm!:FormGroup; 
+  outerForm!: FormGroup;
   isLoggedIn = false;
   userId: string | any;
   public roleId: any;
@@ -63,44 +65,33 @@ export class MerchantaddComponent {
 
   constructor(public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-    private router: Router,)
+    private router: Router,private EncrDecr: EncrDecrServiceService)
    {
    
    }
 
    ngOnInit(): void {
+    this.outerForm = this.formBuilder.group({
+      innerGroup: this.formBuilder.group({
+        nestedControl: ['', Validators.required] // Apply required validation here
+      })
+    });
     let addUserDeatil = this.tokenStorage.getUser();    
     this.GetCountryList();
     this.getCatagoryList(); 
     this.GetStateList();
 
-    this.uploadForm = new FormGroup({
+    this.uploadForm = this.formBuilder.group({
      
       merchantCode: new FormControl('', []),
       organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      //password: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]),     
-      posInfo : new FormGroup({
-        posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-        posAddress: new FormControl('', []),
-        zip: new FormControl('', []),
-        stateId: new FormControl('', []),
-        countryId: new FormControl('', []),
-        categoryId : new FormControl('',[]),
-        posid:new FormControl('', []),
-        merchantId:new FormControl('', []),
-        countryName: new FormControl('', []),
-        stateName: new FormControl('', []),
-        categoryName: new FormControl('', []),
-        poscode: new FormControl('', []),
-        latitude: new FormControl('', []),
-        longitude: new FormControl('', []),
-        
-       }),
-
-        isPhoneNumberValidate:new FormControl('', []),
+     // password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+     // confirmPassword: new FormControl('', [Validators.required]),
+     
+      contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]), 
+      isPhoneNumberValidate:new FormControl('', []),
         isEmailValidate: new FormControl('', []),
         approvalStatus:new FormControl('', []),
         recStatus:new FormControl('', []),
@@ -112,8 +103,30 @@ export class MerchantaddComponent {
         createdDate: new FormControl('', []),
         modifyBy: new FormControl('', []),
         modifyDate: new FormControl('', []),
-        phoneNumberOTP: new FormControl('',[]),    
+        phoneNumberOTP: new FormControl('',[]),   
+        emailOTP : new FormControl('',[]),    
+       posInfo : this.formBuilder.group({
+        posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        categoryId: new FormControl('', [Validators.required]),
+        posAddress: new FormControl('',[ Validators.required, Validators.minLength(6)]),
+        zip: new FormControl('', [Validators.required, Validators.minLength(6)]),
+        stateId: new FormControl('', [Validators.required]),
+        countryId: new FormControl('', [Validators.required]),
+        countryName: new FormControl('', []),
+        stateName: new FormControl('', []),
+        categoryName: new FormControl('', []),
+        posid:new FormControl('', []),
+        merchantId:new FormControl('', []),
+        poscode: new FormControl('', []),
+        latitude: new FormControl('', []),
+        longitude: new FormControl('', []),
+       })
+      
     });
+
+
+    
+  
 
    if (this.tokenStorage.getToken()) {
     this.isLoggedIn = true;
@@ -124,8 +137,33 @@ export class MerchantaddComponent {
   }
     
   }
+  get conposinfo() { return this.uploadForm.get('posInfo')?.hasError;  }
   
-  get f() { return this.uploadForm.controls; }
+
+  get PosInfos(){
+    return this.uploadForm.get('posInfo') as FormGroup;
+  }
+
+  get PosName()
+  {
+    return this.PosInfos.get('posName');
+  }
+  get PosAddress()
+  {
+    return this.PosInfos.get('posAddress');
+  }
+
+  get f()
+   {   
+     return this.uploadForm.controls;
+    
+    }
+
+    get isNestedControlInvalid() {
+      const nestedControl = this.outerForm.get('innerGroup.nestedControl');
+      return nestedControl?.invalid && (nestedControl.dirty || nestedControl.touched);
+    }
+
 
   
   public validateControl = (controlName: string) => {
@@ -140,6 +178,16 @@ export class MerchantaddComponent {
     this.appService.GetAll("api/DropdownHelper/GetAllRoles").subscribe(data => {
       
     });
+  }
+
+  validate(control: AbstractControl): ValidationErrors | null {
+    const controlToCompare = control.parent?.get(this.compareControlName);
+
+    if (controlToCompare && controlToCompare.value !== control.value) {
+      return { compareWith: true };
+    }
+
+    return null;
   }
 
   blockSpaces(event: KeyboardEvent) {
@@ -184,7 +232,11 @@ export class MerchantaddComponent {
         console.log(x.responseData);
       });
   }
-
+  allowOnlySpaces(event:any) {
+    if (event.key !== ' ' && !/^[a-zA-Z]*$/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
    GetStateList()
   {
     this.appService.GetAll("api/Merchant/GetStateDDL").subscribe(
@@ -194,6 +246,8 @@ export class MerchantaddComponent {
   }
 
   public submit() {
+ console.log( this.PosName)
+
     this.submitted = true;
   }
   
@@ -208,6 +262,12 @@ export class MerchantaddComponent {
     });
   }
 
+ 
+  CancelForm()
+  {
+    this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
+    
+  }
   //create new user
   public createMerchant(formData: addMerchant) {
     debugger;
@@ -227,7 +287,8 @@ export class MerchantaddComponent {
       AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
       AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
       AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
-      AddMerchantModel.password="123456"
+      AddMerchantModel.password=   "123456";
+  
       console.log(AddMerchantModel);
         this.appService.Add('api/Merchant/AddMerchant', AddMerchantModel)      
         .pipe(
@@ -242,23 +303,35 @@ export class MerchantaddComponent {
             if(res.responseStatusCode == 200)
             {           
               this.successmsg();
+              this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
             }
             else if(res.responseStatusCode == 212)
             {
-              alert("Something Went wrong")
+              Swal.fire({
+                text: 'Something Went wrong',
+                icon: 'warning',
+                confirmButtonColor: '#364574'
+              });
              
             }
             else if(res.responseStatusCode == 500)
             {
-              alert("Error Status ")
+
+              Swal.fire({
+                title:'Duplication Error',
+                text: 'Error Status',
+                icon: 'warning',
+                confirmButtonColor: '#364574'
+              });
+             
               
             }
             else if(res.responseStatusCode == 601)
             {
               Swal.fire({
-                title:'Duplication Error',
+                title:'Warning',
                 text: 'Phone Number is Duplicate.',
-                icon: 'success',
+                icon: 'warning',
                 confirmButtonColor: '#364574'
               });
              
@@ -266,9 +339,9 @@ export class MerchantaddComponent {
             else if(res.responseStatusCode == 602)
             {
               Swal.fire({
-                title:'Duplication Error',
+                title:'Warning',
                 text: 'Duplicate Email.',
-                icon: 'success',
+                icon: 'warning',
                 confirmButtonColor: '#364574'
               });
               
@@ -276,19 +349,32 @@ export class MerchantaddComponent {
             else if(res.responseStatusCode == 603)
             {
               Swal.fire({
-                title:'Duplication Error',
+                title:'Warning',
                 text: 'const int DuplicateCategory Status',
-                icon: 'success',
+                icon: 'warning',
                 confirmButtonColor: '#364574'
               });              
             }
             else if(res.responseStatusCode == 400)
             {
-              alert("Bad Request Status")
+              Swal.fire({
+                title:'Warning',
+                text: 'Bad Request Status',
+                icon: 'warning',
+                confirmButtonColor: '#364574'
+              });                   
+            
              
             }
             else{
-              alert("Something Went wrong")
+
+              Swal.fire({
+                title:'Error',
+                text: 'Data not save ',
+                icon: 'error',
+                confirmButtonColor: '#364574'
+              });      
+             
               
             }
   

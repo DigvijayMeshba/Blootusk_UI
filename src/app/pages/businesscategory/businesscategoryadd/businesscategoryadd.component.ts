@@ -46,7 +46,7 @@ export class BusinesscategoryaddComponent {
       this.uploadForm = new FormGroup({
         catagoryId: new FormControl('', []),
         categoryName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-        rewardPoint: new FormControl('', []),
+        rewardPoint: new FormControl('', [Validators.required, Validators.minLength(3)]),
         recStatus: new FormControl('', []),
         // createdBy: new FormControl('', []),
         // createdDate: new FormControl('', []),
@@ -58,6 +58,11 @@ export class BusinesscategoryaddComponent {
     }
     get f() { return this.uploadForm.controls; }
   
+    CancelForm()
+    {
+      this.router.navigate(['/businesscategory/businesscategorylist'], { relativeTo: this.route });
+      
+    }
 
     public validateControl = (controlName: string) => {
       return this.uploadForm.controls[controlName].invalid && this.uploadForm.controls[controlName].touched
@@ -107,7 +112,7 @@ export class BusinesscategoryaddComponent {
         
     successmsg() {
       Swal.fire({
-        title: 'Category Added Successfully',
+        title: 'Business Category Added',
         icon: 'success',
         // showCancelButton: true,
         confirmButtonColor: '#364574',

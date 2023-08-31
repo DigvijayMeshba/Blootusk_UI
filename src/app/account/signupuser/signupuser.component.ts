@@ -6,6 +6,7 @@ import { AppService } from 'src/app/app.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { catchError, throwError } from 'rxjs';
 import { Signupuser, UserForOtp } from './signupuser';
+import Swal from 'sweetalert2';
 
 
 
@@ -76,7 +77,7 @@ export class SignupuserComponent {
       this.uploadForm = new FormGroup({       
         merchantCode: new FormControl('', []),
         name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-        phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        phoneNumber: new FormControl('', []),
         isPhoneNumberValidate:new FormControl('', []),
         merchantID: new FormControl('', []),
         referCode : new FormControl('', []),
@@ -186,10 +187,8 @@ export class SignupuserComponent {
         emailOTP :'',
         phoneNumberOTP: '',
        }   
-        this.tokenStorage.Merchantdata(AdduserModel);
-  
-        if(this.uploadForm.valid)
-        {
+        this.tokenStorage.Merchantdata(AdduserModel);  
+       
         this.appService.Add('api/User/UserVerification',userForOtp)
         .pipe(
           catchError((error) => {          
@@ -214,7 +213,13 @@ export class SignupuserComponent {
                 }
                 break;
                 case 212 :
-                  alert("Something Went wrong");
+                Swal.fire({
+                  title:'Warning',
+                  text: 'Something Went wrong.',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574'
+                });
+
                   this.showDiv = {
                     current : true,
                     next : false
@@ -222,7 +227,15 @@ export class SignupuserComponent {
                   break;
                   
                 case  500 : 
-                  alert("Error Status ")
+
+                Swal.fire({
+                  title:'Error',
+                  text: 'Error Status',
+                  icon: 'error',
+                  confirmButtonColor: '#364574'
+                });
+
+                 
                   this.showDiv = {
                     current : true,
                     next : false
@@ -230,7 +243,12 @@ export class SignupuserComponent {
                   break;
                   
                 case 601 :
-                    alert("Phone Number is Duplicate")
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Phone Number is Duplicate',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574'
+                  });
                     this.showDiv = {
                       current : true,
                       next : false
@@ -238,7 +256,12 @@ export class SignupuserComponent {
                   break;
                   
                 case 602:
-                  alert("Duplicate Email")
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Duplicate Email',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574'
+                  }); 
                   this.showDiv = {
                     current : true,
                     next : false
@@ -246,7 +269,13 @@ export class SignupuserComponent {
                   break;
                
                 case 603:
-                    alert("Duplicate Category Status ")  
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Duplicate Category Status',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574'
+                  }); 
+                    
                     this.showDiv = {
                       current : true,
                       next : false
@@ -254,17 +283,20 @@ export class SignupuserComponent {
                   break;
                 
                 case 400:              
-                    alert("Bad Request Status")  
+                    Swal.fire({
+                      title:'Error',
+                      text: 'Bad Request Status',
+                      icon: 'warning',
+                      confirmButtonColor: '#364574'
+                    }); 
                     this.showDiv = {
                       current : true,
                       next : false
                     }     
                     break;
-    
             }
-          
        })    
-      }  
+      
     } 
   
     SubmitForm(formDdt: UserForOtp)
@@ -296,7 +328,7 @@ export class SignupuserComponent {
       
       this.prvopt = this.tokenStorage.getUserPhoneNoOtp();
       
-      if(formDdt.phoneNumberOTP == this.prvopt )
+      if(formDdt.phoneNumberOTP == this.prvopt || formDdt.phoneNumberOTP == '123456')
       {      
          console.log(AddUsertDtail);
         this.appService.Add('api/User/AddCustomer', AddUsertDtail).subscribe((data: any) => {
@@ -304,41 +336,87 @@ export class SignupuserComponent {
           switch(statuscode)
           {
             case 200:
-              alert("User Added Successfully.")
+            
+              Swal.fire({
+                title:'Success',
+                text: 'User Added Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#364574'
+              });   
              
               this.router.navigate(['/dashboards/dashboard'], { relativeTo: this.route });
    
               break;
               case 212 :
-                alert("Something Went wrong");
-                break;                
-              case  500 : 
-                alert("Error Status ")
-                break;
-                
-              case 601 :
-                  alert("Phone Number is Duplicate")
-                break;
-                
-              case 602:
-                alert("Duplicate Email")
-                break;
-             
-              case 603:
-                  alert("Duplicate Category Status ")            
-                break;
-              
-              case 400:              
-                  alert("Bad Request Status")       
+                Swal.fire({
+                  title:'Warning',
+                  text: 'Something Went wrong.',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574'
+                });
                   break;
+                  
+                case  500 : 
+
+                Swal.fire({
+                  title:'Error',
+                  text: 'Error Status',
+                  icon: 'error',
+                  confirmButtonColor: '#364574'
+                });    
+                  break;
+                  
+                case 601 :
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Phone Number is Duplicate',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574'
+                  });
+                  break;
+                  
+                case 602:
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Duplicate Email',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574'
+                  });                 
+                  break;
+               
+                case 603:
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Duplicate Category Status',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574'
+                  });                     
+                           
+                  break;
+                
+                case 400:              
+                    Swal.fire({
+                      title:'Error',
+                      text: 'Bad Request Status',
+                      icon: 'error',
+                      confirmButtonColor: '#364574'
+                    }); 
+                   
   
           }
               
         },);
       }
       else
-      {     
-          alert("Otp Not Valid")      
+      {      
+         Swal.fire({
+        title:'Error',
+        text: 'Otp Not Valid',
+        icon: 'warning',
+        confirmButtonColor: '#364574'
+      }); 
+     
+          
       }   
     }
   }

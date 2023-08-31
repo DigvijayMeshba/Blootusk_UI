@@ -50,10 +50,12 @@
                                     <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Status </label>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option hidden value="" disabled selected>Select Status</option>
-                                                <option>Data</option>
-                                            </select>
+                                            <select class="form-select" aria-label="Default select example" [(ngModel)]="approvalStatus"  >
+                                                <option value="" disabled selected>Select Status </option>
+                                                <option *ngFor="let status of statusLists"  [value]="status.id">
+                                                  {{ status.name }}
+                                                </option>                                                                  
+                                        </select>
                                         </div>
                                     </div>
 
@@ -62,8 +64,6 @@
                                             <button type="button" (click)="GetAllMerchantList()" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
                                         </div>
                                     </div>
-                                    
-    
                                 </div>
 
                             </div>
@@ -91,7 +91,6 @@
                                         <td>{{object.email }}</td>
                                         <td>{{object.approvalStatus}}</td>
 
-
                                         <td class="w-10 text-center">                                          
                                             <div class="gap-3">
                                                 <a [routerLink]="['/merchant/merchantedit', object.merchantId]" class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
@@ -108,9 +107,9 @@
                         <div class="text-center mt-3">
                             <div class="gridjs-pagination">
                                 <div class="gridjs-pages">
-                                    <button tabindex="0" role="button" title="Previous" aria-label="Previous">Previous</button>
+                                    <!-- <button tabindex="0" role="button" title="Previous" aria-label="Previous">Previous</button>
                                     <button tabindex="0" role="button">1</button>
-                                    <button tabindex="0" role="button" title="Next" aria-label="Next">Next</button>
+                                    <button tabindex="0" role="button" title="Next" aria-label="Next">Next</button> -->
                                 </div>
                             </div>
                         </div>

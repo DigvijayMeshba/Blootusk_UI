@@ -56,7 +56,9 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">Merchant (Organization) Name </label>
+                                                        <label for="basiInput" class="form-label">Merchant (Organization) Name 
+                                                            <span class="madatory">*</span>
+                                                        </label>
                                                       
                                                         <input type="text" class="form-control" 
                                                         formControlName="organizationName" required minlength="3"
@@ -64,7 +66,7 @@
                                                        
                                                         placeholder="Enter Merchant (Organization) Name">
                                                     <div *ngIf="submitted && f['organizationName'].errors" class="invalid-feedback">
-                                                        <div *ngIf="f['organizationName'].errors['required']">Merchant Name is required</div>
+                                                        <div *ngIf="f['organizationName'].errors['required']">Merchant (Organization) Name is required</div>
                                                         <div *ngIf="f['organizationName'].errors['minlength']">Merchant Name least 3 char long
                                                         </div>
             
@@ -77,15 +79,15 @@
                                                 <div class="col-md-4">
                                                     <div>
                                                         <!-- <label for="basiInput" class="form-label">Phone No. </label> -->
-                                                        <label for="basiInput" class="form-label">Mobile No. </label>
+                                                        <label for="basiInput" class="form-label">Mobile No. <span class="madatory">*</span> </label>
                                                         
                                                         <input type="text" class="form-control" (keypress)="keyPressOnlynum($event)"
                                                         formControlName="phoneNumber" required pattern="[0-9]+" C="10"
                                                         maxlength="10" minlength="10"
                                                         [ngClass]="{ 'is-invalid': submitted && f['phoneNumber'].errors }"
-                                                        (keypress)="blockSpaces($event)" placeholder="Enter Phone No.">            
+                                                        (keypress)="blockSpaces($event)" placeholder="Enter Mobile No.">            
                                                     <div *ngIf="submitted && f['phoneNumber'].errors" class="invalid-feedback">
-                                                        <div *ngIf="f['phoneNumber'].errors['required']">Phone No. is required
+                                                        <div *ngIf="f['phoneNumber'].errors['required']">Mobile No. is required
                                                         </div>
                                                         <div *ngIf="f['phoneNumber'].errors['minlength']">Phone enter valid Mobile
                                                             No.</div>
@@ -96,30 +98,30 @@
                 
                                             </div>
                 
-                                            <div class="row mb-3">
-        
+                                            <div class="row mb-3">        
                                                 <div class="col-md-6">
                                                     <div>
-                                                        <label for="labelInput" class="form-label">Email Id</label>
+                                                        <label for="labelInput" class="form-label">Email Id <span class="madatory">*</span></label>
                                                         <div class="form-icon right">
                                                             <input (keypress)="blockSpaces($event)" type="email" class="form-control"
                                                             id="email" formControlName="email"
                                                             [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
-                                                            placeholder="Enter email"
+                                                            placeholder="Enter Email"
                                                             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-                                                        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                                                            <div *ngIf="f['email'].errors['required']">Email is required</div>
-                                                            <div *ngIf="f['email'].errors['pattern']">Please enter valid Email
+                                                            <i class="ri-mail-unread-line"></i>
+                                                            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                                                <div *ngIf="f['email'].errors['required']">Email is required</div>
+                                                                <div *ngIf="f['email'].errors['pattern']">Please enter valid Email
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                            <i class="ri-mail-unread-line"></i>
-                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
         
                                                 <div class="col-md-6">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">Contact Person Name </label>
+                                                        <label for="basiInput" class="form-label">Contact Person Name  <span class="madatory">*</span> </label>
                                                         <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
                                                         formControlName="contactPersonName" required minlength="3"
                                                         [ngClass]="{ 'is-invalid': submitted && f['contactPersonName'].errors }"
@@ -142,10 +144,10 @@
         
                                                 <div class="col-md-6">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">Password</label>
+                                                        <label for="basiInput" class="form-label">Password  <span class="madatory">*</span></label>
                                                         <div class="position-relative auth-pass-inputgroup">
                                                             <input [type]="fieldTextType1 ? 'text' : 'password'"
-                                                            class="form-control pe-5" placeholder="Enter password"
+                                                            class="form-control pe-5" placeholder="Enter Password"
                                                             id="password-input" formControlName="password"
                                                             [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
                                                             minlength="6">
@@ -165,23 +167,19 @@
         
                                                 <div class="col-md-6">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">Confirm Password</label>
+                                                        <label for="basiInput" class="form-label">Confirm Password  <span class="madatory">*</span></label>
                                                         <div class="position-relative auth-pass-inputgroup">
-                                                      <input [type]="fieldTextType1 ? 'text' : 'password'"
-                                                            class="form-control pe-5" placeholder="Enter confirmPassword"
+                                                      <input [type]="fieldTextType2 ? 'text' : 'password'"
+                                                            class="form-control pe-5" placeholder="Enter Confirm Password"
                                                             id="password-input" formControlName="confirmPassword"
-                                                            [ngClass]="{ 'is-invalid': f['confirmPassword'].errors }"        
-                                                                              minlength="6">
-                                                        <button
-                                                            class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted btn-eye"
+                                                            [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }"   minlength="6">
+                                                        <button  class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted btn-eye"
                                                             type="button" id="password-addon"><i class="mdi align-middle pass-eye" [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1
-                                                             }" (click)="toggleFieldTextType1()"></i></button>
+                                                             }" (click)="toggleFieldTextType2()"></i></button>
                                                        
-                                                             <div *ngIf="f['confirmPassword'].errors" class="invalid-feedback">
-                                                            <div *ngIf="f['confirmPassword'].errors?.['required']">Password is required</div>
-                                                            <div *ngIf="f['confirmPassword'].errors?.['matching']">
-                                                                Confirm Password does not matchsss
-                                                              </div>
+                                                             <div *ngIf="f['confirmPassword'].errors && submitted"  class="invalid-feedback d-block">
+                                                            <div *ngIf="f['confirmPassword'].errors?.['required']">Confirm Password is required</div>
+                                                            <div *ngIf="f['confirmPassword'].errors?.['matching']"> Password and Confirm password should be same</div>
                                                         </div>
 
                                                         
@@ -207,21 +205,31 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">POS Name </label>
+                                                        <label for="basiInput" class="form-label">POS Name (Point of sale)  <span class="madatory">*</span></label>
                                                         <input type="text" id="posName" formControlName="posName" class="form-control" placeholder="Enter POS Name">                                                      
-                                                    
+                                                        <div *ngIf="this.uploadForm.get('posInfo.posName')?.invalid && submitted" class="invalid-feedback d-block">
+                                                            <div *ngIf="this.uploadForm.get('posInfo.posName')?.errors?.['required']">POS Name is required</div>                                                        
+                                                        <div *ngIf="this.uploadForm.get('posInfo.posName')?.errors?.['minlength']">POS Name least 3 char long                                               </div>
+                                                     </div> 
                                                     </div>
                                                 </div>
         
                                                 <div class="col-md-4">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">Category </label>
+                                                        <label for="basiInput" class="form-label">Category  <span class="madatory">*</span></label>
                                                         <select class="form-select" aria-label="Default select example" formControlName ="categoryId" >
-                                                                <option *ngFor="let category of CatagoryList" [value]="category.categoryId">
+                                                            <option value="" disabled selected>Please select Category</option>
+                                                 
+                                                            <option *ngFor="let category of CatagoryList" [value]="category.categoryId">
                                                                   {{ category.categoryName }}
                                                                 </option>
                                                               
                                                         </select>
+
+                                                        <div *ngIf="submitted && this.uploadForm.get('posInfo.categoryId')?.invalid" class="invalid-feedback d-block">
+                                                            <div *ngIf="this.uploadForm.get('posInfo.categoryId')?.errors?.['required']">Please Select category</div>
+                                                            
+                                                        </div>
                                                     </div>
                                                 </div>
                 
@@ -231,8 +239,13 @@
         
                                                 <div class="col-md-12">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">POS Address </label>
+                                                        <label for="basiInput" class="form-label">POS Address  <span class="madatory">*</span></label>
                                                         <textarea class="form-control" formControlName="posAddress" rows="1" placeholder="Enter POS Address"></textarea>
+                                                    
+                                                        <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.invalid && submitted" class="invalid-feedback d-block">
+                                                            <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.errors?.['required']">POS Address is required</div>                                                        
+                                                        <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.errors?.['minlength']">POS Address least 3 char long                                               </div>
+                                                     </div> 
                                                     </div>
                                                 </div>
         
@@ -242,30 +255,46 @@
                 
                                                 <div class="col-md-4">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">Zip (PIN) Code </label>
-                                                        <input type="text" class="form-control" formControlName="zip" placeholder="Enter Zip (PIN) Code">
+                                                        <label for="basiInput" class="form-label">Zip Code  <span class="madatory">*</span></label>
+                                                        <input type="text" class="form-control" formControlName="zip" placeholder="Enter Zip  Code">
+                                                        <div *ngIf="this.uploadForm.get('posInfo.zip')?.invalid && submitted" class="invalid-feedback d-block">
+                                                            <div *ngIf="this.uploadForm.get('posInfo.zip')?.errors?.['required']">Zip Code is required</div>                                                        
+                                                        <div *ngIf="this.uploadForm.get('posInfo.zip')?.errors?.['minlength']">zip Code  least 5 char long                                               </div>
+                                                    
+                                                    </div> 
+                                                  
                                                     </div>
                                                 </div>
                 
                                                  <div class="col-md-4">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">State </label>
+                                                        <label for="basiInput" class="form-label">State  <span class="madatory">*</span></label>
                                                         <select class="form-select" aria-label="Default  select example" formControlName ="stateId">
+                                                            <option value="" disabled selected>Select State</option>
+                                                 
                                                             <option *ngFor="let State of StateList" [value]="State.stateId">
                                                                 {{ State.stateName}}
                                                             </option>
-                                                        </select>                                                       
+                                                        </select>      
+                                                        <div *ngIf="this.uploadForm.get('posInfo.stateId')?.invalid && submitted" class="invalid-feedback d-block">
+                                                            <div *ngIf="this.uploadForm.get('posInfo.stateId')?.errors?.['required']">Please select State</div>                                                        
+                                                     </div>                                                  
                                                     </div>
                                                 </div>
         
                                                 <div class="col-md-4">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">Country </label>
+                                                        <label for="basiInput" class="form-label">Country  <span class="madatory">*</span></label>
                                                         <select class="form-select" aria-label="Default select example"  formControlName ="countryId">
+                                                            <option value="" disabled selected>Select Country</option>
+                                             
                                                             <option  *ngFor="let Country of CountryList" [value]="Country.countryId">
                                                                 {{Country.countryName}}
                                                             </option>
                                                         </select>
+                                                        <div *ngIf="this.uploadForm.get('posInfo.countryId')?.invalid && submitted" class="invalid-feedback d-block">
+                                                            <div *ngIf="this.uploadForm.get('posInfo.countryId')?.errors?.['required']">Please select Country</div>                                                        
+                                                     </div>
                                                     </div>
                                                 </div>
                 
@@ -309,7 +338,7 @@
                                     <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div>
-                                                <label for="basiInput" class="form-label">Enter OTP Sent To Your Email</label>
+                                                <label for="basiInput" class="form-label">Enter OTP sent to your Email <span class="madatory">*</span></label>
                                                 <input type="text" formControlName="emailOTP" class="form-control" placeholder="Enter OTP Sent To Your Email">
                                             </div>
                                         </div>
@@ -318,7 +347,7 @@
                                     <div class="row mb-3">
                                         <div class="col-md-12">
                                             <div>
-                                                <label for="basiInput" class="form-label">Enter OTP Sent To Your Mobile No.</label>
+                                                <label for="basiInput" class="form-label">Enter OTP sent to your Mobile No<span class="madatory">*</span></label>
                                                 <input type="text" class="form-control" formControlName="phoneNumberOTP" placeholder="Enter OTP Sent To Your Mobile No.">
                                             </div>
                                         </div>

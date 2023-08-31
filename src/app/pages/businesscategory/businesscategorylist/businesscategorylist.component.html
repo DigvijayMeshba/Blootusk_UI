@@ -31,10 +31,10 @@
                                             <input type="text" class="form-control"
                                             formControlName="categoryName" required minlength="3"
                                             [ngClass]="{ 'is-invalid': submitted && f['categoryName'].errors }"
-                                             placeholder="Enter catagory Name">
+                                             placeholder="Enter Category Name">
                                         <div *ngIf="submitted && f['categoryName'].errors" class="invalid-feedback">
-                                            <div *ngIf="f['categoryName'].errors['required']">catagory Name  is required</div>
-                                            <div *ngIf="f['categoryName'].errors['minlength']">catagory Name least 3 char long
+                                            <div *ngIf="f['categoryName'].errors?.['required']">category Name  is required</div>
+                                            <div *ngIf="f['categoryName'].errors?.['minlength']">category Name least 3 char long
                                             </div>
         
                                         </div>
@@ -101,7 +101,7 @@
                             </table>
                         </div>
 
-                        <div class="text-center mt-3">
+                        <!-- <div class="text-center mt-3">
                             <div class="gridjs-pagination">
                                 <div class="gridjs-pages">
                                     <button tabindex="0" role="button" title="Previous" aria-label="Previous">Previous</button>
@@ -109,7 +109,7 @@
                                     <button tabindex="0" role="button" title="Next" aria-label="Next">Next</button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         
                     </div>
