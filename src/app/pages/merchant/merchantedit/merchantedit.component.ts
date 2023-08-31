@@ -181,6 +181,10 @@ export class MerchanteditComponent {
   
   }
 
+  openModalQR(qrcontent: any) {
+    this.modalService.open(qrcontent, { size: 'sm' });
+  }
+
   blockSpaces(event: KeyboardEvent) {
     if (event.key === ' ') {
       event.preventDefault();
