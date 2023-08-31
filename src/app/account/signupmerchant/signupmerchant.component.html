@@ -157,7 +157,7 @@
                                                              }" (click)="toggleFieldTextType1()"></i></button>
                                                         <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
                                                             <div *ngIf="f['password'].errors['required']">Password is required</div>
-                                                            <div *ngIf="f['password'].errors['minlength']">Password at least 6  digits long</div>
+                                                            <div *ngIf="f['password'].errors['minlength']">Password at least 8 to 15 digits long</div>
                                                           
                                                         </div>
 
