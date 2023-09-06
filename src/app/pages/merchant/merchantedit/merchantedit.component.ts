@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppService } from 'src/app/app.service';
@@ -9,6 +9,9 @@ import Swal from 'sweetalert2';
 import { Status, editMerchant, remarkHistory } from '../merchant';
 import { catchError, throwError } from 'rxjs';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
+import * as QRCode from 'qrcode'; 
+import { url } from 'inspector';
+const QRious = require('qrious');
 
 @Component({
   selector: 'app-merchantedit',
@@ -41,6 +44,9 @@ export class MerchanteditComponent {
   public RemarkList: any = [];
   
   approvstatus!:string;
+  receivedLink!: string;
+
+  qrCode!: string;
   
   statusLists = [   
     { name: 'New', id:'N' },
@@ -48,8 +54,8 @@ export class MerchanteditComponent {
     { name: 'Verified', id:'V' },   
     { name: 'Rejected' , id:'R' },
   ];
-
-
+  StatusRec!:boolean;
+  signupurl!:string;
   remark!:string;
   toggleFieldTextType1() {
     this.fieldTextType1 = !this.fieldTextType1;
@@ -60,8 +66,8 @@ export class MerchanteditComponent {
     { name: 'Data 1' },
     { name: 'Data 2' },
   ];
-
- 
+  RecStatus!:boolean;
+ urlsubstring!:string;
   getRemarkData()
   {
     this.appService.getById("api/Merchant/GetRemarkHistory/",this.merchantId).subscribe(data => {  
@@ -90,8 +96,8 @@ export class MerchanteditComponent {
       posInfo : new FormGroup({
         posname: new FormControl('', [Validators.required, Validators.minLength(3)]),
         categoryId: new FormControl('', [Validators.required]),
-        posAddress: new FormControl('',[ Validators.required, Validators.minLength(6)]),
-        zip: new FormControl('', [Validators.required, Validators.minLength(6)]),
+        posAddress: new FormControl('',[ Validators.required, Validators.minLength(3)]),
+        zip: new FormControl('', [Validators.required, Validators.minLength(5)]),
         stateId: new FormControl('', [Validators.required]),
         countryId: new FormControl('', [Validators.required]),       
         state: new FormControl('', []),
@@ -104,6 +110,8 @@ export class MerchanteditComponent {
         poscode: new FormControl('', []),
         latitude: new FormControl('', []),
         longitude: new FormControl('', []),
+      //    latitude: ['', [Validators.required, latitudeValidator()]],
+//longitude: ['', [Validators.required, longitudeValidator()]],
        }),         
         isPhoneNumberValidate:new FormControl('', []),
         isEmailValidate: new FormControl('', []),
@@ -118,6 +126,7 @@ export class MerchanteditComponent {
         modifyBy: new FormControl('', []),
         modifyDate: new FormControl('', []),
         phoneNumberOTP: new FormControl('',[]), 
+        merchantURL: new FormControl('',[]), 
        
     });
 
@@ -177,12 +186,64 @@ export class MerchanteditComponent {
   }
   openModal(content: any) {
     this.modalService.open(content, { size: 'lg' });
+    this.showDiv.inputs = false;
+    this.showDiv.buttons = false;
+    
     this.getRemarkData();
   
   }
 
-  openModalQR(qrcontent: any) {
+
+
+openModalQR(qrcontent: any) {  
+  debugger;
+  if(this.approvstatus == 'V')
+  {
+
+    this.receivedLink= this.signupurl
+    this.urlsubstring = 'http://crm.blootusk.com/#UI/auth/signupuser/'
+    let encryptedcode = this.receivedLink.replace(this.urlsubstring,'') 
+    encryptedcode = this.EncrDecr.get('12$#@BLOO$^@TUSK', encryptedcode)
+    this.receivedLink = this.urlsubstring + encryptedcode;
+
+      // QRCode.toDataURL(this.receivedLink)
+      //   .then(url => {
+      //     this.qrCodeDataURL = url;
+      //   })
+      //   .catch(err => {
+      //     console.error('QR Code generation error:', err);
+      //   });
+      //   this.modalService.open(qrcontent, { size: 'sm' });
+   
+    
+    const qrCodeData =  this.receivedLink; //'Your QR Code Data Here'; // Replace with your QR code data
+
+    QRCode.toDataURL(qrCodeData, (err, url) => {
+      if (err) {
+        console.error(err);
+      } else {
+        this.qrCode = url;
+      }
+    });
+   
     this.modalService.open(qrcontent, { size: 'sm' });
+   
+    //-------------------------//
+
+  }
+  else{
+    Swal.fire({
+      title: 'Merchant Verifacation Not Verified',
+      icon: 'warning',
+      // showCancelButton: true,
+      confirmButtonColor: '#364574',
+      cancelButtonColor: 'rgb(243, 78, 78)',
+      confirmButtonText: 'OK',
+      allowOutsideClick: false,
+      allowEscapeKey: false
+    });
+  }
+
   }
 
   blockSpaces(event: KeyboardEvent) {
@@ -229,7 +290,7 @@ public submit() {
 
 successmsg() {
   Swal.fire({
-    title: 'Merchant Updated Successfully',
+    title: 'Merchant Information Updated Successfully',
     icon: 'success',
     // showCancelButton: true,
     confirmButtonColor: '#364574',
@@ -243,7 +304,7 @@ public getMerchantbyId(merchantId: any) {
   if (merchantId > 0) {
     this.appService.getById("api/Merchant/GetMerchantById/", merchantId).subscribe(data => {     
    
-      console.log(data.responseData)
+      console.log('merchant by id' , data.responseData)
 
       this.uploadForm.patchValue({
 
@@ -275,8 +336,12 @@ public getMerchantbyId(merchantId: any) {
         createdDate:data.responseData.createdDate,
         modifyBy:data.responseData.modifyBy,
         modifyDate: data.responseData.modifyDate,  
-        approvalStatus : data.responseData.approvalStatus
+        approvalStatus : data.responseData.approvalStatus,
+        merchantURL : data.responseData.merchantURL,
+        recStatus : data.responseData.recStatus == "A"? true : false,
+               
       });
+
     });
   }
 }
@@ -287,39 +352,19 @@ AddRemark(formDt: remarkHistory)
   debugger;
   let AddRemarkModel: remarkHistory = formDt;  
 
-  if(this.approvstatus == 'N')
-  {
-    this.approvstatus = 'New';
-  }
-  else if(this.approvstatus == 'I')
-  {
-    this.approvstatus = 'In Progress';
-  }
- else if(this.approvstatus == 'V')
-  {
-    this.approvstatus = 'Verified';
-  }
-  else(this.approvstatus == 'R')
-  {
-    this.approvstatus = 'Rejected';
-  }
-  
   const remarkdetail = { ...formDt };   
-  remarkdetail.remarkDate = new Date();
-  remarkdetail.merchantID = this.merchantId;
-  remarkdetail.approvalStatus = this.approvstatus;
   
   const addremarks: remarkHistory = {
     remark: remarkdetail.remark,
     remarkID: 0,            
     merchantID: this.merchantId,
     approvalStatus: this.approvstatus,
-    remarkDate:  remarkdetail.remarkDate,     
+    remarkDate:  new Date(),     
   }
 
   console.log(remarkdetail);
   debugger;
-  this.appService.Add('api/Merchant/AddMerchantRemark', remarkdetail).subscribe((data: any) => {
+  this.appService.Add('api/Merchant/AddMerchantRemark', addremarks).subscribe((data: any) => {
     debugger  
    
     if (data.responseStatusCode == 200) {    
@@ -327,7 +372,10 @@ AddRemark(formDt: remarkHistory)
       Swal.fire({
         title:'Remark added',      
         icon: 'success',
-        confirmButtonColor: '#364574'
+        confirmButtonColor: '#364574',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+ 
       });
   
 
@@ -343,10 +391,19 @@ AddRemark(formDt: remarkHistory)
 CancelForm()
 {
   this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
-  
 }
   public updateMerchant(formData: editMerchant) {
     debugger;
+
+    if(formData.recStatus == true)
+    {
+      formData.recStatus = 'A'
+    }
+    else{
+      formData.recStatus = 'I'
+    }
+
+
     let AddMerchantModel: editMerchant = formData;  
        AddMerchantModel.merchantId = this.merchantId,
        AddMerchantModel.posInfo.merchantId = this.merchantId,
@@ -356,14 +413,13 @@ CancelForm()
        AddMerchantModel.modifyBy = 0;
        AddMerchantModel.createdDate = new Date(); 
        AddMerchantModel.modifyDate = new Date();
-       
+      AddMerchantModel.merchantURL ='';
        AddMerchantModel.posInfo.stateName = "";
        AddMerchantModel.posInfo.categoryName = "";
        AddMerchantModel.posInfo.countryName = "";
        AddMerchantModel.password=this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.password);
        AddMerchantModel.phoneNumber =  this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.phoneNumber);
-     AddMerchantModel.email = this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.email);
-    console.log(AddMerchantModel);
+       AddMerchantModel.email = this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.email.toLowerCase());
        
     if(this.uploadForm.valid)
     {
@@ -373,62 +429,114 @@ CancelForm()
             return throwError(error); // Throw the error to propagate it further
           })
         )   
-          .subscribe((res: any) => {
-            debugger;
-            console.log('data',res)
-  
-            if(res.responseStatusCode == 200)
-            {             
-              Swal.fire({
-                title:'Merchant Update successfully',
-                icon: 'success',
-                confirmButtonColor: '#364574'
-              });
+        .subscribe((res: any) => {
+          debugger;
+          console.log('data',res)
 
-              this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
-    
+          if(res.responseStatusCode == 200)
+          {           
+            this.successmsg();
+            this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
+          }
+          else if(res.responseStatusCode == 212)
+          {
+            Swal.fire({
+              text: 'Something Went wrong',
+              icon: 'warning',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false       
+            });
+           
+          }
+          else if(res.responseStatusCode == 500)
+          {
+            Swal.fire({
+              title:'Error',
+              text: 'Error Status',
+              icon: 'warning',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+       
+            });
+           
             
-            }
-            else if(res.responseStatusCode == 212)
-            {
-              alert("Something Went wrong")
-             
-            }
-            else if(res.responseStatusCode == 500)
-            {
-              alert("Error Status ")
-              
-            }
-            else if(res.responseStatusCode == 601)
-            {
-              alert("Phone Number is Duplicate")
-             
-            }
-            else if(res.responseStatusCode == 602)
-            {
-              alert("Duplicate Email")
-              
-            }
-            else if(res.responseStatusCode == 603)
-            {
-              alert("Duplicate Category Status ")
-              
-            }
-            else if(res.responseStatusCode == 400)
-            {
-              alert("Bad Request Status")
-             
-            }
-            else{
-              alert("Something Went wrong")
-              
-            }
-  
-         
-       }) 
+          }
+          else if(res.responseStatusCode == 601)
+          {
+            Swal.fire({
+              title:'Warning',
+              text: 'Phone Number is Duplicate.',
+              icon: 'warning',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+       
+            });
+           
+          }
+          else if(res.responseStatusCode == 602)
+          {
+            Swal.fire({
+              title:'Warning',
+              text: 'Duplicate Email.',
+              icon: 'warning',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+       
+            });
+            
+          }
+          else if(res.responseStatusCode == 603)
+          {
+            Swal.fire({
+              title:'Warning',
+              text: 'const int DuplicateCategory Status',
+              icon: 'warning',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+       
+            });              
+          }
+          else if(res.responseStatusCode == 400)
+          {
+            Swal.fire({
+              title:'Warning',
+              text: 'Bad Request Status',
+              icon: 'warning',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+       
+            });                   
+          
+           
+          }
+          else{
+
+            Swal.fire({
+              title:'Error',
+              text: 'Data not save ',
+              icon: 'error',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+       
+            });      
+           
+            
+          }
+
+       
+     }) 
+    
     
       }
       
       
   }   
 }
+

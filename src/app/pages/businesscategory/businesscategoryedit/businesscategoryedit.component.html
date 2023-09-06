@@ -18,7 +18,7 @@
                     <div class="card-body">
 
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div>
                                     <label for="basiInput" class="form-label">Category Name<span class="mnd-fld">*</span></label>
                                    
@@ -28,7 +28,7 @@
                                     placeholder="Enter Category Name">
                                 <div *ngIf="submitted && f['categoryName'].errors" class="invalid-feedback">
                                     <div *ngIf="f['categoryName'].errors['required']">Category Name  is required</div>
-                                    <div *ngIf="f['categoryName'].errors['minlength']">Category Name least 3 char long
+                                    <div *ngIf="f['categoryName'].errors['minlength']">Category Name atleast 3 char long
                                     </div>
                                 </div>
 
@@ -36,7 +36,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-5">
                                 <div>
                                     <label for="basiInput" class="form-label">Reward Point<span class="mnd-fld">*</span></label>
                                     <input type="text" class="form-control" 
@@ -45,6 +45,8 @@
                                     (keypress)="blockSpaces($event)" placeholder="Enter Reward Point">
                                 <div *ngIf="submitted && f['rewardPoint'].errors" class="invalid-feedback">
                                     <div *ngIf="f['rewardPoint'].errors['required']">Reward Points is required</div>
+                                    <div *ngIf="f['rewardPoint'].errors['minlength']">Reward Points atleast 3 digit long</div>
+                               
                                    
 
                                 </div>
@@ -52,6 +54,22 @@
                                 
                                 </div>
                             </div>
+
+                                <div class="col-md-2">
+                                    <div>                    
+                                        <label for="basiInput" class="form-label">Status </label>                    
+                                        <div class="form-check form-switch form-switch-lg mt-1" dir="ltr">
+                                          
+                                       
+                                            <input type="checkbox" class="form-check-input"  id="customSwitchsizelg" formControlName="recStatus" [(ngModel)]="RecStatus" checked=false >
+                    
+                                            <label class="form-check-label" *ngIf="RecStatus==true" for="customSwitchsizelg">Active</label>
+                                            <label class="form-check-label" *ngIf="RecStatus==false" for="customSwitchsizelg">In-Active</label>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            
 
                         </div>
 

@@ -41,12 +41,29 @@ export class BusinesscategorylistComponent {
       );
     }
  
+    public ClearSearchdata()
+    {
+      location.reload();
+   
+      // let ListCategoryModel: listCatagory = {
+      //   "categoryName": '',
+      //   "rewardPoint": 1
+      // }
+      // this.appService.GetAllList('api/CategoryMaster/GetAllCategory', ListCategoryModel)
+      // .pipe(
+      //   catchError((error) => {          
+      //     return throwError(error); 
+      //   })).subscribe((data: any) => {      
+      //     this.BusinesscategoryList = data.responseData;    
+      //   },);  
 
- public Searchdata(formData: any) {
+    }
+    
+    public Searchdata(formData: any) {
       debugger;
       let ListCategoryModel: listCatagory = {
       "categoryName": formData.categoryName == ''? "":formData.categoryName,
-      "rewardPoint": formData.rewardPoint==''? 0:formData.rewardPoint
+      "rewardPoint": formData.rewardPoint==''? 0:formData.rewardPoint      
     }
   if(ListCategoryModel.categoryName !=''|| ListCategoryModel.rewardPoint != 0)
   {
@@ -56,14 +73,16 @@ export class BusinesscategorylistComponent {
         return throwError(error); 
       })).subscribe((data: any) => {      
         this.BusinesscategoryList = data.responseData;
-    
 
     if(data.responseData.length == 0)
     {
       Swal.fire({
         title:'Data not found',
         icon: 'info',
-        confirmButtonColor: '#364574'
+        confirmButtonColor: '#364574',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+ 
       });
     }
 
@@ -74,8 +93,8 @@ export class BusinesscategorylistComponent {
     {
     
     Swal.fire({
-      title:'warning',
-      text: 'Please Fill Category Or Reward POint',
+      title:'Warning',
+      text: 'Please fill Category Name or Reward Point',
       icon: 'warning',
       confirmButtonColor: '#364574'
     });    
@@ -88,7 +107,7 @@ export class BusinesscategorylistComponent {
       debugger;
       Swal.fire({
         title: 'Confirmation',
-        text: 'Are you sure you want to delete this Business Category?',
+        text: 'Are you sure you want to Delete this Business Category?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#364574',
@@ -103,8 +122,8 @@ export class BusinesscategorylistComponent {
             this.appService.Delete(`api/CategoryMaster/DeleteCategory?categoryId=${object.categoryId}`, {}).subscribe(data => {
              
                 Swal.fire({
-                  title: 'Deleted!',
-                  text: 'Category has been Deleted Successfully.',
+                  title: 'Delete',
+                  text: 'Business Category has been Delete Successfully.',
                   icon: 'success',
                   confirmButtonColor: '#364574'
                 });

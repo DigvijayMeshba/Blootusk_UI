@@ -62,13 +62,13 @@
                                                     id="email" formControlName="email"
                                                     [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
                                                     placeholder="Enter email"
-                                                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
-                                                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">         
+                                                      <i class="ri-mail-unread-line"></i>
+                                                </div>
+                                                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback d-block">
                                                     <div *ngIf="f['email'].errors['required']">Email is required</div>
                                                     <div *ngIf="f['email'].errors['pattern']">Please enter valid Email
                                                     </div>
-                                                </div>
-                                                    <i class="ri-mail-unread-line"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -183,7 +183,7 @@
                                             <div>
                                                 <label for="basiInput" class="form-label">Zip Code <span class="mnd-fld">*</span> </label>
                                                 <input type="text" class="form-control" placeholder="Enter Zip  Code" 
-                                                (keypress)="keyPressOnlynum($event)" maxlength="10"
+                                                (keypress)="keyPressOnlynum($event)" maxlength="5"
                                                 formControlName="zip"> 
 
                                                 <div *ngIf="this.uploadForm.get('posInfo.zip')?.invalid && submitted" class="invalid-feedback d-block">

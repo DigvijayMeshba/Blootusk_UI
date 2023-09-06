@@ -63,6 +63,9 @@ export class SignupmerchantComponent {
   public roleId: any;
   prvopt :any;
   prvemailopt:any;
+  merchantEmailOTP!:string;
+  merchantMobileOTP!:string;
+
 
   constructor(public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
@@ -118,6 +121,8 @@ console.log('Decrypted :' + decrypted);
         modifyDate: new FormControl('', []),
         phoneNumberOTP: new FormControl('',[]),   
         emailOTP : new FormControl('',[]),    
+        merchantURL :  new FormControl('',[]),
+
        posInfo : new FormGroup({
         posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
         categoryId: new FormControl('', [Validators.required]),
@@ -133,8 +138,7 @@ console.log('Decrypted :' + decrypted);
         poscode: new FormControl('', []),
         latitude: new FormControl('', []),
         longitude: new FormControl('', []),
-       }),
-      
+       }),      
     },
     
      { 
@@ -261,7 +265,7 @@ console.log('Decrypted :' + decrypted);
         })
       )   
         .subscribe((res: any) => {
-        
+        debugger;
           console.log(res.responseData)
           let statuscode : number = res.responseStatusCode;
           switch(statuscode)
@@ -271,12 +275,11 @@ console.log('Decrypted :' + decrypted);
                 current : false,
                 next : true
               }
+
               if (res.responseData.phoneNumberOTP != undefined ||
-                res.responseData.emailOTP != undefined ) {      
-  
-                this.tokenStorage.SavePhoneOtp(res.responseData.phoneNumberOTP);
-                this.tokenStorage.SaveEmailOtp(res.responseData.emailOTP);
-                
+                res.responseData.emailOTP != undefined ) {        
+                this.merchantEmailOTP = res.responseData.emailOTP ;
+                this.merchantMobileOTP = res.responseData.phoneNumberOTP;                 
               }
               break;
               case 212 :
@@ -284,7 +287,9 @@ console.log('Decrypted :' + decrypted);
                   title:'Error',
                   text: 'Something Went wrong',
                   icon: 'error',
-                  confirmButtonColor: '#364574'
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
                 });
 
                 this.showDiv = {
@@ -299,7 +304,9 @@ console.log('Decrypted :' + decrypted);
                   title:'Error',
                   text: 'Error Status.',
                   icon: 'error',
-                  confirmButtonColor: '#364574'
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
                 });
 
                 this.showDiv = {
@@ -313,7 +320,9 @@ console.log('Decrypted :' + decrypted);
                   title:'Duplication Error',
                   text: 'Phone Number is Duplicate.',
                   icon: 'error',
-                  confirmButtonColor: '#364574'
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
                 });
                   this.showDiv = {
                     current : true,
@@ -326,7 +335,9 @@ console.log('Decrypted :' + decrypted);
                   title:'Duplication Error',
                   text: 'Duplicate Email.',
                   icon: 'info',
-                  confirmButtonColor: '#364574'
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
                 });
                 this.showDiv = {
                   current : true,
@@ -339,7 +350,9 @@ console.log('Decrypted :' + decrypted);
                   title:'Duplication Error',
                   text: 'Duplicate Category Status.',
                   icon: 'error',
-                  confirmButtonColor: '#364574'
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
                 });
                   this.showDiv = {
                     current : true,
@@ -353,7 +366,9 @@ console.log('Decrypted :' + decrypted);
                 title:'Error',
                 text: 'Bad Request Status.',
                 icon: 'error',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
               });
                  
                   this.showDiv = {
@@ -387,15 +402,17 @@ console.log('Decrypted :' + decrypted);
     AddMerchantDtail.categoryName = ""? "":AddMerchantDtail.categoryName,
     AddMerchantDtail.countryName = ""? "":AddMerchantDtail.countryName,
    
-
+AddMerchantDtail.merchantURL = '',
     console.log(AddMerchantDtail);
 
     this.prvopt = this.tokenStorage.getPhoneNOOtp();
     this.prvemailopt = this.tokenStorage.getEmailOtp();
 
-    if(formData.phoneNumberOTP == this.prvopt && formData.emailOTP == this.prvemailopt ||
-      
-      formData.phoneNumberOTP == '123456' && formData.emailOTP == '123456')
+   
+debugger;
+
+      if((formData.phoneNumberOTP == this.merchantMobileOTP || formData.phoneNumberOTP == '123456') && 
+(formData.emailOTP == this.merchantEmailOTP || formData.emailOTP == '123456'))
     {      
        console.log(AddMerchantDtail);
 
@@ -407,11 +424,18 @@ console.log('Decrypted :' + decrypted);
           case 200:
             Swal.fire({
               title:'Success',
-              text: 'Merchant Added Successfully.',
+              text: 'Merchant Signup Successfully.',
               icon: 'success',
-              confirmButtonColor: '#364574'
-            });
-            this.router.navigate(['/dashboards/dashboard'], { relativeTo: this.route });
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+             
+            }).then(function() {
+
+            location.reload();
+          });
+          
+             
    
             break;
             case 212 :
@@ -420,7 +444,9 @@ console.log('Decrypted :' + decrypted);
                 title:'Warning',
                 text: 'Something Went wrong',
                 icon: 'warning',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
               });
               break;
               
@@ -430,7 +456,9 @@ console.log('Decrypted :' + decrypted);
                 title:'Error',
                 text: 'Error Status',
                 icon: 'error',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
               });
 
               break;
@@ -441,7 +469,9 @@ console.log('Decrypted :' + decrypted);
               title:'Duplication',
               text: 'Phone Number is Duplicate',
               icon: 'warning',
-              confirmButtonColor: '#364574'
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
             });
                
               break;
@@ -452,7 +482,9 @@ console.log('Decrypted :' + decrypted);
                 title:'Duplication',
                 text: 'Duplicate Email',
                 icon: 'warning',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
               });
               break;
            
@@ -461,7 +493,9 @@ console.log('Decrypted :' + decrypted);
                 title:'Duplication',
                 text: 'Duplicate Category Status',
                 icon: 'warning',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
               });
               break;
             
@@ -470,7 +504,9 @@ console.log('Decrypted :' + decrypted);
               title:'Error',
               text: 'Bad Request Status',
               icon: 'error',
-              confirmButtonColor: '#364574'
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
             });
             
             break;
@@ -487,7 +523,9 @@ console.log('Decrypted :' + decrypted);
         title:'Warning',
         text: 'Invalid OTP',
         icon: 'warning',
-        confirmButtonColor: '#364574'
+        confirmButtonColor: '#364574',
+        allowOutsideClick: false,
+        allowEscapeKey: false
       });
 
         

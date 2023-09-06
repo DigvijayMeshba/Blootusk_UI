@@ -3,9 +3,10 @@ import { Injectable } from '@angular/core';
 const TOKEN_KEY = 'auth-token';
 const USER_KEY = 'currentUser';
 const MERCHANT_KEY = 'Merchant';
-const OTP_KEY = 'phoneNumberOTP';
-const OTPEMAIL_KEY = 'phoneNumberOTP';
+const OTP_KEY = 'MerchantSignupPhoneNoOTP';
+const OTPEMAIL_KEY = 'MerchantSignupEmailOTP';
 const USEROTP_KEY = 'userphoneNumberOTP';
+const MerchantUrl_KEY = 'merchantUrl';
 
 
 @Injectable({
@@ -17,6 +18,14 @@ export class TokenStorageService {
   signOut(): void {
     window.sessionStorage.clear();
   }
+
+
+  public saveurl(merhantCode : string): void
+  {
+    window.sessionStorage.removeItem(MerchantUrl_KEY);
+    window.sessionStorage.setItem(MerchantUrl_KEY, merhantCode );
+  }
+
 
   public saveToken(token: string): void {
     window.sessionStorage.removeItem(TOKEN_KEY);
@@ -38,8 +47,8 @@ export class TokenStorageService {
   }
 
   public SavePhoneOtp(phoneNootp:any): void {
+    debugger;
     window.localStorage.removeItem(OTP_KEY);
-
     window.localStorage.setItem(OTP_KEY, JSON.stringify(phoneNootp));
   }
 
@@ -68,7 +77,7 @@ export class TokenStorageService {
   public SaveEmailOtp(emailotp:any): void {
     window.localStorage.removeItem(OTPEMAIL_KEY);
 
-    window.localStorage.setItem(OTP_KEY, JSON.stringify(emailotp));
+    window.localStorage.setItem(OTPEMAIL_KEY, JSON.stringify(emailotp));
   }
 
   public getEmailOtp(): any {
@@ -79,6 +88,11 @@ export class TokenStorageService {
     return {};
   }
 
+
+  public GetUrl(): string | null
+  {
+    return sessionStorage.getItem('merchantUrl');
+  }
 
   public getToken(): string | null {
     return localStorage.getItem('token');

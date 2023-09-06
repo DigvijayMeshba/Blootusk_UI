@@ -33,10 +33,11 @@ export class ImageCaptchaComponent {
   capchatext : any;
   verifyCaptcha() {
     if (this.userText.toLowerCase() === this.generatedText.toLowerCase()) {
-   
 
       this.capchatext ="CAPTCHA verification successful.",
       this.isVerified = true;
+     
+
     }
      else {
       this.generateCaptcha();

@@ -9,7 +9,10 @@ export const environment = {
   
 
   //Uncomment while publish
-  urlAddress: 'http://34.66.214.227',
+  //local
+  urlAddress :'https://localhost:44328',
+  //urlAddress: 'http://34.66.214.227',
+ //urlAddress  :'http://api.blootusk.com',
 
 
   defaultauth: 'fackbackend',

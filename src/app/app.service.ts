@@ -48,7 +48,7 @@ export class AppService {
 
   // Delete Record 
   public DeleteMerchant = (path: any, Id: any) => {
-    return this.http.post(this.createCompleteRoute(path + Id, this._envUrl.urlAddress),{ headers: this.headers });
+    return this.http.get(this.createCompleteRoute(path + Id, this._envUrl.urlAddress),{ headers: this.headers });
   }
 
   // Add New Record

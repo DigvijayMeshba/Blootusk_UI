@@ -22,7 +22,7 @@ export class MerchantlistComponent {
     mobileNo:string;
     approvalStatus:string;
     test :any;
-    
+  
     statusLists = [
       { name: 'New', id:'N' },
       { name: 'In Progress', id:'I' },
@@ -42,8 +42,53 @@ export class MerchantlistComponent {
    //   this.GetAllUserList();
     }
   
+swalMessage(swalTitle:any)
+{
+  Swal.fire({
+    title:swalTitle,
+    icon: 'info',
+    confirmButtonColor: '#364574',
+    allowOutsideClick: false,
+    allowEscapeKey: false
+    
+  });
+}
+
+
+public ClearMerchantList()
+{
+  location.reload;
+    // this.merchnatCode = 'a',
+    // this.merchnatName ='',
+    // this.mobileNo ='',
+    // this.approvalStatus = ''
+
+    // let edituserModel: listMerchant = {
+    //   "merchantCode": this.merchnatCode ,
+    //   "merchantPhoneNumber": this.mobileNo ,      
+    //   "merchantName": this.merchnatName ,
+    //   "approvalStatus": this.approvalStatus    
+    // }  
+    // this.appService.GetAllList("api/Merchant/GetAllMerchant", edituserModel)
+    // .pipe(
+    //   catchError((error) => {          
+    //     return throwError(error); 
+    //   })).subscribe((data: any) => {    
+        
+    //     console.log(data.responseData)
+    //     this.MerchantList = data.responseData  
+       
+    //     if(data.responseData.length == 0)
+    //     {
+    //       // this.swalMessage('Data not found')
+    //     }
+      
+    // },);  
+  
+}
+
     //List of All Company
-    public GetAllMerchantList() {
+  public   GetAllMerchantList() {
 
 
     let edituserModel: listMerchant = {
@@ -68,21 +113,12 @@ export class MerchantlistComponent {
           return throwError(error); 
         })).subscribe((data: any) => {    
           
-          console.log(data.responseData)
+          console.log('allmerchant',data.responseData)
           this.MerchantList = data.responseData  
-
-         if(data.responseData[0].approvalStatus == "I")
-         {
-            this.MerchantList.approvalStatus = 'InProgress';
-         }
          
           if(data.responseData.length == 0)
           {
-            Swal.fire({
-              title:'Data not found',
-              icon: 'info',
-              confirmButtonColor: '#364574'
-            });
+             this.swalMessage('Data not found')
           }
         
       },);  
@@ -94,7 +130,9 @@ export class MerchantlistComponent {
         title:'Oops...',
         text:'Please fill at least one field',
         icon: 'info',
-        confirmButtonColor: '#364574'
+        confirmButtonColor: '#364574',
+        allowOutsideClick: false,
+        allowEscapeKey: false
       });
     }
         
@@ -103,7 +141,7 @@ export class MerchantlistComponent {
     deleterecord(object: any) {
       Swal.fire({
         title: 'Confirmation',
-        text: 'Are you sure you want to delete this user?',
+        text: 'Are you sure you want to block this Merchant?',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#364574',
@@ -115,13 +153,16 @@ export class MerchantlistComponent {
           const index: number = this.MerchantList.indexOf(object);
           if (index !== -1) {
             this.MerchantList.splice(index, 1);
-            this.appService.DeleteMerchant("api/Merchant/DeleteMerchant/", parseInt(object.merchantId)).subscribe(data => {     
-  
+
+            
+            this.appService.DeleteMerchant("api/Merchant/DeleteMerchant/", object.merchantId).subscribe(data => {     
               Swal.fire({
-                title: 'Deleted!',
-                text: 'The merchantId has been deleted successfully.',
+                title: 'Block!',
+                text: 'The Merchant has been block successfully.',
                 icon: 'success',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
               });
             });
           }
@@ -148,7 +189,24 @@ export class MerchantlistComponent {
     public onPageChanged(page: number) {
       this.page = page;
       window.scrollTo(0, 0);
+  
     }
+
+
+    
+  showTooltip() {
+    const tooltip = document.getElementById('tooltip');
+    if (tooltip) {
+      tooltip.style.display = 'block';
+    }
+  }
+
+  hideTooltip() {
+    const tooltip = document.getElementById('tooltip');
+    if (tooltip) {
+      tooltip.style.display = 'none';
+    }
+  }
    
   }
 

@@ -104,12 +104,13 @@ export class MerchantaddComponent {
         modifyBy: new FormControl('', []),
         modifyDate: new FormControl('', []),
         phoneNumberOTP: new FormControl('',[]),   
-        emailOTP : new FormControl('',[]),    
+        emailOTP : new FormControl('',[]), 
+        merchantURL: new FormControl('',[]),    
        posInfo : this.formBuilder.group({
         posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
         categoryId: new FormControl('', [Validators.required]),
-        posAddress: new FormControl('',[ Validators.required, Validators.minLength(6)]),
-        zip: new FormControl('', [Validators.required, Validators.minLength(6)]),
+        posAddress: new FormControl('',[ Validators.required, Validators.minLength(3)]),
+        zip: new FormControl('', [Validators.required, Validators.minLength(5)]),
         stateId: new FormControl('', [Validators.required]),
         countryId: new FormControl('', [Validators.required]),
         countryName: new FormControl('', []),
@@ -258,7 +259,10 @@ export class MerchantaddComponent {
       // showCancelButton: true,
       confirmButtonColor: '#364574',
       cancelButtonColor: 'rgb(243, 78, 78)',
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
+      allowOutsideClick: false,
+      allowEscapeKey: false
+
     });
   }
 
@@ -287,7 +291,8 @@ export class MerchantaddComponent {
       AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
       AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
       AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
-      AddMerchantModel.password=   "123456";
+      AddMerchantModel.password=   "12345678";
+      AddMerchantModel.merchantURL = '';
   
       console.log(AddMerchantModel);
         this.appService.Add('api/Merchant/AddMerchant', AddMerchantModel)      
@@ -310,7 +315,10 @@ export class MerchantaddComponent {
               Swal.fire({
                 text: 'Something Went wrong',
                 icon: 'warning',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+         
               });
              
             }
@@ -321,7 +329,10 @@ export class MerchantaddComponent {
                 title:'Duplication Error',
                 text: 'Error Status',
                 icon: 'warning',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+         
               });
              
               
@@ -332,7 +343,10 @@ export class MerchantaddComponent {
                 title:'Warning',
                 text: 'Phone Number is Duplicate.',
                 icon: 'warning',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+         
               });
              
             }
@@ -342,7 +356,10 @@ export class MerchantaddComponent {
                 title:'Warning',
                 text: 'Duplicate Email.',
                 icon: 'warning',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+         
               });
               
             }
@@ -352,7 +369,10 @@ export class MerchantaddComponent {
                 title:'Warning',
                 text: 'const int DuplicateCategory Status',
                 icon: 'warning',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+         
               });              
             }
             else if(res.responseStatusCode == 400)
@@ -361,7 +381,10 @@ export class MerchantaddComponent {
                 title:'Warning',
                 text: 'Bad Request Status',
                 icon: 'warning',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+         
               });                   
             
              
@@ -372,7 +395,10 @@ export class MerchantaddComponent {
                 title:'Error',
                 text: 'Data not save ',
                 icon: 'error',
-                confirmButtonColor: '#364574'
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+         
               });      
              
               

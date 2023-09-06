@@ -32,6 +32,8 @@ export interface signupMerchant
           latitude: string;
           longitude: string
         },
+
+        merchantURL : string;
         remarkList: [
           {
             remarkID: number;

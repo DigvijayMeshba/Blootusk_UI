@@ -48,6 +48,7 @@ import { ImageCaptchaComponent } from './image-captcha/image-captcha.component';
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    FormsModule,
     NgbToastModule,
     AccountRoutingModule,
     CommonModule,

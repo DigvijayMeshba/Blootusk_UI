@@ -45,7 +45,7 @@
                                         <input (keypress)="blockSpaces($event)" type="email" class="form-control"
                                             id="email" formControlName="email"
                                             [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
-                                            placeholder="Enter email"
+                                            placeholder="Enter Email"
                                             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                                         <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
                                             <div *ngIf="f['email'].errors['required']">Email is required</div>
@@ -59,7 +59,7 @@
                                         <label class="form-label" for="password-input">Password</label>
                                         <div class="position-relative auth-pass-inputgroup mb-3">
                                             <input [type]="fieldTextType ? 'text' : 'password'"
-                                                class="form-control pe-5" placeholder="Enter password"
+                                                class="form-control pe-5" placeholder="Enter Password"
                                                 id="password-input" formControlName="password"
                                                 [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
                                                 minlength="6">

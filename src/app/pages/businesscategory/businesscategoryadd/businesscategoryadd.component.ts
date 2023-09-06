@@ -112,23 +112,27 @@ export class BusinesscategoryaddComponent {
         
     successmsg() {
       Swal.fire({
-        title: 'Business Category Added',
+        title: 'Business Category Added Successfully',
         icon: 'success',
-        // showCancelButton: true,
         confirmButtonColor: '#364574',
         cancelButtonColor: 'rgb(243, 78, 78)',
-        confirmButtonText: 'OK'
+        confirmButtonText: 'OK',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+ 
       });
     }
   
     Updatemsg() {
       Swal.fire({
         title: 'User Updated Successfully',
-        icon: 'success',
-        // showCancelButton: true,
+        icon: 'success',       
         confirmButtonColor: '#364574',
         cancelButtonColor: 'rgb(243, 78, 78)',
-        confirmButtonText: 'OK'
+        confirmButtonText: 'OK',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+ 
       });
     }
     //create new user
@@ -138,11 +142,7 @@ export class BusinesscategoryaddComponent {
       "catgoryId":formData.catagoryId,
       "categoryName": formData.categoryName,
       "rewardPoint": formData.rewardPoint,
-      "recStatus": formData.recStatus,
-      // "createBy": formData.createBy,
-      // "createDate": formData.createDate,
-      // "modifyBy": formData.modifyBy,
-      // "modifyDate": formData.modifyDate 
+      "recStatus": formData.recStatus,    
     
     }
   if(this.uploadForm.valid)

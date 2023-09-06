@@ -69,15 +69,15 @@
                                                                 <label for="labelInput" class="form-label">Email Id <span class="mnd-fld">*</span></label>
                                                                 <div class="form-icon right">
                                                                     <input type="text" class="form-control" formControlName="email" placeholder="Enter Email Id">
-                                                                  
-                                                                    <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                                                                        <div *ngIf="f['email'].errors['required']">Email is required</div>
-                                                                        <div *ngIf="f['email'].errors['pattern']">Please enter valid Email
-                                                                        </div>
-                                                                    </div>
                                                                     <i class="ri-mail-unread-line"></i>
+                                                                   
                                                                 </div>
-                                                               
+                                                                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback d-block">
+                                                                    <div *ngIf="f['email'].errors['required']">Email is required</div>
+                                                                    <div *ngIf="f['email'].errors['pattern']">Please enter valid Email
+                                                                    </div>
+                                                                </div>
+                                                             
                                                             </div>
                                                         </div>
                         
@@ -96,11 +96,11 @@
                                                              formControlName="phoneNumber" required pattern="[0-9]+" C="10"
                                                              maxlength="10" minlength="10"
                                                              [ngClass]="{ 'is-invalid': submitted && f['phoneNumber'].errors }"
-                                                             (keypress)="blockSpaces($event)" placeholder="Enter Phone No.">            
+                                                             (keypress)="blockSpaces($event)" placeholder="Enter Mobile No.">            
                                                          <div *ngIf="submitted && f['phoneNumber'].errors" class="invalid-feedback">
-                                                             <div *ngIf="f['phoneNumber'].errors['required']">Phone No. is required
+                                                             <div *ngIf="f['phoneNumber'].errors['required']">Mobile No. is required
                                                              </div>
-                                                             <div *ngIf="f['phoneNumber'].errors['minlength']">Phone enter valid Mobile
+                                                             <div *ngIf="f['phoneNumber'].errors['minlength']">Mobile enter valid Mobile
                                                                  No.</div>
                                                          </div>
                                                             
@@ -124,6 +124,8 @@
                                                             
                                                             </div>
                                                         </div>
+                                                        
+                                                      <input class="" type="hidden" aria-hidden="true" formControlName="merchantURL" [(ngModel)]="signupurl" />
 
                                                         <div class="col-md-4">
                                                             <!-- <div class="position-relative auth-pass-inputgroup">
@@ -148,7 +150,7 @@
                                                                  }" (click)="toggleFieldTextType1()"></i></button>
                                                             <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
                                                                 <div *ngIf="f['password'].errors['required']">Password is required</div>
-                                                                <div *ngIf="f['password'].errors['minlength']">Password at least 8  digits long</div>
+                                                                <div *ngIf="f['password'].errors['minlength']">Password at least 8 to 15 digits long</div>
                                                               
                                                             </div>
     
@@ -180,7 +182,7 @@
 
                                                         <div class="col-md-8">
                                                             <div>
-                                                                <label for="basiInput" class="form-label">POS Name <span class="mnd-fld">*</span></label>
+                                                                <label for="basiInput" class="form-label">POS Name (Point of sale) <span class="mnd-fld">*</span></label>
                                                                 <input type="text" class="form-control" formControlName="posname" placeholder="Enter POS Name">
                                                                 <div *ngIf="this.uploadForm.get('posInfo.posname')?.invalid && submitted" class="invalid-feedback d-block">
                                                                     <div *ngIf="this.uploadForm.get('posInfo.posname')?.errors?.['required']">Pos Name is required</div>                                                        
@@ -189,7 +191,6 @@
                                                             
                                                             </div>
                                                         </div>
-                
                                                         <div class="col-md-4">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Category <span class="mnd-fld">*</span></label>
@@ -229,7 +230,7 @@
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Zip Code <span class="mnd-fld">*</span></label>
                                                                 <input type="text" class="form-control" placeholder="Enter Zip Code" 
-                                                                formControlName="zip"   maxlength="10" minlength="6"  (keypress)="keyPressOnlynum($event)">
+                                                                formControlName="zip"    minlength="5" maxlength="5"  (keypress)="keyPressOnlynum($event)">
                                                                 <div *ngIf="this.uploadForm.get('posInfo.zip')?.invalid && submitted" class="invalid-feedback d-block">
                                                                     <div *ngIf="this.uploadForm.get('posInfo.zip')?.errors?.['required']">Zip code is required</div>                                                        
                                                                 <div *ngIf="this.uploadForm.get('posInfo.zip')?.errors?.['minlength']">zip Code  least 5 char long                                               </div>
@@ -287,14 +288,15 @@
                                                         <div class="col-md-4">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Latitude </label>
-                                                                <input type="text" class="form-control" placeholder="Enter Latitude" formControlName ="latitude">
+                                                                <input type="text" class="form-control" maxlength="11" placeholder="Enter Latitude" formControlName ="latitude"  >
+                                                               
                                                             </div>
                                                         </div>
                         
                                                         <div class="col-md-4">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Longitude </label>
-                                                                <input type="text" class="form-control" placeholder="Enter Longitude" formControlName ="longitude">
+                                                                <input type="text" class="form-control" placeholder="Enter Longitude" maxlength="11" formControlName ="longitude">
                                                             </div>
                                                         </div>
                         
@@ -323,14 +325,15 @@
                 
                                                         <div class="col-md-4"> 
                                                             <div>
-                                                                <label for="basiInput" class="form-label">Status </label>
+                                                                <label for="basiInput" class="form-label">Verification </label>
 
                                                                 <select class="form-select" aria-label="Default select example" formControlName ="approvalStatus" [(ngModel)]="approvstatus" >
-                                                                   <option></option>
+                                                                   <!-- <option>Select Verification</option>-->
+                                                                   <option value=""  selected>Select Verification </option>                                             
                                                                     <option *ngFor="let status of statusLists" [value]="status.id">
                                                                       {{ status.name }}
                                                                     </option>                                                                  
-                                                            </select>
+                                                                 </select>
                                                             </div>
                                                         </div>
                         
@@ -339,8 +342,25 @@
                                                                 <label for="basiInput" class="form-label">Remarks / Notes </label> <label for="basiInput" class="form-label lbl-btn" (click)="openModal(content)"><i class="ri-eye-fill label-icon align-middle me-2"></i>View History</label>
                                                                 <textarea class="form-control" rows="1" placeholder="Enter Remarks / Notes" formControlName="remark"></textarea>
                                                             </div>
-                                                        </div>
+                                                        </div>                        
 
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-4">
+                                                            <div>                    
+                                                                <label for="basiInput" class="form-label">Status </label>                    
+                                                                <div class="form-check form-switch form-switch-lg mt-1" dir="ltr">
+                                                                  
+                                                               
+                                                                    <input type="checkbox" class="form-check-input"  id="customSwitchsizelg" formControlName="recStatus" [(ngModel)]="RecStatus" checked=false >
+                    
+                                                                    <label class="form-check-label" *ngIf="RecStatus==true" for="customSwitchsizelg">Active</label>
+                                                                    <label class="form-check-label" *ngIf="RecStatus==false" for="customSwitchsizelg">In-Active</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
                                                         <!-- Modal -->
                                                         <ng-template #content role="document" let-modal>
@@ -354,7 +374,7 @@
                                                                         <thead class="table-light">
                                                                             <tr>
                                                                                 <th scope="col">Date</th>
-                                                                                <th scope="col">Status</th>
+                                                                                <th scope="col">Verification</th>
                                                                                 <th scope="col">Remarks / Notes</th>
                                                                             </tr>
                                                                         </thead>
@@ -400,7 +420,6 @@
 
                                                          </ng-template>
 
-
                                                          <!-- QR Modal -->
                                                         <ng-template #qrcontent role="document" let-modal>
                                                             <div class="modal-header">
@@ -409,24 +428,25 @@
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div>
-                                                                    <form>
+                                                                    <form >
                                                                         <div class="row">
-                                                                            <div class="col-md-12">
-                                                                                <div class="text-center">
-                                                                                    <img src="assets/images/qr.jpg" alt="" height="200" >
+                                                                            <div class="col-md-12">   
+                                                                                <div class="qr-code-container">
+                                                                                    <img src="assets/images/Logo_squre.jpg" alt="Logo" class="logo" >
+                                                                                    <img src="{{ qrCode }}" alt="QR Code" class="qr-code">
+                                                                                  </div>
+                                                                                    <!-- <img src="assets/images/qr.jpg" alt="" height="200" > -->
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
+                                                                        
                                                                         <div class="mt-3 text-center" >
-                                                                            <button type="submit" class="btn btn-success"><i class="ri-download-line label-icon align-middle me-2"></i> Download</button>
+                                                                            <!-- <a [href]="qrCodeDataURL" download="qrcode.png">Download QR Code</a> -->
+                                                                            <a type="submit"   download="qrcode.png" class="btn btn-success"><i class="ri-download-line label-icon align-middle me-2"></i> Download QR Code</a>
                                                                         </div>
                                                                     </form>
                                                                 </div>
                                                             </div>
                                                         </ng-template>
-
-                                                    </div>
-
                                                 </div>
                                             </div>
                 
@@ -602,7 +622,7 @@
                             </li>
                         </ul>
 
-                        <div class="tab-content text-muted">
+                        <div class="tab-content">
                             <div [ngbNavOutlet]="PillsJustified"></div>
                         </div>
 

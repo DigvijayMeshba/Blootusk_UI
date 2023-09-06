@@ -108,11 +108,13 @@
                                                             [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
                                                             placeholder="Enter Email"
                                                             pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+                                                         
+                                                           
                                                             <i class="ri-mail-unread-line"></i>
-                                                            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
-                                                                <div *ngIf="f['email'].errors['required']">Email is required</div>
-                                                                <div *ngIf="f['email'].errors['pattern']">Please enter valid Email
-                                                                </div>
+                                                        </div>
+                                                        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback d-block">
+                                                            <div *ngIf="f['email'].errors['required']">Email is required</div>
+                                                            <div *ngIf="f['email'].errors['pattern']">Please enter valid Email
                                                             </div>
                                                         </div>
                                                         
@@ -179,7 +181,7 @@
                                                        
                                                              <div *ngIf="f['confirmPassword'].errors && submitted"  class="invalid-feedback d-block">
                                                             <div *ngIf="f['confirmPassword'].errors?.['required']">Confirm Password is required</div>
-                                                            <div *ngIf="f['confirmPassword'].errors?.['matching']"> Password and Confirm password should be same</div>
+                                                            <div *ngIf="f['confirmPassword'].errors?.['matching']"> Password and Confirm password must be same</div>
                                                         </div>
 
                                                         
@@ -256,7 +258,8 @@
                                                 <div class="col-md-4">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Zip Code  <span class="madatory">*</span></label>
-                                                        <input type="text" class="form-control" formControlName="zip" placeholder="Enter Zip  Code">
+                                                        <input type="text" class="form-control" formControlName="zip" maxlength="5" placeholder="Enter Zip  Code"
+                                                        (keypress)="keyPressOnlynum($event)">
                                                         <div *ngIf="this.uploadForm.get('posInfo.zip')?.invalid && submitted" class="invalid-feedback d-block">
                                                             <div *ngIf="this.uploadForm.get('posInfo.zip')?.errors?.['required']">Zip Code is required</div>                                                        
                                                         <div *ngIf="this.uploadForm.get('posInfo.zip')?.errors?.['minlength']">zip Code  least 5 char long                                               </div>
@@ -374,8 +377,7 @@
 
         </div>
        
-    </div>
-  
+    </div>  
   
     <!-- footer -->
     <footer class="footer">

@@ -16,6 +16,7 @@ export interface addMerchant
         approvalStatus: string;
         recStatus: string;
         remark: string;
+        merchantURL : string;
         posInfo: {
           posid: number;
           merchantId: number;
@@ -62,7 +63,7 @@ export interface editMerchant
        isPhoneNumberValidate: number;
        isEmailValidate: number;
        approvalStatus: string;
-       recStatus: string;
+       recStatus: any;
        remark: string;
        posInfo: {
          posid: number;
@@ -84,6 +85,7 @@ export interface editMerchant
        createdDate:Date;
        modifyBy: number;
        modifyDate: Date;
+       merchantURL : string;
   }
 
   export interface remarkHistory

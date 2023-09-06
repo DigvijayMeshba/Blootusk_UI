@@ -5,8 +5,9 @@ import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { AppService } from 'src/app/app.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { catchError, throwError } from 'rxjs';
-import { Signupuser, UserForOtp } from './signupuser';
+import { AddCustomer, Signupuser, UserForOtp } from './signupuser';
 import Swal from 'sweetalert2';
+import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
 
 
@@ -38,7 +39,14 @@ export class SignupuserComponent {
     fieldTextType1!: boolean;
     fieldTextType2!: boolean;   
     submitted = false; 
-    compareControlName!: string;  
+    compareControlName!: string; 
+    generatedText!: string;
+    userText!: string;
+    isVerified = false;
+    CustName!:string;
+    MobileNo!:string;
+
+    isSubmitBtnDisabled: boolean= true;
     
   
     toggleFieldTextType1() {
@@ -59,20 +67,23 @@ export class SignupuserComponent {
     prvemailopt:any;
     captchaResponse!: string;
     merchantName!:string;
+    merchantId!:number;
     isCaptchaVerified = false;
+    UserSendOTP!:string;
   
     constructor(public formBuilder: FormBuilder,public appService: AppService,
       private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-      private router: Router)
+      private router: Router,private EncrDecr: EncrDecrServiceService)
      {
-        
+      this.merchantCode = this.route.snapshot.params['id'];      
+      this.GetMerchantName(this.merchantCode);
      }
   
      ngOnInit(): void {
-      this.merchantCode = this.route.snapshot.params['id'];
-      this.GetMerchantName(this.merchantCode);
-
-
+      //this.isSubmitBtnDisabled = false;
+  
+      
+      this.generateCaptcha();
        let addUserDeatil = this.tokenStorage.getUser();
       this.uploadForm = new FormGroup({       
         merchantCode: new FormControl('', []),
@@ -85,6 +96,7 @@ export class SignupuserComponent {
         rewardPoint: new FormControl('', []),
         recStatus: new FormControl('', []),
         approvalStatus: new FormControl('', []),
+        usertext : new FormControl('', []),
          
       }),
       this.Otporm =new FormGroup({
@@ -106,11 +118,13 @@ export class SignupuserComponent {
   
     GetMerchantName(merchantCode:any)
     {
-      debugger
       this.appService.getById("api/Merchant/GetMarchantByCode/",merchantCode).subscribe(data => {
         console.log(data);
        this.merchantName = data.responseData.organizationName;
+       this.merchantId = data.responseData.merchantID;
       });
+
+
     }
   
     public validateControl = (controlName: string) => {
@@ -167,36 +181,34 @@ export class SignupuserComponent {
       
       this.submitted = true;   
     }
+    
     onCaptchaVerificationSuccess() {
       this.isCaptchaVerified = true;
     }
     //create new user
     public createUser(formData: Signupuser) {
+      debugger;
 
-      if (this.isCaptchaVerified) {
-        // Perform signup form submission
-        console.log('Form submitted successfully!');
-      } else {
-        console.log('CAPTCHA verification failed');
-      }
       let AdduserModel: Signupuser = formData;  
   
       const userForOtp: UserForOtp = {
-        email: "",
+        email: '',
         phoneNumber: AdduserModel.phoneNumber,
         emailOTP :'',
         phoneNumberOTP: '',
        }   
         this.tokenStorage.Merchantdata(AdduserModel);  
        
-        this.appService.Add('api/User/UserVerification',userForOtp)
+if(this.uploadForm.valid)
+{
+  this.appService.Add('api/User/UserVerification',userForOtp)
         .pipe(
           catchError((error) => {          
             return throwError(error); // Throw the error to propagate it further
           })
         )   
           .subscribe((res: any) => {
-          
+          console.log(res.responseData)
             let statuscode : number = res.responseStatusCode;
             switch(statuscode)
             {
@@ -208,7 +220,8 @@ export class SignupuserComponent {
                 if (res.responseData.phoneNumberOTP != undefined 
                  ) {      
     
-                  this.tokenStorage.SaveUSerPhoneOtp(res.responseData.phoneNumberOTP);
+                  this.UserSendOTP = res.responseData.phoneNumberOTP
+                 // this.tokenStorage.SaveUSerPhoneOtp(res.responseData.phoneNumberOTP);
                   
                 }
                 break;
@@ -217,7 +230,10 @@ export class SignupuserComponent {
                   title:'Warning',
                   text: 'Something Went wrong.',
                   icon: 'warning',
-                  confirmButtonColor: '#364574'
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+           
                 });
 
                   this.showDiv = {
@@ -232,7 +248,10 @@ export class SignupuserComponent {
                   title:'Error',
                   text: 'Error Status',
                   icon: 'error',
-                  confirmButtonColor: '#364574'
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+           
                 });
 
                  
@@ -247,7 +266,10 @@ export class SignupuserComponent {
                     title:'Duplication',
                     text: 'Phone Number is Duplicate',
                     icon: 'warning',
-                    confirmButtonColor: '#364574'
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+             
                   });
                     this.showDiv = {
                       current : true,
@@ -260,7 +282,10 @@ export class SignupuserComponent {
                     title:'Duplication',
                     text: 'Duplicate Email',
                     icon: 'warning',
-                    confirmButtonColor: '#364574'
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+             
                   }); 
                   this.showDiv = {
                     current : true,
@@ -273,7 +298,11 @@ export class SignupuserComponent {
                     title:'Duplication',
                     text: 'Duplicate Category Status',
                     icon: 'warning',
-                    confirmButtonColor: '#364574'
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+             
+
                   }); 
                     
                     this.showDiv = {
@@ -287,7 +316,9 @@ export class SignupuserComponent {
                       title:'Error',
                       text: 'Bad Request Status',
                       icon: 'warning',
-                      confirmButtonColor: '#364574'
+                      confirmButtonColor: '#364574',
+                      allowOutsideClick: false,
+                      allowEscapeKey: false
                     }); 
                     this.showDiv = {
                       current : true,
@@ -295,44 +326,55 @@ export class SignupuserComponent {
                     }     
                     break;
             }
-       })    
+       })  
+}
+        
       
     } 
   
     SubmitForm(formDdt: UserForOtp)
     {
-
+debugger;
     
       debugger;
       let AdduserOtpModel: UserForOtp = formDdt;
-      let addUserDeatil = this.tokenStorage.getUser();   
-      let AddUsertDtail=   this.tokenStorage.getMerchant();   
+
+      const userForOtp: UserForOtp = {
+        email: "",
+        phoneNumber: AdduserOtpModel.phoneNumber,
+        emailOTP :'',
+        phoneNumberOTP: '',
+       } 
+
+
+      //let addUserDeatil = this.tokenStorage.getUser();   
+      const  AddUsertDtail: AddCustomer  =  {
+        
+        merchantID:this.merchantId,
+        name : this.CustName,
+        phoneNumber:this.MobileNo,
+        merchantCode: this.merchantCode,
+        isPhoneNumberValidate:0,
+        createdBy:0,
+        modifyBy:0,      
+        createdDate : new Date(),
+        modifyDate :new Date(),
+        referBy:0,
+        rewardPoint:0,
+        customerID:0,
+        customerCode :"",       
+        stopMessage :0, 
+        referCode: '',
+        approvalStatus: '',
+        recStatus: '',  
+      }  
      
-      AddUsertDtail.merchantCode = this.merchantCode;
-       AddUsertDtail.isPhoneNumberValidate = 0;
-      AddUsertDtail.createdBy = 0;
-      AddUsertDtail.modifyBy = 0;
-      AddUsertDtail.createdDate = new Date();
-      AddUsertDtail.modifyDate = new Date();
-       AddUsertDtail.merchantID = 28;
-      // AddUsertDtail.referCode ="";
-       AddUsertDtail.referBy=0;
-       AddUsertDtail.rewardPoint=0;
-      AddUsertDtail.customerID=0;
-      AddUsertDtail.customerCode ="";
-      // AddUsertDtail.recStatus ="";
-      // AddUsertDtail.approvalStatus=""
-       AddUsertDtail.stopMessage =0;
-      //stopMessage
-    
-      
-      this.prvopt = this.tokenStorage.getUserPhoneNoOtp();
-      
-      if(formDdt.phoneNumberOTP == this.prvopt || formDdt.phoneNumberOTP == '123456')
+      if(formDdt.phoneNumberOTP == this.UserSendOTP || formDdt.phoneNumberOTP == '123456')
       {      
          console.log(AddUsertDtail);
         this.appService.Add('api/User/AddCustomer', AddUsertDtail).subscribe((data: any) => {
           let statuscode : number = data.responseStatusCode;
+        console.log('adddata',data.responseData)
           switch(statuscode)
           {
             case 200:
@@ -341,18 +383,23 @@ export class SignupuserComponent {
                 title:'Success',
                 text: 'User Added Successfully.',
                 icon: 'success',
-                confirmButtonColor: '#364574'
-              });   
-             
-              this.router.navigate(['/dashboards/dashboard'], { relativeTo: this.route });
-   
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+               
+              }).then(function() {
+  
+              location.reload();
+            });
               break;
               case 212 :
                 Swal.fire({
                   title:'Warning',
                   text: 'Something Went wrong.',
                   icon: 'warning',
-                  confirmButtonColor: '#364574'
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
                 });
                   break;
                   
@@ -362,7 +409,9 @@ export class SignupuserComponent {
                   title:'Error',
                   text: 'Error Status',
                   icon: 'error',
-                  confirmButtonColor: '#364574'
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
                 });    
                   break;
                   
@@ -371,7 +420,9 @@ export class SignupuserComponent {
                     title:'Duplication',
                     text: 'Phone Number is Duplicate',
                     icon: 'warning',
-                    confirmButtonColor: '#364574'
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
                   });
                   break;
                   
@@ -380,7 +431,9 @@ export class SignupuserComponent {
                     title:'Duplication',
                     text: 'Duplicate Email',
                     icon: 'warning',
-                    confirmButtonColor: '#364574'
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
                   });                 
                   break;
                
@@ -389,7 +442,9 @@ export class SignupuserComponent {
                     title:'Duplication',
                     text: 'Duplicate Category Status',
                     icon: 'warning',
-                    confirmButtonColor: '#364574'
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
                   });                     
                            
                   break;
@@ -399,7 +454,9 @@ export class SignupuserComponent {
                       title:'Error',
                       text: 'Bad Request Status',
                       icon: 'error',
-                      confirmButtonColor: '#364574'
+                      confirmButtonColor: '#364574',
+                      allowOutsideClick: false,
+                      allowEscapeKey: false
                     }); 
                    
   
@@ -413,10 +470,46 @@ export class SignupuserComponent {
         title:'Error',
         text: 'Otp Not Valid',
         icon: 'warning',
-        confirmButtonColor: '#364574'
+        confirmButtonColor: '#364574',
+        allowOutsideClick: false,
+        allowEscapeKey: false
       }); 
      
           
       }   
+    }
+
+
+    generateCaptcha() 
+    {
+      debugger;
+      const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      const captchaLength = 6; // Length of the generated CAPTCHA text
+      let captcha = '';
+  
+      for (let i = 0; i < captchaLength; i++) {
+        captcha += possibleChars.charAt(Math.floor(Math.random() * possibleChars.length));
+      }
+  
+      this.generatedText = captcha;
+
+      this.isVerified = false;
+    }
+  
+    capchatext : any;
+    verifyCaptcha() {
+debugger;
+      if (this.userText.toLowerCase() === this.generatedText.toLowerCase()) {
+  
+        this.capchatext ="CAPTCHA verification successful.",
+        this.isVerified = true;
+        this.isSubmitBtnDisabled = false;
+  
+      }
+       else {
+        this.generateCaptcha();
+        this.capchatext ="CAPTCHA verification failed."
+        
+      }
     }
   }

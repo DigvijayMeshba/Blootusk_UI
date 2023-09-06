@@ -28,6 +28,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { PagesRoutingModule } from "./pages-routing.module";
 import { SharedModule } from "../shared/shared.module";
 import { DashboardsModule } from "./dashboards/dashboards.module";
+import { TooltipModule } from 'ng2-tooltip-directive';
 
 
 @NgModule({
@@ -50,7 +51,9 @@ import { DashboardsModule } from "./dashboards/dashboards.module";
     SharedModule,
     NgxUsefulSwiperModule,
     LightboxModule,
-    DashboardsModule
+    DashboardsModule,
+    TooltipModule
+    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

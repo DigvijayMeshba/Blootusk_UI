@@ -13,7 +13,7 @@ export interface Signupuser
     merchantID:number;
     stopMessage: number;
     referCode:string,
-    referBy:string,
+    referBy:number,
     rewardPoint: number;
     approvalStatus:string,
     recStatus:string,
@@ -24,6 +24,28 @@ export interface Signupuser
 
     
 }
+
+
+export interface AddCustomer{
+    customerID: number;
+    customerCode: string;
+    merchantID: number;
+    merchantCode: string;
+    name: string;
+    phoneNumber: string;
+    isPhoneNumberValidate: number;
+    stopMessage: number;
+    referCode: string;
+    referBy: number;
+    rewardPoint: number;
+    approvalStatus: string;
+    recStatus: string;
+    createdBy: number;
+    createdDate: Date;
+    modifyBy: number;
+    modifyDate: Date
+  }
+
 
 export interface UserForOtp
 {

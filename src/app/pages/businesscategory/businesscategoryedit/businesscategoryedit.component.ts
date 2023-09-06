@@ -23,6 +23,7 @@ export class BusinesscategoryeditComponent {
   uploadForm!:FormGroup;    
   fieldTextType1!: boolean;
   submitted = false;
+  RecStatus!:boolean;
 
   emailExistsError: string | null = null;
 
@@ -37,7 +38,7 @@ export class BusinesscategoryeditComponent {
     private _router: Router,) { }
 
   ngOnInit(): void {
-    debugger
+    
     this.catagoryId = this.route.snapshot.params['id'];
     this.getcatagorybyId(this.catagoryId);
     this.uploadForm = new FormGroup({
@@ -110,13 +111,26 @@ export class BusinesscategoryeditComponent {
       // showCancelButton: true,
       confirmButtonColor: '#364574',
       cancelButtonColor: 'rgb(243, 78, 78)',
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
+      allowOutsideClick: false,
+      allowEscapeKey: false
+
     });
   }
  
 
   public updateCatagory(formData: any) {
     debugger
+
+    if(formData.recStatus == true)
+    {
+      formData.recStatus = "A";
+
+    }
+    else{
+      formData.recStatus = "I";
+    }
+
     let edituserModel: editCatagory = {
       "categoryId":this.catagoryId,
       "categoryName": formData.categoryName,
@@ -140,7 +154,10 @@ export class BusinesscategoryeditComponent {
           icon: 'warning',         
           confirmButtonColor: '#364574',
           cancelButtonColor: 'rgb(243, 78, 78)',
-          confirmButtonText: 'OK'
+          confirmButtonText: 'OK',
+          allowOutsideClick: false,
+          allowEscapeKey: false
+   
         });
       }
     },);
@@ -158,11 +175,13 @@ export class BusinesscategoryeditComponent {
     debugger
     if (catagoryId > 0) {
       this.appService.getById("api/CategoryMaster/GetCategoryById/", catagoryId).subscribe(data => {
-        this.uploadForm.controls['categoryId'].setValue(data.responseData.catagoryId);
        
+        console.log( 'categorydata',data.responseData)
+        this.uploadForm.controls['categoryId'].setValue(data.responseData.catagoryId);
         this.uploadForm.controls['categoryName'].setValue(data.responseData.categoryName);
         this.uploadForm.controls['rewardPoint'].setValue(data.responseData.rewardPoint);
-        this.uploadForm.controls['recStatus'].setValue(data.responseData.recStatus);
+        this.uploadForm.controls['recStatus'].setValue(data.responseData.recStatus == "A"? true : false);
+       
         this.uploadForm.controls['createdBy'].setValue(data.responseData.createBy);
         this.uploadForm.controls['createdDate'].setValue(data.responseData.createDate);
         this.uploadForm.controls['modifyBy'].setValue(data.responseData.modifyBy);

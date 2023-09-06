@@ -125,7 +125,10 @@ export class LoginComponent implements OnInit {
       icon: 'warning',
       confirmButtonColor: '#364574',
       cancelButtonColor: 'rgb(243, 78, 78)',
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
+      allowOutsideClick: false,
+      allowEscapeKey: false
+
     });
   }
   warningManager() {
@@ -135,7 +138,10 @@ export class LoginComponent implements OnInit {
       icon: 'warning',
       confirmButtonColor: '#364574',
       cancelButtonColor: 'rgb(243, 78, 78)',
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
+      allowOutsideClick: false,
+      allowEscapeKey: false
+
     });
   }
 
@@ -146,7 +152,10 @@ export class LoginComponent implements OnInit {
       icon: 'warning',
       confirmButtonColor: '#364574',
       cancelButtonColor: 'rgb(243, 78, 78)',
-      confirmButtonText: 'OK'
+      confirmButtonText: 'OK',
+      allowOutsideClick: false,
+      allowEscapeKey: false
+
     });
   }
 

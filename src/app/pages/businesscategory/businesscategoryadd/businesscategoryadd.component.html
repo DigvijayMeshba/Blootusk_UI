@@ -29,8 +29,8 @@
                                     [ngClass]="{ 'is-invalid': submitted && f['categoryName'].errors }"
                                      placeholder="Enter Category Name">
                                 <div *ngIf="submitted && f['categoryName'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['categoryName'].errors['required']">catagory Name  is required</div>
-                                    <div *ngIf="f['categoryName'].errors['minlength']">catagory Name least 3 char long
+                                    <div *ngIf="f['categoryName'].errors['required']">Category Name  is required</div>
+                                    <div *ngIf="f['categoryName'].errors['minlength']">Category Name atleast 3 char long
                                     </div>
 
                                 </div>
@@ -46,8 +46,8 @@
                                     [ngClass]="{ 'is-invalid': submitted && f['rewardPoint'].errors }"
                                   placeholder="Enter Reward Points">
                                 <div *ngIf="submitted && f['rewardPoint'].errors" class="invalid-feedback">
-                                    <div *ngIf="f['rewardPoint'].errors['required']">reward Points  is required</div>
-                                    <div *ngIf="f['rewardPoint'].errors['minlength']">reward Points least 3 digit long</div>
+                                    <div *ngIf="f['rewardPoint'].errors['required']">Reward Points  is required</div>
+                                    <div *ngIf="f['rewardPoint'].errors['minlength']">Reward Points atleast 3 digit long</div>
                                 </div>
                                
                                 </div>

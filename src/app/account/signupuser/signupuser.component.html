@@ -54,6 +54,8 @@
                                         <br>
                                         Your merchant name is 
                                         <span class="merchant-name-placeholder"> {{merchantName}}</span>.
+                                        <label  class="getmerchantid" >{{merchantId}} </label>
+                                       
                                         <label></label>
         
                                         <br><br>
@@ -66,8 +68,8 @@
                                                             <span class="madatory">*</span>
                                                         </label>
                                                          <input type="text" class="form-control" 
-                                                        formControlName="name" required minlength="3"
-                                                        [ngClass]="{ 'is-invalid': submitted && f['organizationName'].errors }"
+                                                        formControlName="name" required minlength="3" [(ngModel)]="CustName"
+                                                        [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
                                                        
                                                         placeholder="Enter Name">
                                                     <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
@@ -83,15 +85,15 @@
         
                                                 <div class="col-md-12">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">Phone No
+                                                        <label for="basiInput" class="form-label">Mobile No
                                                             <span class="madatory">*</span> </label>
                                                         <input type="text" class="form-control" 
-                                                        formControlName="phoneNumber" required pattern="[0-9]+" C="10"
-                                                        maxlength="15" minlength="15"
+                                                        formControlName="phoneNumber" [(ngModel)]="MobileNo"  required pattern="[0-9]+" C="10"
+                                                        maxlength="10" minlength="10"
                                                         [ngClass]="{ 'is-invalid': submitted && f['phoneNumber'].errors }"
-                                                        (keypress)="blockSpaces($event)" placeholder="Enter Phone No.">            
+                                                        (keypress)="blockSpaces($event)" placeholder="Enter Mobile No.">            
                                                     <div *ngIf="submitted && f['phoneNumber'].errors" class="invalid-feedback">
-                              c                          <div *ngIf="f['phoneNumber'].errors['required']">Phone No. is required
+                                                        <div *ngIf="f['phoneNumber'].errors['required']">Mobile No. is required
                                                         </div>
                                                         <div *ngIf="f['phoneNumber'].errors['minlength']">Phone enter valid Mobile
                                                             No.</div>
@@ -103,9 +105,36 @@
                                                 <div class="col-lg-12">
                                                     <div class="text-center gap-2 mt-2">
 
-                                                        <app-image-captcha></app-image-captcha>
-                                                        <button type="submit" class="btn btn-primary" ><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
-                                                    </div>
+                                                        <div class="row">
+
+                                                            <div class="col-md-3">
+                                                        
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <p>Enter the text shown below:</p>
+                                                                <h2>{{ generatedText }}</h2>
+
+                                                                <input type="text" class="form-control "  formControlName="usertext"  [(ngModel)]="userText"  placeholder="Enter the text" />
+                                                              
+                                                                <button class="btn btn-primary mt-2 mb-2" (click)="verifyCaptcha()">Verify</button>    
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                            </div>
+                                                            <div *ngIf="isVerified" class="success">{{capchatext}}</div>
+                                                       
+                                                        </div>
+                                                        
+<div >
+    <button type="submit" [disabled]="isSubmitBtnDisabled" name="btnsignup" (click)="submit()" class="btn btn-primary" ><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+                                            
+</div>
+<!-- <div *ngIf="isSubmitBtnDisabled">
+    <button type="button" [disabled]="isSubmitBtnDisabled" name="btnsignup" class="btn btn-primary" ><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+                                                
+</div> -->
+
+
+                                                     </div>
 
                                                   
                                                 </div>
