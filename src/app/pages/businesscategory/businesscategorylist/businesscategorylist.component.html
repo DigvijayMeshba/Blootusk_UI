@@ -81,17 +81,14 @@
                                        
                                         <td class="w-10 text-center">
 
-                                            <!-- <button routerLink="../businesscategoryadd" type="button" class="btn btn-info ms-auto"> <i class="ri-add-fill cardicon label-icon align-middle"></i>Add</button>
-                    -->
+                                            <!-- <button routerLink="../businesscategoryadd" type="button" class="btn btn-info ms-auto"> <i class="ri-add-fill cardicon label-icon align-middle"></i>Add</button> -->
                                             <div class="gap-3">
+
                                                 <a [routerLink]="['/businesscategory/businesscategoryedit', object.categoryId]" class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                                
                                                 &nbsp;&nbsp;
 
-
-                                                <a  *ngIf="object.recStatus=='A'" class="link-danger fs-15">
-                                                    <!-- <i class="bx bx-block"></i>  -->
-                                                    <i class="ri-checkbox-blank-circle-line"></i>                                                   
-                                                </a>
+                                                <a *ngIf="object.recStatus=='A'" class="link-danger fs-15"> <!-- <i class="bx bx-block"></i>  --> <i class="ri-checkbox-blank-circle-line"></i></a>
 
                                             </div>
 

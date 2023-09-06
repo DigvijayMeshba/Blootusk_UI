@@ -4,8 +4,9 @@ import { CommonModule } from '@angular/common';
 import { ArchwizardModule } from 'angular-archwizard';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AdmindashboardComponent } from './admindashboard/admindashboard.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { AdmindashboardComponent } from './admindashboard/admindashboard.component';
 import { DashboardsRoutingModule } from "./dashboards-routing.module";
 import { SharedModule } from '../../shared/shared.module';
 
@@ -25,6 +26,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     DashboardsRoutingModule,
     SharedModule,
+    NgbModule
   ],
   exports: [RouterModule],
 })

@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { NgbToastModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDropdownModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
@@ -59,7 +59,7 @@ import { ImageCaptchaComponent } from './image-captcha/image-captcha.component';
     NgxPaginationModule,
     MatFormFieldModule,
     MatInputModule,
- 
+    NgbModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

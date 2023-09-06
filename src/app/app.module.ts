@@ -13,6 +13,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 // Auth
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS  } from '@angular/common/http';
@@ -32,7 +35,6 @@ import { AppService } from 'src/app/app.service';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { APP_BASE_HREF } from '@angular/common';
 import { EncrDecrServiceService } from './encr-decr-service.service';
-import { TooltipModule } from 'ng2-tooltip-directive';
 import { SwalmessageComponent } from './swalmessage/swalmessage.component';
 
 
@@ -73,10 +75,8 @@ if (environment.defaultauth === 'firebase') {
     FormsModule,
     ReactiveFormsModule,
     FlatpickrModule,
-    TooltipModule,
-    
-    
-   
+    NgbTooltipModule,
+    NgbModule,
     
   ],
   providers: [

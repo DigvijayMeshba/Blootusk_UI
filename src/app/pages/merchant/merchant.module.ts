@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Select Droup down
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MerchantlistComponent } from './merchantlist/merchantlist.component';
 import { MerchantaddComponent } from './merchantadd/merchantadd.component';
@@ -36,10 +37,10 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     FormsModule,
     NgxPaginationModule,
-FormsModule,
-
+    FormsModule,
     FlatpickrModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   exports: [RouterModule]
 })

@@ -95,20 +95,16 @@
                                         <td class="w-10 text-center">                                          
                                             <div class="gap-3" >
                                                
-                                                <a [routerLink]="['/merchant/merchantedit', 
-                                                object.merchantId]" (mouseover)="showTooltip()"  (mouseout)="hideTooltip()" class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
-                                                <div id="tooltip" class="hidden">Edit</div>
-                                                &nbsp;&nbsp;
-
-                                                <a  *ngIf="object.recStatus=='A'" class="link-success fs-15">
-
-                                                 <!-- <i class="ri-checkbox-blank-circle-line"></i> -->
-                                              
-
-                                                 <i class="ri-checkbox-circle-fill"></i> 
-                                                </a>
+                                                <a [routerLink]="['/merchant/merchantedit', object.merchantId]" placement="bottom" ngbTooltip="Edit This" class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                                
+                                                <!-- <div id="tooltip" class="hidden">Edit</div> -->
 
                                                 &nbsp;&nbsp;
+
+                                                <a *ngIf="object.recStatus=='A'" class="link-success fs-15"><!-- <i class="ri-checkbox-blank-circle-line"></i> --><i class="ri-checkbox-circle-fill"></i> </a>
+
+                                                &nbsp;&nbsp;
+
                                                 <!-- <span *ngIf="object.recStatus; else elseBlock">
                                                     <i class="ri-user-fill uenable"></i>                                                   
                                                 </span>
@@ -122,6 +118,7 @@
                                                 <!-- <span >
                                                     <i class="ri-user-fill udisable"></i>
                                                 </span> -->
+
                                             </div>                                            
                                         
                                         </td>

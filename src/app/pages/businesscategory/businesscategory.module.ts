@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 // Select Droup down
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { BusinesscategorylistComponent } from './businesscategorylist/businesscategorylist.component';
 import { BusinesscategoryaddComponent } from './businesscategoryadd/businesscategoryadd.component';
@@ -25,7 +26,8 @@ import { BusinesscategoryeditComponent } from './businesscategoryedit/businessca
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgbModule
     
   ],
   exports: [RouterModule]
