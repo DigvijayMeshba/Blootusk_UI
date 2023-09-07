@@ -57,6 +57,7 @@
     "firebase": "^9.15.0",
     "flatpickr": "^4.6.13",
     "fuzzy-search": "^3.2.1",
+    "html2canvas": "^1.4.1",
     "intersection-observer": "^0.12.2",
     "jasmine-core": "^4.5.0",
     "karma": "^6.4.1",

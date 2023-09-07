@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, Renderer2, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -12,6 +12,7 @@ import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import * as QRCode from 'qrcode'; 
 import { url } from 'inspector';
 const QRious = require('qrious');
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-merchantedit',
@@ -19,6 +20,14 @@ const QRious = require('qrious');
   styleUrls: ['./merchantedit.component.scss']
 })
 export class MerchanteditComponent {
+  qrCode!: string;
+ // @ViewChild('qrCodeContainer') qrCodeContainer?: ElementRef;
+ @ViewChild('divToDownload', { static: false }) divToDownload?: ElementRef;
+// @ViewChild('screen') screen?: ElementRef;
+ @ViewChild('screen', { static: false }) screen!: ElementRef;
+ @ViewChild('canvas') canvas?: ElementRef;
+ @ViewChild('downloadLink') downloadLink?: ElementRef;
+
 
   showDiv = {
     inputs : false,
@@ -27,7 +36,8 @@ export class MerchanteditComponent {
 
   constructor(private modalService: NgbModal,public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-    private router: Router,private EncrDecr: EncrDecrServiceService) { }
+    private router: Router,private EncrDecr: EncrDecrServiceService,
+    private renderer: Renderer2) { }
 
   activeTab = 1;
   uploadForm!:FormGroup;  
@@ -41,12 +51,10 @@ export class MerchanteditComponent {
   StateLists: any[] = [];
   CatagoryLists: any[] = [];  
   CountryLists: any[] = []; 
-  public RemarkList: any = [];
-  
+  public RemarkList: any = [];  
   approvstatus!:string;
   receivedLink!: string;
-
-  qrCode!: string;
+  
   
   statusLists = [   
     { name: 'New', id:'N' },
@@ -188,12 +196,8 @@ export class MerchanteditComponent {
     this.modalService.open(content, { size: 'lg' });
     this.showDiv.inputs = false;
     this.showDiv.buttons = false;
-    
     this.getRemarkData();
-  
   }
-
-
 
 openModalQR(qrcontent: any) {  
   debugger;
@@ -203,8 +207,14 @@ openModalQR(qrcontent: any) {
     this.receivedLink= this.signupurl
     this.urlsubstring = 'http://crm.blootusk.com/#UI/auth/signupuser/'
     let encryptedcode = this.receivedLink.replace(this.urlsubstring,'') 
-    encryptedcode = this.EncrDecr.get('12$#@BLOO$^@TUSK', encryptedcode)
-    this.receivedLink = this.urlsubstring + encryptedcode;
+
+     encryptedcode = btoa(encryptedcode);
+//-- its use to decode value --//
+   //  const decryptedData = atob(encryptedcode);
+   
+   //  encryptedcode = this.EncrDecr.get('12$#@BLOO$^@TUSK', decryptedData)
+    
+   this.receivedLink = this.urlsubstring + encryptedcode;
 
       // QRCode.toDataURL(this.receivedLink)
       //   .then(url => {
@@ -213,21 +223,16 @@ openModalQR(qrcontent: any) {
       //   .catch(err => {
       //     console.error('QR Code generation error:', err);
       //   });
-      //   this.modalService.open(qrcontent, { size: 'sm' });
-   
-    
-    const qrCodeData =  this.receivedLink; //'Your QR Code Data Here'; // Replace with your QR code data
 
-    QRCode.toDataURL(qrCodeData, (err, url) => {
+    QRCode.toDataURL(this.receivedLink, (err, url) => {
       if (err) {
         console.error(err);
       } else {
         this.qrCode = url;
       }
     });
-   
     this.modalService.open(qrcontent, { size: 'sm' });
-   
+
     //-------------------------//
 
   }
@@ -307,10 +312,8 @@ public getMerchantbyId(merchantId: any) {
       console.log('merchant by id' , data.responseData)
 
       this.uploadForm.patchValue({
-
         phoneNumber: this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 
          email: this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email),
-
         //phoneNumber:data.responseData.phoneNumber,
         //email:data.responseData.email,
         password: this.EncrDecr.get('12$#@BLOO$^@TUSK',data.responseData.password),
@@ -403,7 +406,6 @@ CancelForm()
       formData.recStatus = 'I'
     }
 
-
     let AddMerchantModel: editMerchant = formData;  
        AddMerchantModel.merchantId = this.merchantId,
        AddMerchantModel.posInfo.merchantId = this.merchantId,
@@ -432,7 +434,6 @@ CancelForm()
         .subscribe((res: any) => {
           debugger;
           console.log('data',res)
-
           if(res.responseStatusCode == 200)
           {           
             this.successmsg();
@@ -446,8 +447,7 @@ CancelForm()
               confirmButtonColor: '#364574',
               allowOutsideClick: false,
               allowEscapeKey: false       
-            });
-           
+            });           
           }
           else if(res.responseStatusCode == 500)
           {
@@ -458,10 +458,7 @@ CancelForm()
               confirmButtonColor: '#364574',
               allowOutsideClick: false,
               allowEscapeKey: false
-       
-            });
-           
-            
+            });   
           }
           else if(res.responseStatusCode == 601)
           {
@@ -471,10 +468,8 @@ CancelForm()
               icon: 'warning',
               confirmButtonColor: '#364574',
               allowOutsideClick: false,
-              allowEscapeKey: false
-       
-            });
-           
+              allowEscapeKey: false       
+            });           
           }
           else if(res.responseStatusCode == 602)
           {
@@ -485,9 +480,7 @@ CancelForm()
               confirmButtonColor: '#364574',
               allowOutsideClick: false,
               allowEscapeKey: false
-       
             });
-            
           }
           else if(res.responseStatusCode == 603)
           {
@@ -497,8 +490,7 @@ CancelForm()
               icon: 'warning',
               confirmButtonColor: '#364574',
               allowOutsideClick: false,
-              allowEscapeKey: false
-       
+              allowEscapeKey: false       
             });              
           }
           else if(res.responseStatusCode == 400)
@@ -510,10 +502,7 @@ CancelForm()
               confirmButtonColor: '#364574',
               allowOutsideClick: false,
               allowEscapeKey: false
-       
-            });                   
-          
-           
+            });  
           }
           else{
 
@@ -525,18 +514,39 @@ CancelForm()
               allowOutsideClick: false,
               allowEscapeKey: false
        
-            });      
-           
-            
+            });   
           }
-
-       
      }) 
-    
-    
-      }
-      
-      
+   }  
   }   
+
+ 
+    array = ['Qr'];
+
+    public trivialDownload() {
+      console.log("Downloading image one by one, without a loop");
+      this._download(0, this.array);
+    }
+
+     private _download(index:any, array:any) {
+      debugger;
+      if (index >= array.length) {
+        console.log("Done!")
+      } else {
+        let docElem = document.getElementById(array[index].toString());
+          html2canvas(docElem!).then((canvas) => {
+            let generatedImage = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            let a = document.createElement('a');
+            a.href = generatedImage;
+            a.download = `${array[index]}.png`;
+            a.click();
+            // at this point, image has been downloaded, then call the next download.
+            this._download(index + 1, array)
+          });
+      }
+  }
 }
+
+
+
 

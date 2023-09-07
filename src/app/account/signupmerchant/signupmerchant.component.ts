@@ -415,8 +415,6 @@ debugger;
 (formData.emailOTP == this.merchantEmailOTP || formData.emailOTP == '123456'))
     {      
        console.log(AddMerchantDtail);
-
-   
       this.appService.Add('api/Merchant/AddMerchant', AddMerchantDtail).subscribe((data: any) => {
         let statuscode : number = data.responseStatusCode;
         switch(statuscode)

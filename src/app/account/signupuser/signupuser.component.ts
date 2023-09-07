@@ -75,7 +75,13 @@ export class SignupuserComponent {
       private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
       private router: Router,private EncrDecr: EncrDecrServiceService)
      {
+      debugger;
       this.merchantCode = this.route.snapshot.params['id'];      
+
+      this.merchantCode = atob(this.merchantCode);
+   
+      //this.merchantCode = this.EncrDecr.get('12$#@BLOO$^@TUSK', decryptedData)
+       
       this.GetMerchantName(this.merchantCode);
      }
   

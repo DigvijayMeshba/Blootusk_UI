@@ -73,24 +73,19 @@ public ClearMerchantList()
     // .pipe(
     //   catchError((error) => {          
     //     return throwError(error); 
-    //   })).subscribe((data: any) => {    
-        
+    //   })).subscribe((data: any) => {
     //     console.log(data.responseData)
     //     this.MerchantList = data.responseData  
-       
     //     if(data.responseData.length == 0)
     //     {
     //       // this.swalMessage('Data not found')
     //     }
-      
     // },);  
   
 }
 
     //List of All Company
   public   GetAllMerchantList() {
-
-
     let edituserModel: listMerchant = {
       "merchantCode": this.merchnatCode == ''? "":this.merchnatCode,
       "merchantPhoneNumber": this.mobileNo == ''? "":this.mobileNo,      
@@ -119,8 +114,7 @@ public ClearMerchantList()
           if(data.responseData.length == 0)
           {
              this.swalMessage('Data not found')
-          }
-        
+          }        
       },);  
   
     }
@@ -134,9 +128,8 @@ public ClearMerchantList()
         allowOutsideClick: false,
         allowEscapeKey: false
       });
-    }
-        
-      }
+    }   
+ }
   
     deleterecord(object: any) {
       Swal.fire({
