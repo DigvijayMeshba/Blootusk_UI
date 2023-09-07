@@ -16,7 +16,7 @@ $font-family-secondary:                           'hkgrotesk', sans-serif;
 //
 // Vertical Menu
 //
-$vertical-menu-width:                             250px;
+$vertical-menu-width:                             215px;
 $vertical-menu-width-md:                          180px;
 $vertical-menu-width-sm:                          70px;
 
@@ -94,7 +94,7 @@ $twocolumn-menu-item-color-gradient:              rgba($white, 0.6);
 $semibox-width:                                   110px;
 
 // Topbar - (Default Light)
-$header-height:                                    70px;
+$header-height:                                    50px;
 $header-bg:                                       var(--#{$prefix}header-bg);
 $header-item-color:                               var(--#{$prefix}header-item-color);
 
@@ -112,7 +112,7 @@ $topbar-user-bg: var(--#{$prefix}topbar-user-bg);
 $topbar-user-bg-dark: var(--#{$prefix}topbar-user-bg-dark);
 
 // Footer
-$footer-height: 60px;
+$footer-height: 40px;
 $footer-bg: var(--#{$prefix}footer-bg);
 $footer-color: var(--#{$prefix}footer-color);
 

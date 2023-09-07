@@ -284,19 +284,19 @@ hr {
 
 /* scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
   }
   
   ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
+    // -webkit-border-radius: 10px;
+    // border-radius: 10px;
   }
   
   ::-webkit-scrollbar-thumb {
-    -webkit-border-radius: 10px;
-    border-radius: 10px;
+    // -webkit-border-radius: 10px;
+    // border-radius: 10px;
     background: rgba(255, 255, 255, 0.3);
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
   }
@@ -311,4 +311,13 @@ hr {
 
 .udisable{
     color: #c1c0c0;
+}
+
+.footer {
+    padding: 10px !important;
+    border-top: 1px solid gainsboro !important;
+}
+
+#page-topbar {
+    border-bottom: 1px solid gainsboro !important;
 }
