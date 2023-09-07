@@ -212,7 +212,8 @@ openModalQR(qrcontent: any) {
 //-- its use to decode value --//
    //  const decryptedData = atob(encryptedcode);
    
-   //  encryptedcode = this.EncrDecr.get('12$#@BLOO$^@TUSK', decryptedData)
+  //  let test = this.EncrDecr.get('12$#@BLOO$^@TUSK', 'xof0gDd/9lWWEyMXQSboYw==')
+  //  console.log(test)
     
    this.receivedLink = this.urlsubstring + encryptedcode;
 

@@ -424,7 +424,7 @@ debugger;
                 case 601 :
                   Swal.fire({
                     title:'Duplication',
-                    text: 'Phone Number is Duplicate',
+                    text: 'Mobile Number is Duplicate',
                     icon: 'warning',
                     confirmButtonColor: '#364574',
                     allowOutsideClick: false,
