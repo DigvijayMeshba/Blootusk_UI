@@ -83,7 +83,7 @@
                                         <th scope="col" class="w-10 text-center">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngFor="let object of MerchantList">
+                                <tbody *ngFor="let object of getPageData()">
                                     <tr>
                                         <td>{{object.merchantCode}}</td>
                                         <td>{{object.organizationName}}</td>
@@ -131,16 +131,27 @@
 
                         <div class="text-center mt-3">
                             <div class="gridjs-pagination">
-                                <div class="gridjs-pages">
-                                    <!-- <button tabindex="0" role="button" title="Previous" aria-label="Previous">Previous</button>
-                                    <button tabindex="0" role="button">1</button>
-                                    <button tabindex="0" role="button" title="Next" aria-label="Next">Next</button> -->
+                                <div class="gridjs-pages" *ngIf="MerchantList.length > 0">
+                                    <button tabindex="0" role="button" (click)="onPageChanged3(page - 1)"
+                                        [disabled]="page === 1" title="Previous" aria-label="Previous">
+                                        Previous
+                                    </button>
+                                    <button tabindex="0" role="button" *ngFor="let pageNumber of getPageNumbers3()"
+                                        (click)="onPageChanged3(pageNumber)"
+                                        [class.gridjs-currentPage]="page === pageNumber"
+                                        [attr.title]="'Page ' + pageNumber" [attr.aria-label]="'Page ' + pageNumber">
+                                        {{ pageNumber }}
+                                    </button>
+                                    <button tabindex="0" role="button" (click)="onPageChanged3(page + 1)"
+                                        [disabled]="page === getTotalPages3()" title="Next" aria-label="Next">
+                                        Next
+                                    </button>
                                 </div>
                             </div>
-                        </div>
+                        </div></div>
                     </div>
 
-                </div>
+                
 
 
 

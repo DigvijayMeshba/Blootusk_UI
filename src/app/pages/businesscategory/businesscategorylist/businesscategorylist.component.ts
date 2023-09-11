@@ -14,7 +14,7 @@ export class BusinesscategorylistComponent {
   
     public BusinesscategoryList: any = [];
     public page: number = 1;
-    public count = 8;
+    public count = 10;
     public SearchKeyword: any;
     uploadForm!:FormGroup;
     submitted = false;
@@ -29,17 +29,23 @@ export class BusinesscategorylistComponent {
         categoryName: new FormControl('', [Validators.required, Validators.minLength(3)]),
         rewardPoint: new FormControl('', []),    
       });
+
+      this.Searchdata(this.uploadForm);
     
     }
   
-    //List of All Company
-    public GetAllUserList() {
-      this.appService.GetAll("api/User/GetAllUser").subscribe(data => {
-       
-        
-      }
-      );
+    public onPageChanged3(page: number) {
+      this.page = page;
+      window.scrollTo(0, 0);
     }
+  
+    public getPageNumbers3(): number[] {
+      return Array.from({ length: this.getTotalPages3() }, (_, i) => i + 1);
+    }
+    
+  public getTotalPages3(): number {
+    return Math.ceil(this.BusinesscategoryList.length / this.count);
+  }
  
     public ClearSearchdata()
     {
@@ -65,8 +71,9 @@ export class BusinesscategorylistComponent {
       "categoryName": formData.categoryName == ''? "":formData.categoryName,
       "rewardPoint": formData.rewardPoint==''? 0:formData.rewardPoint      
     }
-  if(ListCategoryModel.categoryName !=''|| ListCategoryModel.rewardPoint != 0)
-  {
+  
+  // if(ListCategoryModel.categoryName !=''|| ListCategoryModel.rewardPoint != 0)
+  // {
     this.appService.GetAllList('api/CategoryMaster/GetAllCategory', ListCategoryModel)
     .pipe(
       catchError((error) => {          
@@ -88,17 +95,17 @@ export class BusinesscategorylistComponent {
 
     },);  
 
-  }
-  else
-    {
+  // }
+  // else
+  //   {
     
-    Swal.fire({
-      title:'Warning',
-      text: 'Please fill Category Name or Reward Point',
-      icon: 'warning',
-      confirmButtonColor: '#364574'
-    });    
-  }
+  //   Swal.fire({
+  //     title:'Warning',
+  //     text: 'Please fill Category Name or Reward Point',
+  //     icon: 'warning',
+  //     confirmButtonColor: '#364574'
+  //   });    
+  // }
      
     
   }
@@ -158,7 +165,7 @@ export class BusinesscategorylistComponent {
     ///Search Company in List
     Search() {
       if (this.SearchKeyword === "") {
-        this.GetAllUserList();
+        
       }
       else {
         this.BusinesscategoryList = this.BusinesscategoryList.filter((res: { catagoryName: string; rewardPoint: number; recStatus: string; }) => {

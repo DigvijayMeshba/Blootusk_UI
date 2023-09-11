@@ -15,7 +15,7 @@ export class MerchantlistComponent {
     public MerchantList: any = [];
     public NewUserList: any = [];
     public page: number = 1;
-    public count = 8;
+    public count = 10;
     public SearchKeyword: any;
     merchnatCode :string;
     merchnatName :string;
@@ -38,8 +38,9 @@ export class MerchantlistComponent {
       this.approvalStatus = '';
      }
   
-    ngOnInit(): void {          
-   //   this.GetAllUserList();
+    ngOnInit(): void {       
+
+      this.GetAllMerchantList();
     }
   
 swalMessage(swalTitle:any)
@@ -90,7 +91,8 @@ public ClearMerchantList()
       "merchantCode": this.merchnatCode == ''? "":this.merchnatCode,
       "merchantPhoneNumber": this.mobileNo == ''? "":this.mobileNo,      
       "merchantName": this.merchnatName == ''? "":this.merchnatName,
-      "approvalStatus": this.approvalStatus == ''? "":this.approvalStatus     
+      "approvalStatus": this.approvalStatus == ''? "":this.approvalStatus,    
+      "pageNumber" : this.page ==0 ? 0:this.page
     }   
     console.log(edituserModel);
     debugger;
@@ -100,8 +102,8 @@ public ClearMerchantList()
       edituserModel.merchantPhoneNumber = this.EncrDecr.set('12$#@BLOO$^@TUSK', edituserModel.merchantPhoneNumber);
     }
 
-    if(edituserModel.merchantCode != ''|| edituserModel.merchantName != ''||edituserModel.merchantPhoneNumber != ''|| edituserModel.approvalStatus !='')
-    {
+    // if(edituserModel.merchantCode != ''|| edituserModel.merchantName != ''||edituserModel.merchantPhoneNumber != ''|| edituserModel.approvalStatus !='')
+    // {
       this.appService.GetAllList("api/Merchant/GetAllMerchant",edituserModel)
       .pipe(
         catchError((error) => {          
@@ -109,7 +111,7 @@ public ClearMerchantList()
         })).subscribe((data: any) => {    
           
           console.log('allmerchant',data.responseData)
-          this.MerchantList = data.responseData  
+          this.MerchantList = data.responseData.merchantList  
          
           if(data.responseData.length == 0)
           {
@@ -117,18 +119,18 @@ public ClearMerchantList()
           }        
       },);  
   
-    }
-    else
-    {
-      Swal.fire({
-        title:'Oops...',
-        text:'Please fill at least one field',
-        icon: 'info',
-        confirmButtonColor: '#364574',
-        allowOutsideClick: false,
-        allowEscapeKey: false
-      });
-    }   
+    // }
+    // else
+    // {
+    //   Swal.fire({
+    //     title:'Oops...',
+    //     text:'Please fill at least one field',
+    //     icon: 'info',
+    //     confirmButtonColor: '#364574',
+    //     allowOutsideClick: false,
+    //     allowEscapeKey: false
+    //   });
+    // }   
  }
   
     deleterecord(object: any) {
@@ -200,6 +202,23 @@ public ClearMerchantList()
       tooltip.style.display = 'none';
     }
   }
+
+  public onPageChanged3(page: number) {
+    debugger;
+    this.page = page;
+    this.GetAllMerchantList();
+    window.scrollTo(0, 0);
+  }
+
+  public getPageNumbers3(): number[] {
+    debugger;
+    return Array.from({ length: this.getTotalPages3() }, (_, i) => i + 1);
+  }
+  
+public getTotalPages3(): number {
+  debugger;
+  return Math.ceil(this.MerchantList.length / this.count);
+}
    
   }
 

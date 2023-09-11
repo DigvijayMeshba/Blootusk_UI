@@ -45,6 +45,7 @@ export interface addMerchant
     merchantPhoneNumber: string;
     merchantName: string;
     approvalStatus : string;  
+    pageNumber : number;
    }
 
    
