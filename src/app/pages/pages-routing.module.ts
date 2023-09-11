@@ -12,10 +12,12 @@ import { MerchanteditComponent } from "./merchant/merchantedit/merchantedit.comp
 import { BusinesscategorylistComponent } from "./businesscategory/businesscategorylist/businesscategorylist.component"
 import { BusinesscategoryaddComponent } from "./businesscategory/businesscategoryadd/businesscategoryadd.component"
 import { BusinesscategoryeditComponent } from "./businesscategory/businesscategoryedit/businesscategoryedit.component"
+import { CustomerdashboardComponent } from './dashboards/customerdashboard/customerdashboard.component';
 
 const routes: Routes = [
 
   { path: "dashboards/dashboard",component: AdmindashboardComponent },
+  { path: "dashboards/cdashboard",component: CustomerdashboardComponent },
 
   { path: "merchant/merchantlist",component: MerchantlistComponent },
   { path: "merchant/merchantadd",component: MerchantaddComponent },
@@ -36,6 +38,9 @@ const routes: Routes = [
   }, 
   {
     path: 'businesscategory', loadChildren: () => import('./businesscategory/businesscategory.module').then(m => m.BusinesscategoryModule)
+  }, 
+  {
+    path: 'customer', loadChildren: () => import('./customer/customer.module').then(m => m.CustomerModule)
   }, 
 ];
 

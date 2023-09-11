@@ -9,14 +9,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdmindashboardComponent } from './admindashboard/admindashboard.component';
 import { DashboardsRoutingModule } from "./dashboards-routing.module";
 import { SharedModule } from '../../shared/shared.module';
+import { CustomerdashboardComponent } from './customerdashboard/customerdashboard.component';
 
 const routes: Routes = [
   { path: "admindashboard", component: AdmindashboardComponent },
+  { path: "customerdashboard", component: CustomerdashboardComponent },
 ]
 
 @NgModule({
   declarations: [
     AdmindashboardComponent,
+    CustomerdashboardComponent,
   ],
   imports: [
     ArchwizardModule,
