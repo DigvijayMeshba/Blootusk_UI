@@ -31,6 +31,7 @@ import { SignupmerchantComponent } from './signupmerchant/signupmerchant.compone
 import { OptverifyComponent } from './optverify/optverify.component';
 
 import { ImageCaptchaComponent } from './image-captcha/image-captcha.component';
+import { SignupcustomerComponent } from './signupcustomer/signupcustomer.component';
 
 
 
@@ -43,6 +44,7 @@ import { ImageCaptchaComponent } from './image-captcha/image-captcha.component';
     SignupmerchantComponent,
     OptverifyComponent,
     ImageCaptchaComponent,
+    SignupcustomerComponent,
   ],
   imports: [
     CommonModule,

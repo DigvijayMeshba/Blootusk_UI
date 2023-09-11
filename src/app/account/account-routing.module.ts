@@ -8,6 +8,7 @@ import { ChangepasswordComponent } from "./changepassword/changepassword.compone
 import { SignupmerchantComponent } from "./signupmerchant/signupmerchant.component";
 import { SignupuserComponent } from "./signupuser/signupuser.component";
 import { OptverifyComponent } from "./optverify/optverify.component";
+import { SignupcustomerComponent } from "./signupcustomer/signupcustomer.component";
 
 const routes: Routes = [
 
@@ -41,6 +42,10 @@ const routes: Routes = [
     component: SignupuserComponent
   },
   
+  {
+    path: "signupcustomer",
+    component: SignupcustomerComponent
+  },
 
 ];
 
