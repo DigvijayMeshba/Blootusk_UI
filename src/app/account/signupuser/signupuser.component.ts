@@ -205,135 +205,135 @@ export class SignupuserComponent {
        }   
         this.tokenStorage.Merchantdata(AdduserModel);  
        
-if(this.uploadForm.valid)
-{
-  this.appService.Add('api/User/UserVerification',userForOtp)
-        .pipe(
-          catchError((error) => {          
-            return throwError(error); // Throw the error to propagate it further
-          })
-        )   
-          .subscribe((res: any) => {
-          console.log(res.responseData)
-            let statuscode : number = res.responseStatusCode;
-            switch(statuscode)
-            {
-              case 200:
-                this.showDiv = {
-                  current : false,
-                  next : true
-                }
-                if (res.responseData.phoneNumberOTP != undefined 
-                 ) {      
-    
-                  this.UserSendOTP = res.responseData.phoneNumberOTP
-                 // this.tokenStorage.SaveUSerPhoneOtp(res.responseData.phoneNumberOTP);
-                  
-                }
-                break;
-                case 212 :
-                Swal.fire({
-                  title:'Warning',
-                  text: 'Something Went wrong.',
-                  icon: 'warning',
-                  confirmButtonColor: '#364574',
-                  allowOutsideClick: false,
-                  allowEscapeKey: false
-           
-                });
-
-                  this.showDiv = {
-                    current : true,
-                    next : false
-                  }
-                  break;
-                  
-                case  500 : 
-
-                Swal.fire({
-                  title:'Error',
-                  text: 'Error Status',
-                  icon: 'error',
-                  confirmButtonColor: '#364574',
-                  allowOutsideClick: false,
-                  allowEscapeKey: false
-           
-                });
-
-                 
-                  this.showDiv = {
-                    current : true,
-                    next : false
-                  }
-                  break;
-                  
-                case 601 :
-                  Swal.fire({
-                    title:'Duplication',
-                    text: 'Phone Number is Duplicate',
-                    icon: 'warning',
-                    confirmButtonColor: '#364574',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false
-             
-                  });
+    if(this.uploadForm.valid)
+    {
+      this.appService.Add('api/User/UserVerification',userForOtp)
+            .pipe(
+              catchError((error) => {          
+                return throwError(error); // Throw the error to propagate it further
+              })
+            )   
+              .subscribe((res: any) => {
+              console.log(res.responseData)
+                let statuscode : number = res.responseStatusCode;
+                switch(statuscode)
+                {
+                  case 200:
                     this.showDiv = {
-                      current : true,
-                      next : false
+                      current : false,
+                      next : true
                     }
-                  break;
-                  
-                case 602:
-                  Swal.fire({
-                    title:'Duplication',
-                    text: 'Duplicate Email',
-                    icon: 'warning',
-                    confirmButtonColor: '#364574',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false
-             
-                  }); 
-                  this.showDiv = {
-                    current : true,
-                    next : false
-                  }
-                  break;
-               
-                case 603:
-                  Swal.fire({
-                    title:'Duplication',
-                    text: 'Duplicate Category Status',
-                    icon: 'warning',
-                    confirmButtonColor: '#364574',
-                    allowOutsideClick: false,
-                    allowEscapeKey: false
-             
-
-                  }); 
-                    
-                    this.showDiv = {
-                      current : true,
-                      next : false
-                    }          
-                  break;
-                
-                case 400:              
+                    if (res.responseData.phoneNumberOTP != undefined 
+                    ) {      
+        
+                      this.UserSendOTP = res.responseData.phoneNumberOTP
+                    // this.tokenStorage.SaveUSerPhoneOtp(res.responseData.phoneNumberOTP);
+                      
+                    }
+                    break;
+                    case 212 :
                     Swal.fire({
-                      title:'Error',
-                      text: 'Bad Request Status',
+                      title:'Warning',
+                      text: 'Something Went wrong.',
                       icon: 'warning',
                       confirmButtonColor: '#364574',
                       allowOutsideClick: false,
                       allowEscapeKey: false
-                    }); 
-                    this.showDiv = {
-                      current : true,
-                      next : false
-                    }     
-                    break;
-            }
-       })  
-}
+              
+                    });
+
+                      this.showDiv = {
+                        current : true,
+                        next : false
+                      }
+                      break;
+                      
+                    case  500 : 
+
+                    Swal.fire({
+                      title:'Error',
+                      text: 'Error Status',
+                      icon: 'error',
+                      confirmButtonColor: '#364574',
+                      allowOutsideClick: false,
+                      allowEscapeKey: false
+              
+                    });
+
+                    
+                      this.showDiv = {
+                        current : true,
+                        next : false
+                      }
+                      break;
+                      
+                    case 601 :
+                      Swal.fire({
+                        title:'Duplication',
+                        text: 'Phone Number is Duplicate',
+                        icon: 'warning',
+                        confirmButtonColor: '#364574',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                
+                      });
+                        this.showDiv = {
+                          current : true,
+                          next : false
+                        }
+                      break;
+                      
+                    case 602:
+                      Swal.fire({
+                        title:'Duplication',
+                        text: 'Duplicate Email',
+                        icon: 'warning',
+                        confirmButtonColor: '#364574',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                
+                      }); 
+                      this.showDiv = {
+                        current : true,
+                        next : false
+                      }
+                      break;
+                  
+                    case 603:
+                      Swal.fire({
+                        title:'Duplication',
+                        text: 'Duplicate Category Status',
+                        icon: 'warning',
+                        confirmButtonColor: '#364574',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false
+                
+
+                      }); 
+                        
+                        this.showDiv = {
+                          current : true,
+                          next : false
+                        }          
+                      break;
+                    
+                    case 400:              
+                        Swal.fire({
+                          title:'Error',
+                          text: 'Bad Request Status',
+                          icon: 'warning',
+                          confirmButtonColor: '#364574',
+                          allowOutsideClick: false,
+                          allowEscapeKey: false
+                        }); 
+                        this.showDiv = {
+                          current : true,
+                          next : false
+                        }     
+                        break;
+                }
+          })  
+    }
         
       
     } 
@@ -518,4 +518,5 @@ debugger;
         
       }
     }
+
   }
