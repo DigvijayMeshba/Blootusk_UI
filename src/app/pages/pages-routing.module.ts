@@ -9,6 +9,9 @@ import { MerchantlistComponent } from "./merchant/merchantlist/merchantlist.comp
 import { MerchantaddComponent } from "./merchant/merchantadd/merchantadd.component"
 import { MerchanteditComponent } from "./merchant/merchantedit/merchantedit.component"
 
+import { MessageaddComponent } from "./merchant/messageadd/messageadd.component"
+import { MessageeditComponent } from "./merchant/messageedit/messageedit.component"
+
 import { BusinesscategorylistComponent } from "./businesscategory/businesscategorylist/businesscategorylist.component"
 import { BusinesscategoryaddComponent } from "./businesscategory/businesscategoryadd/businesscategoryadd.component"
 import { BusinesscategoryeditComponent } from "./businesscategory/businesscategoryedit/businesscategoryedit.component"
@@ -22,6 +25,9 @@ const routes: Routes = [
   { path: "merchant/merchantlist",component: MerchantlistComponent },
   { path: "merchant/merchantadd",component: MerchantaddComponent },
   { path: "merchant/merchantedit/:id",component: MerchanteditComponent },
+
+  { path: "merchant/messageadd",component: MessageaddComponent },
+  { path: "merchant/messageedit",component: MessageeditComponent },
 
   { path: "businesscategory/businesscategorylist",component: BusinesscategorylistComponent },
   { path: "businesscategory/businesscategoryadd",component: BusinesscategoryaddComponent },
