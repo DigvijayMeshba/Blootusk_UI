@@ -13,12 +13,17 @@ import { MerchantaddComponent } from './merchantadd/merchantadd.component';
 import { MerchanteditComponent } from './merchantedit/merchantedit.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { MessageaddComponent } from './messageadd/messageadd.component';
+import { MessageeditComponent } from './messageedit/messageedit.component';
 
 
 const routes: Routes = [
   { path: "merchantlist", component: MerchantlistComponent },
-  { path: "merchantedit", component: MerchanteditComponent } ,
-//  { path: "merchantaddedit/:id", component: MerchanteditComponent } 
+  { path: "merchantedit", component: MerchanteditComponent },
+  //  { path: "merchantaddedit/:id", component: MerchanteditComponent } 
+  { path: "messageadd", component: MessageaddComponent },
+  { path: "messageedit", component: MessageeditComponent },
+
 
 ]
 
@@ -27,7 +32,9 @@ const routes: Routes = [
   declarations: [
     MerchantlistComponent,
     MerchantaddComponent,
-    MerchanteditComponent
+    MerchanteditComponent,
+    MessageaddComponent,
+    MessageeditComponent
   ],
   imports: [
     CommonModule,

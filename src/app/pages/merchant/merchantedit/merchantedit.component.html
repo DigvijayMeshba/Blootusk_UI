@@ -475,25 +475,85 @@
                                                 </div>
                                             </div>
                                         </div>
-</form>
+                                    </form>
                                     </div>
 
                                 </ng-template>
                             </li>
                             <li [ngbNavItem]="2" class="nav-item waves-effect waves-light">
-                                <a ngbNavLink>SMS Template Information</a>
+                                <a ngbNavLink>Template Information</a>
                                 <ng-template ngbNavContent>
                                     
                                     <div class="wbody">
 
                                         <div class="live-preview">
 
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="btn-left mb-2">
+                                                        <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
+                                                            class="form-label mt-2">
+                                                            <h6 class="heads">Merchant Details</h6>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 text-end">
+                                                   
+                                                </div>
+                                            </div>
+
+                                            <div class="card">
+                                                <div class="card-body">
+                
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-6">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Merchant (Organization) Name </label>
+                                                                <br>
+                                                                <label for="basiInput" class="form-label">Data </label>
+                                                            </div>
+                                                        </div>
+                        
+                                                        <div class="col-md-6">
+                                                            <div>
+                                                                <label for="labelInput" class="form-label">Email Id </label>
+                                                                <br>
+                                                                <label for="basiInput" class="form-label">Data </label>
+                                                            </div>
+                                                        </div>
+                        
+                                                    </div>
+                        
+                                                    <div class="row mb-3">
+
+                                                        <div class="col-md-6">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Mobile No  </label>
+                                                                <br>
+                                                                <label for="basiInput" class="form-label">Data </label>
+                                                            </div>
+                                                        </div>
+                
+                                                        <div class="col-md-6">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Contact Person Name  </label>
+                                                                <br>
+                                                                <label for="basiInput" class="form-label">Data </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                
+                                                </div>
+                                            </div>
+
+                                            <hr>
+
                                             <div class="row mb-1">
                                                 <div class="col-md-4">
                                                     <div class="btn-left mb-2">
                                                         <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
                                                             class="form-label mt-2">
-                                                            <h6 class="heads">SMS Template List</h6>
+                                                            <h6 class="heads">Template List</h6>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -514,14 +574,12 @@
                                                     <thead class="table-light">
                                                         <tr>
                                                             <th scope="col">Message Type</th>
-                                                            <th scope="col">Merchant ID</th>
                                                             <th scope="col">Message Content</th>
                                                             <th scope="col" class="w-10 text-center">Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td>Data</td>
                                                             <td>Data</td>
                                                             <td>Data</td>
                                                             <td class="w-10 text-center">
@@ -546,71 +604,7 @@
                                                 </div>
                                             </div>
 
-                                            <hr>
-
-                                            <div class="card mb-1">
-                                                <div class="card-body">
-                
-                                                    <div class="row mb-3">
-                
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <label for="basiInput" class="form-label">Message Type </label>
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option hidden value="" disabled selected>Select Message Type</option>
-                                                                    <option>Data</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                          
-                                                        <div class="col-md-4">
-                                                            <div>
-                                                                <label for="basiInput" class="form-label">Merchant ID </label>
-                                                                <select class="form-select" aria-label="Default select example">
-                                                                    <option hidden value="" disabled selected>Select Merchant ID</option>
-                                                                    <option>Data</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                        
-                                                    </div>
-
-                                                    <div class="row mb-1">
-                
-                                                        <div class="col-md-12">
-                                                            <div>
-                                                                <label for="basiInput" class="form-label">Message Content </label>
-                                                                <textarea class="form-control" rows="2" placeholder="Enter Message Content"></textarea>
-                                                            </div>
-                                                        </div>
-                        
-                                                    </div>
-
-                                                    <div class="card-footer wizfooter mt-3">
-                                                        <div class="row align-items-center gy-3">
-                                                            <div class="col-sm">
-                                                                <div class="d-flex flex-wrap my-n1">
-                                                                    <div>
-                                                                        <i
-                                                                            class="ri-information-line text-muted align-bottom me-1"></i>
-                                                                        Tip
-                                                                        : (<span class="mnd-fld">*</span>) fields are mandatory.
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-sm-auto">
-                                                                <div class="col-lg-12">
-                                                                    <div class="text-end d-flex align-items-start gap-2 ">
-                                                                        <button type="button" class="btn btn-info ms-auto"><i class="ri-close-line label-icon align-middle me-2"></i>Cancel</button>
-                                                                        <button type="submit" class="btn btn-success"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                        
-                                                </div>
-                                            </div>
+                                    
                 
 
 
