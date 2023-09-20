@@ -41,11 +41,12 @@ export interface addMerchant
 
 
    export interface listMerchant{
-    merchantCode: string;
-    merchantPhoneNumber: string;
-    merchantName: string;
-    approvalStatus : string;  
+    // merchantCode: string;
+    // merchantPhoneNumber: string;
+    // merchantName: string;
+    // approvalStatus : string;  
     pageNumber : number;
+    keyword:string;
    }
 
    

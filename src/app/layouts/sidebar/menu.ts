@@ -28,3 +28,12 @@ export const MENU: MenuItem[] =
  
 
 ];
+
+export const MENUCustomerItems: MenuItem[] =[
+
+  {
+    id: 100,
+    label: 'Dashboard',
+    icon: 'ri-dashboard-2-fill',
+    link: 'dashboards/customerdashboard',
+  },]

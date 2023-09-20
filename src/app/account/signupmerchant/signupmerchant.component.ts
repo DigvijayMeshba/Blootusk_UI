@@ -392,7 +392,7 @@ console.log('Decrypted :' + decrypted);
     AddMerchantDtail.posInfo.merchantId = 0;    
     AddMerchantDtail.isEmailValidate = 1;
     AddMerchantDtail.isPhoneNumberValidate = 1;
-    AddMerchantDtail.createdBy = addUserDeatil.adminID;
+    AddMerchantDtail.createdBy = 0;
     AddMerchantDtail.modifyBy = 0;
     AddMerchantDtail.createdDate = new Date();
     AddMerchantDtail.modifyDate = new Date();

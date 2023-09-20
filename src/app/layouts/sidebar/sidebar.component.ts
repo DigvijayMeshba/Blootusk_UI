@@ -2,8 +2,9 @@ import { Component, OnInit, EventEmitter, Output, ViewChild, ElementRef } from '
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { MENU } from './menu';
+import { MENU, MENUCustomerItems } from './menu';
 import { MenuItem } from './menu.model';
+import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -14,17 +15,25 @@ export class SidebarComponent implements OnInit {
 
   menu: any;
   toggle: any = true;
+  addRoleDeatil:any;
   menuItems: MenuItem[] = [];
+  menuCustomerItems : MenuItem[] =[];
   @ViewChild('sideMenu') sideMenu!: ElementRef;
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
-  constructor(private router: Router, public translate: TranslateService) {
+  constructor(private router: Router, public translate: TranslateService,private tokenStorage: TokenStorageService,) {
     translate.setDefaultLang('en');
   }
 
   ngOnInit(): void {
     // Menu Items
+    
+   this.addRoleDeatil = this.tokenStorage.GetRole();  
+   console.log('Role',this.addRoleDeatil)
     this.menuItems = MENU;
+    this.menuCustomerItems =  MENUCustomerItems;
+
+     
   }
 
   /***
@@ -198,6 +207,7 @@ export class SidebarComponent implements OnInit {
       }
     }
   }
+
 
   /**
    * Returns true or false if given menu item has child or not

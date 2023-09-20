@@ -88,7 +88,7 @@ export class LoginComponent implements OnInit {
           debugger;
           console.log('token data==',res)
           //status code
-          
+          this.Isadmin = 'Admin';
           if (res.responseData.token != undefined) {
             this.tokenStorage.SaveRole(this.Isadmin)
             this.tokenStorage.saveToken(res.responseData.token);

@@ -275,6 +275,7 @@ export class MerchantaddComponent {
   //create new user
   public createMerchant(formData: addMerchant) {
     debugger;
+    let addUserDeatil = this.tokenStorage.getUser();
     let AddMerchantModel: addMerchant = formData;  
     debugger;    
     if(this.uploadForm.valid)
@@ -283,7 +284,7 @@ export class MerchantaddComponent {
       AddMerchantModel.posInfo.merchantId = 0;    
       AddMerchantModel.isEmailValidate = 1;
       AddMerchantModel.isPhoneNumberValidate = 1;
-      AddMerchantModel.createdBy = 0;
+      AddMerchantModel.createdBy = addUserDeatil.adminID;
       AddMerchantModel.modifyBy = 0;
       AddMerchantModel.createdDate = new Date(); 
       AddMerchantModel.modifyDate = new Date();

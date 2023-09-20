@@ -18,7 +18,7 @@ export class MerchantlistComponent {
     public count = 10;
     public SearchKeyword: any;
     merchnatCode :string;
-    merchnatName :string;
+    keyword! :string;
     mobileNo:string;
     approvalStatus:string;
     test :any;
@@ -33,7 +33,7 @@ export class MerchantlistComponent {
     constructor(public appService: AppService,private EncrDecr: EncrDecrServiceService) {
 
       this.merchnatCode ='';
-      this.merchnatName = '';
+      this.keyword = '';
       this.mobileNo ='';
       this.approvalStatus = '';
      }
@@ -87,20 +87,21 @@ public ClearMerchantList()
 
     //List of All Company
   public   GetAllMerchantList() {
+    debugger;
     let edituserModel: listMerchant = {
-      "merchantCode": this.merchnatCode == ''? "":this.merchnatCode,
-      "merchantPhoneNumber": this.mobileNo == ''? "":this.mobileNo,      
-      "merchantName": this.merchnatName == ''? "":this.merchnatName,
-      "approvalStatus": this.approvalStatus == ''? "":this.approvalStatus,    
-      "pageNumber" : this.page ==0 ? 0:this.page
+      // "merchantCode": this.merchnatCode == ''? "":this.merchnatCode,
+      // "merchantPhoneNumber": this.mobileNo == ''? "":this.mobileNo,      
+      "keyword": this.keyword == ''? "":this.keyword,
+      // "approvalStatus": this.approvalStatus == ''? "":this.approvalStatus,    
+       "pageNumber" : this.page ==0 ? 0:this.page
     }   
     console.log(edituserModel);
     debugger;
     //var encrypted = this.EncrDecr.set('123456$#@$^@1ERF', 'M1110001');
-    if( edituserModel.merchantPhoneNumber != '')
-    {
-      edituserModel.merchantPhoneNumber = this.EncrDecr.set('12$#@BLOO$^@TUSK', edituserModel.merchantPhoneNumber);
-    }
+    // if( edituserModel.merchantPhoneNumber != '')
+    // {
+    //   edituserModel.merchantPhoneNumber = this.EncrDecr.set('12$#@BLOO$^@TUSK', edituserModel.merchantPhoneNumber);
+    // }
 
     // if(edituserModel.merchantCode != ''|| edituserModel.merchantName != ''||edituserModel.merchantPhoneNumber != ''|| edituserModel.approvalStatus !='')
     // {
@@ -168,6 +169,7 @@ public ClearMerchantList()
   
     ///Code for Pagination
     public getPageData(): any[] {
+      debugger;
       const startIndex = (this.page - 1) * this.count;
       const endIndex = startIndex + this.count;
       return this.MerchantList.slice(startIndex, endIndex);

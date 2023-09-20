@@ -20,25 +20,35 @@
                             <div class="card-body">
 
                                 <div class="row mb-3">
-                                    <div class="col-md-4">
+                                
+                                    <!-- <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Merchant Code </label>
                                             <input type="text" class="form-control" [(ngModel)]="merchnatCode" placeholder="Enter Merchant Code">
                                         </div>
                                     </div>
-    
+     -->
                                     <div class="col-md-8">
                                         <div>
                                             <label for="labelInput" class="form-label">Merchant (Organization) Name</label>
-                                            <input type="text" class="form-control" [(ngModel)]="merchnatName" placeholder="Enter Merchant Name">
+                                            <input type="text" class="form-control" [(ngModel)]="keyword" placeholder="Enter Merchant Name">
                                         </div>
+                                    </div>
+
+
+                                    <div class="col-md-4 ">                                        
+                                        <div class="mt-4  text-right gap-1 ">                                      
+                                            <button type="button" (click)="GetAllMerchantList()" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
+                                    &nbsp;
+                                            <button type="button" (click)="ClearMerchantList()" class="btn btn-primary ms-auto"><i class="ri-refresh-line cardicon label-icon align-middle"></i>Clear</button>
+                                         </div>
                                     </div>
     
                                 </div>
     
                                 <div class="row mb-3">
 
-                                    <div class="col-md-4">
+                                    <!-- <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Mobile No.</label>
                                             <input type="text" class="form-control" [(ngModel)]="mobileNo" placeholder="Enter Mobile No.">
@@ -55,15 +65,9 @@
                                                 </option>                                                                  
                                         </select>
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="col-md-4 ">                                        
-                                        <div class="mt-4  text-right gap-1 ">                                      
-                                            <button type="button" (click)="GetAllMerchantList()" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
-                                    &nbsp;
-                                            <button type="button" (click)="ClearMerchantList()" class="btn btn-primary ms-auto"><i class="ri-refresh-line cardicon label-icon align-middle"></i>Clear</button>
-                                         </div>
-                                    </div>
+                                   
                                 </div>
 
                             </div>
@@ -75,22 +79,27 @@
                             <table class="table table-bordered table-striped align-middle table-nowrap mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th scope="col">Merchant Code</th>
+                                        <!-- <th scope="col">Merchant Code</th> -->
                                         <th scope="col">Merchant (Organization) Name</th>
                                         <th scope="col">Mobile No.</th>
                                         <th scope="col">Email Id</th>
                                         <th scope="col">Verification</th>
+                                        <th scope="col">Created By</th>
                                         <th scope="col" class="w-10 text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody *ngFor="let object of getPageData()">
                                     <tr>
-                                        <td>{{object.merchantCode}}</td>
+                                        <!-- <td>{{object.merchantCode}}</td> -->
                                         <td>{{object.organizationName}}</td>
                                         <td>{{object.phoneNumber}}</td>
                                         <td>{{object.email }}</td>
                                         <td>{{object.approvalStatus}}</td>
                                         
+                                        <td>                                            
+                                            {{object.generatedBy}}
+                                        </td>
+                                       
                                        
                                         <td class="w-10 text-center">                                          
                                             <div class="gap-3" >
@@ -102,6 +111,8 @@
                                                 &nbsp;&nbsp;
 
                                                 <a *ngIf="object.recStatus=='A'" class="link-success fs-15"><!-- <i class="ri-checkbox-blank-circle-line"></i> --><i class="ri-checkbox-circle-fill"></i> </a>
+
+                                                <a *ngIf="object.recStatus!='A'" class="link-success fs-15"><!-- <i class="ri-checkbox-blank-circle-line"></i> --><i class="ri"></i> </a>
 
                                                 &nbsp;&nbsp;
 

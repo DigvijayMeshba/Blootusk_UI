@@ -28,7 +28,7 @@ export class SignupcustomerComponent {
   UserSendOTP!:string;
   MobileNo!:string;
   compareControlName!: string; 
-  IsCustomer!:string;
+  IsCustomer:string = 'Customer';
 
   constructor(  private _authService: AuthenticationService, private _router: Router,
     private tokenStorage: TokenStorageService,public appService: AppService,) 

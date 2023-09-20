@@ -39,9 +39,9 @@ export class TokenStorageService {
     window.sessionStorage.setItem(ROLE_KEY,Role);
   }
 
-  public GetRole():string |null
+  public GetRole(): any |null
   {
-    return localStorage.getItem('role');
+    return sessionStorage.getItem('role-key');
   }
 
  
