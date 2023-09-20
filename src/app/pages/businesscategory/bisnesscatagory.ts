@@ -18,7 +18,7 @@ export interface listCatagory
 }
 export interface editCatagory
 {
-  categoryId : number;
+categoryId : number;
 categoryName: string;
 rewardPoint: number;
 recStatus: string;

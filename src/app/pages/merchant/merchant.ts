@@ -49,6 +49,17 @@ export interface addMerchant
    }
 
    
+   export interface listTemplate{
+    templateId: number,
+    messageTypeId: number;
+    merchantId: number;
+    messageContent: string;
+    recStatus: string;
+    messageType:string;   
+    pageNumber : number;
+   }
+
+   
 export interface editMerchant
 {
        merchantId: number;
@@ -102,4 +113,32 @@ export interface editMerchant
     New,
     Rejected,
     Verified,
+  }
+
+  export interface addMessageTemplate 
+  {
+    templateId:number,
+    merchantId : number,     
+       messageContent : string,
+       messageTypeId : number,
+      recStatus:string,     
+      messsageType :string,
+      createdBy: number,
+      createdDate:Date,
+      modifyBy: number,
+      modifyDate: Date,
+  }
+
+  export interface editMessageTemplate 
+  {
+    templateId:number,
+    merchantId : number,     
+       messageContent : string,
+       messageTypeId : number,
+      recStatus:string,     
+     
+      createdBy: number,
+      createdDate:Date,
+      modifyBy: number,
+      modifyDate: Date,
   }

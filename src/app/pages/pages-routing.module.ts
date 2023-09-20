@@ -16,6 +16,7 @@ import { BusinesscategorylistComponent } from "./businesscategory/businesscatego
 import { BusinesscategoryaddComponent } from "./businesscategory/businesscategoryadd/businesscategoryadd.component"
 import { BusinesscategoryeditComponent } from "./businesscategory/businesscategoryedit/businesscategoryedit.component"
 import { CustomerdashboardComponent } from './dashboards/customerdashboard/customerdashboard.component';
+import { ReferrallistComponent } from './customer/referrallist/referrallist.component';
 
 const routes: Routes = [
 
@@ -26,12 +27,13 @@ const routes: Routes = [
   { path: "merchant/merchantadd",component: MerchantaddComponent },
   { path: "merchant/merchantedit/:id",component: MerchanteditComponent },
 
-  { path: "merchant/messageadd",component: MessageaddComponent },
-  { path: "merchant/messageedit",component: MessageeditComponent },
+  { path: "merchant/messageadd/:id",component: MessageaddComponent },
+  { path: "merchant/messageedit/:id",component: MessageeditComponent },
 
   { path: "businesscategory/businesscategorylist",component: BusinesscategorylistComponent },
   { path: "businesscategory/businesscategoryadd",component: BusinesscategoryaddComponent },
   { path: "businesscategory/businesscategoryedit/:id",component: BusinesscategoryeditComponent },
+  {path:"customer/referrallist",component:ReferrallistComponent},
 
   {
     path: 'dashboards', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule)

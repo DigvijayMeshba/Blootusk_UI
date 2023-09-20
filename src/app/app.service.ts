@@ -33,11 +33,14 @@ export class AppService {
     return this.http.get<any>(this.createCompleteRoute(route, this._envUrl.urlAddress), { headers: this.headers });
   }
 
-
     // Add New Record
     public GetAllList = (route: string, body: any) => {
       console.log(body)
       return this.http.post(this.createCompleteRoute(route, this._envUrl.urlAddress), body, { headers: this.headers });
+    }
+
+    public GetAllLists = (route: string) => {      
+      return this.http.get(this.createCompleteRoute(route, this._envUrl.urlAddress),  { headers: this.headers });
     }
  
 

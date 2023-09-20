@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 
 const TOKEN_KEY = 'auth-token';
+const ROLE_KEY = 'role-key'
 const USER_KEY = 'currentUser';
 const MERCHANT_KEY = 'Merchant';
 const OTP_KEY = 'MerchantSignupPhoneNoOTP';
 const OTPEMAIL_KEY = 'MerchantSignupEmailOTP';
 const USEROTP_KEY = 'userphoneNumberOTP';
 const MerchantUrl_KEY = 'merchantUrl';
+const Custcode_KEY = 'custcode';
 
 
 @Injectable({
@@ -32,12 +34,37 @@ export class TokenStorageService {
     window.sessionStorage.setItem(TOKEN_KEY, token );
   }
 
+  public SaveRole(Role:string): void{
+    window.sessionStorage.removeItem(ROLE_KEY);
+    window.sessionStorage.setItem(ROLE_KEY,Role);
+  }
+
+  public GetRole():string |null
+  {
+    return localStorage.getItem('role');
+  }
+
+ 
+
   public Merchantdata(merchant:any): void {
     window.localStorage.removeItem(MERCHANT_KEY);
 
     window.localStorage.setItem(MERCHANT_KEY,   JSON.stringify(merchant));
   }
 
+  public custcode(custcode:any): void {
+    debugger;
+    window.localStorage.removeItem(Custcode_KEY);
+    window.localStorage.setItem(Custcode_KEY, JSON.stringify(custcode));
+  }
+
+  public getcustcode(): any {
+    const custcode = window.localStorage.getItem(Custcode_KEY);
+    if (custcode) {
+      return JSON.parse(custcode);
+    }
+    return {};
+  }
   public getMerchant(): any {
     const merchant = window.localStorage.getItem(MERCHANT_KEY);
     if (merchant) {

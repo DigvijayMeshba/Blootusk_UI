@@ -53,9 +53,9 @@
                                                         <div class="col-md-8">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Merchant (Organization) Name <span class="mnd-fld">*</span> </label>
-                                                                <input type="text" class="form-control" formControlName="organizationName" placeholder="Enter Merchant (Organization) Name">
+                                                                <input type="text" class="form-control" formControlName="organizationName" placeholder="Enter Merchant (Organization) Name" [(ngModel)]="OrganizationNameTemp">
                                                                 <div *ngIf="submitted && f['organizationName'].errors" class="invalid-feedback">
-                                                                    <div *ngIf="f['organizationName'].errors['required']">Merchant Name is required</div>
+                                                                    <div *ngIf="f['organizationName'].errors['required']">Merchant Name is required</div>OrganizationNameTemp
                                                                     <div *ngIf="f['organizationName'].errors['minlength']">Merchant Name least 3 char long
                                                                     </div>
                         
@@ -177,7 +177,6 @@
                 
                                             <div class="card mb-1">
                                                 <div class="card-body" formGroupName="posInfo">
-                                                    <input type="test" class="hidden" formControlName="posid"/>
                                                     <div class="row mb-3">
 
                                                         <div class="col-md-8">
@@ -441,8 +440,8 @@
                                                                         
                                                                         <div class="mt-3 text-center" >
                                                                             <!-- <a [href]="qrCodeDataURL" download="qrcode.png">Download QR Code</a> -->
-                                                                            <button (click)="trivialDownload()">Download as Image</button>
-                                                                            <a type="submit"  class="btn btn-success"><i class="ri-download-line label-icon align-middle me-2"></i> Download QR Code</a>
+                                                                            <!-- <button (click)="trivialDownload()">Download as Image</button> -->
+                                                                            <a type="submit" (click)="trivialDownload()"  class="btn btn-success"><i class="ri-download-line label-icon align-middle me-2"></i> Download QR Code</a>
                                                                         </div>
                                                                     </form>
                                                                 </div>
@@ -510,7 +509,7 @@
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Merchant (Organization) Name </label>
                                                                 <br>
-                                                                <label for="basiInput" class="form-label">Data </label>
+                                                                <label for="basiInput" class="form-label" >{{OrganizationNameTemp}} </label>
                                                             </div>
                                                         </div>
                         
@@ -518,7 +517,7 @@
                                                             <div>
                                                                 <label for="labelInput" class="form-label">Email Id </label>
                                                                 <br>
-                                                                <label for="basiInput" class="form-label">Data </label>
+                                                                <label for="basiInput" class="form-label">{{EmailIdTemp}} </label>
                                                             </div>
                                                         </div>
                         
@@ -530,7 +529,7 @@
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Mobile No  </label>
                                                                 <br>
-                                                                <label for="basiInput" class="form-label">Data </label>
+                                                                <label for="basiInput" class="form-label">{{MobileNoTemp}} </label>
                                                             </div>
                                                         </div>
                 
@@ -538,7 +537,7 @@
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Contact Person Name  </label>
                                                                 <br>
-                                                                <label for="basiInput" class="form-label">Data </label>
+                                                                <label for="basiInput" class="form-label">{{ContactPersonNameTemp}} </label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -562,7 +561,7 @@
                                                         <div class="flex-shrink-0">
                                                             <div class="gridjs-search">
                                                                 <!-- <input type="search" placeholder="Type keyword..." aria-label="Type a keyword..."class="gridjs-input gridjs-search-input" > -->
-                                                                <button routerLink="../merchantaddedit" type="button" class="btn btn-info ms-auto"> <i class="ri-add-fill cardicon label-icon align-middle"></i>Add</button>
+                                                                <button [routerLink]="['/merchant/messageadd', TempmerchantId]" type="button" class="btn btn-info ms-auto"> <i class="ri-add-fill cardicon label-icon align-middle"></i>Add</button>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -578,15 +577,17 @@
                                                             <th scope="col" class="w-10 text-center">Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody *ngFor="let object of GetTemplateData()">
                                                         <tr>
-                                                            <td>Data</td>
-                                                            <td>Data</td>
+                                                            <td>{{object.messageType }}</td>
+                                                            <td>{{object.messageContent }}</td>
                                                             <td class="w-10 text-center">
                                                                 <div class="gap-3">
-                                                                    <a  class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                                                    
+                                                                    <a [routerLink]="['/merchant/messageedit', object.templateId]"  class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
                                                                     &nbsp;&nbsp;
-                                                                    <a class="link-danger fs-15"><i class="ri-delete-bin-line"></i></a>
+                                                                    <a *ngIf="object.recStatus=='A'" class="link-success fs-15"><!-- <i class="ri-checkbox-blank-circle-line"></i> --><i class="ri-checkbox-circle-fill"></i> </a>
+
                                                                 </div>
                                                             </td>
                                                         </tr>

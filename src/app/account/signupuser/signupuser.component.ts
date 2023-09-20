@@ -68,21 +68,41 @@ export class SignupuserComponent {
     captchaResponse!: string;
     merchantName!:string;
     merchantId!:number;
+    customerName!:string;
+    customerId!:number;
     isCaptchaVerified = false;
     UserSendOTP!:string;
+    CustomerCode!:any;
   
     constructor(public formBuilder: FormBuilder,public appService: AppService,
       private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
       private router: Router,private EncrDecr: EncrDecrServiceService)
      {
-      debugger;
-      this.merchantCode = this.route.snapshot.params['id'];      
 
-      this.merchantCode = atob(this.merchantCode);
+      let ecodeMerchantCode = this.route.snapshot.params['id'];    
+      let dcodeMerchantCode = atob(ecodeMerchantCode); 
+      let dryptedmerchantcode = this.EncrDecr.get('12$#@BLOO$^@TUSK', dcodeMerchantCode)
+      //if condition use for a referal singup
+      if(dryptedmerchantcode.length > 8)
+      {
+        let SplitCode = dryptedmerchantcode.split("C");
+        this.merchantCode = SplitCode[0];
+        this.CustomerCode = 'C'+SplitCode[1];
+
+      //   this.merchantCode = this.EncrDecr.set('12$#@BLOO$^@TUSK', this.merchantCode);
+         this.merchantCode = btoa(this.merchantCode)
    
-      //this.merchantCode = this.EncrDecr.get('12$#@BLOO$^@TUSK', decryptedData)
+      }
+       //if condition use for a QR singup     
+      else
+      {
+        this.merchantCode = btoa(dryptedmerchantcode)
+     //   this.merchantCode = this.EncrDecr.set('12$#@BLOO$^@TUSK', dryptedmerchantcode)
+      }
+   
        
       this.GetMerchantName(this.merchantCode);
+      this.GetCustomerName(this.CustomerCode)
      }
   
      ngOnInit(): void {
@@ -125,12 +145,22 @@ export class SignupuserComponent {
     GetMerchantName(merchantCode:any)
     {
       this.appService.getById("api/Merchant/GetMarchantByCode/",merchantCode).subscribe(data => {
-        console.log(data);
+      
        this.merchantName = data.responseData.organizationName;
        this.merchantId = data.responseData.merchantID;
       });
+    }
 
 
+    GetCustomerName(customerCode:any)
+    {
+      debugger;
+      this.appService.getById("api/User/GetCustomerByCOde/",this.CustomerCode).subscribe(data => {
+      console.log('custdata', data.responseData)
+       this.customerName = data.responseData.name;
+       this.customerId = data.responseData.customerID;
+     
+      });
     }
   
     public validateControl = (controlName: string) => {
@@ -205,135 +235,135 @@ export class SignupuserComponent {
        }   
         this.tokenStorage.Merchantdata(AdduserModel);  
        
-    if(this.uploadForm.valid)
-    {
-      this.appService.Add('api/User/UserVerification',userForOtp)
-            .pipe(
-              catchError((error) => {          
-                return throwError(error); // Throw the error to propagate it further
-              })
-            )   
-              .subscribe((res: any) => {
-              console.log(res.responseData)
-                let statuscode : number = res.responseStatusCode;
-                switch(statuscode)
-                {
-                  case 200:
+if(this.uploadForm.valid)
+{
+  this.appService.Add('api/User/UserVerification',userForOtp)
+        .pipe(
+          catchError((error) => {          
+            return throwError(error); // Throw the error to propagate it further
+          })
+        )   
+          .subscribe((res: any) => {
+          console.log(res.responseData)
+            let statuscode : number = res.responseStatusCode;
+            switch(statuscode)
+            {
+              case 200:
+                this.showDiv = {
+                  current : false,
+                  next : true
+                }
+                if (res.responseData.phoneNumberOTP != undefined 
+                 ) {      
+    
+                  this.UserSendOTP = res.responseData.phoneNumberOTP
+                 // this.tokenStorage.SaveUSerPhoneOtp(res.responseData.phoneNumberOTP);
+                  
+                }
+                break;
+                case 212 :
+                Swal.fire({
+                  title:'Warning',
+                  text: 'Something Went wrong.',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+           
+                });
+
+                  this.showDiv = {
+                    current : true,
+                    next : false
+                  }
+                  break;
+                  
+                case  500 : 
+
+                Swal.fire({
+                  title:'Error',
+                  text: 'Error Status',
+                  icon: 'error',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+           
+                });
+
+                 
+                  this.showDiv = {
+                    current : true,
+                    next : false
+                  }
+                  break;
+                  
+                case 601 :
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Phone Number is Duplicate',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+             
+                  });
                     this.showDiv = {
-                      current : false,
-                      next : true
+                      current : true,
+                      next : false
                     }
-                    if (res.responseData.phoneNumberOTP != undefined 
-                    ) {      
-        
-                      this.UserSendOTP = res.responseData.phoneNumberOTP
-                    // this.tokenStorage.SaveUSerPhoneOtp(res.responseData.phoneNumberOTP);
-                      
-                    }
-                    break;
-                    case 212 :
+                  break;
+                  
+                case 602:
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Duplicate Email',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+             
+                  }); 
+                  this.showDiv = {
+                    current : true,
+                    next : false
+                  }
+                  break;
+               
+                case 603:
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Duplicate Category Status',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+             
+
+                  }); 
+                    
+                    this.showDiv = {
+                      current : true,
+                      next : false
+                    }          
+                  break;
+                
+                case 400:              
                     Swal.fire({
-                      title:'Warning',
-                      text: 'Something Went wrong.',
+                      title:'Error',
+                      text: 'Bad Request Status',
                       icon: 'warning',
                       confirmButtonColor: '#364574',
                       allowOutsideClick: false,
                       allowEscapeKey: false
-              
-                    });
-
-                      this.showDiv = {
-                        current : true,
-                        next : false
-                      }
-                      break;
-                      
-                    case  500 : 
-
-                    Swal.fire({
-                      title:'Error',
-                      text: 'Error Status',
-                      icon: 'error',
-                      confirmButtonColor: '#364574',
-                      allowOutsideClick: false,
-                      allowEscapeKey: false
-              
-                    });
-
-                    
-                      this.showDiv = {
-                        current : true,
-                        next : false
-                      }
-                      break;
-                      
-                    case 601 :
-                      Swal.fire({
-                        title:'Duplication',
-                        text: 'Phone Number is Duplicate',
-                        icon: 'warning',
-                        confirmButtonColor: '#364574',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false
-                
-                      });
-                        this.showDiv = {
-                          current : true,
-                          next : false
-                        }
-                      break;
-                      
-                    case 602:
-                      Swal.fire({
-                        title:'Duplication',
-                        text: 'Duplicate Email',
-                        icon: 'warning',
-                        confirmButtonColor: '#364574',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false
-                
-                      }); 
-                      this.showDiv = {
-                        current : true,
-                        next : false
-                      }
-                      break;
-                  
-                    case 603:
-                      Swal.fire({
-                        title:'Duplication',
-                        text: 'Duplicate Category Status',
-                        icon: 'warning',
-                        confirmButtonColor: '#364574',
-                        allowOutsideClick: false,
-                        allowEscapeKey: false
-                
-
-                      }); 
-                        
-                        this.showDiv = {
-                          current : true,
-                          next : false
-                        }          
-                      break;
-                    
-                    case 400:              
-                        Swal.fire({
-                          title:'Error',
-                          text: 'Bad Request Status',
-                          icon: 'warning',
-                          confirmButtonColor: '#364574',
-                          allowOutsideClick: false,
-                          allowEscapeKey: false
-                        }); 
-                        this.showDiv = {
-                          current : true,
-                          next : false
-                        }     
-                        break;
-                }
-          })  
-    }
+                    }); 
+                    this.showDiv = {
+                      current : true,
+                      next : false
+                    }     
+                    break;
+            }
+       })  
+}
         
       
     } 
@@ -341,7 +371,7 @@ export class SignupuserComponent {
     SubmitForm(formDdt: UserForOtp)
     {
 debugger;
-    
+    let refer;
       debugger;
       let AdduserOtpModel: UserForOtp = formDdt;
 
@@ -351,10 +381,17 @@ debugger;
         emailOTP :'',
         phoneNumberOTP: '',
        } 
-
+       if(this.CustomerCode != null)
+       {
+      refer = this.customerId;
+       }
+       else{
+        refer = 0;
+       }
 
       //let addUserDeatil = this.tokenStorage.getUser();   
       const  AddUsertDtail: AddCustomer  =  {
+      
         
         merchantID:this.merchantId,
         name : this.CustName,
@@ -365,7 +402,8 @@ debugger;
         modifyBy:0,      
         createdDate : new Date(),
         modifyDate :new Date(),
-        referBy:0,
+        
+        referBy:refer,
         rewardPoint:0,
         customerID:0,
         customerCode :"",       
@@ -518,5 +556,4 @@ debugger;
         
       }
     }
-
   }

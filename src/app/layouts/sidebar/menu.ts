@@ -1,6 +1,10 @@
-import { MenuItem } from './menu.model';
+import { MenuItem } from "./menu.model";
 
-export const MENU: MenuItem[] = [
+export const MENU: MenuItem[] = 
+
+       
+
+[
   {
     id: 100,
     label: 'Dashboard',
@@ -20,32 +24,7 @@ export const MENU: MenuItem[] = [
     label: 'Business Category',
     icon: 'ri-honour-line',
     link: 'businesscategory/businesscategorylist',
-  },
-
-  // {
-  //   id: 8,
-  //   label: 'ewr',
-  //   icon: 'ri-apps-2-line',
-  //   subItems: [
-  //     {
-  //       id: 9,
-  //       label: 'MENUITEMS.APPS.LIST.CALENDAR',
-  //       link: '/calendar',
-  //       parentId: 8
-  //     },
-  //     {
-  //       id: 10,
-  //       label: 'MENUITEMS.APPS.LIST.CHAT',
-  //       link: '/chat',
-  //       parentId: 8
-  //     },
-      
-   
-  //   ]
-  // },
-  
- 
-  
+  },  
  
 
 ];

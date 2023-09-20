@@ -9,6 +9,7 @@ import { TokenStorageService } from './token-storage.service';
 import { EnvironmentUrlService } from './env-url';
 import { UserForAuthenticationDto } from 'src/app/account/login/UserForAuthenticationDto.model';
 import { AuthResponseDto } from 'src/app/account/login/UserForAuthenticationDto.model';
+import { CustomerForAutintication } from 'src/app/account/signupcustomer/CustomerForAutintication';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,12 @@ private createCompleteRoute = (route: string, envAddress: string) => {
 //LoginUser
 public loginUser = (route: string, body: UserForAuthenticationDto) => {
   return this._http.post<AuthResponseDto>(this.createCompleteRoute(route, this._envUrl.urlAddress), body, { responseType: 'json' });
+}
+
+public loginCustomer = (route : string,body:CustomerForAutintication) =>
+{
+  return this._http.post<AuthResponseDto>(this.createCompleteRoute(route, this._envUrl.urlAddress), body, { responseType: 'json' });
+  
 }
 
 //ForgotPassword

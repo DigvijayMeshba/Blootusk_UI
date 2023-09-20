@@ -43,7 +43,7 @@ const routes: Routes = [
   },
   
   {
-    path: "signupcustomer",
+    path: "logincustomer",
     component: SignupcustomerComponent
   },
 

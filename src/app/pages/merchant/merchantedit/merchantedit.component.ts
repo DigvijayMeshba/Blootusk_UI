@@ -6,7 +6,7 @@ import { AppService } from 'src/app/app.service';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import Swal from 'sweetalert2';
-import { Status, editMerchant, remarkHistory } from '../merchant';
+import { Status, editMerchant, listTemplate, remarkHistory } from '../merchant';
 import { catchError, throwError } from 'rxjs';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import * as QRCode from 'qrcode'; 
@@ -54,6 +54,16 @@ export class MerchanteditComponent {
   public RemarkList: any = [];  
   approvstatus!:string;
   receivedLink!: string;
+  OrganizationNameTemp!:string;
+  ContactPersonNameTemp!: string;
+  MobileNoTemp!:string;
+  EmailIdTemp!: string;
+
+//use for a template List
+  public page: number = 1;
+  public count = 10;
+  public TemplateList! : any[]
+  TempmerchantId ! : number;
   
   
   statusLists = [   
@@ -88,13 +98,15 @@ export class MerchanteditComponent {
   ngOnInit(): void {
     console.log(this.statusLists);
     this.merchantId = this.route.snapshot.params['id'];
+    this.TempmerchantId = this.merchantId;
+    this.GetAlltemplateList();
     this.GetCountryList();
     this.getCatagoryList(); 
     this.GetStateList();
     this.getMerchantbyId(this.merchantId);
+  
    
-  this.uploadForm = new FormGroup({
-     
+  this.uploadForm = new FormGroup({     
       merchantCode: new FormControl('', []),
       organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -343,9 +355,11 @@ public getMerchantbyId(merchantId: any) {
         approvalStatus : data.responseData.approvalStatus,
         merchantURL : data.responseData.merchantURL,
         recStatus : data.responseData.recStatus == "A"? true : false,
-               
       });
-
+      this.OrganizationNameTemp = data.responseData.organizationName,
+      this.ContactPersonNameTemp = data.responseData.contactPersonName,
+      this.MobileNoTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 
+      this.EmailIdTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email)
     });
   }
 }
@@ -389,6 +403,14 @@ AddRemark(formDt: remarkHistory)
       this.modalService.dismissAll();
     }   
   },);
+}
+
+public GetTemplateData():any[]
+{
+  const startIndex = (this.page -1) * this.count;
+  const endIndex = startIndex + this.count;
+  return this.TemplateList.slice(startIndex, endIndex);
+
 }
 
 
@@ -545,6 +567,27 @@ CancelForm()
             this._download(index + 1, array)
           });
       }
+  }
+
+
+      //List of All Company
+      public   GetAlltemplateList() {
+        debugger;
+          this.appService.GetAllLists("api/SMSTemplate/GetAllSmsTemplate")
+          .pipe(
+            catchError((error) => {          
+              return throwError(error); 
+            })).subscribe((data: any) => {    
+              
+              console.log('allmerchant',data.responseData)
+              this.TemplateList = data.responseData             
+              if(data.responseData.length == 0)
+              {
+                // this.swalMessage('Data not found')
+              }        
+          },);  
+      
+      
   }
 }
 

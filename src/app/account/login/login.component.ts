@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   toggle: boolean = true;
   user: any;
   public roleId: any;
-
+  Isadmin!:string;
   // Login Form
   loginForm!: UntypedFormGroup;
   submitted = false;
@@ -90,6 +90,7 @@ export class LoginComponent implements OnInit {
           //status code
           
           if (res.responseData.token != undefined) {
+            this.tokenStorage.SaveRole(this.Isadmin)
             this.tokenStorage.saveToken(res.responseData.token);
             this.tokenStorage.saveUser(res.responseData);
             this.isLoggedIn = true;
