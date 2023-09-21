@@ -8,9 +8,11 @@ import {
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { CountToModule } from 'angular-count-to';
 import { NgApexchartsModule } from 'ng-apexcharts';
+
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimplebarAngularModule } from 'simplebar-angular';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // Swiper Slider
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
@@ -49,6 +51,7 @@ import { DashboardsModule } from "./dashboards/dashboards.module";
     PagesRoutingModule,
     SharedModule,
     NgxUsefulSwiperModule,
+    NgxPaginationModule,
     LightboxModule,
     DashboardsModule,
     

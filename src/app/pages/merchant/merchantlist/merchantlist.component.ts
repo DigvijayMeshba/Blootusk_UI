@@ -5,6 +5,7 @@ import { listMerchant } from '../merchant';
 import { catchError, pipe, throwError } from 'rxjs';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
+
 @Component({
   selector: 'app-merchantlist',
   templateUrl: './merchantlist.component.html',
@@ -36,11 +37,12 @@ export class MerchantlistComponent {
       this.keyword = '';
       this.mobileNo ='';
       this.approvalStatus = '';
+      this.GetAllMerchantList();
      }
   
     ngOnInit(): void {       
 
-      this.GetAllMerchantList();
+    //  this.GetAllMerchantList();
     }
   
 swalMessage(swalTitle:any)
@@ -58,19 +60,22 @@ swalMessage(swalTitle:any)
 
 public ClearMerchantList()
 {
-  location.reload;
-    // this.merchnatCode = 'a',
-    // this.merchnatName ='',
-    // this.mobileNo ='',
-    // this.approvalStatus = ''
+  this.keyword ='',
+    
+  
+    // // this.merchnatCode = 'a',
+    // // this.mobileNo ='',
+    // // this.approvalStatus = ''
+    this.GetAllMerchantList()
 
-    // let edituserModel: listMerchant = {
-    //   "merchantCode": this.merchnatCode ,
-    //   "merchantPhoneNumber": this.mobileNo ,      
-    //   "merchantName": this.merchnatName ,
-    //   "approvalStatus": this.approvalStatus    
-    // }  
-    // this.appService.GetAllList("api/Merchant/GetAllMerchant", edituserModel)
+    // let edituserModels: listMerchant = {
+    //   // "merchantCode": this.merchnatCode == ''? "":this.merchnatCode,
+    //   // "merchantPhoneNumber": this.mobileNo == ''? "":this.mobileNo,      
+    //   "keyword": this.keyword == ''? "":this.keyword,
+    //   // "approvalStatus": this.approvalStatus == ''? "":this.approvalStatus,    
+    //    "pageNumber" : this.page ==0 ? 0:this.page
+    // }   
+    // this.appService.GetAllList("api/Merchant/GetAllMerchant", edituserModels)
     // .pipe(
     //   catchError((error) => {          
     //     return throwError(error); 
@@ -111,7 +116,7 @@ public ClearMerchantList()
           return throwError(error); 
         })).subscribe((data: any) => {    
           
-          console.log('allmerchant',data.responseData)
+          console.log('allmerchant',data.responseData.merchantList)
           this.MerchantList = data.responseData.merchantList  
          
           if(data.responseData.length == 0)
@@ -170,9 +175,18 @@ public ClearMerchantList()
     ///Code for Pagination
     public getPageData(): any[] {
       debugger;
+      let allmerchantList;
       const startIndex = (this.page - 1) * this.count;
       const endIndex = startIndex + this.count;
-      return this.MerchantList.slice(startIndex, endIndex);
+    if(this.MerchantList != null)
+    {
+         allmerchantList=  this.MerchantList.slice(startIndex, endIndex);
+    }
+
+    return  allmerchantList;
+
+
+      
     }
   
     public getTotalPages(): number {

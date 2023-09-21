@@ -25,6 +25,7 @@ import { initFirebaseBackend } from './authUtils';
 import { FakeBackendInterceptor } from './core/helpers/fake-backend';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 // Language
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -73,6 +74,7 @@ if (environment.defaultauth === 'firebase') {
     Ng2SearchPipeModule,
     MatSnackBarModule,
     FormsModule,
+    NgxPaginationModule,
     ReactiveFormsModule,
     FlatpickrModule,
     NgbTooltipModule,
