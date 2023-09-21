@@ -616,6 +616,140 @@
 
                                 </ng-template>
                             </li>
+                            <li [ngbNavItem]="3" class="nav-item waves-effect waves-light">
+                                <a ngbNavLink>Reward Information</a>
+                                <ng-template ngbNavContent>
+
+                                    <div class="wbody">
+
+                                        <div class="live-preview">
+
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="btn-left mb-2">
+                                                        <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
+                                                            class="form-label mt-2">
+                                                            <h6 class="heads">Merchant Details</h6>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 text-end">
+                                                   
+                                                </div>
+                                            </div>
+
+                                            <div class="card">
+                                                <div class="card-body">
+                
+                                                    <div class="row mb-3">
+                                                        <div class="col-md-6">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Merchant (Organization) Name </label>
+                                                                <br>
+                                                                <label for="basiInput" class="form-label" > Data </label>
+                                                            </div>
+                                                        </div>
+                        
+                                                        <div class="col-md-6">
+                                                            <div>
+                                                                <label for="labelInput" class="form-label">Email Id </label>
+                                                                <br>
+                                                                <label for="basiInput" class="form-label"> Data </label>
+                                                            </div>
+                                                        </div>
+                        
+                                                    </div>
+                        
+                                                    <div class="row mb-3">
+
+                                                        <div class="col-md-6">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Mobile No  </label>
+                                                                <br>
+                                                                <label for="basiInput" class="form-label"> Data </label>
+                                                            </div>
+                                                        </div>
+                
+                                                        <div class="col-md-6">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">Contact Person Name  </label>
+                                                                <br>
+                                                                <label for="basiInput" class="form-label"> Data </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                
+                                                </div>
+                                            </div>
+
+                                            <hr>
+
+                                            <div class="row mb-1">
+                                                <div class="col-md-4">
+                                                    <div class="btn-left mb-2">
+                                                        <i class="ri-arrow-right-circle-fill addnewico"></i> &nbsp; <label
+                                                            class="form-label mt-2">
+                                                            <h6 class="heads">Reward List</h6>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="btn-right mt-1">
+                                                        <div class="flex-shrink-0">
+                                                            <div class="gridjs-search">
+                                                                <!-- <input type="search" placeholder="Type keyword..." aria-label="Type a keyword..."class="gridjs-input gridjs-search-input" > -->
+                                                                <button [routerLink]="['/merchant/rewardadd']" type="button" class="btn btn-info ms-auto"> <i class="ri-add-fill cardicon label-icon align-middle"></i>Add</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered table-striped align-middle table-nowrap mb-0">
+                                                    <thead class="table-light">
+                                                        <tr>
+                                                            <th scope="col">Date</th>
+                                                            <th scope="col">Type</th>
+                                                            <th scope="col">Points</th>
+                                                            <th scope="col">Issued By</th>
+                                                            <th scope="col">Validity</th>
+                                                            <th scope="col" class="w-10 text-center">Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody *ngFor="let object of GetTemplateData()">
+                                                        <tr>
+                                                            <td>Data</td>
+                                                            <td>Data</td>
+                                                            <td>Data</td>
+                                                            <td>Data</td>
+                                                            <td>Data</td>
+                                                            <td class="w-10 text-center">
+                                                                <div class="gap-3">
+                                                                    <a [routerLink]="['/merchant/rewardedit']"  class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                    
+                                            <div class="text-center mt-3">
+                                                <div class="gridjs-pagination">
+                                                    <div class="gridjs-pages">
+                                                        <button tabindex="0" role="button" title="Previous" aria-label="Previous">Previous</button>
+                                                        <button tabindex="0" role="button">1</button>
+                                                        <button tabindex="0" role="button" title="Next" aria-label="Next">Next</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                </ng-template>
+                            </li>
                         </ul>
 
                         <div class="tab-content">

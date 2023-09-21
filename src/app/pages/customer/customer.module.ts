@@ -11,15 +11,21 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FlatpickrModule } from 'angularx-flatpickr';
 
 import { ReferrallistComponent } from './referrallist/referrallist.component';
+import { RewardpointlistComponent } from './rewardpointlist/rewardpointlist.component';
+import { DiscountcouponlistComponent } from './discountcouponlist/discountcouponlist.component';
 
 const routes: Routes = [
   { path: "referrallist", component: ReferrallistComponent },
+  { path: "rewardpointlist", component: RewardpointlistComponent },
+  { path: "discountcouponlist", component: DiscountcouponlistComponent },
 ]
 
 
 @NgModule({
   declarations: [
-    ReferrallistComponent
+    ReferrallistComponent,
+    RewardpointlistComponent,
+    DiscountcouponlistComponent
   ],
   imports: [
     CommonModule,
