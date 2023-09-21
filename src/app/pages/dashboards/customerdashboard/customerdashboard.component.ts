@@ -29,6 +29,17 @@ public GetList()
   this._router.navigate(['/customer/referrallist'], { relativeTo: this.route });
   
 }
+
+public GetCouponList()
+{
+  this._router.navigate(['/customer/discountcouponlist'], { relativeTo: this.route });
+}
+
+public GetRewardList()
+{
+  this._router.navigate(['/customer/rewardpointlist'], { relativeTo: this.route });
+}
+
 public getcount()
 {
   this.CustId =  this.tokenStorage.getcustcode();

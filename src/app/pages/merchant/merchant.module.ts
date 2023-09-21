@@ -15,6 +15,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { MessageaddComponent } from './messageadd/messageadd.component';
 import { MessageeditComponent } from './messageedit/messageedit.component';
+import { RewardaddComponent } from './rewardadd/rewardadd.component';
+import { RewardeditComponent } from './rewardedit/rewardedit.component';
 
 
 const routes: Routes = [
@@ -23,7 +25,8 @@ const routes: Routes = [
   //  { path: "merchantaddedit/:id", component: MerchanteditComponent } 
   { path: "messageadd", component: MessageaddComponent },
   { path: "messageedit", component: MessageeditComponent },
-
+  { path: "rewardadd", component: RewardaddComponent },
+  { path: "rewardedit", component: RewardeditComponent },
 
 ]
 
@@ -34,7 +37,9 @@ const routes: Routes = [
     MerchantaddComponent,
     MerchanteditComponent,
     MessageaddComponent,
-    MessageeditComponent
+    MessageeditComponent,
+    RewardaddComponent,
+    RewardeditComponent
   ],
   imports: [
     CommonModule,
