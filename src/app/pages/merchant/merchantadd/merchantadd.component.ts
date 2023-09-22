@@ -11,6 +11,7 @@ import { catchError, throwError } from 'rxjs';
 import { addMerchant } from '../merchant';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
+
 @Component({
   selector: 'app-merchantadd',
   templateUrl: './merchantadd.component.html',
@@ -18,6 +19,39 @@ import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 })
 
 export class MerchantaddComponent {
+
+  open: boolean = false;
+  dismissible: boolean = true;
+  timeout: number = 5000;
+
+  public isVisibleSuccess: boolean = false;
+  public isVisibleDanger: boolean = false;
+  public isVisibleWarning: boolean = false;
+
+  showSuccessAlert() : void {
+    if (this.isVisibleSuccess) { 
+      return;
+    } 
+    this.isVisibleSuccess = true;
+    setTimeout(()=> this.isVisibleSuccess = false,5000)
+  }
+
+  showdangerAlert() : void {
+    if (this.isVisibleDanger) { 
+      return;
+    } 
+    this.isVisibleDanger = true;
+    setTimeout(()=> this.isVisibleDanger = false,5000)
+  }
+
+  showWarningAlert() : void {
+    if (this.isVisibleWarning) { 
+      return;
+    } 
+    this.isVisibleWarning = true;
+    setTimeout(()=> this.isVisibleWarning = false,5000)
+  }
+
 
   StateLists: any[] = [];
   CatagoryLists: any[] = [];  
