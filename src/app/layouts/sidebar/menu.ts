@@ -36,4 +36,21 @@ export const MENUCustomerItems: MenuItem[] =[
     label: 'Dashboard',
     icon: 'ri-dashboard-2-fill',
     link: 'dashboards/customerdashboard',
-  },]
+  },
+  {
+    id: 101,
+    label: 'Discount Coupon',
+    icon: 'ri-honour-line',
+    link: 'customer/discountcouponlist',
+  },
+
+  {
+    id: 102,
+    label: 'Reward Point',
+    icon: 'ri-dashboard-2-fill',
+    link: 'customer/rewardpointlist',
+  },
+
+ 
+
+]

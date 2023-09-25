@@ -397,7 +397,9 @@ console.log('Decrypted :' + decrypted);
     AddMerchantDtail.createdDate = new Date();
     AddMerchantDtail.modifyDate = new Date();
     AddMerchantDtail.merchantId = 0;
-    
+    AddMerchantDtail.deviceId=  "",
+    AddMerchantDtail.deviceOs = "",
+    AddMerchantDtail.generatedBy = "",
     AddMerchantDtail.stateName = ""? "":AddMerchantDtail.stateName,
     AddMerchantDtail.categoryName = ""? "":AddMerchantDtail.categoryName,
     AddMerchantDtail.countryName = ""? "":AddMerchantDtail.countryName,

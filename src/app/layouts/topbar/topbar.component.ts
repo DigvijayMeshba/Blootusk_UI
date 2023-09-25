@@ -37,18 +37,18 @@ export class TopbarComponent implements OnInit {
   countryName: any;
   cookieValue: any;
   userData: any;
-
+  addRoleDeatil:any;
   sessionuserrole: any;
   sessionuserfullName: any;
 
   constructor(@Inject(DOCUMENT) private document: any, private eventService: EventService, public languageService: LanguageService,
     public _cookiesService: CookieService, public translate: TranslateService, private authService: AuthenticationService, private authFackservice: AuthfakeauthenticationService,
-    private router: Router, private TokenStorageService: TokenStorageService) { }
+    private router: Router, private TokenStorageService: TokenStorageService,) { }
 
   ngOnInit(): void {
     this.userData = this.TokenStorageService.getUser();
     this.element = document.documentElement;
-
+    this.addRoleDeatil = this.TokenStorageService.GetRole();  
     // Cookies wise Language set
     this.cookieValue = this._cookiesService.get('lang');
     const val = this.listLang.filter(x => x.lang === this.cookieValue);

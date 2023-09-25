@@ -289,6 +289,8 @@ export class MerchantaddComponent {
       AddMerchantModel.createdDate = new Date(); 
       AddMerchantModel.modifyDate = new Date();
       AddMerchantModel.merchantId = 0;
+      AddMerchantModel.deviceId=  "",
+      AddMerchantModel.deviceOs = "",
       AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
       AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
       AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,

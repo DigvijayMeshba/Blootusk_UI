@@ -17,6 +17,8 @@ import { BusinesscategoryaddComponent } from "./businesscategory/businesscategor
 import { BusinesscategoryeditComponent } from "./businesscategory/businesscategoryedit/businesscategoryedit.component"
 import { CustomerdashboardComponent } from './dashboards/customerdashboard/customerdashboard.component';
 import { ReferrallistComponent } from './customer/referrallist/referrallist.component';
+import { RewardaddComponent } from './merchant/rewardadd/rewardadd.component';
+import { RewardeditComponent } from './merchant/rewardedit/rewardedit.component';
 
 const routes: Routes = [
 
@@ -29,6 +31,10 @@ const routes: Routes = [
 
   { path: "merchant/messageadd/:id",component: MessageaddComponent },
   { path: "merchant/messageedit/:id",component: MessageeditComponent },
+  
+  { path: "merchant/rewardadd/:id",component: RewardaddComponent },
+  { path: "merchant/rewardedit/:id",component: RewardeditComponent },
+  
 
   { path: "businesscategory/businesscategorylist",component: BusinesscategorylistComponent },
   { path: "businesscategory/businesscategoryadd",component: BusinesscategoryaddComponent },

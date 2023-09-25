@@ -50,6 +50,7 @@ export class MerchanteditComponent {
   fieldTextType1!: boolean; 
   StateLists: any[] = [];
   CatagoryLists: any[] = [];  
+  
   CountryLists: any[] = []; 
   public RemarkList: any = [];  
   approvstatus!:string;
@@ -63,6 +64,7 @@ export class MerchanteditComponent {
   public page: number = 1;
   public count = 10;
   public TemplateList! : any[]
+  public RewardList!:any[]
   TempmerchantId ! : number;
   
   
@@ -104,6 +106,7 @@ export class MerchanteditComponent {
     this.getCatagoryList(); 
     this.GetStateList();
     this.getMerchantbyId(this.merchantId);
+    this.GetAllRewardPointList();
   
    
   this.uploadForm = new FormGroup({     
@@ -163,8 +166,7 @@ export class MerchanteditComponent {
     merchantID: new FormControl('', []),  
     approvalStatus: new FormControl('', []),  
     remarkDate: new FormControl('', []),  
-  });
-    
+  });    
   }
 
   getCatagoryList() {
@@ -251,7 +253,7 @@ openModalQR(qrcontent: any) {
   }
   else{
     Swal.fire({
-      title: 'Merchant Verifacation Not Verified',
+      title: 'Merchant Verifacation Pending',
       icon: 'warning',
       // showCancelButton: true,
       confirmButtonColor: '#364574',
@@ -413,6 +415,15 @@ public GetTemplateData():any[]
 
 }
 
+public GetRewardData():any[]
+{
+
+  console.log('reward',this.RewardList)
+  const startIndex = (this.page -1) * this.count;
+  const endIndex = startIndex + this.count;
+  return this.RewardList.slice(startIndex, endIndex);
+}
+
 
 CancelForm()
 {
@@ -570,7 +581,7 @@ CancelForm()
   }
 
 
-      //List of All Company
+      //List of All Template
       public   GetAlltemplateList() {
         debugger;
           this.appService.GetAllLists("api/SMSTemplate/GetAllSmsTemplate")
@@ -589,6 +600,29 @@ CancelForm()
       
       
   }
+
+
+  //List Of Reward POint
+
+    //List of All Company
+    public   GetAllRewardPointList() {
+      debugger;
+        this.appService.GetAllLists("api/RewardPoint/GetAllRewardPoint")
+        .pipe(
+          catchError((error) => {          
+            return throwError(error); 
+          })).subscribe((data: any) => {    
+            
+            console.log('reward',data.responseData)
+            this.RewardList = data.responseData             
+            if(data.responseData.length == 0)
+            {
+              // this.swalMessage('Data not found')
+            }        
+        },);  
+    
+    
+}
 }
 
 

@@ -373,9 +373,15 @@
                             <span class="text-start ms-xl-2">
                                 <span
                                     class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">Hi, User</span>
-                                <span
+                                
+                                
+                                    <!-- <span *ngIf="addRoleDeatil=='Customer'"
+                                    class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">(Customer)</span>
+                                   -->
+                                    <span *ngIf="addRoleDeatil=='Admin' "
                                     class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">(Admin)</span>
-                            </span>
+                            
+                                </span>
                         </span>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end" ngbDropdownMenu>

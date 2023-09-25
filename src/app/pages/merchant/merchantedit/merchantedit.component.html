@@ -646,7 +646,7 @@
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Merchant (Organization) Name </label>
                                                                 <br>
-                                                                <label for="basiInput" class="form-label" > Data </label>
+                                                                <label for="basiInput" class="form-label" >{{OrganizationNameTemp}} </label>
                                                             </div>
                                                         </div>
                         
@@ -654,7 +654,7 @@
                                                             <div>
                                                                 <label for="labelInput" class="form-label">Email Id </label>
                                                                 <br>
-                                                                <label for="basiInput" class="form-label"> Data </label>
+                                                                <label for="basiInput" class="form-label">{{EmailIdTemp}} </label>
                                                             </div>
                                                         </div>
                         
@@ -666,7 +666,7 @@
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Mobile No  </label>
                                                                 <br>
-                                                                <label for="basiInput" class="form-label"> Data </label>
+                                                                <label for="basiInput" class="form-label">{{MobileNoTemp}} </label>
                                                             </div>
                                                         </div>
                 
@@ -674,7 +674,7 @@
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Contact Person Name  </label>
                                                                 <br>
-                                                                <label for="basiInput" class="form-label"> Data </label>
+                                                                <label for="basiInput" class="form-label">{{ContactPersonNameTemp}} </label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -698,7 +698,8 @@
                                                         <div class="flex-shrink-0">
                                                             <div class="gridjs-search">
                                                                 <!-- <input type="search" placeholder="Type keyword..." aria-label="Type a keyword..."class="gridjs-input gridjs-search-input" > -->
-                                                                <button [routerLink]="['/merchant/rewardadd']" type="button" class="btn btn-info ms-auto"> <i class="ri-add-fill cardicon label-icon align-middle"></i>Add</button>
+                                                                <button [routerLink]="['/merchant/rewardadd/', TempmerchantId]" type="button" class="btn btn-info ms-auto"> <i class="ri-add-fill cardicon label-icon align-middle"></i>Add</button>
+                                                    
                                                             </div>
                                                         </div>
                                                     </div>
@@ -717,16 +718,18 @@
                                                             <th scope="col" class="w-10 text-center">Action</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody *ngFor="let object of GetTemplateData()">
+                                                    <tbody *ngFor="let object of GetRewardData()">
                                                         <tr>
-                                                            <td>Data</td>
-                                                            <td>Data</td>
-                                                            <td>Data</td>
-                                                            <td>Data</td>
-                                                            <td>Data</td>
+                                                            <td>{{object.rewardDate | date:'dd/MM/yyyy'}}</td>
+                                                            <td>{{object.rewardType}}</td>
+                                                            <td>{{object.rewardPoint}}</td>
+                                                            <td>{{object.issuedBy}}</td>
+                                                            <td>{{object.validity}}</td>
                                                             <td class="w-10 text-center">
                                                                 <div class="gap-3">
-                                                                    <a [routerLink]="['/merchant/rewardedit']"  class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+
+                                                               
+                                                                    <a [routerLink]="['/merchant/rewardedit', object.RewardPointId]"  class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
                                                                 </div>
                                                             </td>
                                                         </tr>
