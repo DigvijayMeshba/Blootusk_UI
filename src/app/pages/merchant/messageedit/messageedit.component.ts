@@ -8,6 +8,8 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import { addMessageTemplate } from '../merchant';
 import { catchError, throwError } from 'rxjs';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
+
 
 @Component({
   selector: 'app-messageedit',
@@ -24,10 +26,10 @@ export class MessageeditComponent {
   TemplateLists: any[] = [];  
   submitted = false;
   templateId!:number;
-
+  messageContent!:string;
   constructor(private modalService: NgbModal,public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-    private router: Router,private EncrDecr: EncrDecrServiceService,   private renderer: Renderer2) { }
+    private router: Router,private EncrDecr: EncrDecrServiceService,   private renderer: Renderer2,private alert:AlertComponent) { }
 
 
   ngOnInit(): void {   
@@ -101,12 +103,32 @@ export class MessageeditComponent {
       
         if (data.responseStatusCode == 200 ) {
           
+          this.messageContent = 'Template update Successfully.',
+          this.showMessageSuccess() 
+
           this.router.navigate(['/merchant/merchantedit',this.merchantId], { relativeTo: this.route });
                                           
         }        
       },);
   
     }  
+  }
+
+  public isVisibleSuccess: boolean = false;
+  public isVisibleDanger: boolean = false;
+  public isVisibleWarning: boolean = false;
+
+
+   //add for alert
+   showMessageSuccess() {
+   
+    this.isVisibleSuccess = true;
+  }
+
+  CancelForm()
+  {
+    this.router.navigate(['/merchant/merchantedit/', this.merchantId], { relativeTo: this.route });
+    
   }
  
 

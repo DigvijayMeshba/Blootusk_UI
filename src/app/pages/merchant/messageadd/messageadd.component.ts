@@ -8,6 +8,7 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import { addMessageTemplate } from '../merchant';
 import { catchError, throwError } from 'rxjs';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
 
 @Component({
   selector: 'app-messageadd',
@@ -25,9 +26,15 @@ export class MessageaddComponent {
   TemplateLists: any[] = [];  
   submitted = false;
 
+  messagecontent!:string;
+
+  public isVisibleSuccess: boolean = false;
+  public isVisibleDanger: boolean = false;
+  public isVisibleWarning: boolean = false;
+
   constructor(private modalService: NgbModal,public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-    private router: Router,private EncrDecr: EncrDecrServiceService,   private renderer: Renderer2) { }
+    private router: Router,private EncrDecr: EncrDecrServiceService,   private renderer: Renderer2,private alert:AlertComponent) { }
 
 
   ngOnInit(): void {   
@@ -51,6 +58,8 @@ export class MessageaddComponent {
   });
 
    
+ 
+
   }
   get f() { return this.uploadForm.controls; }
 
@@ -70,6 +79,19 @@ export class MessageaddComponent {
         this.EmailIdTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email)
       });
     }
+  }
+  showMessageSuccess() {
+    //this.messageContent = 'Merchant Update Successfully.';
+    this.messagecontent = 'Merchant Add Successfully.';
+    this.isVisibleSuccess = true;
+  }
+
+  showMessageDanger() {
+    this.isVisibleDanger = true;
+  }
+
+  showMessageWarning() {   
+    this.isVisibleWarning = true;
   }
 
   public GettemplateList()
@@ -109,7 +131,9 @@ export class MessageaddComponent {
       .subscribe((data: any) => {
       
         if (data.responseStatusCode == 200 ) {
-          
+
+          this.messagecontent = 'Template add Successfully.',
+          this.showMessageSuccess() 
           this.router.navigate(['/merchant/merchantedit',this.merchantId], { relativeTo: this.route });
                                           
         }         
@@ -120,5 +144,9 @@ export class MessageaddComponent {
   
     }  
   }
-
+  CancelForm()
+  {
+    this.router.navigate(['/merchant/merchantedit/', this.merchantId], { relativeTo: this.route });
+    
+  }
 }

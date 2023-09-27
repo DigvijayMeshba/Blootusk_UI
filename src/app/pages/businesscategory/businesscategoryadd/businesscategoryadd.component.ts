@@ -9,6 +9,7 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
 import { data } from 'jquery';
 import { catchError, throwError } from 'rxjs';
 import { addCatagory } from '../bisnesscatagory';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
 
 
 @Component({
@@ -24,8 +25,12 @@ export class BusinesscategoryaddComponent {
     uploadForm!:FormGroup;  
     fieldTextType1!: boolean;
     submitted = false;
+    messageContent!:string;
   
     emailExistsError: string | null = null;
+    
+  public isVisibleDanger: boolean = false;
+  public isVisibleWarning: boolean = false;
   
     toggleFieldTextType1() {
       this.fieldTextType1 = !this.fieldTextType1;
@@ -34,7 +39,7 @@ export class BusinesscategoryaddComponent {
     
     constructor(public formBuilder: FormBuilder,public appService: AppService,
       private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-      private router: Router,)
+      private router: Router)
      {
      
      
@@ -107,34 +112,16 @@ export class BusinesscategoryaddComponent {
         event.preventDefault();
         return false;
       }
-    }
-  
-        
-    successmsg() {
-      Swal.fire({
-        title: 'Business Category Added Successfully',
-        icon: 'success',
-        confirmButtonColor: '#364574',
-        cancelButtonColor: 'rgb(243, 78, 78)',
-        confirmButtonText: 'OK',
-        allowOutsideClick: false,
-        allowEscapeKey: false
- 
-      });
-    }
-  
-    Updatemsg() {
-      Swal.fire({
-        title: 'User Updated Successfully',
-        icon: 'success',       
-        confirmButtonColor: '#364574',
-        cancelButtonColor: 'rgb(243, 78, 78)',
-        confirmButtonText: 'OK',
-        allowOutsideClick: false,
-        allowEscapeKey: false
- 
-      });
-    }
+    }  
+   
+  public isVisibleSuccess: boolean = false;
+  //add for alert
+  showMessageSuccess() {
+    //this.messageContent = 'Merchant Update Successfully.';
+    this.messageContent = 'Category Added Successfully.';
+    this.isVisibleSuccess = true;
+  }
+
     //create new user
     public createCatagory(formData: any) {
       debugger;
@@ -156,7 +143,8 @@ export class BusinesscategoryaddComponent {
       .subscribe((data: any) => {
       
         if (data.responseStatusCode == 200 ) {
-          this.successmsg()
+        
+          this.showMessageSuccess();
           this.router.navigate(['/businesscategory/businesscategorylist'], { relativeTo: this.route });
         }         
   

@@ -40,6 +40,7 @@ export interface AddCustomer{
     rewardPoint: number;
     approvalStatus: string;
     recStatus: string;
+    MerchantName:string;
     createdBy: number;
     createdDate: Date;
     modifyBy: number;

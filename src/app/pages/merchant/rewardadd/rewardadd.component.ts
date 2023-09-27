@@ -6,7 +6,7 @@ import { AppService } from 'src/app/app.service';
 import { AuthenticationService } from 'src/app/core/services/auth.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
-import { addMessageTemplate } from '../merchant';
+import { addMessageTemplate, addReward } from '../merchant';
 import { catchError, throwError } from 'rxjs';
 
 @Component({
@@ -15,6 +15,11 @@ import { catchError, throwError } from 'rxjs';
   styleUrls: ['./rewardadd.component.scss']
 })
 export class RewardaddComponent {
+
+  IssuedLists = [   
+    { name: 'Merchant', id:0 },
+    { name: 'Blootusk', id:1},
+  ];
 
   OrganizationNameTemp!:string;
   ContactPersonNameTemp!: string;
@@ -46,17 +51,18 @@ export class RewardaddComponent {
     this.GetRewardTypeList();
        
     this.uploadForm = new FormGroup({
-       merchantId : new FormControl('',[]),     
-       messageContent : new FormControl('', []),
+       merchantId : new FormControl('',[]),    
+       rewardPoint : new FormControl('',[]),    
        rewardTypeId : new FormControl('', []),
        rewardDate : new FormControl('',[]),
+       issuedBy : new FormControl('',[]),  
+       validity :  new FormControl('',[]),
         recStatus:new FormControl('', []),     
         token: new FormControl('', []),
         createdBy: new FormControl('', []),
         createdDate: new FormControl('', []),
         modifyBy: new FormControl('', []),
         modifyDate: new FormControl('', []),
-      
      
   });
   }
@@ -92,23 +98,27 @@ export class RewardaddComponent {
 
      //create new Template
      public createTemplate(formData: any) {
+
+      console.log('template', formData)
       debugger;
-      let AdduserModel: addMessageTemplate = {      
-      "templateId":0,
-      "messageTypeId":formData.messageTypeId,
-      "merchantId": this.merchantId,
-      "messageContent": formData.messageContent,
-      "recStatus": "A",
-      "createdBy": 0,
-      "messsageType":"",
-      "createdDate": new Date(),
-      "modifyBy": 0,
-      "modifyDate": new Date(),
-    
-    }
+      let AdduserModel: addReward = {
+        "merchantId": this.merchantId,
+        "rewardPoint" : formData.rewardPoint,
+        "rewardTypeId": formData.rewardTypeID,
+        "RewardType": '',
+        "rewardDate": formData.rewardDate,
+        "issuedBy": formData.issuedBy,
+        "validity": formData.validity,
+        "recStatus": "A",
+        "createdBy": 0,
+        "createdDate": new Date(),
+        "modifyBy": 0,
+        "modifyDate": new Date(),
+       
+      }
   if(this.uploadForm.valid)
   {  
-      this.appService.Add('api/SMSTemplate/AddSMSTemplate', AdduserModel)
+      this.appService.Add('api/RewardPoint/AddEditrewardPoint', AdduserModel)
       .pipe(
         catchError((error) => {          
           return throwError(error); 

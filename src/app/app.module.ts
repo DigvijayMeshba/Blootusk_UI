@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -37,6 +36,11 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { APP_BASE_HREF } from '@angular/common';
 import { EncrDecrServiceService } from './encr-decr-service.service';
 import { SwalmessageComponent } from './swalmessage/swalmessage.component';
+import { SharedModule } from './shared/shared.module';
+import { AlertComponent } from './shared/alert/alert.component';
+
+
+
 
 
 
@@ -54,8 +58,10 @@ if (environment.defaultauth === 'firebase') {
   declarations: [
     AppComponent,
     SwalmessageComponent,
+    AlertComponent
     
   ],
+  exports: [AlertComponent],
   imports: [
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -73,6 +79,7 @@ if (environment.defaultauth === 'firebase') {
     PagesModule,
     Ng2SearchPipeModule,
     MatSnackBarModule,
+    
     FormsModule,
     NgxPaginationModule,
     ReactiveFormsModule,
@@ -88,7 +95,7 @@ if (environment.defaultauth === 'firebase') {
     
     {provide: APP_BASE_HREF, useValue: 'UI'},
     EncrDecrServiceService,
-   
+    AlertComponent,
     AppService
   ],
   bootstrap: [AppComponent]

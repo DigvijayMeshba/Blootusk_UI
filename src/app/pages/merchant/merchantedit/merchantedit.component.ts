@@ -13,6 +13,7 @@ import * as QRCode from 'qrcode';
 import { url } from 'inspector';
 const QRious = require('qrious');
 import html2canvas from 'html2canvas';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
 
 @Component({
   selector: 'app-merchantedit',
@@ -37,7 +38,7 @@ export class MerchanteditComponent {
   constructor(private modalService: NgbModal,public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
     private router: Router,private EncrDecr: EncrDecrServiceService,
-    private renderer: Renderer2) { }
+    private renderer: Renderer2 , private alert:AlertComponent) { }
 
   activeTab = 1;
   uploadForm!:FormGroup;  
@@ -50,7 +51,8 @@ export class MerchanteditComponent {
   fieldTextType1!: boolean; 
   StateLists: any[] = [];
   CatagoryLists: any[] = [];  
-  
+
+  public messageContent: string = '';
   CountryLists: any[] = []; 
   public RemarkList: any = [];  
   approvstatus!:string;
@@ -77,6 +79,12 @@ export class MerchanteditComponent {
   StatusRec!:boolean;
   signupurl!:string;
   remark!:string;
+  messagecontent!:string;
+
+  public isVisibleSuccess: boolean = false;
+  public isVisibleDanger: boolean = false;
+  public isVisibleWarning: boolean = false;
+  
   toggleFieldTextType1() {
     this.fieldTextType1 = !this.fieldTextType1;
   }
@@ -98,6 +106,8 @@ export class MerchanteditComponent {
   get f() { return this.uploadForm.controls; }
 
   ngOnInit(): void {
+    debugger;
+
     console.log(this.statusLists);
     this.merchantId = this.route.snapshot.params['id'];
     this.TempmerchantId = this.merchantId;
@@ -167,6 +177,21 @@ export class MerchanteditComponent {
     approvalStatus: new FormControl('', []),  
     remarkDate: new FormControl('', []),  
   });    
+  }
+
+  //add for alert
+  showMessageSuccess() {
+    //this.messageContent = 'Merchant Update Successfully.';
+    this.messageContent = 'Merchant Update Successfully.';
+    this.isVisibleSuccess = true;
+  }
+
+  showMessageDanger() {
+    this.isVisibleDanger = true;
+  }
+
+  showMessageWarning() {   
+    this.isVisibleWarning = true;
   }
 
   getCatagoryList() {
@@ -308,16 +333,7 @@ public submit() {
   
 }
 
-successmsg() {
-  Swal.fire({
-    title: 'Merchant Information Updated Successfully',
-    icon: 'success',
-    // showCancelButton: true,
-    confirmButtonColor: '#364574',
-    cancelButtonColor: 'rgb(243, 78, 78)',
-    confirmButtonText: 'OK'
-  });
-}
+
 
 public getMerchantbyId(merchantId: any) {
  
@@ -441,6 +457,12 @@ CancelForm()
     }
 
     let AddMerchantModel: editMerchant = formData;  
+
+    AddMerchantModel.GeneratedBy = "",
+    AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
+    AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
+    AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
+
        AddMerchantModel.merchantId = this.merchantId,
        AddMerchantModel.posInfo.merchantId = this.merchantId,
        AddMerchantModel.isEmailValidate = 1;
@@ -450,6 +472,7 @@ CancelForm()
        AddMerchantModel.createdDate = new Date(); 
        AddMerchantModel.modifyDate = new Date();
       AddMerchantModel.merchantURL ='';
+
        AddMerchantModel.posInfo.stateName = "";
        AddMerchantModel.posInfo.categoryName = "";
        AddMerchantModel.posInfo.countryName = "";
@@ -468,87 +491,50 @@ CancelForm()
         .subscribe((res: any) => {
           debugger;
           console.log('data',res)
-          if(res.responseStatusCode == 200)
-          {           
-            this.successmsg();
-            this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
-          }
-          else if(res.responseStatusCode == 212)
-          {
-            Swal.fire({
-              text: 'Something Went wrong',
-              icon: 'warning',
-              confirmButtonColor: '#364574',
-              allowOutsideClick: false,
-              allowEscapeKey: false       
-            });           
-          }
-          else if(res.responseStatusCode == 500)
-          {
-            Swal.fire({
-              title:'Error',
-              text: 'Error Status',
-              icon: 'warning',
-              confirmButtonColor: '#364574',
-              allowOutsideClick: false,
-              allowEscapeKey: false
-            });   
-          }
-          else if(res.responseStatusCode == 601)
-          {
-            Swal.fire({
-              title:'Warning',
-              text: 'Phone Number is Duplicate.',
-              icon: 'warning',
-              confirmButtonColor: '#364574',
-              allowOutsideClick: false,
-              allowEscapeKey: false       
-            });           
-          }
-          else if(res.responseStatusCode == 602)
-          {
-            Swal.fire({
-              title:'Warning',
-              text: 'Duplicate Email.',
-              icon: 'warning',
-              confirmButtonColor: '#364574',
-              allowOutsideClick: false,
-              allowEscapeKey: false
-            });
-          }
-          else if(res.responseStatusCode == 603)
-          {
-            Swal.fire({
-              title:'Warning',
-              text: 'const int DuplicateCategory Status',
-              icon: 'warning',
-              confirmButtonColor: '#364574',
-              allowOutsideClick: false,
-              allowEscapeKey: false       
-            });              
-          }
-          else if(res.responseStatusCode == 400)
-          {
-            Swal.fire({
-              title:'Warning',
-              text: 'Bad Request Status',
-              icon: 'warning',
-              confirmButtonColor: '#364574',
-              allowOutsideClick: false,
-              allowEscapeKey: false
-            });  
-          }
-          else{
+        let statuscode : number = res.responseStatusCode;
 
-            Swal.fire({
-              title:'Error',
-              text: 'Data not save ',
-              icon: 'error',
-              confirmButtonColor: '#364574',
-              allowOutsideClick: false,
-              allowEscapeKey: false
-       
-            });   
+          switch(statuscode)
+          {          
+            case 200:
+              debugger;           
+            this.showMessageSuccess();
+            this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
+                        
+            break;
+              case 212 :               
+              this.messageContent = 'Something Went wrong',
+              this.showMessageDanger();
+             
+  
+            break;            
+            case  500 :        
+            this.messageContent ='Error Status.';   
+              this.showMessageDanger();
+              break;
+              
+            case 601 :
+              this.messageContent = 'Phone Number is Duplicate.',                
+              this.showMessageWarning()   
+              break;
+              
+            case 602:
+              this.messageContent = 'Duplicate Email.',
+              this.showMessageWarning()   
+              break;
+           
+            case 603:
+              this.messageContent = 'Duplicate Category Status.',                
+           
+            this.showMessageWarning()   
+              
+              break;
+            
+            case 400:     
+            this.messageContent = '';           
+              this.messageContent ='Bad Request Status';
+              this.showMessageDanger();
+              break;
+  
           }
      }) 
    }  
@@ -584,7 +570,9 @@ CancelForm()
       //List of All Template
       public   GetAlltemplateList() {
         debugger;
-          this.appService.GetAllLists("api/SMSTemplate/GetAllSmsTemplate")
+       
+     
+          this.appService.getById("api/SMSTemplate/GetAllSmsTemplate/", this.merchantId)
           .pipe(
             catchError((error) => {          
               return throwError(error); 
@@ -596,9 +584,7 @@ CancelForm()
               {
                 // this.swalMessage('Data not found')
               }        
-          },);  
-      
-      
+          },);        
   }
 
 
@@ -607,7 +593,8 @@ CancelForm()
     //List of All Company
     public   GetAllRewardPointList() {
       debugger;
-        this.appService.GetAllLists("api/RewardPoint/GetAllRewardPoint")
+        this.appService.getById("api/RewardPoint/GetAllRewardPoint/", this.merchantId)
+       
         .pipe(
           catchError((error) => {          
             return throwError(error); 

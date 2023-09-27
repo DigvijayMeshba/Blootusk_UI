@@ -10,6 +10,9 @@ import { data } from 'jquery';
 import { catchError, throwError } from 'rxjs';
 import { addMerchant } from '../merchant';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
+
+
 
 
 @Component({
@@ -60,6 +63,7 @@ export class MerchantaddComponent {
   selectedCategoryId!:number;
   selectedCountryId!:number;
   selectedStateId!:number;
+  messageContent!:string; 
 
   fieldTextType1!: boolean;
   selectedAccount = 'Select';
@@ -99,7 +103,7 @@ export class MerchantaddComponent {
 
   constructor(public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-    private router: Router,private EncrDecr: EncrDecrServiceService)
+    private router: Router,private EncrDecr: EncrDecrServiceService,private alert:AlertComponent)
    {
    
    }
@@ -286,19 +290,7 @@ export class MerchantaddComponent {
     this.submitted = true;
   }
   
-  successmsg() {
-    Swal.fire({
-      title: 'Merchant Added Successfully',
-      icon: 'success',
-      // showCancelButton: true,
-      confirmButtonColor: '#364574',
-      cancelButtonColor: 'rgb(243, 78, 78)',
-      confirmButtonText: 'OK',
-      allowOutsideClick: false,
-      allowEscapeKey: false
-
-    });
-  }
+ 
 
  
   CancelForm()
@@ -306,6 +298,21 @@ export class MerchantaddComponent {
     this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
     
   }
+
+    //add for alert
+    showMessageSuccess() {
+      //this.messageContent = 'Merchant Update Successfully.';
+      this.messageContent = 'Merchant Update Successfully.';
+      this.isVisibleSuccess = true;
+    }
+  
+    showMessageDanger() {
+      this.isVisibleDanger = true;
+    }
+  
+    showMessageWarning() {   
+      this.isVisibleWarning = true;
+    }
   //create new user
   public createMerchant(formData: addMerchant) {
     debugger;
@@ -314,6 +321,13 @@ export class MerchantaddComponent {
     debugger;    
     if(this.uploadForm.valid)
     {
+
+     
+      AddMerchantModel.GeneratedBy = "",
+      AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
+      AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
+      AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
+
       AddMerchantModel.posInfo.posid = 0;
       AddMerchantModel.posInfo.merchantId = 0;    
       AddMerchantModel.isEmailValidate = 1;
@@ -340,106 +354,75 @@ export class MerchantaddComponent {
         )   
           .subscribe((res: any) => {
             debugger;
-            console.log('data',res)
-  
-            if(res.responseStatusCode == 200)
-            {           
-              this.successmsg();
-              this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
-            }
-            else if(res.responseStatusCode == 212)
-            {
-              Swal.fire({
-                text: 'Something Went wrong',
-                icon: 'warning',
-                confirmButtonColor: '#364574',
-                allowOutsideClick: false,
-                allowEscapeKey: false
-         
-              });
-             
-            }
-            else if(res.responseStatusCode == 500)
-            {
 
-              Swal.fire({
-                title:'Duplication Error',
-                text: 'Error Status',
-                icon: 'warning',
-                confirmButtonColor: '#364574',
-                allowOutsideClick: false,
-                allowEscapeKey: false
-         
-              });
-             
-              
-            }
-            else if(res.responseStatusCode == 601)
-            {
-              Swal.fire({
-                title:'Warning',
-                text: 'Phone Number is Duplicate.',
-                icon: 'warning',
-                confirmButtonColor: '#364574',
-                allowOutsideClick: false,
-                allowEscapeKey: false
-         
-              });
-             
-            }
-            else if(res.responseStatusCode == 602)
-            {
-              Swal.fire({
-                title:'Warning',
-                text: 'Duplicate Email.',
-                icon: 'warning',
-                confirmButtonColor: '#364574',
-                allowOutsideClick: false,
-                allowEscapeKey: false
-         
-              });
-              
-            }
-            else if(res.responseStatusCode == 603)
-            {
-              Swal.fire({
-                title:'Warning',
-                text: 'const int DuplicateCategory Status',
-                icon: 'warning',
-                confirmButtonColor: '#364574',
-                allowOutsideClick: false,
-                allowEscapeKey: false
-         
-              });              
-            }
-            else if(res.responseStatusCode == 400)
-            {
-              Swal.fire({
-                title:'Warning',
-                text: 'Bad Request Status',
-                icon: 'warning',
-                confirmButtonColor: '#364574',
-                allowOutsideClick: false,
-                allowEscapeKey: false
-         
-              });                   
-            
-             
-            }
-            else{
+            let statuscode : number = res.responseStatusCode;
 
-              Swal.fire({
-                title:'Error',
-                text: 'Data not save ',
-                icon: 'error',
-                confirmButtonColor: '#364574',
-                allowOutsideClick: false,
-                allowEscapeKey: false
-         
-              });      
+            switch(statuscode)
+            {          
+              case 200:           
+              this.messageContent = 'Merchant added Successfully.',
+              this.showMessageSuccess() 
+
+              this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });      
+               
+              break;
+                case 212 :               
+                this.messageContent = 'Something Went wrong',
+                this.showMessageDanger();
+                this.showDiv = {
+                  current : true,
+                  next : false
+                }
+    
+              break;            
+              case  500 :           
+              this.messageContent ='Error Status.';   
+              this.showMessageDanger();
+                this.showDiv = {
+                  current : true,
+                  next : false
+                }
+                break;
+                
+              case 601 :                
+              this.messageContent = 'Phone Number is Duplicate.',                
+              this.showMessageWarning()  
+    
+                  this.showDiv = {
+                    current : true,
+                    next : false
+                  }
+                break;
+                
+              case 602:
+                this.messageContent = 'Duplicate Email.',
+                this.showMessageWarning()              
+                this.showDiv = {
+                  current : true,
+                  next : false
+                }
+                break;
              
+              case 603:
+    
+              this.messageContent = 'Duplicate Category Status.',                
+           
+              this.showMessageWarning()   
+                
+                  this.showDiv = {
+                    current : true,
+                    next : false
+                  }          
+                break;
               
+              case 400:   
+              this.messageContent ='Bad Request Status';
+              this.showMessageDanger();
+              
+                break;
+    
             }
+       
   
          
        }) 

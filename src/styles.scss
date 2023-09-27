@@ -340,11 +340,35 @@ hr {
     height: 90px !important; 
 }
 
-.alert  {
-    margin: 0 !important;
-}
+// .alert  {
+//     margin: 0 !important;
+// }
 
-.alertclass  {
+// .alertclass  {
+//     width: 30%;
+//     position: fixed;
+//     top: 3.4rem;
+//     right: 1.5rem;
+//     border: 1px solid rgba(0, 0, 0, 0.2);
+//     border-radius: 0.25rem;
+//     box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
+//     z-index: 999;
+//     transition:  all 0.2s ease-in-out;
+//     opacity: 1;
+//     display: block;
+//   }
+  
+//   .visible {
+//     opacity: 1;
+//     display: block !important;
+//     transform: translateY(1.25rem);
+//   }
+
+.alert {
+    margin: 0 !important;
+  }
+  
+  .alertclass {
     width: 30%;
     position: fixed;
     top: 3.4rem;
@@ -353,13 +377,18 @@ hr {
     border-radius: 0.25rem;
     box-shadow: 0 5px 10px -5px rgba(0, 0, 0, 0.5);
     z-index: 999;
-    transition:  all 0.2s ease-in-out;
-    opacity: 0;
-    display: none;
+    transition: all 0.2s ease-in-out;
+    opacity: 0; /* Set initial opacity to 0 to hide the alert */
+    display: none; /* Set initial display to none to hide the alert */
   }
   
   .visible {
     opacity: 1;
     display: block !important;
-    transform: translateY(1.25rem);
+    transform: translateY(0); /* Set translateY to 0 when visible */
+  }
+
+  .messageshow
+  {
+    display: none;
   }

@@ -17,6 +17,7 @@ import { MessageaddComponent } from './messageadd/messageadd.component';
 import { MessageeditComponent } from './messageedit/messageedit.component';
 import { RewardaddComponent } from './rewardadd/rewardadd.component';
 import { RewardeditComponent } from './rewardedit/rewardedit.component';
+import { AppModule } from  "../../app.module";
 
 
 const routes: Routes = [
@@ -39,7 +40,8 @@ const routes: Routes = [
     MessageaddComponent,
     MessageeditComponent,
     RewardaddComponent,
-    RewardeditComponent
+    RewardeditComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -52,7 +54,8 @@ const routes: Routes = [
     FormsModule,
     FlatpickrModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    AppModule
   ],
   exports: [RouterModule]
 })

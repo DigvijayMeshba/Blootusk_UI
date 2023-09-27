@@ -401,8 +401,7 @@ debugger;
         createdBy:0,
         modifyBy:0,      
         createdDate : new Date(),
-        modifyDate :new Date(),
-        
+        modifyDate :new Date(),        
         referBy:refer,
         rewardPoint:0,
         customerID:0,
@@ -411,6 +410,7 @@ debugger;
         referCode: '',
         approvalStatus: '',
         recStatus: '',  
+        MerchantName : "",
       }  
      
       if(formDdt.phoneNumberOTP == this.UserSendOTP || formDdt.phoneNumberOTP == '123456')

@@ -16,6 +16,7 @@ export interface addMerchant
         approvalStatus: string;
         recStatus: string;
         remark: string;
+        GeneratedBy:string,
         merchantURL : string;
         posInfo: {
           posid: number;
@@ -68,6 +69,7 @@ export interface editMerchant
        phoneNumber: string;
        email: string;
        password: string;
+       GeneratedBy:string,
        organizationName: string;
        contactPersonName: string;
        deviceId: string;
@@ -138,6 +140,41 @@ export interface editMerchant
        messageTypeId : number,
       recStatus:string,     
      
+      createdBy: number,
+      createdDate:Date,
+      modifyBy: number,
+      modifyDate: Date,
+  }
+
+
+
+  export interface addReward 
+  {     
+      merchantId : number,    
+      rewardPoint:number,
+      rewardTypeId:number,
+      rewardDate:string,
+      RewardType:string,
+      issuedBy:number,
+      validity:number,
+      recStatus:string,    
+      createdBy: number,
+      createdDate:Date,
+      modifyBy: number,
+      modifyDate: Date,
+  }
+
+  export interface editReward
+  {
+      merchantId : number,    
+      RewardPonitId :number,
+      rewardPoint:number,
+      rewardTypeID:number,
+      RewardType:string,
+      rewardDate:string,
+      issuedBy:number,
+      validity:number,
+      recStatus:string,     
       createdBy: number,
       createdDate:Date,
       modifyBy: number,

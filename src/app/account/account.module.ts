@@ -35,6 +35,7 @@ import { SignupcustomerComponent } from './signupcustomer/signupcustomer.compone
 
 
 
+
 @NgModule({
   declarations: [
     LoginComponent,
@@ -45,6 +46,7 @@ import { SignupcustomerComponent } from './signupcustomer/signupcustomer.compone
     OptverifyComponent,
     ImageCaptchaComponent,
     SignupcustomerComponent,
+    
   ],
   imports: [
     CommonModule,

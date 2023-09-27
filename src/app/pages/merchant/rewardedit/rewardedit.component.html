@@ -2,11 +2,10 @@
     <div class="row">
         <div class="col-lg-12">
 
-            <form fxLayout="row wrap">
-
+           
                 <div class="card">
-                    <form  fxLayout="row wrap">
-    
+                    <form [formGroup]="uploadForm" fxLayout="row wrap"
+                    (ngSubmit)="updateReward(uploadForm.value)">
                     <div class="card-header align-items-center d-flex">
                         <i class="ri-trophy-line cardicon"></i>
                         <h4 class="card-title mb-0 flex-grow-1">Edit Reward Information</h4>
@@ -71,14 +70,12 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
 
                         <hr>
 
                         <div class="row mb-1">
-                
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="btn-left mb-2">
@@ -89,32 +86,31 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="row mb-3">
-
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Reward Date </label> 
-                                    <input type="date" class="form-control" placeholder="Enter Reward Date">
+                                    <input type="date" class="form-control" placeholder="Enter Reward Date"  formControlName="rewardDate">
                                 </div>
                             </div>   
 
                             <div class="col-md-4"> 
                                 <div>
                                     <label for="basiInput" class="form-label">Reward Type </label>
-                                    <select class="form-select" aria-label="Default select example">
-                                       <option value=""  selected>Select Type </option>                                             
-                                        <option> Value </option>                                                                  
-                                     </select>
+                                    <select class="form-select" aria-label="Default select example" formControlName ="rewardTypeID" >
+                                        <option *ngFor="let rewardType of RewardTypeList" [value]="rewardType.rewardTypeID">
+                                          {{ rewardType.rewardType }}
+                                        </option>                                                                  
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Reward Points </label> 
-                                    <input type="text" class="form-control" placeholder="Enter Reward Points">
+                                    <input type="text" class="form-control" placeholder="Enter Reward Points" formControlName = "rewardPoint">
                                 </div>
                             </div>   
 
@@ -125,14 +121,19 @@
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Issued By </label> 
-                                    <input type="text" class="form-control" placeholder="Enter Issued By">
+
+                                      <select class="form-select" aria-label="Default select example" formControlName ="issuedBy" >
+                                        <option *ngFor="let Issued of IssuedLists" [value]="Issued.id">
+                                          {{ Issued.name }}
+                                        </option>                                                                  
+                                    </select>
                                 </div>
                             </div>   
 
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Validity </label> 
-                                    <input type="text" class="form-control" placeholder="Enter Validity">
+                                    <input type="text" class="form-control" placeholder="Enter Validity" formControlName="validity">
                                 </div>
                             </div>   
 
@@ -161,8 +162,6 @@
                     </div>
                     </form>
                 </div>
-
-            </form>
 
         </div>
     </div>

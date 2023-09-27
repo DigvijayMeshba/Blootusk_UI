@@ -94,7 +94,6 @@
                         </div>
 
                         <div class="row mb-3">
-
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Reward Date </label> 
@@ -111,15 +110,13 @@
                                           {{ rewardType.rewardType }}
                                         </option>                                                                  
                                     </select>
-                                  
-                                  
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Reward Points </label> 
-                                    <input type="text" class="form-control" placeholder="Enter Reward Points">
+                                    <input type="text" class="form-control" placeholder="Enter Reward Points" formControlName="rewardPoint">
                                 </div>
                             </div>   
 
@@ -130,17 +127,23 @@
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Issued By </label> 
-                                    <input type="text" class="form-control" placeholder="Enter Issued By">
+                                    <!-- <input type="text" class="form-control" placeholder="Enter Issued By" formControlName="issuedBy">
+                                 -->
+                                    <select class="form-select" aria-label="Default select example" formControlName ="issuedBy" >
+                                        <option *ngFor="let Issued of IssuedLists" [value]="Issued.id">
+                                          {{ Issued.name }}
+                                        </option>                                                                  
+                                    </select>
+                                
                                 </div>
                             </div>   
 
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Validity </label> 
-                                    <input type="text" class="form-control" placeholder="Enter Validity">
+                                    <input type="text" class="form-control" placeholder="Enter Validity" formControlName="validity">
                                 </div>
-                            </div>   
-
+                            </div>  
                         </div>
 
                     </div>

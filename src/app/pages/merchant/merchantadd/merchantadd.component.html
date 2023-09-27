@@ -182,13 +182,13 @@
                                         <div class="col-md-4">
                                             <div>
                                                 <label for="basiInput" class="form-label">Zip Code <span class="mnd-fld">*</span> </label>
-                                                <input type="text" class="form-control" placeholder="Enter Zip  Code" 
+                                                <input type="text" class="form-control" placeholder="Enter Zip Code" 
                                                 (keypress)="keyPressOnlynum($event)" maxlength="5"
                                                 formControlName="zip"> 
 
                                                 <div *ngIf="this.uploadForm.get('posInfo.zip')?.invalid && submitted" class="invalid-feedback d-block">
                                                     <div *ngIf="this.uploadForm.get('posInfo.zip')?.errors?.['required']">Zip code is required</div>                                                        
-                                                <div *ngIf="this.uploadForm.get('posInfo.zip')?.errors?.['minlength']">zip Code  least 5 char long                                               </div>
+                                                <div *ngIf="this.uploadForm.get('posInfo.zip')?.errors?.['minlength']">zip Code least 5 char long                                               </div>
                                             
                                             </div> 
                                             </div>
@@ -279,13 +279,16 @@
                             <div class="col-sm-auto">
                                 <div class="col-lg-12">
                                     <div class="text-end d-flex align-items-start gap-2 ">
-                                        
-                                        <button type="button" class="btn btn-primary" (click)="showSuccessAlert()">Success Alert</button>
-                                        <button type="button" class="btn btn-primary" (click)="showdangerAlert()">Danger Alert</button>
-                                        <button type="button" class="btn btn-primary" (click)="showWarningAlert()">Warning Alert</button>
-
                                         <button type="button" (click)="CancelForm()" class="btn btn-info ms-auto"><i class="ri-close-line label-icon align-middle me-2"></i> Cancel</button>
                                         <button type="submit" (click)="submit()" class="btn btn-success"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+                                    
+                                    
+                                        <app-alert [isVisibleSuccess]="isVisibleSuccess" [isVisibleDanger]="isVisibleDanger" [isVisibleWarning]="isVisibleWarning" [messageContent]="messageContent"></app-alert>
+
+                                        <button (click)="showMessageSuccess()">{{messageContent}}</button>
+                                         <button (click)="showMessageDanger()">{{messageContent}}</button>
+                                         <button (click)="showMessageWarning()">{{messageContent}}</button> 
+                             
                                     </div>
                                 </div>
                             </div>

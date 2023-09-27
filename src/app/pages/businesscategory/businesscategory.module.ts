@@ -13,23 +13,27 @@ import { BusinesscategorylistComponent } from './businesscategorylist/businessca
 import { BusinesscategoryaddComponent } from './businesscategoryadd/businesscategoryadd.component';
 import { BusinesscategoryeditComponent } from './businesscategoryedit/businesscategoryedit.component';
 
+import { AppModule } from  "../../app.module";
+//import { AppModule_1 as AppModule } from "../../app.module";
+
 
 
 @NgModule({
-  declarations: [
-    BusinesscategorylistComponent,
-    BusinesscategoryaddComponent,
-    BusinesscategoryeditComponent
-  ],
-  imports: [
-    CommonModule,
-    NgSelectModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    NgbModule
-    
-  ],
-  exports: [RouterModule]
+    declarations: [
+        BusinesscategorylistComponent,
+        BusinesscategoryaddComponent,
+        BusinesscategoryeditComponent,
+    ],
+    exports: [RouterModule],
+    imports: [
+        CommonModule,
+        NgSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        NgbModule,
+        AppModule,
+        //AppModule_1
+    ]
 })
 export class BusinesscategoryModule { }

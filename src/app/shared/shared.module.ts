@@ -16,10 +16,11 @@ import { ScrollspyDirective } from './scrollspy.directive';
 
 
 
+
 @NgModule({
   declarations: [
     BreadcrumbsComponent,
-   
+    
     ScrollspyDirective,
    
   ],

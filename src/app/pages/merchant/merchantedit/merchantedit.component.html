@@ -232,7 +232,7 @@
                                                                 formControlName="zip"    minlength="5" maxlength="5"  (keypress)="keyPressOnlynum($event)">
                                                                 <div *ngIf="this.uploadForm.get('posInfo.zip')?.invalid && submitted" class="invalid-feedback d-block">
                                                                     <div *ngIf="this.uploadForm.get('posInfo.zip')?.errors?.['required']">Zip code is required</div>                                                        
-                                                                <div *ngIf="this.uploadForm.get('posInfo.zip')?.errors?.['minlength']">zip Code  least 5 char long                                               </div>
+                                                                <div *ngIf="this.uploadForm.get('posInfo.zip')?.errors?.['minlength']">zip Code least 5 char long                                               </div>
                                                             
                                                             </div> 
                                                            
@@ -470,7 +470,16 @@
                                                             <button type="button" (click)="CancelForm()" class="btn btn-info ms-auto"><i class="ri-close-line label-icon align-middle me-2"></i>Cancel</button>
                                                             <button type="submit" (click)="submit()" class="btn btn-success"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Update</button>
                                                         </div>
-                                                    </div>
+                                                     
+                                                             </div> 
+
+                                                            
+                                                             <app-alert [isVisibleSuccess]="isVisibleSuccess" [isVisibleDanger]="isVisibleDanger" [isVisibleWarning]="isVisibleWarning" [messageContent]="messageContent"></app-alert>
+                                                            
+                                                                <button  (click)="showMessageSuccess()">{{messagecontent}}</button>
+                                                                <button (click)="showMessageDanger()">{{messagecontent}}</button>
+                                                                <button (click)="showMessageWarning()">{{messagecontent}}</button> 
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -729,7 +738,7 @@
                                                                 <div class="gap-3">
 
                                                                
-                                                                    <a [routerLink]="['/merchant/rewardedit', object.RewardPointId]"  class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                                                    <a [routerLink]="['/merchant/rewardedit', object.rewardPonitId]"  class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -743,6 +752,9 @@
                                                         <button tabindex="0" role="button" title="Previous" aria-label="Previous">Previous</button>
                                                         <button tabindex="0" role="button">1</button>
                                                         <button tabindex="0" role="button" title="Next" aria-label="Next">Next</button>
+                                                    
+                                                      
+                                                    
                                                     </div>
                                                 </div>
                                             </div>

@@ -219,22 +219,20 @@ public ClearMerchantList()
     }
   }
 
-  public onPageChanged3(page: number) {
-    debugger;
-    this.page = page;
-    this.GetAllMerchantList();
-    window.scrollTo(0, 0);
-  }
 
-  public getPageNumbers3(): number[] {
-    debugger;
-    return Array.from({ length: this.getTotalPages3() }, (_, i) => i + 1);
-  }
-  
-public getTotalPages3(): number {
-  debugger;
-  return Math.ceil(this.MerchantList.length / this.count);
+public onPageChanged3(page: number) {
+  this.page = page;
+  window.scrollTo(0, 0);
 }
+
+public getPageNumbers3(): number[] {
+  return Array.from({ length: this.getTotalPages3() }, (_, i) => i + 1);
+}
+
+public getTotalPages3(): number {
+return Math.ceil(this.MerchantList.length / this.count);
+}
+
    
   }
 

@@ -24,7 +24,7 @@
                                    
                                     <input type="text" class="form-control" 
                                     formControlName="categoryName" formControlName="categoryName" required minlength="3"
-                                    [ngClass]="{ 'is-invalid': submitted && f['categoryName'].errors }"
+                                    [ngClass]="{ 'is-invalid': submitted && f['categoryName'].errors }" 
                                     placeholder="Enter Category Name">
                                 <div *ngIf="submitted && f['categoryName'].errors" class="invalid-feedback">
                                     <div *ngIf="f['categoryName'].errors['required']">Category Name  is required</div>
@@ -40,7 +40,7 @@
                                 <div>
                                     <label for="basiInput" class="form-label">Reward Point<span class="mnd-fld">*</span></label>
                                     <input type="text" class="form-control" 
-                                    formControlName="rewardPoint" required minlength="3"
+                                    formControlName="rewardPoint" required minlength="3" (keypress)="keyPressOnlynum($event)"
                                     [ngClass]="{ 'is-invalid': submitted && f['rewardPoint'].errors }"
                                     (keypress)="blockSpaces($event)" placeholder="Enter Reward Point">
                                 <div *ngIf="submitted && f['rewardPoint'].errors" class="invalid-feedback">

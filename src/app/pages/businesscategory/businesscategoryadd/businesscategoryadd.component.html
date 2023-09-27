@@ -42,7 +42,7 @@
                                 <div>
                                     <label for="basiInput" class="form-label">Reward Points<span class="mnd-fld">*</span></label>
                                     <input type="text" class="form-control" 
-                                    formControlName="rewardPoint" required 
+                                    formControlName="rewardPoint" required (keypress)="keyPressOnlynum($event)"
                                     [ngClass]="{ 'is-invalid': submitted && f['rewardPoint'].errors }"
                                   placeholder="Enter Reward Points">
                                 <div *ngIf="submitted && f['rewardPoint'].errors" class="invalid-feedback">
@@ -71,7 +71,11 @@
                                         <button type="button" class="btn btn-info ms-auto" (click)="CancelForm()"><i class="ri-close-line label-icon align-middle me-2"></i> Cancel</button>
                                         
                                         <button type="submit" class="btn btn-primary" (click)="submit()"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
-                                           
+                                        
+                                        <app-alert [isVisibleSuccess]="isVisibleSuccess" [isVisibleDanger]="isVisibleDanger" [isVisibleWarning]="isVisibleWarning" [messageContent]="messageContent"></app-alert>
+
+                                        <button (click)="showMessageSuccess()">{{messageContent}}</button>
+                                     
                                     </div>
                                 </div>
                             </div>
