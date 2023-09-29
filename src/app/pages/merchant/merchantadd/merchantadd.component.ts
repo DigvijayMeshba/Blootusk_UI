@@ -10,7 +10,7 @@ import { data } from 'jquery';
 import { catchError, throwError } from 'rxjs';
 import { addMerchant } from '../merchant';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
-import { AlertComponent } from 'src/app/shared/alert/alert.component';
+
 
 
 
@@ -103,7 +103,7 @@ export class MerchantaddComponent {
 
   constructor(public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-    private router: Router,private EncrDecr: EncrDecrServiceService,private alert:AlertComponent)
+    private router: Router,private EncrDecr: EncrDecrServiceService)
    {
    
    }

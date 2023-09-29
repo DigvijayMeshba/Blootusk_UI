@@ -383,7 +383,7 @@ debugger;
        } 
        if(this.CustomerCode != null)
        {
-      refer = this.customerId;
+        refer = this.customerId;
        }
        else{
         refer = 0;

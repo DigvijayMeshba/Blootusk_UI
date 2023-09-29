@@ -101,6 +101,7 @@ export class RewardeditComponent {
       "createdDate": new Date(),
       "modifyBy": 0,
       "modifyDate": new Date(),
+      "IssuedByName":"",
     
     }
   if(this.uploadForm.valid)
@@ -153,6 +154,12 @@ export class RewardeditComponent {
        
       });
     }
+  }
+
+  CancelForm()
+  {
+    this.router.navigate(['/merchant/merchantedit/', this.merchantId], { relativeTo: this.route });
+    
   }
 }
 

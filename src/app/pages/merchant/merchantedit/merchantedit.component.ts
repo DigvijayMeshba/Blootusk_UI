@@ -13,7 +13,7 @@ import * as QRCode from 'qrcode';
 import { url } from 'inspector';
 const QRious = require('qrious');
 import html2canvas from 'html2canvas';
-import { AlertComponent } from 'src/app/shared/alert/alert.component';
+
 
 @Component({
   selector: 'app-merchantedit',
@@ -38,7 +38,7 @@ export class MerchanteditComponent {
   constructor(private modalService: NgbModal,public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
     private router: Router,private EncrDecr: EncrDecrServiceService,
-    private renderer: Renderer2 , private alert:AlertComponent) { }
+    private renderer: Renderer2 , ) { }
 
   activeTab = 1;
   uploadForm!:FormGroup;  

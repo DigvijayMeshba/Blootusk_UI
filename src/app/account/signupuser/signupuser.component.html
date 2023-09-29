@@ -36,12 +36,7 @@
                                 <h5 class="text-primary">Signup Here!</h5>
                             </div>
 
-                          
-
-
                             <div class="p-2 ">
-                      
-  
                                 <div class="live-preview">
                                     <form [formGroup]="uploadForm" fxLayout="row wrap"
                                     (ngSubmit)="createUser(uploadForm.value)">
@@ -50,9 +45,13 @@
                                         Your merchant name is 
                                         <span class="merchant-name-placeholder"> {{merchantName}}</span>.
            <br>
-           Your User name is 
-                                        <span *ngIf="CustomerCode!=null" class="merchant-name-placeholder">{{customerName}}</span>
+         
+           <div *ngIf="CustomerCode!=null">
+            Your User name is 
+            <span  class="merchant-name-placeholder">{{customerName}}</span>
 
+           </div>
+                                    
                                         
                                         <label  class="getmerchantid" >{{merchantId}} </label>
                                        

@@ -13,8 +13,7 @@ import { BusinesscategorylistComponent } from './businesscategorylist/businessca
 import { BusinesscategoryaddComponent } from './businesscategoryadd/businesscategoryadd.component';
 import { BusinesscategoryeditComponent } from './businesscategoryedit/businesscategoryedit.component';
 
-import { AppModule } from  "../../app.module";
-//import { AppModule_1 as AppModule } from "../../app.module";
+
 
 
 
@@ -32,8 +31,7 @@ import { AppModule } from  "../../app.module";
         ReactiveFormsModule,
         RouterModule,
         NgbModule,
-        AppModule,
-        //AppModule_1
+      
     ]
 })
 export class BusinesscategoryModule { }

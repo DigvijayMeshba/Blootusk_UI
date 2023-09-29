@@ -22,8 +22,10 @@
                                         <div>
                                             <label for="basiInput" class="form-label">Transaction Type </label>
                                             <select class="form-select" aria-label="Default select example">
-                                               <option value=""  selected>Select Type </option>                                             
-                                                <option> Value </option>                                                                  
+                                               <option value=""  selected>Select Transaction Type </option>                                             
+                                               <option *ngFor="let modes of TransactionTypeLists" [value]="modes.id">
+                                                {{ modes.name }}
+                                              </option>                                                      
                                              </select>
                                         </div>
                                     </div>
@@ -55,10 +57,10 @@
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        <!-- <td>Data</td>
                                         <td>Data</td>
                                         <td>Data</td>
-                                        <td>Data</td>
-                                        <td>Data</td>
+                                        <td>Data</td> -->
                                     </tr>
                                 </tbody>
                             </table>

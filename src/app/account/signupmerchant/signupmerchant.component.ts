@@ -11,7 +11,7 @@ import { data } from 'jquery';
 import { Observable, catchError, throwError } from 'rxjs';
 import Validation from '../matchpassword.validator';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
-import { AlertComponent } from 'src/app/shared/alert/alert.component';
+
 
 
 
@@ -72,7 +72,7 @@ export class SignupmerchantComponent {
 
   constructor(public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-    private router: Router,private EncrDecr: EncrDecrServiceService,private alert:AlertComponent)
+    private router: Router,private EncrDecr: EncrDecrServiceService,)
    {
       
    }

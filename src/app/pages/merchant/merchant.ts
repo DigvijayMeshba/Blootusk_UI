@@ -162,6 +162,7 @@ export interface editMerchant
       createdDate:Date,
       modifyBy: number,
       modifyDate: Date,
+      IssuedByName :string,
   }
 
   export interface editReward
@@ -175,6 +176,7 @@ export interface editMerchant
       issuedBy:number,
       validity:number,
       recStatus:string,     
+      IssuedByName :string,
       createdBy: number,
       createdDate:Date,
       modifyBy: number,

@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class RewardpointlistComponent {
 
+
+  TransactionTypeLists = [   
+    { name: 'Signup', id:'SU' },
+    { name: 'Refferal', id:'RE' },
+    { name: 'Redeem', id:'RD' },
+  ];
 }

@@ -9,7 +9,6 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
 import { data } from 'jquery';
 import { catchError, throwError } from 'rxjs';
 import { addCatagory } from '../bisnesscatagory';
-import { AlertComponent } from 'src/app/shared/alert/alert.component';
 
 
 @Component({

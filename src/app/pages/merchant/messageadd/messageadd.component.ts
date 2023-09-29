@@ -8,7 +8,6 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import { addMessageTemplate } from '../merchant';
 import { catchError, throwError } from 'rxjs';
-import { AlertComponent } from 'src/app/shared/alert/alert.component';
 
 @Component({
   selector: 'app-messageadd',
@@ -24,6 +23,12 @@ export class MessageaddComponent {
   merchantId:string| any;
   uploadForm!:FormGroup;  
   TemplateLists: any[] = [];  
+
+  ModeLists = [   
+    { name: 'Email', id:'N' },
+    { name: 'SMS', id:'S' },
+  ];
+
   submitted = false;
 
   messagecontent!:string;
@@ -34,7 +39,7 @@ export class MessageaddComponent {
 
   constructor(private modalService: NgbModal,public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-    private router: Router,private EncrDecr: EncrDecrServiceService,   private renderer: Renderer2,private alert:AlertComponent) { }
+    private router: Router,private EncrDecr: EncrDecrServiceService,   private renderer: Renderer2,) { }
 
 
   ngOnInit(): void {   

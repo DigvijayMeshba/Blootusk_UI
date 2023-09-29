@@ -92,6 +92,19 @@
                                 </div>
                             </div>
 
+
+                            <div class="col-md-4">
+                                <div>
+                                    <label for="basiInput" class="form-label">Mode Type </label>
+                                    <select class="form-select" aria-label="Default select example" formControlName ="" >
+                                        <option hidden value="" disabled selected>Select Mode Type</option>
+                                         <option *ngFor="let modes of ModeLists" [value]="modes.id">
+                                            {{ modes.name }}
+                                          </option> 
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="row mb-1">
@@ -123,12 +136,12 @@
                                       
                                         <button type="submit" (click)="submit()" class="btn btn-primary"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
                                     
-                                        <app-alert [isVisibleSuccess]="isVisibleSuccess" [isVisibleDanger]="isVisibleDanger" [isVisibleWarning]="isVisibleWarning" [messageContent]="messagecontent"></app-alert>
+                                        <!-- <app-alert [isVisibleSuccess]="isVisibleSuccess" [isVisibleDanger]="isVisibleDanger" [isVisibleWarning]="isVisibleWarning" [messageContent]="messagecontent"></app-alert>
 
                                         <button (click)="showMessageSuccess()">{{messagecontent}}</button>
                                          <button (click)="showMessageDanger()">{{messagecontent}}</button>
                                          <button (click)="showMessageWarning()">{{messagecontent}}</button> 
-                                 
+                                  -->
                                     
                                     </div>
                                 </div>

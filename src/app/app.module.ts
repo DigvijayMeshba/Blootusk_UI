@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 // search module
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -24,7 +25,6 @@ import { initFirebaseBackend } from './authUtils';
 import { FakeBackendInterceptor } from './core/helpers/fake-backend';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
-import { NgxPaginationModule } from 'ngx-pagination';
 
 // Language
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -36,11 +36,6 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { APP_BASE_HREF } from '@angular/common';
 import { EncrDecrServiceService } from './encr-decr-service.service';
 import { SwalmessageComponent } from './swalmessage/swalmessage.component';
-import { SharedModule } from './shared/shared.module';
-import { AlertComponent } from './shared/alert/alert.component';
-
-
-
 
 
 
@@ -58,10 +53,8 @@ if (environment.defaultauth === 'firebase') {
   declarations: [
     AppComponent,
     SwalmessageComponent,
-    AlertComponent
     
   ],
-  exports: [AlertComponent],
   imports: [
     TranslateModule.forRoot({
       defaultLanguage: 'en',
@@ -79,9 +72,7 @@ if (environment.defaultauth === 'firebase') {
     PagesModule,
     Ng2SearchPipeModule,
     MatSnackBarModule,
-    
     FormsModule,
-    NgxPaginationModule,
     ReactiveFormsModule,
     FlatpickrModule,
     NgbTooltipModule,
@@ -95,7 +86,7 @@ if (environment.defaultauth === 'firebase') {
     
     {provide: APP_BASE_HREF, useValue: 'UI'},
     EncrDecrServiceService,
-    AlertComponent,
+   
     AppService
   ],
   bootstrap: [AppComponent]

@@ -30,7 +30,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { PagesRoutingModule } from "./pages-routing.module";
 import { SharedModule } from "../shared/shared.module";
 import { DashboardsModule } from "./dashboards/dashboards.module";
-import { AppModule } from '../app.service';
+
 
 
 
@@ -56,8 +56,6 @@ import { AppModule } from '../app.service';
     NgxPaginationModule,
     LightboxModule,
     DashboardsModule,
-    AppModule,
-    
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
