@@ -8,6 +8,7 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import { addMessageTemplate } from '../merchant';
 import { catchError, throwError } from 'rxjs';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-messageadd',
@@ -23,6 +24,7 @@ export class MessageaddComponent {
   merchantId:string| any;
   uploadForm!:FormGroup;  
   TemplateLists: any[] = [];  
+  public Editor = ClassicEditor;
 
   ModeLists = [   
     { name: 'Email', id:'N' },

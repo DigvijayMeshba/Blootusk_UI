@@ -93,15 +93,24 @@
 
                         </div>
 
+                        <!-- For SMS -->
                         <div class="row mb-1">
-
                             <div class="col-md-12">
                                 <div>
                                     <label for="basiInput" class="form-label">Message Content </label>
                                     <textarea class="form-control" rows="2" formControlName="messageContent" placeholder="Enter Message Content"></textarea>
                                 </div>
                             </div>
+                        </div>
 
+                        <!-- For Email -->
+                        <div class="row mb-1">
+                            <div class="col-md-12">
+                                <div>
+                                    <label for="basiInput" class="form-label">Email Content </label>
+                                    <ckeditor [editor]="Editor" data=""></ckeditor>
+                                </div>
+                            </div>
                         </div>
 
                     </div>

@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbNavModule} from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { MerchantlistComponent } from './merchantlist/merchantlist.component';
 import { MerchantaddComponent } from './merchantadd/merchantadd.component';
@@ -55,7 +56,7 @@ const routes: Routes = [
     FlatpickrModule,
     ReactiveFormsModule,
     NgbModule,
-    
+    CKEditorModule,
   ],
   exports: [RouterModule]
 })

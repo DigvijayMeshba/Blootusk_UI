@@ -13,6 +13,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 // Swiper Slider
 import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
@@ -56,7 +57,7 @@ import { DashboardsModule } from "./dashboards/dashboards.module";
     NgxPaginationModule,
     LightboxModule,
     DashboardsModule,
-    
+    CKEditorModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
