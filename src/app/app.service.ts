@@ -39,6 +39,11 @@ export class AppService {
       return this.http.post(this.createCompleteRoute(route, this._envUrl.urlAddress), body, { headers: this.headers });
     }
 
+
+    public GetAllRewardPonit = (path: any ) => {
+      return this.http.get<any>(this.createCompleteRoute(path, this._envUrl.urlAddress),{ headers: this.headers });
+    }
+
     public GetAllLists = (route: string) => {      
       return this.http.get(this.createCompleteRoute(route, this._envUrl.urlAddress),  { headers: this.headers });
     }

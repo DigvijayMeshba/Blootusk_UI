@@ -9,6 +9,7 @@ import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import { addMessageTemplate } from '../merchant';
 import { catchError, throwError } from 'rxjs';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-messageedit',
@@ -101,15 +102,91 @@ export class MessageeditComponent {
         })
       ) 
       .subscribe((data: any) => {
-      
-        if (data.responseStatusCode == 200 ) {
-          
-          this.messageContent = 'Template update Successfully.',
-          this.showMessageSuccess() 
 
+        let statuscode : number = data.responseStatusCode;
+
+        switch(statuscode)
+        {          
+          case 200:
+            debugger;       
+            
+            Swal.fire({
+              title:'Success',
+              text: 'Message Added Successfully.',
+              icon: 'success',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+             
+            }).then(function() {
+         
+          });
           this.router.navigate(['/merchant/merchantedit',this.merchantId], { relativeTo: this.route });
+                      
+          break;
+          
+          case 212 :
+            Swal.fire({
+              title:'Warning',
+              text: 'Something Went wrong.',
+              icon: 'warning',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+            });
+              break;
+            case  500 : 
+
+            Swal.fire({
+              title:'Error',
+              text: 'Error Status',
+              icon: 'error',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+            });    
+              break;
+            case 601 :
+              Swal.fire({
+                title:'Duplication',
+                text: 'Mobile Number is Duplicate',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });
+              break;
+            case 602:
+              Swal.fire({
+                title:'Duplication',
+                text: 'Duplicate Email',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });                 
+              break;
+            case 603:
+              Swal.fire({
+                title:'Duplication',
+                text: 'Duplicate Category Status',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });                     
+                       
+              break;
+            case 400:  
+        }
+        
+        // if (data.responseStatusCode == 200 ) {
+        //   this.messageContent = 'Template update Successfully.',
+        //   this.showMessageSuccess() 
+
+        //   this.router.navigate(['/merchant/merchantedit',this.merchantId], { relativeTo: this.route });
                                           
-        }        
+        // }        
       },);
   
     }  

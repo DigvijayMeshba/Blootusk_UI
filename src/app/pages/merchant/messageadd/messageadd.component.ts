@@ -9,6 +9,7 @@ import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import { addMessageTemplate } from '../merchant';
 import { catchError, throwError } from 'rxjs';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-messageadd',
@@ -23,18 +24,19 @@ export class MessageaddComponent {
   EmailIdTemp!: string;
   merchantId:string| any;
   uploadForm!:FormGroup;  
-  TemplateLists: any[] = [];  
+ 
   public Editor = ClassicEditor;
+  ModeLists : any[] = [];
 
-  ModeLists = [   
-    { name: 'Email', id:'N' },
-    { name: 'SMS', id:'S' },
+  
+  TemplateLists = [   
+    { messageType: 'Signup', messageTypeId:'1' },
+    { messageType: 'Refferal', messageTypeId:'2' },
+    { messageType: 'Redeem', messageTypeId:'3' },
   ];
 
   submitted = false;
-
   messagecontent!:string;
-
   public isVisibleSuccess: boolean = false;
   public isVisibleDanger: boolean = false;
   public isVisibleWarning: boolean = false;
@@ -47,33 +49,26 @@ export class MessageaddComponent {
   ngOnInit(): void {   
     this.merchantId = this.route.snapshot.params['id']; 
     this.getMerchantbyId(this.merchantId);
-    this.GettemplateList();
-
-       
+   // this.GettemplateList();
+   this.GetModeList();       
   this.uploadForm = new FormGroup({
        merchantId : new FormControl('',[]),     
        messageContent : new FormControl('', []),
        messageTypeId : new FormControl('', []),
+       modetypeId : new FormControl('', []),
       recStatus:new FormControl('', []),     
       token: new FormControl('', []),
       createdBy: new FormControl('', []),
       createdDate: new FormControl('', []),
       modifyBy: new FormControl('', []),
-      modifyDate: new FormControl('', []),
-      
-     
+      modifyDate: new FormControl('', []),     
   });
-
-   
- 
 
   }
   get f() { return this.uploadForm.controls; }
 
   public submit() {
-   
     this.submitted = true;
-    
   }
 
   public getMerchantbyId(merchantId: any) {
@@ -87,25 +82,13 @@ export class MessageaddComponent {
       });
     }
   }
-  showMessageSuccess() {
-    //this.messageContent = 'Merchant Update Successfully.';
-    this.messagecontent = 'Merchant Add Successfully.';
-    this.isVisibleSuccess = true;
-  }
+ 
 
-  showMessageDanger() {
-    this.isVisibleDanger = true;
-  }
-
-  showMessageWarning() {   
-    this.isVisibleWarning = true;
-  }
-
-  public GettemplateList()
+  public GetModeList()
   {
       this.appService.GetAll("api/SMSTemplate/GetMessageTypeDDL").subscribe(
       (x: any) => {
-        this.TemplateLists = x.responseData;
+        this.ModeLists = x.responseData;
         console.log(x.responseData);
       });
     
@@ -136,16 +119,87 @@ export class MessageaddComponent {
         })
       ) 
       .subscribe((data: any) => {
-      
-        if (data.responseStatusCode == 200 ) {
+        let statuscode : number = data.responseStatusCode;
 
-          this.messagecontent = 'Template add Successfully.',
-          this.showMessageSuccess() 
+        switch(statuscode)
+        {          
+          case 200:
+            debugger;       
+            
+            Swal.fire({
+              title:'Success',
+              text: 'Message Added Successfully.',
+              icon: 'success',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+             
+            }).then(function() {
+         
+          });
           this.router.navigate(['/merchant/merchantedit',this.merchantId], { relativeTo: this.route });
+                      
+          break;
+          
+          case 212 :
+            Swal.fire({
+              title:'Warning',
+              text: 'Something Went wrong.',
+              icon: 'warning',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+            });
+              break;
+            case  500 : 
+
+            Swal.fire({
+              title:'Error',
+              text: 'Error Status',
+              icon: 'error',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+            });    
+              break;
+            case 601 :
+              Swal.fire({
+                title:'Duplication',
+                text: 'Mobile Number is Duplicate',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });
+              break;
+            case 602:
+              Swal.fire({
+                title:'Duplication',
+                text: 'Duplicate Email',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });                 
+              break;
+            case 603:
+              Swal.fire({
+                title:'Duplication',
+                text: 'Duplicate Category Status',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });                     
+                       
+              break;
+            case 400:  
+        }
+        // if (data.responseStatusCode == 200 ) {
+        //   this.messagecontent = 'Template add Successfully.',          
+        //   this.router.navigate(['/merchant/merchantedit',this.merchantId], { relativeTo: this.route });
                                           
-        }         
-  
-      
+        // }       
   
       },);
   

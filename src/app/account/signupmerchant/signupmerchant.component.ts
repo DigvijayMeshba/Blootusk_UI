@@ -290,9 +290,15 @@ console.log('Decrypted :' + decrypted);
               }
               break;
               case 212 :
-               
-                this.messageContent = 'Something Went wrong',
-                this.showMessageDanger();
+              Swal.fire({
+                title:'Warning',
+                text: 'Something Went wrong.',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+         
+              });
 
                 this.showDiv = {
                   current : true,
@@ -301,21 +307,34 @@ console.log('Decrypted :' + decrypted);
                 break;
                 
               case  500 : 
-               
-              
-              this.messageContent ='Error Status.';   
-              this.showMessageDanger();
 
+              Swal.fire({
+                title:'Error',
+                text: 'Error Status',
+                icon: 'error',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+         
+              });
+
+               
                 this.showDiv = {
                   current : true,
                   next : false
                 }
                 break;
                 
-              case 601 :                
-              this.messageContent = 'Phone Number is Duplicate.',                
-              this.showMessageWarning()   
-
+              case 601 :
+                Swal.fire({
+                  title:'Duplication',
+                  text: 'Phone Number is Duplicate',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+           
+                });
                   this.showDiv = {
                     current : true,
                     next : false
@@ -323,8 +342,15 @@ console.log('Decrypted :' + decrypted);
                 break;
                 
               case 602:
-                this.messageContent = 'Duplicate Email.',
-                this.showMessageWarning()             
+                Swal.fire({
+                  title:'Duplication',
+                  text: 'Duplicate Email',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+           
+                }); 
                 this.showDiv = {
                   current : true,
                   next : false
@@ -332,18 +358,24 @@ console.log('Decrypted :' + decrypted);
                 break;
              
               case 603:
-
-              this.messageContent = 'Duplicate Category Status.',                
+                Swal.fire({
+                  title:'Duplication',
+                  text: 'Duplicate Category Status',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
            
-              this.showMessageWarning()   
-                
+
+                }); 
+                  
                   this.showDiv = {
                     current : true,
                     next : false
                   }          
                 break;
               
-              case 400:   
+              case 400:    
               this.messageContent = 'Bad Request Status.',
               this.showMessageWarning() 
              
@@ -421,71 +453,88 @@ debugger;
         {          
           case 200:           
           this.showMessageSuccess() 
-          location.reload();          
-           
+          location.reload();  
           break;
-            case 212 :               
-            this.messageContent = 'Something Went wrong',
-            this.showMessageDanger();
-            this.showDiv = {
-              current : true,
-              next : false
-            }
-
-          break;            
-          case  500 :           
-            this.messageContent ='Error Status.';   
-            this.showMessageDanger();
-
-            this.showDiv = {
-              current : true,
-              next : false
-            }
-            break;
-            
-          case 601 :                
-            this.messageContent = 'Phone Number is Duplicate.',                
-            this.showMessageWarning()  
-
-              this.showDiv = {
-                current : true,
-                next : false
-              }
-            break;
-            
-          case 602:
-
-            this.messageContent = 'Duplicate Email.',
-            this.showMessageWarning()              
-            this.showDiv = {
-              current : true,
-              next : false
-            }
-            break;
          
-          case 603:
-
-          this.messageContent = 'Duplicate Category Status.', 
-          this.showMessageWarning()       
-              this.showDiv = {
-                current : true,
-                next : false
-              }          
-            break;
-          
-          case 400:   
-            Swal.fire({
-              title:'Error',
-              text: 'Bad Request Status',
-              icon: 'error',
-              confirmButtonColor: '#364574',
-              allowOutsideClick: false,
-              allowEscapeKey: false
-            });
+                case 200:
             
-            break;
+              Swal.fire({
+                title:'Success',
+                text: 'Merchant Signup Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+               
+              }).then(function() {
+  
+              location.reload();
+            });
+              break;
+                case 212 :
+                Swal.fire({
+                  title:'Warning',
+                  text: 'Something Went wrong.',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+                });
+                  break;
+                case  500 : 
 
-        }
+                Swal.fire({
+                  title:'Error',
+                  text: 'Error Status',
+                  icon: 'error',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+                });    
+                  break;
+                case 601 :
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Mobile Number is Duplicate',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                  });
+                  break;
+                case 602:
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Duplicate Email',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                  });                 
+                  break;
+                case 603:
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Duplicate Category Status',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                  });                     
+                           
+                  break;
+                case 400:              
+                    Swal.fire({
+                      title:'Error',
+                      text: 'Bad Request Status',
+                      icon: 'error',
+                      confirmButtonColor: '#364574',
+                      allowOutsideClick: false,
+                      allowEscapeKey: false
+                    }); 
+          }   
+         
+        
             
       },);
     

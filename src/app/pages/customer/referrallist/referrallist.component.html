@@ -18,17 +18,11 @@
                             <div class="card-body">
 
                                 <div class="row mb-3">
-                                    <div class="col-md-4">
-                                        <div>
-                                            <label for="basiInput" class="form-label">Mobile No. </label>
-                                            <input type="text" class="form-control"  placeholder="Enter Mobile No.">
-                                        </div>
-                                    </div>
-    
+                                        
                                     <div class="col-md-8">
                                         <div>
-                                            <label for="labelInput" class="form-label">Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter Name">
+                                            <label for="labelInput" class="form-label">Referral Name</label>
+                                            <input type="text" class="form-control" placeholder="Enter Referral Name">
                                         </div>
                                     </div>
     
@@ -64,7 +58,7 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col">Date</th>                                      
-                                        <th scope="col">Name</th>
+                                        <th scope="col">Referral Name</th>
                                         
                                         <th scope="col">Merchant Name</th>
                                         <th scope="col">Reward Points</th>
@@ -73,10 +67,10 @@
                                 </thead>
                                 <tbody *ngFor="let object of CustomerList" >
                                     <tr>
-                                        <td>{{object.createdDate}}</td>
+                                        <td>{{object.createdDate | date:'dd/MM/yyyy'}}</td>
                                         <td>{{object.name}}</td>                                        
                                         <td>{{object.merchantName}}</td>
-                                        <td></td>
+                                        <td>{{object.rewardPoint}}</td>
                                         <!-- <td>Data</td> -->
                                     </tr>
                                 </tbody>

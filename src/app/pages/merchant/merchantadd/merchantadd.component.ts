@@ -299,20 +299,7 @@ export class MerchantaddComponent {
     
   }
 
-    //add for alert
-    showMessageSuccess() {
-      //this.messageContent = 'Merchant Update Successfully.';
-      this.messageContent = 'Merchant Update Successfully.';
-      this.isVisibleSuccess = true;
-    }
   
-    showMessageDanger() {
-      this.isVisibleDanger = true;
-    }
-  
-    showMessageWarning() {   
-      this.isVisibleWarning = true;
-    }
   //create new user
   public createMerchant(formData: addMerchant) {
     debugger;
@@ -358,69 +345,78 @@ export class MerchantaddComponent {
             let statuscode : number = res.responseStatusCode;
 
             switch(statuscode)
-            {          
-              case 200:           
-              this.messageContent = 'Merchant added Successfully.',
-              this.showMessageSuccess() 
-
-              this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });      
+            {      
+              case 200:
+            
+              Swal.fire({
+                title:'Success',
+                text: 'Merchant added Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
                
-              break;
-                case 212 :               
-                this.messageContent = 'Something Went wrong',
-                this.showMessageDanger();
-                this.showDiv = {
-                  current : true,
-                  next : false
-                }
-    
-              break;            
-              case  500 :           
-              this.messageContent ='Error Status.';   
-              this.showMessageDanger();
-                this.showDiv = {
-                  current : true,
-                  next : false
-                }
-                break;
-                
-              case 601 :                
-              this.messageContent = 'Phone Number is Duplicate.',                
-              this.showMessageWarning()  
-    
-                  this.showDiv = {
-                    current : true,
-                    next : false
-                  }
-                break;
-                
-              case 602:
-                this.messageContent = 'Duplicate Email.',
-                this.showMessageWarning()              
-                this.showDiv = {
-                  current : true,
-                  next : false
-                }
-                break;
+              }).then(function() {
+           //     location.reload();
              
-              case 603:
-    
-              this.messageContent = 'Duplicate Category Status.',                
-           
-              this.showMessageWarning()   
-                
-                  this.showDiv = {
-                    current : true,
-                    next : false
-                  }          
-                break;
               
-              case 400:   
-              this.messageContent ='Bad Request Status';
-              this.showMessageDanger();
-              
-                break;
-    
+            });
+             this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });      
+             
+              break;
+              case 212 :
+                Swal.fire({
+                  title:'Warning',
+                  text: 'Something Went wrong.',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+                });
+                  break;
+                case  500 : 
+
+                Swal.fire({
+                  title:'Error',
+                  text: 'Error Status',
+                  icon: 'error',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+                });    
+                  break;
+                case 601 :
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Mobile Number is Duplicate',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                  });
+                  break;
+                case 602:
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Duplicate Email',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                  });                 
+                  break;
+                case 603:
+                  Swal.fire({
+                    title:'Duplication',
+                    text: 'Duplicate Category Status',
+                    icon: 'warning',
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                  });                     
+                           
+                  break;
+                    
             }
        
   

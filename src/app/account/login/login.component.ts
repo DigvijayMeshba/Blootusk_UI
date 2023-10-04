@@ -6,7 +6,7 @@ import { ToastService } from './toast-service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { UserForAuthenticationDto } from './UserForAuthenticationDto.model';
-import Swal from 'sweetalert2';
+
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
@@ -119,45 +119,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  warningUser() {
-    Swal.fire({
-      title: 'Warning',
-      text: 'User Dashboard Currently Not Available',
-      icon: 'warning',
-      confirmButtonColor: '#364574',
-      cancelButtonColor: 'rgb(243, 78, 78)',
-      confirmButtonText: 'OK',
-      allowOutsideClick: false,
-      allowEscapeKey: false
-
-    });
-  }
-  warningManager() {
-    Swal.fire({
-      title: 'Warning',
-      text: 'Manager Dashboard Currently Not Available',
-      icon: 'warning',
-      confirmButtonColor: '#364574',
-      cancelButtonColor: 'rgb(243, 78, 78)',
-      confirmButtonText: 'OK',
-      allowOutsideClick: false,
-      allowEscapeKey: false
-
-    });
-  }
+  
 
   warningmsg() {
-    Swal.fire({
-      title: 'Warning',
-      text: 'Please Enter Valid Login Credentials',
-      icon: 'warning',
-      confirmButtonColor: '#364574',
-      cancelButtonColor: 'rgb(243, 78, 78)',
-      confirmButtonText: 'OK',
-      allowOutsideClick: false,
-      allowEscapeKey: false
-
-    });
+   
   }
 
   toggleFieldTextType() {

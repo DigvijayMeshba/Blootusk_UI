@@ -97,7 +97,7 @@
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Reward Date </label> 
-                                    <input type="date" class="form-control" placeholder="Enter Reward Date" [(ngModel)]="currentDate" formControlName ="rewardDate">
+                                    <input type="date" class="form-control" placeholder="Enter Reward Date"  [(ngModel)]="currentDate" [min]="currentDate"  formControlName ="rewardDate">
                                 </div>
                             </div>   
 
@@ -140,7 +140,7 @@
 
                             <div class="col-md-4">
                                 <div>
-                                    <label for="basiInput" class="form-label">Validity </label> 
+                                    <label for="basiInput" class="form-label">Validity (Months)</label> 
                                     <input type="text" class="form-control" placeholder="Enter Validity" formControlName="validity">
                                 </div>
                             </div>  

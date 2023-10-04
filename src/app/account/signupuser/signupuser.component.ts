@@ -421,7 +421,7 @@ debugger;
         console.log('adddata',data.responseData)
           switch(statuscode)
           {
-            case 200:
+                case 200:
             
               Swal.fire({
                 title:'Success',
@@ -436,7 +436,7 @@ debugger;
               location.reload();
             });
               break;
-              case 212 :
+                case 212 :
                 Swal.fire({
                   title:'Warning',
                   text: 'Something Went wrong.',
@@ -446,7 +446,6 @@ debugger;
                   allowEscapeKey: false
                 });
                   break;
-                  
                 case  500 : 
 
                 Swal.fire({
@@ -458,7 +457,6 @@ debugger;
                   allowEscapeKey: false
                 });    
                   break;
-                  
                 case 601 :
                   Swal.fire({
                     title:'Duplication',
@@ -469,7 +467,6 @@ debugger;
                     allowEscapeKey: false
                   });
                   break;
-                  
                 case 602:
                   Swal.fire({
                     title:'Duplication',
@@ -480,7 +477,6 @@ debugger;
                     allowEscapeKey: false
                   });                 
                   break;
-               
                 case 603:
                   Swal.fire({
                     title:'Duplication',
@@ -492,7 +488,6 @@ debugger;
                   });                     
                            
                   break;
-                
                 case 400:              
                     Swal.fire({
                       title:'Error',
@@ -502,10 +497,7 @@ debugger;
                       allowOutsideClick: false,
                       allowEscapeKey: false
                     }); 
-                   
-  
-          }
-              
+          }   
         },);
       }
       else

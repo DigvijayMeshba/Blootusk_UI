@@ -96,10 +96,10 @@
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Mode Type </label>
-                                    <select class="form-select" aria-label="Default select example" formControlName ="" >
+                                    <select class="form-select" aria-label="Default select example" formControlName ="modeTypeId" >
                                         <option hidden value="" disabled selected>Select Mode Type</option>
-                                         <option *ngFor="let modes of ModeLists" [value]="modes.id">
-                                            {{ modes.name }}
+                                         <option *ngFor="let modes of ModeLists"  [value]="modes.messageTypeId">
+                                            {{ modes.messageType }}
                                           </option> 
                                     </select>
                                 </div>
@@ -128,7 +128,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
          
                     <div class="card-footer">

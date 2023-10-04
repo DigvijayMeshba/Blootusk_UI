@@ -428,18 +428,15 @@ public GetTemplateData():any[]
   const startIndex = (this.page -1) * this.count;
   const endIndex = startIndex + this.count;
   return this.TemplateList.slice(startIndex, endIndex);
-
 }
 
 public GetRewardData():any[]
 {
-
   console.log('reward',this.RewardList)
   const startIndex = (this.page -1) * this.count;
   const endIndex = startIndex + this.count;
   return this.RewardList.slice(startIndex, endIndex);
 }
-
 
 CancelForm()
 {
@@ -496,45 +493,80 @@ CancelForm()
           switch(statuscode)
           {          
             case 200:
-              debugger;           
-            this.showMessageSuccess();
+              debugger;       
+              
+              Swal.fire({
+                title:'Success',
+                text: 'Merchant Updated Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+               
+              }).then(function() {
+  
+              // location.reload();
+              
+           
+            });
             this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
+          
                         
             break;
-              case 212 :               
-              this.messageContent = 'Something Went wrong',
-              this.showMessageDanger();
-             
-  
-            break;            
-            case  500 :        
-            this.messageContent ='Error Status.';   
-              this.showMessageDanger();
-              break;
-              
-            case 601 :
-              this.messageContent = 'Phone Number is Duplicate.',                
-              this.showMessageWarning()   
-              break;
-              
-            case 602:
-              this.messageContent = 'Duplicate Email.',
-              this.showMessageWarning()   
-              break;
-           
-            case 603:
-              this.messageContent = 'Duplicate Category Status.',                
-           
-            this.showMessageWarning()   
-              
-              break;
             
-            case 400:     
-            this.messageContent = '';           
-              this.messageContent ='Bad Request Status';
-              this.showMessageDanger();
-              break;
-  
+            case 212 :
+              Swal.fire({
+                title:'Warning',
+                text: 'Something Went wrong.',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });
+                break;
+              case  500 : 
+
+              Swal.fire({
+                title:'Error',
+                text: 'Error Status',
+                icon: 'error',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });    
+                break;
+              case 601 :
+                Swal.fire({
+                  title:'Duplication',
+                  text: 'Mobile Number is Duplicate',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+                });
+                break;
+              case 602:
+                Swal.fire({
+                  title:'Duplication',
+                  text: 'Duplicate Email',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+                });                 
+                break;
+              case 603:
+                Swal.fire({
+                  title:'Duplication',
+                  text: 'Duplicate Category Status',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+                });                     
+                         
+                break;
+              case 400:  
           }
      }) 
    }  

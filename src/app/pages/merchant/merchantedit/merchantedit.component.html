@@ -53,7 +53,8 @@
                                                         <div class="col-md-8">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Merchant (Organization) Name <span class="mnd-fld">*</span> </label>
-                                                                <input type="text" class="form-control" formControlName="organizationName" placeholder="Enter Merchant (Organization) Name" [(ngModel)]="OrganizationNameTemp">
+                                                                <input type="text" class="form-control" formControlName="organizationName" placeholder="Enter Merchant (Organization) Name" 
+                                                                [(ngModel)]="OrganizationNameTemp">
                                                                 <div *ngIf="submitted && f['organizationName'].errors" class="invalid-feedback">
                                                                     <div *ngIf="f['organizationName'].errors['required']">Merchant Name is required</div>OrganizationNameTemp
                                                                     <div *ngIf="f['organizationName'].errors['minlength']">Merchant Name least 3 char long
@@ -673,7 +674,7 @@
 
                                                         <div class="col-md-6">
                                                             <div>
-                                                                <label for="basiInput" class="form-label">Mobile No  </label>
+                                                                <label for="basiInput" class="form-label">Mobile No.  </label>
                                                                 <br>
                                                                 <label for="basiInput" class="form-label">{{MobileNoTemp}} </label>
                                                             </div>
@@ -719,11 +720,11 @@
                                                 <table class="table table-bordered table-striped align-middle table-nowrap mb-0">
                                                     <thead class="table-light">
                                                         <tr>
-                                                            <th scope="col">Date</th>
-                                                            <th scope="col">Type</th>
-                                                            <th scope="col">Points</th>
+                                                            <th scope="col">Reward Date</th>
+                                                            <th scope="col">Reward Type</th>
+                                                            <th scope="col">Reward Points</th>
                                                             <th scope="col">Issued By</th>
-                                                            <th scope="col">Validity</th>
+                                                            <th scope="col">Validity(In Months)</th>
                                                             <th scope="col" class="w-10 text-center">Action</th>
                                                         </tr>
                                                     </thead>
@@ -732,7 +733,7 @@
                                                             <td>{{object.rewardDate | date:'dd/MM/yyyy'}}</td>
                                                             <td>{{object.rewardType}}</td>
                                                             <td>{{object.rewardPoint}}</td>
-                                                            <td>{{object.issuedBy}}</td>
+                                                            <td>{{object.issuedByName}}</td>
                                                             <td>{{object.validity}}</td>
                                                             <td class="w-10 text-center">
                                                                 <div class="gap-3">

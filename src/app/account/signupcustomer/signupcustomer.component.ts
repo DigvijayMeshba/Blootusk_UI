@@ -216,7 +216,10 @@ export class SignupcustomerComponent {
       )
         .subscribe((res: any) => {
           debugger;
-          console.log('token data==',res)
+
+          
+         
+
           //status code
            this.tokenStorage.custcode(res.responseData.customerID);
            this.tokenStorage.SaveRole(this.IsCustomer)
@@ -224,6 +227,8 @@ export class SignupcustomerComponent {
           
           if (res.responseData.token != undefined) {
             this.isLoggedIn = true;
+            this.tokenStorage.saveToken(res.responseData.token);
+            this.tokenStorage.saveUser(res.responseData);
             this._authService.sendAuthStateChangeNotification(res.responseMessage);
             this._router.routeReuseStrategy.shouldReuseRoute = () => false;
             this._router.onSameUrlNavigation = 'reload';

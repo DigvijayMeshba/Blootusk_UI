@@ -44,8 +44,6 @@ export class TokenStorageService {
     return sessionStorage.getItem('role-key');
   }
 
- 
-
   public Merchantdata(merchant:any): void {
     window.localStorage.removeItem(MERCHANT_KEY);
 

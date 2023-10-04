@@ -44,9 +44,7 @@ const routes: Routes = [
   {
     path: 'dashboards', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardsModule)
   },
-  {
-    path: 'master', loadChildren: () => import('./master/master.module').then(m => m.MasterModule)
-  },  
+   
   {
     path: 'merchant', loadChildren: () => import('./merchant/merchant.module').then(m => m.MerchantModule)
   }, 

@@ -116,9 +116,14 @@ export class BusinesscategoryaddComponent {
   public isVisibleSuccess: boolean = false;
   //add for alert
   showMessageSuccess() {
-    //this.messageContent = 'Merchant Update Successfully.';
-    this.messageContent = 'Category Added Successfully.';
-    this.isVisibleSuccess = true;
+    Swal.fire({
+      title:'Success',
+      text: 'Category added Successfully.',
+      icon: 'success',
+      confirmButtonColor: '#364574',
+      allowOutsideClick: false,
+      allowEscapeKey: false
+    });    
   }
 
     //create new user

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-referrallist',
   templateUrl: './referrallist.component.html',
@@ -41,9 +41,22 @@ public count = 10;
        (x: any) => {
          this.CustomerList = x.responseData.customerList;
          console.log('ListCustref',x.responseData);
+
+         if(x.responseData.length == 0)
+         {
+           Swal.fire({
+             title:'Data not found',
+             icon: 'info',
+             confirmButtonColor: '#364574',
+             allowOutsideClick: false,
+             allowEscapeKey: false
+      
+           });
+          }
        });
+      
+    
      
    }
-
 
 }

@@ -21,7 +21,7 @@
                                     <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Transaction Type </label>
-                                            <select class="form-select" aria-label="Default select example">
+                                            <select class="form-select" aria-label="Default select example" [(ngModel)]="rewardPointId" >
                                                <option value=""  selected>Select Transaction Type </option>                                             
                                                <option *ngFor="let modes of TransactionTypeLists" [value]="modes.id">
                                                 {{ modes.name }}
@@ -52,15 +52,14 @@
                                         <th scope="col">Transaction Date</th>                                      
                                         <th scope="col">Transaction Type</th>
                                         <th scope="col">Reward Points</th>
-                                        <th scope="col">Balance Points</th>
+                                     
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <!-- <td>Data</td>
-                                        <td>Data</td>
-                                        <td>Data</td>
-                                        <td>Data</td> -->
+                                    <tr *ngFor="let object of CustomerRewardList">
+                                      <td>{{object.transactionDate | date:'dd/MM/yyyy'}} </td>
+                                      <td>{{object.transactionType}} </td>
+                                      <td>{{object.rewardPoint}} </td>
                                     </tr>
                                 </tbody>
                             </table>

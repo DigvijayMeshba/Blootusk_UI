@@ -54,6 +54,22 @@ public getcount()
     });
   
 }
+
+
+public getRewardPointcount()
+{
+  this.CustId =  this.tokenStorage.getcustcode();
+
+
+    debugger;
+    this.appService.getById("api/User/GetRewardPointCount/",this.CustId).subscribe(data => {
+    console.log('custdata', data.responseData)
+     this.Count = data.responseData;
+
+   
+    });
+  
+}
    
 }
 

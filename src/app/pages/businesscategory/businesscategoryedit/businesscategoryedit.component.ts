@@ -32,13 +32,14 @@ export class BusinesscategoryeditComponent {
   }
 
  
-  constructor(public formBuilder: FormBuilder, public appService: AppService, public snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router, private location: Location,
+  constructor(public formBuilder: FormBuilder, public appService: AppService, 
+    public snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router, private location: Location,
 
     private _authService: AuthenticationService,
     private _router: Router,) { }
 
   ngOnInit(): void {
-    
+    this.showMessage();
     this.catagoryId = this.route.snapshot.params['id'];
     this.getcatagorybyId(this.catagoryId);
     this.uploadForm = new FormGroup({
@@ -104,19 +105,7 @@ export class BusinesscategoryeditComponent {
   public hasError = (controlName: string, errorName: string) => {
     return this.uploadForm.controls[controlName].hasError(errorName)
   }
-  successmsg() {
-    Swal.fire({
-      title: 'Category Updated Successfully',
-      icon: 'success',
-      // showCancelButton: true,
-      confirmButtonColor: '#364574',
-      cancelButtonColor: 'rgb(243, 78, 78)',
-      confirmButtonText: 'OK',
-      allowOutsideClick: false,
-      allowEscapeKey: false
 
-    });
-  }
  
 
   public updateCatagory(formData: any) {
@@ -144,7 +133,15 @@ export class BusinesscategoryeditComponent {
     this.appService.Add('api/CategoryMaster/AddEditCategory', edituserModel).subscribe((data: any)  => {
       debugger
       if (data.responseStatusCode == 200) {
-        this.successmsg()                                            
+        Swal.fire({
+          title:'Success',
+          text: 'Category Updated Successfully.',
+          icon: 'success',
+          confirmButtonColor: '#364574',
+          allowOutsideClick: false,
+          allowEscapeKey: false
+        }); 
+        
         this.router.navigate(['/businesscategory/businesscategorylist'], { relativeTo: this.route });
       }  
       else {
@@ -188,5 +185,21 @@ export class BusinesscategoryeditComponent {
         this.uploadForm.controls['modifyDate'].setValue(data.responseData.modifyDate);
       });
     }
+  }
+
+
+  alertMessage!:string;
+  alertClass!:string;
+
+
+// add for a alert message
+  showMessage() {
+    // Logic to determine message and CSS class
+    const message = 'Data saved successfully!';
+    const alertClass = 'alert-success';
+
+    // Set the message and CSS class
+    this.alertMessage = message;
+    this.alertClass = alertClass;
   }
 }

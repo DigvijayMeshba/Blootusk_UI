@@ -8,6 +8,7 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import { addMessageTemplate, addReward } from '../merchant';
 import { catchError, throwError } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-rewardadd',
@@ -31,6 +32,8 @@ export class RewardaddComponent {
   submitted = false;
 
   currentDate: string;
+
+  dateblock!:Date;
   
   
   constructor(private modalService: NgbModal,public formBuilder: FormBuilder,public appService: AppService,
@@ -44,8 +47,10 @@ export class RewardaddComponent {
       this.currentDate = `${yyyy}-${mm}-${dd}`;
     }
 
-
   ngOnInit(): void {   
+
+
+    this.dateblock = new Date();
     this.merchantId = this.route.snapshot.params['id']; 
     this.getMerchantbyId(this.merchantId);
     this.GetRewardTypeList();
@@ -126,12 +131,89 @@ export class RewardaddComponent {
         })
       ) 
       .subscribe((data: any) => {
-      
-        if (data.responseStatusCode == 200 ) {
-          
+        let statuscode : number = data.responseStatusCode;
+
+        switch(statuscode)
+        {          
+          case 200:
+            debugger;       
+            
+            Swal.fire({
+              title:'Success',
+              text: 'Reward Added Successfully.',
+              icon: 'success',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+             
+            }).then(function() {
+         
+          });
           this.router.navigate(['/merchant/merchantedit',this.merchantId], { relativeTo: this.route });
+                      
+          break;
+          
+          case 212 :
+            Swal.fire({
+              title:'Warning',
+              text: 'Something Went wrong.',
+              icon: 'warning',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+            });
+              break;
+            case  500 : 
+
+            Swal.fire({
+              title:'Error',
+              text: 'Error Status',
+              icon: 'error',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+            });    
+              break;
+            case 601 :
+              Swal.fire({
+                title:'Duplication',
+                text: 'Mobile Number is Duplicate',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });
+              break;
+            case 602:
+              Swal.fire({
+                title:'Duplication',
+                text: 'Duplicate Email',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });                 
+              break;
+            case 603:
+              Swal.fire({
+                title:'Duplication',
+                text: 'Duplicate Category Status',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });                     
+                       
+              break;
+            case 400:  
+        }
+
+      
+        // if (data.responseStatusCode == 200 ) {
+          
+        //   this.router.navigate(['/merchant/merchantedit',this.merchantId], { relativeTo: this.route });
                                           
-        }    
+        // }    
       },);
   
     }  

@@ -17,6 +17,7 @@ import { BusinesscategoryeditComponent } from './businesscategoryedit/businessca
 
 
 
+
 @NgModule({
     declarations: [
         BusinesscategorylistComponent,
@@ -31,7 +32,7 @@ import { BusinesscategoryeditComponent } from './businesscategoryedit/businessca
         ReactiveFormsModule,
         RouterModule,
         NgbModule,
-      
+        
     ]
 })
 export class BusinesscategoryModule { }
