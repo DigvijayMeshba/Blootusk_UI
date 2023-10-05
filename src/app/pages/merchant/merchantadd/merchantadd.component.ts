@@ -122,7 +122,7 @@ export class MerchantaddComponent {
     this.uploadForm = this.formBuilder.group({
      
       merchantCode: new FormControl('', []),
-      organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+     // organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
      // password: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -147,6 +147,7 @@ export class MerchantaddComponent {
        posInfo : this.formBuilder.group({
         posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
         categoryId: new FormControl('', [Validators.required]),
+        organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
         posAddress: new FormControl('',[ Validators.required, Validators.minLength(3)]),
         zip: new FormControl('', [Validators.required, Validators.minLength(5)]),
         stateId: new FormControl('', [Validators.required]),
@@ -314,7 +315,7 @@ export class MerchantaddComponent {
       AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
       AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
       AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
-
+      AddMerchantModel.organizationName = AddMerchantModel.posInfo.organizationName,
       AddMerchantModel.posInfo.posid = 0;
       AddMerchantModel.posInfo.merchantId = 0;    
       AddMerchantModel.isEmailValidate = 1;

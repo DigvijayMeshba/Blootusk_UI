@@ -32,28 +32,8 @@
                             </div>
 
                             <div class="card">
-                                <div class="card-body">
-
+                                <div class="card-body">   
                                     <div class="row mb-3">
-                                        <div class="col-md-8">
-                                            <div>
-                                                <label for="basiInput" class="form-label">Merchant (Organization) Name <span class="mnd-fld">*</span></label>
-                                                <input type="text" class="form-control" 
-                                                formControlName="organizationName" required minlength="3"
-                                                [ngClass]="{ 'is-invalid': submitted && f['organizationName'].errors }"
-                                               
-                                                placeholder="Enter Merchant (Organization) Name">
-                                            <div *ngIf="submitted && f['organizationName'].errors" class="invalid-feedback">
-                                                <div *ngIf="f['organizationName'].errors['required']">Merchant Name is required</div>
-                                                <div *ngIf="f['organizationName'].errors['minlength']">Merchant Name least 3 char long
-                                                </div>
-    
-                                            </div>
-                                            
-                                            
-                                            </div>
-                                        </div> 
-        
                                         <div class="col-md-4">
                                             <div>
                                                 <label for="labelInput" class="form-label">Email Id <span class="mnd-fld">*</span></label>
@@ -72,11 +52,6 @@
                                                 </div>
                                             </div>
                                         </div>
-        
-                                    </div>
-        
-                                    <div class="row mb-3">
-
                                         <div class="col-md-4">
                                             <div>
                                                 <label for="basiInput" class="form-label">Mobile No <span class="mnd-fld">*</span> </label>
@@ -126,9 +101,26 @@
 
                             <div class="card mb-1">
                                 <div class="card-body" formGroupName="posInfo">
-                                    <div class="row mb-3">
-                                        <div class="col-md-8">
-                                            <div>
+                                    <div class=" mb-3 col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label for="basiInput" class="form-label">Merchant (Organization) Name <span class="mnd-fld">*</span></label>
+                                                <input type="text" class="form-control" 
+                                                formControlName="organizationName" required minlength="3"
+                                                [ngClass]="{ 'is-invalid': submitted && f['organizationName'].errors }"
+                                               
+                                                placeholder="Enter Merchant (Organization) Name">
+                                            <div *ngIf="submitted && f['organizationName'].errors" class="invalid-feedback">
+                                                <div *ngIf="f['organizationName'].errors['required']">Merchant Name is required</div>
+                                                <div *ngIf="f['organizationName'].errors['minlength']">Merchant Name least 3 char long
+                                                </div>
+    
+                                            </div>
+                                            
+                                            
+                                            </div>
+
+                                            <div class="col-md-6">
                                                 <label for="basiInput" class="form-label">POS Name(Point of sale) <span class="mnd-fld">*</span></label>
                                                 <input type="text" class="form-control" formControlName="posName"  required minlength="3"
                                               
@@ -141,7 +133,10 @@
                                               
                                             </div>
                                         </div>
+        
+                                    </div>
 
+                                    <div class="row mb-3">
                                         <div class="col-md-4">
                                             <div>
                                                 <label for="basiInput" class="form-label">Category <span class="mnd-fld">*</span></label>
@@ -158,10 +153,6 @@
                                                
                                             </div>
                                         </div>
-        
-                                    </div>
-
-                                    <div class="row mb-3">
 
                                         <div class="col-md-8">
                                             <div>

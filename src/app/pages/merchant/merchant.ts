@@ -31,6 +31,7 @@ export interface addMerchant
           countryName:string;          
           stateName: string;
           categoryName: string;
+          organizationName: string;
           latitude: string;
           longitude: string;
         }
@@ -88,6 +89,7 @@ export interface editMerchant
          posname: string;
          posaddress: string;
          countryName:string;
+         organizationName: string;
           stateName: string;
           categoryName: string;
          zip: string;
@@ -122,9 +124,10 @@ export interface editMerchant
   {
     templateId:number,
     merchantId : number,     
-       messageContent : string,
-       messageTypeId : number,
+       messageContent : string,      
       recStatus:string,     
+      modeTypeId:number,
+      messageTypeId : number,
       messsageType :string,
       createdBy: number,
       createdDate:Date,

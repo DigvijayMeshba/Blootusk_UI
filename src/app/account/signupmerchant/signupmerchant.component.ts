@@ -104,7 +104,6 @@ console.log('Decrypted :' + decrypted);
     this.uploadForm = new FormGroup({
      
       merchantCode: new FormControl('', []),
-      organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
@@ -120,6 +119,7 @@ console.log('Decrypted :' + decrypted);
         token: new FormControl('', []),
         createdBy: new FormControl('', []),
         createdDate: new FormControl('', []),
+        
         modifyBy: new FormControl('', []),
         modifyDate: new FormControl('', []),
         phoneNumberOTP: new FormControl('',[]),   
@@ -130,6 +130,8 @@ console.log('Decrypted :' + decrypted);
         posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
         categoryId: new FormControl('', [Validators.required]),
         posAddress: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    
         zip: new FormControl('', [Validators.required, Validators.minLength(5)]),
         stateId: new FormControl('', [Validators.required]),
         countryId: new FormControl('', [Validators.required]),
@@ -430,6 +432,7 @@ console.log('Decrypted :' + decrypted);
     AddMerchantDtail.deviceId=  "",
     AddMerchantDtail.deviceOs = "",
     AddMerchantDtail.generatedBy = "",
+    AddMerchantDtail.organizationName = AddMerchantDtail.posInfo.organizationName,
     AddMerchantDtail.stateName = ""? "":AddMerchantDtail.stateName,
     AddMerchantDtail.categoryName = ""? "":AddMerchantDtail.categoryName,
     AddMerchantDtail.countryName = ""? "":AddMerchantDtail.countryName,

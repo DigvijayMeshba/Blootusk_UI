@@ -83,33 +83,31 @@
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Message Type </label>
-                                    <select class="form-select" aria-label="Default select example" formControlName ="messageTypeId" >
+                                    <select class="form-select" aria-label="Default select example" formControlName ="modeTypeId" >
                                         <option hidden value="" disabled selected>Select Message Type</option>
-                                         <option *ngFor="let template of TemplateLists" [value]="template.messageTypeId">
+                                         <option *ngFor="let template of TemplateLists" [value]="template.modeTypeId">
                                             {{ template.messageType }}
                                           </option> 
                                     </select>
                                 </div>
                             </div>
 
-
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Mode Type </label>
-                                    <select class="form-select" aria-label="Default select example" formControlName ="modeTypeId" >
+                                    <select class="form-select" aria-label="Default select example"  (change)="onDropdownChange($event)" formControlName="messageTypeId">
                                         <option hidden value="" disabled selected>Select Mode Type</option>
-                                         <option *ngFor="let modes of ModeLists"  [value]="modes.messageTypeId">
+                                        <option *ngFor="let modes of ModeLists" [value]="modes.messageTypeId">
                                             {{ modes.messageType }}
-                                          </option> 
+                                        </option>
                                     </select>
                                 </div>
                             </div>
-
                         </div>
 
 
                         <!-- For SMS -->
-                        <div class="row mb-3">
+                        <div class="row mb-3"  *ngIf="showDiv.current">
                             <div class="col-md-12">
                                 <div>
                                     <label for="basiInput" class="form-label">Message Content </label>
@@ -118,13 +116,12 @@
                             </div>
                         </div>
 
-
                         <!-- For Email -->
-                        <div class="row mb-1">
+                    <div class="row mb-1" *ngIf="showDiv.next" >
                             <div class="col-md-12">
                                 <div>
                                     <label for="basiInput" class="form-label">Email Content </label>
-                                    <ckeditor [editor]="Editor" data=""></ckeditor>
+                                    <ckeditor [editor]="Editor" data="" formControlName="messageContent"></ckeditor>
                                 </div>
                             </div>
                         </div>
@@ -146,13 +143,7 @@
                                       
                                         <button type="submit" (click)="submit()" class="btn btn-primary"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
                                     
-                                        <!-- <app-alert [isVisibleSuccess]="isVisibleSuccess" [isVisibleDanger]="isVisibleDanger" [isVisibleWarning]="isVisibleWarning" [messageContent]="messagecontent"></app-alert>
-
-                                        <button (click)="showMessageSuccess()">{{messagecontent}}</button>
-                                         <button (click)="showMessageDanger()">{{messagecontent}}</button>
-                                         <button (click)="showMessageWarning()">{{messagecontent}}</button> 
-                                  -->
-                                    
+                                                           
                                     </div>
                                 </div>
                             </div>

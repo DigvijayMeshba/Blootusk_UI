@@ -53,29 +53,8 @@
                                         </div>
                                            </div>                                   
         
-                                            <div class="row mb-3">
-                                                <div class="col-md-8">
-                                                    <div>
-                                                        <label for="basiInput" class="form-label">Merchant (Organization) Name 
-                                                            <span class="madatory">*</span>
-                                                        </label>
-                                                      
-                                                        <input type="text" class="form-control" 
-                                                        formControlName="organizationName" required minlength="3"
-                                                        [ngClass]="{ 'is-invalid': submitted && f['organizationName'].errors }"
-                                                       
-                                                        placeholder="Enter Merchant (Organization) Name">
-                                                    <div *ngIf="submitted && f['organizationName'].errors" class="invalid-feedback">
-                                                        <div *ngIf="f['organizationName'].errors['required']">Merchant (Organization) Name is required</div>
-                                                        <div *ngIf="f['organizationName'].errors['minlength']">Merchant Name least 3 char long
-                                                        </div>
-            
-                                                    </div>
-                                                    
-                                                    
-                                                    </div>
-                                                </div>
-                
+                                          
+                                            <div class="row mb-3">  
                                                 <div class="col-md-4">
                                                     <div>
                                                         <!-- <label for="basiInput" class="form-label">Phone No. </label> -->
@@ -94,12 +73,8 @@
                                                     </div>
 
                                                     </div>
-                                                </div>
-                
-                                            </div>
-                
-                                            <div class="row mb-3">        
-                                                <div class="col-md-6">
+                                                </div>      
+                                                <div class="col-md-4">
                                                     <div>
                                                         <label for="labelInput" class="form-label">Email Id <span class="madatory">*</span></label>
                                                         <div class="form-icon right">
@@ -121,13 +96,12 @@
                                                     </div>
                                                 </div>
         
-                                                <div class="col-md-6">
+                                                <div class="col-md-4">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Contact Person Name  <span class="madatory">*</span> </label>
                                                         <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
                                                         formControlName="contactPersonName" required minlength="3"
                                                         [ngClass]="{ 'is-invalid': submitted && f['contactPersonName'].errors }"
-                                                       
                                                         placeholder="Enter Contact Person Name">
                                                     <div *ngIf="submitted && f['contactPersonName'].errors" class="invalid-feedback">
                                                         <div *ngIf="f['contactPersonName'].errors['required']">Contact Person Name is required</div>
@@ -205,7 +179,29 @@
 
                                     <div formGroupName="posInfo">
                                             <div class="row mb-3">
-                                                <div class="col-md-8">
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <label for="basiInput" class="form-label">Merchant (Organization) Name 
+                                                            <span class="madatory">*</span>
+                                                        </label>
+                                                      
+                                                        <input type="text" class="form-control" 
+                                                        formControlName="organizationName" required minlength="3"
+                                                        [ngClass]="{ 'is-invalid': submitted && f['organizationName'].errors }"
+                                                       
+                                                        placeholder="Enter Merchant (Organization) Name">
+                                                    <div *ngIf="submitted && f['organizationName'].errors" class="invalid-feedback">
+                                                        <div *ngIf="f['organizationName'].errors['required']">Merchant (Organization) Name is required</div>
+                                                        <div *ngIf="f['organizationName'].errors['minlength']">Merchant Name least 3 char long
+                                                        </div>
+            
+                                                    </div>
+                                                    
+                                                    
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
                                                     <div>
                                                         <label for="basiInput" class="form-label">POS Name (Point of sale)  <span class="madatory">*</span></label>
                                                         <input type="text" id="posName" formControlName="posName" class="form-control" placeholder="Enter POS Name">                                                      
@@ -216,6 +212,11 @@
                                                     </div>
                                                 </div>
         
+                                               
+                
+                                            </div>
+        
+                                            <div class="row mb-3">
                                                 <div class="col-md-4">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Category  <span class="madatory">*</span></label>
@@ -234,12 +235,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                
-                                            </div>
-        
-                                            <div class="row mb-3">
-        
-                                                <div class="col-md-12">
+                                                <div class="col-md-8">
                                                     <div>
                                                         <label for="basiInput" class="form-label">POS Address  <span class="madatory">*</span></label>
                                                         <textarea class="form-control" formControlName="posAddress" rows="1" placeholder="Enter POS Address"></textarea>

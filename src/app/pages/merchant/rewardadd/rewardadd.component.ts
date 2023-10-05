@@ -109,7 +109,7 @@ export class RewardaddComponent {
       let AdduserModel: addReward = {
         "merchantId": this.merchantId,
         "rewardPoint" : formData.rewardPoint,
-        "rewardTypeId": formData.rewardTypeID,
+        "rewardTypeId": formData.rewardTypeId,
         "RewardType": '',
         "rewardDate": formData.rewardDate,
         "issuedBy": formData.issuedBy,

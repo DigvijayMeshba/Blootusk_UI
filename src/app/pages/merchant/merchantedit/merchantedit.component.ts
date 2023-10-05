@@ -121,7 +121,6 @@ export class MerchanteditComponent {
    
   this.uploadForm = new FormGroup({     
       merchantCode: new FormControl('', []),
-      organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
@@ -135,6 +134,8 @@ export class MerchanteditComponent {
         countryId: new FormControl('', [Validators.required]),       
         state: new FormControl('', []),
         countryName: new FormControl('', []),
+        organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    
         stateName: new FormControl('', []),
         categoryName: new FormControl('', []),
         country: new FormControl('', []),
@@ -156,6 +157,7 @@ export class MerchanteditComponent {
         token: new FormControl('', []),
         createdBy: new FormControl('', []),
         createdDate: new FormControl('', []),
+      
         modifyBy: new FormControl('', []),
         modifyDate: new FormControl('', []),
         phoneNumberOTP: new FormControl('',[]), 
@@ -348,8 +350,9 @@ public getMerchantbyId(merchantId: any) {
         //phoneNumber:data.responseData.phoneNumber,
         //email:data.responseData.email,
         password: this.EncrDecr.get('12$#@BLOO$^@TUSK',data.responseData.password),
-        organizationName: data.responseData.organizationName,
-        contactPersonName: data.responseData.contactPersonName,           
+       
+        contactPersonName: data.responseData.contactPersonName,    
+       
         posInfo:{
           posid: data.responseData.posInfo.posid,
           zip: data.responseData.posInfo.zip,        
@@ -361,6 +364,7 @@ public getMerchantbyId(merchantId: any) {
           latitude: data.responseData.posInfo.latitude,    
           longitude: data.responseData.posInfo.longitude,    
           posAddress: data.responseData.posInfo.posaddress,
+          organizationName: data.responseData.organizationName,
           posname: data.responseData.posInfo.posname,
           stateId: data.responseData.posInfo.stateId,
           countryId: data.responseData.posInfo.countryId,
@@ -373,6 +377,7 @@ public getMerchantbyId(merchantId: any) {
         approvalStatus : data.responseData.approvalStatus,
         merchantURL : data.responseData.merchantURL,
         recStatus : data.responseData.recStatus == "A"? true : false,
+    
       });
       this.OrganizationNameTemp = data.responseData.organizationName,
       this.ContactPersonNameTemp = data.responseData.contactPersonName,
@@ -459,7 +464,7 @@ CancelForm()
     AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
     AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
     AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
-
+    AddMerchantModel.organizationName = AddMerchantModel.posInfo.organizationName,
        AddMerchantModel.merchantId = this.merchantId,
        AddMerchantModel.posInfo.merchantId = this.merchantId,
        AddMerchantModel.isEmailValidate = 1;

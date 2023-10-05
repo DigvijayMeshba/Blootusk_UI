@@ -22,6 +22,7 @@ export interface signupMerchant
           categoryId: number;
           categoryName: string,
           poscode: string;
+          organizationName: string;
           posname: string;
           posaddress: string;
           zip: string;

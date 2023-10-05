@@ -21,13 +21,24 @@ export class MessageeditComponent {
   ContactPersonNameTemp!: string;
   MobileNoTemp!:string;
   EmailIdTemp!: string;
+
   merchantId:string| any;
   uploadForm!:FormGroup;  
-  TemplateLists: any[] = [];  
   submitted = false;
   templateId!:number;
   messageContent!:string;
   public Editor = ClassicEditor;
+  ModeLists: any[] = [];
+  showDiv = {
+    current: true,
+    next: false
+  }
+
+  TemplateLists = [
+    { messageType: 'Signup', modeTypeId: '1' },
+    { messageType: 'Refferal', modeTypeId: '2' },
+    { messageType: 'Redeem', modeTypeId: '3' },
+  ];
 
   constructor(private modalService: NgbModal,public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
@@ -37,7 +48,10 @@ export class MessageeditComponent {
   ngOnInit(): void {   
 
     this.templateId = this.route.snapshot.params['id'];
-    this.getTemplatebyId(this.templateId);   
+    this.getTemplatebyId(this.templateId);  
+    
+    
+    
     this.GettemplateList();
 
        
@@ -45,6 +59,7 @@ export class MessageeditComponent {
        merchantId : new FormControl('',[]),     
        messageContent : new FormControl('', []),
        messageTypeId : new FormControl('', []),
+       modeTypeId: new  FormControl('', []),
       recStatus:new FormControl('', []),     
       token: new FormControl('', []),
       createdBy: new FormControl('', []),
@@ -71,7 +86,7 @@ export class MessageeditComponent {
   {
       this.appService.GetAll("api/SMSTemplate/GetMessageTypeDDL").subscribe(
       (x: any) => {
-        this.TemplateLists = x.responseData;
+        this.ModeLists = x.responseData;
         console.log(x.responseData);
       });
     
@@ -83,6 +98,8 @@ export class MessageeditComponent {
       let AdduserModel: addMessageTemplate = {      
       "templateId":this.templateId,
       "messageTypeId":formData.messageTypeId,
+      "modeTypeId": formData.modeTypeId,
+      
       "merchantId": this.merchantId,
       "messageContent": formData.messageContent,
       "recStatus": "A",
@@ -197,6 +214,28 @@ export class MessageeditComponent {
   public isVisibleWarning: boolean = false;
 
 
+  selectedValue!:number;
+  onDropdownChange(event: Event) {
+    debugger;
+    const selectedValue = (event.target as HTMLSelectElement).value;
+  
+    if(selectedValue == "1")
+    {
+      this.showDiv = {
+        current: true,
+        next: false
+      }
+    }
+    else{
+      this.showDiv = {
+        current: false,
+        next: true
+      }
+    }
+    
+
+  }
+
    //add for alert
    showMessageSuccess() {
    
@@ -212,11 +251,13 @@ export class MessageeditComponent {
 
   public getTemplatebyId(templateId: number) {
     debugger
+
     if (templateId > 0) {
       this.appService.getById("api/SMSTemplate/GetSmsTemplateById/", templateId).subscribe(data => {
-     
+      console.log('getbyid',data.responseData)
         this.uploadForm.patchValue({
-          messageTypeId : data.responseData.messageTypeId,
+          messageTypeId : data.responseData.messageTypeId,          
+          modeTypeId: data.responseData.modeTypeId,
           messageContent: data.responseData.messageContent,
           createdBy: data.responseData.createdBy,
           createdDate:data.responseData.createdDate,
@@ -229,7 +270,21 @@ export class MessageeditComponent {
        this.OrganizationNameTemp = data.responseData.organizationName,
         this.ContactPersonNameTemp = data.responseData.contactPersonName,
         this.MobileNoTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 
-        this.EmailIdTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email)       
+        this.EmailIdTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email)   
+        
+        if(data.responseData.messageTypeId == 1)
+        {
+          this.showDiv = {
+            current: true,
+            next: false
+          }
+        }
+        else{
+          this.showDiv = {
+            current: false,
+            next: true
+          }
+        }
        
       });
     }
