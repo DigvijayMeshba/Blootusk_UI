@@ -41,7 +41,7 @@
                                 <div class="live-preview">
 
                                <form [formGroup]="uploadForm" fxLayout="row wrap"
-                               (ngSubmit)="createMerchant(uploadForm.value)">
+                               (ngSubmit)="SubmitForm(uploadForm.value)">
                                            <div class="row">
                                         <div class="col-md-12">
                                             <div class="btn-left mb-2">
@@ -99,13 +99,13 @@
                                                 <div class="col-md-4">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Contact Person Name  <span class="madatory">*</span> </label>
-                                                        <input type="text" class="form-control" (keypress)="keyPressOnlyChar($event)"
+                                                        <input type="text" class="form-control" (keypress)="allowOnlySpaces($event)"
                                                         formControlName="contactPersonName" required minlength="3"
                                                         [ngClass]="{ 'is-invalid': submitted && f['contactPersonName'].errors }"
-                                                        placeholder="Enter Contact Person Name">
+                                                        placeholder="Enter Owner Firstname & Lastname">
                                                     <div *ngIf="submitted && f['contactPersonName'].errors" class="invalid-feedback">
-                                                        <div *ngIf="f['contactPersonName'].errors['required']">Contact Person Name is required</div>
-                                                        <div *ngIf="f['contactPersonName'].errors['minlength']">Contact Person least 3 char long
+                                                        <div *ngIf="f['contactPersonName'].errors['required']"> Owner Firstname & Lastname is required</div>
+                                                        <div *ngIf="f['contactPersonName'].errors['minlength']">Owner Firstname & Lastname Person least 3 char long
                                                         </div>
                                                     </div>
                                                    
@@ -126,15 +126,18 @@
                                                             class="form-control pe-5" placeholder="Enter Password"
                                                             id="password-input" formControlName="password"
                                                             [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
-                                                            minlength="6">
+                                                            minlength="6"  (input)="checkPasswordStrength()">
                                                         <button
                                                             class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted btn-eye"
-                                                            type="button" id="password-addon"><i class="mdi align-middle pass-eye" [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1
+                                                            type="button" id="password-addon"><i class="mdi align-middle pass-eye"
+                                                             [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1
                                                              }" (click)="toggleFieldTextType1()"></i></button>
-                                                        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                                       
+                                                             <div *ngIf="submitted && f['password'].errors && (f['password'].dirty || f['password'].touched)"  class="invalid-feedback">
                                                             <div *ngIf="f['password'].errors['required']">Password is required</div>
                                                             <div *ngIf="f['password'].errors['minlength']">Password at least 8 to 15 digits long</div>
-                                                          
+                                                            <div *ngIf="f['password'].errors['weakPassword']">Combine Symbols,Numbers, lowercase, and uppercase letters. </div>
+                                                            
                                                         </div>
 
                                                         </div>
@@ -187,15 +190,16 @@
                                                       
                                                         <input type="text" class="form-control" 
                                                         formControlName="organizationName" required minlength="3"
-                                                        [ngClass]="{ 'is-invalid': submitted && f['organizationName'].errors }"
-                                                       
                                                         placeholder="Enter Merchant (Organization) Name">
-                                                    <div *ngIf="submitted && f['organizationName'].errors" class="invalid-feedback">
-                                                        <div *ngIf="f['organizationName'].errors['required']">Merchant (Organization) Name is required</div>
-                                                        <div *ngIf="f['organizationName'].errors['minlength']">Merchant Name least 3 char long
-                                                        </div>
-            
-                                                    </div>
+
+                                                       <div *ngIf="this.uploadForm.get('posInfo.organizationName')?.invalid && submitted" class="invalid-feedback d-block">
+                                                            <div *ngIf="this.uploadForm.get('posInfo.organizationName')?.errors?.['required']">Organization Name is required</div>                                                        
+                                                        <div *ngIf="this.uploadForm.get('posInfo.organizationName')?.errors?.['minlength']">Organization Name least 3 char long                                               </div>
+                                                   
+                                                         </div> 
+
+
+                                                       
                                                     
                                                     
                                                     </div>
@@ -203,12 +207,14 @@
 
                                                 <div class="col-md-6">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">POS Name (Point of sale)  <span class="madatory">*</span></label>
-                                                        <input type="text" id="posName" formControlName="posName" class="form-control" placeholder="Enter POS Name">                                                      
-                                                        <div *ngIf="this.uploadForm.get('posInfo.posName')?.invalid && submitted" class="invalid-feedback d-block">
+                                                        <label for="basiInput" class="form-label">Location Name </label>
+                                                        <input type="text" id="posName" formControlName="posName" class="form-control" placeholder="Enter Location Name">                                                      
+                                                     
+                                                        <!-- <div *ngIf="this.uploadForm.get('posInfo.posName')?.invalid && submitted" class="invalid-feedback d-block">
                                                             <div *ngIf="this.uploadForm.get('posInfo.posName')?.errors?.['required']">POS Name is required</div>                                                        
                                                         <div *ngIf="this.uploadForm.get('posInfo.posName')?.errors?.['minlength']">POS Name least 3 char long                                               </div>
-                                                     </div> 
+                                                   
+                                                         </div>  -->
                                                     </div>
                                                 </div>
         
@@ -237,12 +243,12 @@
                                                 </div>
                                                 <div class="col-md-8">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">POS Address  <span class="madatory">*</span></label>
-                                                        <textarea class="form-control" formControlName="posAddress" rows="1" placeholder="Enter POS Address"></textarea>
+                                                        <label for="basiInput" class="form-label">Business Address  <span class="madatory">*</span></label>
+                                                        <textarea class="form-control" formControlName="posAddress" rows="1" placeholder="Enter Business Address"></textarea>
                                                     
                                                         <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.invalid && submitted" class="invalid-feedback d-block">
-                                                            <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.errors?.['required']">POS Address is required</div>                                                        
-                                                        <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.errors?.['minlength']">POS Address least 3 char long                                               </div>
+                                                            <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.errors?.['required']">Business Address is required</div>                                                        
+                                                        <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.errors?.['minlength']">Business Address least 3 char long                                               </div>
                                                      </div> 
                                                     </div>
                                                 </div>
@@ -268,13 +274,20 @@
                                                  <div class="col-md-4">
                                                     <div>
                                                         <label for="basiInput" class="form-label">State  <span class="madatory">*</span></label>
-                                                        <select class="form-select" aria-label="Default  select example" formControlName ="stateId">
-                                                            <option value="" disabled selected>Select State</option>
-                                                 
-                                                            <option *ngFor="let State of StateList" [value]="State.stateId">
+                                                        <!-- <select class="form-select" aria-label="Default  select example" formControlName ="stateId">
+                                                                                                             
+                                                            <option selected  *ngFor="let State of StateList" [value]="State.stateId">
                                                                 {{ State.stateName}}
                                                             </option>
-                                                        </select>      
+                                                        </select>       -->
+
+                                                        <select class="form-select" aria-label="Default select example" formControlName="stateId">
+                                                            <option value="" disabled selected>Select State</option>
+                                             
+                                                            <option  *ngFor="let State of StateList; let isFirst = first" [value]="State.stateId">
+                                                                {{ State.stateName }}
+                                                            </option>
+                                                        </select>
                                                         <div *ngIf="this.uploadForm.get('posInfo.stateId')?.invalid && submitted" class="invalid-feedback d-block">
                                                             <div *ngIf="this.uploadForm.get('posInfo.stateId')?.errors?.['required']">Please select State</div>                                                        
                                                      </div>                                                  
@@ -320,7 +333,7 @@
                 </div>
 
 
-                <div class="col-md-5" *ngIf="showDiv.next">
+                <!-- <div class="col-md-5" *ngIf="showDiv.next">
                     <form [formGroup]="uploadForm" fxLayout="row wrap"
                     (ngSubmit)="SubmitForm(uploadForm.value)">
                  
@@ -365,7 +378,7 @@
     
                     </div>
                     </form>
-                </div>
+                </div> -->
             </div>
             
 

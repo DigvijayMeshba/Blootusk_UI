@@ -45,7 +45,7 @@ export class SignupcustomerComponent {
   }
   
 
-  public loginCustomer = (formData: CustomerForAutintication) => {
+  public loginCustomer =(formData: CustomerForAutintication) => {
     
     debugger;
 
@@ -194,7 +194,7 @@ export class SignupcustomerComponent {
   SubmitForm(formDdt: CustomerForOtp)
   {
     debugger
-     let AdduserOtpModel: CustomerForOtp = formDdt;
+     let AdduserOtpModel: CustomerForAutintication = formDdt;
 
     const CustomerForOtp: CustomerForOtp = {
       email: "",
@@ -216,11 +216,12 @@ export class SignupcustomerComponent {
       )
         .subscribe((res: any) => {
           debugger;
+          console.log(res.responseData);
+          let statuscode : number = res.responseStatusCode;
 
-          
-         
-
-          //status code
+          switch(statuscode)
+          {
+            case 200:
            this.tokenStorage.custcode(res.responseData.customerID);
            this.tokenStorage.SaveRole(this.IsCustomer)
 
@@ -232,13 +233,22 @@ export class SignupcustomerComponent {
             this._authService.sendAuthStateChangeNotification(res.responseMessage);
             this._router.routeReuseStrategy.shouldReuseRoute = () => false;
             this._router.onSameUrlNavigation = 'reload';
-            this._router.navigate(['../dashboards/customerdashboard']);
-           
+            this._router.navigate(['../dashboards/customerdashboard']);           
           }
-
-        }
-        )
-    
+          break;
+          case 212 :
+                Swal.fire({
+                  title:'Warning',
+                  text: 'Invalid username.',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+           
+                });
+                break;
+              }
+        })    
     }
     else
     {      
@@ -252,7 +262,7 @@ export class SignupcustomerComponent {
     }); 
    
         
-    }   
+   }   
   }
 
   get f() { return this.loginCustomerForm.controls; }

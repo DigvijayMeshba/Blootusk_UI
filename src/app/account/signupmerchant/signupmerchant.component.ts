@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, UntypedFormGroup, Validators,AbstractControl, ValidationErrors } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -32,6 +32,9 @@ export class SignupmerchantComponent {
    selectedCategoryId!:number;
    selectedCountryId!:number;
    selectedStateId!:number;
+   //strong password
+   showPasswordStrengthMessage: boolean = false;
+   strengthMessage: string = '';
 
   fieldTextType1!: boolean;
   fieldTextType2!: boolean;
@@ -48,7 +51,11 @@ export class SignupmerchantComponent {
   }
   compareControlName!: string;
 
-  
+  allowOnlySpaces(event:any) {
+    if (event.key !== ' ' && !/^[a-zA-Z]*$/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
 
   toggleFieldTextType1() {
     this.fieldTextType1 = !this.fieldTextType1;
@@ -69,6 +76,7 @@ export class SignupmerchantComponent {
   merchantEmailOTP!:string;
   merchantMobileOTP!:string;
   messageContent!:string; 
+  defaultCountry! :"CALIFORNIA"
 
   constructor(public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
@@ -78,6 +86,7 @@ export class SignupmerchantComponent {
    }
 
    ngOnInit(): void {
+
 
 //adding form encr/Decr 
 debugger;
@@ -94,6 +103,7 @@ console.log('Decrypted :' + decrypted);
     this.GetCountryList();
     this.getCatagoryList(); 
     this.GetStateList();
+    
 
     this.otpForm = new FormGroup({
       phoneNumberOTP: new FormControl('',[Validators.required]),   
@@ -106,7 +116,9 @@ console.log('Decrypted :' + decrypted);
       merchantCode: new FormControl('', []),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      password: new FormControl('', [this.validateStrongPassword,Validators.required, Validators.minLength(8)]),
+      organizationName: new FormControl('', []),
+    
       confirmPassword: new FormControl('', [Validators.required]),     
       contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]), 
       isPhoneNumberValidate:new FormControl('', []),
@@ -127,11 +139,10 @@ console.log('Decrypted :' + decrypted);
         merchantURL :  new FormControl('',[]),
 
        posInfo : new FormGroup({
-        posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        posName: new FormControl('', []),
         categoryId: new FormControl('', [Validators.required]),
         posAddress: new FormControl('', [Validators.required, Validators.minLength(3)]),
         organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    
         zip: new FormControl('', [Validators.required, Validators.minLength(5)]),
         stateId: new FormControl('', [Validators.required]),
         countryId: new FormControl('', [Validators.required]),
@@ -146,9 +157,12 @@ console.log('Decrypted :' + decrypted);
        }),      
     },
     
+   
+
      { 
-      validators: [Validation.match('password', 'confirmPassword')]
-     }
+      validators: [Validation.match('password', 'confirmPassword')], 
+     },
+     
     );
 
    if (this.tokenStorage.getToken()) {
@@ -178,6 +192,27 @@ console.log('Decrypted :' + decrypted);
       
     });
   }
+
+
+  validateStrongPassword(control: { value: any; }) {
+    const password = control.value;
+
+    if (!password) {
+      return null; 
+    }
+
+    const isStrong = password.length >= 8 && /[A-Z]/.test(password) && /[!@#$%^&*]/.test(password)&& /[0-9]/.test(password);
+
+    return isStrong ? null : { weakPassword: true };
+  }
+
+   
+
+  private isPasswordStrong(password: string, strengthLevel: number): boolean {
+    return password.length >= 8 && /[A-Z]/.test(password) && /[!@#$%^&*]/.test(password);
+  }
+
+
   validate(control: AbstractControl): ValidationErrors | null {
     const controlToCompare = control.parent?.get(this.compareControlName);
 
@@ -414,11 +449,12 @@ console.log('Decrypted :' + decrypted);
     //this.messageContent = 'This is a warning.';
     this.isVisibleWarning = true;
   }
-  SubmitForm(formData: UserForOtp)
-  {
-    let AdduserOtpModel: UserForOtp = formData;
-    let addUserDeatil = this.tokenStorage.getUser();   
-    let AddMerchantDtail=   this.tokenStorage.getMerchant();
+  SubmitForm(formData: signupMerchant)
+  { 
+   // let AdduserOtpModel: UserForOtp = formData;
+   // let addUserDeatil = this.tokenStorage.getUser();   
+    //let AddMerchantDtail=   this.tokenStorage.getMerchant();
+    let  AddMerchantDtail =  formData;
    
     AddMerchantDtail.posInfo.posid = 0;
     AddMerchantDtail.posInfo.merchantId = 0;    
@@ -433,33 +469,30 @@ console.log('Decrypted :' + decrypted);
     AddMerchantDtail.deviceOs = "",
     AddMerchantDtail.generatedBy = "",
     AddMerchantDtail.organizationName = AddMerchantDtail.posInfo.organizationName,
-    AddMerchantDtail.stateName = ""? "":AddMerchantDtail.stateName,
-    AddMerchantDtail.categoryName = ""? "":AddMerchantDtail.categoryName,
-    AddMerchantDtail.countryName = ""? "":AddMerchantDtail.countryName,
+    AddMerchantDtail.posInfo.stateName = ""? "":AddMerchantDtail.posInfo.stateName,
+    AddMerchantDtail.posInfo.categoryName = ""? "":AddMerchantDtail.posInfo.categoryName,
+    AddMerchantDtail.posInfo.countryName = ""? "":AddMerchantDtail.posInfo.countryName,
+    AddMerchantDtail.posInfo.posname = ""? "":AddMerchantDtail.posInfo.posname,
    
 AddMerchantDtail.merchantURL = '',
     console.log(AddMerchantDtail);
 
-    this.prvopt = this.tokenStorage.getPhoneNOOtp();
-    this.prvemailopt = this.tokenStorage.getEmailOtp();
+    // this.prvopt = this.tokenStorage.getPhoneNOOtp();
+    // this.prvemailopt = this.tokenStorage.getEmailOtp();
 
    
 debugger;
 
-      if((formData.phoneNumberOTP == this.merchantMobileOTP || formData.phoneNumberOTP == '123456') && 
-(formData.emailOTP == this.merchantEmailOTP || formData.emailOTP == '123456'))
-    {      
-       console.log(AddMerchantDtail);
+//       if((formData.phoneNumberOTP == this.merchantMobileOTP || formData.phoneNumberOTP == '123456') && 
+// (formData.emailOTP == this.merchantEmailOTP || formData.emailOTP == '123456'))
+//     {      
+     //  console.log(AddMerchantDtail);
       this.appService.Add('api/Merchant/AddMerchant', AddMerchantDtail).subscribe((data: any) => {
+        console.log('Addmerchant',data.responseData)
         let statuscode : number = data.responseStatusCode;
         switch(statuscode)
         {          
-          case 200:           
-          this.showMessageSuccess() 
-          location.reload();  
-          break;
-         
-                case 200:
+            case 200:
             
               Swal.fire({
                 title:'Success',
@@ -535,27 +568,42 @@ debugger;
                       allowOutsideClick: false,
                       allowEscapeKey: false
                     }); 
-          }   
-         
-        
+          }          
             
       },);
     
-    }
-    else
-    {     
+    // }
+    // else
+    // {     
 
-      Swal.fire({
-        title:'Warning',
-        text: 'Invalid OTP',
-        icon: 'warning',
-        confirmButtonColor: '#364574',
-        allowOutsideClick: false,
-        allowEscapeKey: false
-      });
+    //   Swal.fire({
+    //     title:'Warning',
+    //     text: 'Invalid OTP',
+    //     icon: 'warning',
+    //     confirmButtonColor: '#364574',
+    //     allowOutsideClick: false,
+    //     allowEscapeKey: false
+    //   });
 
         
-    }   
+    // }   
   }
+
+  checkPasswordStrength() {
+    const password = this.uploadForm.get('password')?.value;
+    this.showPasswordStrengthMessage = true;
+
+    // You can implement your password strength logic here
+    // For example, you can check for uppercase, lowercase, digits, special characters, etc.
+    // Update this logic to match your password strength requirements
+
+    if (/[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password) && /[0-9]/.test(password)) {
+      this.strengthMessage = 'Strong password';
+    } else {
+      this.strengthMessage = 'Weak password';
+    }
+  }
+
+
 }
 

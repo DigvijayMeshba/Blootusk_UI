@@ -89,6 +89,10 @@
                                             {{ template.messageType }}
                                           </option> 
                                     </select>
+                                    <div *ngIf="submitted && f['modeTypeId'].errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f['modeTypeId'].errors['required']">Message Type is required</div>
+                                       
+                                    </div>
                                 </div>
                             </div>
 
@@ -101,6 +105,10 @@
                                             {{ modes.messageType }}
                                         </option>
                                     </select>
+                                    <div *ngIf="submitted && f['messageTypeId'].errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f['messageTypeId'].errors['required']">Mode Type is required</div>
+                                       
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -112,6 +120,13 @@
                                 <div>
                                     <label for="basiInput" class="form-label">Message Content </label>
                                     <textarea class="form-control" rows="2" formControlName="messageContent" placeholder="Enter Message Content"></textarea>
+                               
+                                    <div *ngIf="submitted && f['messageContent'].errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f['messageContent'].errors['required']">Message Content is required</div>
+                                       
+                                    </div>
+                               
+                               
                                 </div>
                             </div>
                         </div>

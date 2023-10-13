@@ -123,10 +123,10 @@ export class MerchanteditComponent {
       merchantCode: new FormControl('', []),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(8),this.validateStrongPassword]),
       contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]),     
       posInfo : new FormGroup({
-        posname: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        posname: new FormControl('', []),
         categoryId: new FormControl('', [Validators.required]),
         posAddress: new FormControl('',[ Validators.required, Validators.minLength(3)]),
         zip: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -210,6 +210,19 @@ export class MerchanteditComponent {
         this.CountryLists = x.responseData;
         console.log(x.responseData);
       });
+  }
+  showPasswordStrengthMessage: boolean = false;
+  strengthMessage: string = '';
+  checkPasswordStrength() {
+    const password = this.uploadForm.get('password')?.value;
+    this.showPasswordStrengthMessage = true;
+
+   
+    if (/[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password) && /[0-9]/.test(password)) {
+      this.strengthMessage = 'Strong password';
+    } else {
+      this.strengthMessage = 'Weak password';
+    }
   }
 
    GetStateList()
@@ -403,6 +416,8 @@ AddRemark(formDt: remarkHistory)
     remarkDate:  new Date(),     
   }
 
+  
+
   console.log(remarkdetail);
   debugger;
   this.appService.Add('api/Merchant/AddMerchantRemark', addremarks).subscribe((data: any) => {
@@ -481,7 +496,7 @@ CancelForm()
        AddMerchantModel.password=this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.password);
        AddMerchantModel.phoneNumber =  this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.phoneNumber);
        AddMerchantModel.email = this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.email.toLowerCase());
-       
+       AddMerchantModel.posInfo.posname = ""?"":AddMerchantModel.posInfo.posname;
     if(this.uploadForm.valid)
     {
     this.appService.Add('api/Merchant/EditMerchant', AddMerchantModel)
@@ -646,6 +661,18 @@ CancelForm()
         },);  
     
     
+}
+
+validateStrongPassword(control: { value: any; }) {
+  const password = control.value;
+
+  if (!password) {
+    return null; 
+  }
+
+  const isStrong = password.length >= 8 && /[A-Z]/.test(password) && /[!@#$%^&*]/.test(password)&& /[0-9]/.test(password);
+
+  return isStrong ? null : { weakPassword: true };
 }
 }
 

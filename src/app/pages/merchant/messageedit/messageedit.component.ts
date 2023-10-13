@@ -1,5 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppService } from 'src/app/app.service';
@@ -57,7 +57,7 @@ export class MessageeditComponent {
        
   this.uploadForm = new FormGroup({
        merchantId : new FormControl('',[]),     
-       messageContent : new FormControl('', []),
+       messageContent : new FormControl('', [Validators.required]),
        messageTypeId : new FormControl('', []),
        modeTypeId: new  FormControl('', []),
       recStatus:new FormControl('', []),     
@@ -129,7 +129,7 @@ export class MessageeditComponent {
             
             Swal.fire({
               title:'Success',
-              text: 'Message Added Successfully.',
+              text: 'Message Update Successfully.',
               icon: 'success',
               confirmButtonColor: '#364574',
               allowOutsideClick: false,
@@ -287,6 +287,22 @@ export class MessageeditComponent {
         }
        
       });
+    }
+  }
+  showPasswordStrengthMessage: boolean = false;
+  strengthMessage: string = '';
+  checkPasswordStrength() {
+    const password = this.uploadForm.get('password')?.value;
+    this.showPasswordStrengthMessage = true;
+
+    // You can implement your password strength logic here
+    // For example, you can check for uppercase, lowercase, digits, special characters, etc.
+    // Update this logic to match your password strength requirements
+
+    if (/[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password) && /[0-9]/.test(password)) {
+      this.strengthMessage = 'Strong password';
+    } else {
+      this.strengthMessage = 'Weak password';
     }
   }
 }

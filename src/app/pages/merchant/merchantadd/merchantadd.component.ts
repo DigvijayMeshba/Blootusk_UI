@@ -145,7 +145,7 @@ export class MerchantaddComponent {
         emailOTP : new FormControl('',[]), 
         merchantURL: new FormControl('',[]),    
        posInfo : this.formBuilder.group({
-        posName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        posName: new FormControl('', []),
         categoryId: new FormControl('', [Validators.required]),
         organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
         posAddress: new FormControl('',[ Validators.required, Validators.minLength(3)]),
@@ -332,6 +332,7 @@ export class MerchantaddComponent {
       AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
       AddMerchantModel.password=   "12345678";
       AddMerchantModel.merchantURL = '';
+      AddMerchantModel.posInfo.posname = ""?"":AddMerchantModel.posInfo.posname,
   
       console.log(AddMerchantModel);
         this.appService.Add('api/Merchant/AddMerchant', AddMerchantModel)      

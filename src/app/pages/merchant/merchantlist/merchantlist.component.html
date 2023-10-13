@@ -85,7 +85,7 @@
                                         <th scope="col">Email Id</th>
                                         <th scope="col">Verification</th>
                                         <th scope="col">Created By</th>
-                                        <th scope="col" class="w-10 text-center">Action</th>
+                                        <th scope="col" class=" w-10 text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody *ngFor="let object of getPageData()">
@@ -104,9 +104,9 @@
                                         <td class="w-10 text-left">                                          
                                             <div class="gap-3" >
                                                 
-                                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                               
                                                 <a [routerLink]="['/merchant/merchantedit', object.merchantId]" placement="bottom" ngbTooltip="Edit This" class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
-                                                &nbsp;&nbsp;
+                                              
                                                 
                                                 
                                                 <!-- <div id="tooltip" class="hidden">Edit</div> -->
@@ -117,13 +117,7 @@
 
                                                 <a *ngIf="object.recStatus!='A'" class="link-success fs-15"><!-- <i class="ri-checkbox-blank-circle-line"></i> --><i class=""></i> </a>
 
-                                                &nbsp;&nbsp;
-                                                   
-                                               
-
-                                               
-                                                
-                                                
+                                                                                             
                                                 <!-- <div id="tooltip" class="hidden">Edit</div> -->
 
                                                 <!-- <span *ngIf="object.recStatus; else elseBlock">

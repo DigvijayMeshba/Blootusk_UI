@@ -1,5 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppService } from 'src/app/app.service';
@@ -57,11 +57,11 @@ export class RewardaddComponent {
        
     this.uploadForm = new FormGroup({
        merchantId : new FormControl('',[]),    
-       rewardPoint : new FormControl('',[]),    
-       rewardTypeId : new FormControl('', []),
-       rewardDate : new FormControl('',[]),
-       issuedBy : new FormControl('',[]),  
-       validity :  new FormControl('',[]),
+       rewardPoint : new FormControl('',[Validators.required]),    
+       rewardTypeId : new FormControl('', [Validators.required]),
+       rewardDate : new FormControl('',[Validators.required]),
+       issuedBy : new FormControl('',[Validators.required]),  
+       validity :  new FormControl('',[Validators.required]),
         recStatus:new FormControl('', []),     
         token: new FormControl('', []),
         createdBy: new FormControl('', []),
@@ -76,7 +76,6 @@ export class RewardaddComponent {
   public submit() {
    
     this.submitted = true;
-    
   }
 
   public getMerchantbyId(merchantId: any) {
@@ -104,13 +103,12 @@ export class RewardaddComponent {
      //create new Template
      public createTemplate(formData: any) {
 
-      console.log('template', formData)
       debugger;
       let AdduserModel: addReward = {
         "merchantId": this.merchantId,
         "rewardPoint" : formData.rewardPoint,
         "rewardTypeId": formData.rewardTypeId,
-        "RewardType": '',
+        "RewardType": formData.RewardType,
         "rewardDate": formData.rewardDate,
         "issuedBy": formData.issuedBy,
         "validity": formData.validity,
@@ -197,7 +195,7 @@ export class RewardaddComponent {
             case 603:
               Swal.fire({
                 title:'Duplication',
-                text: 'Duplicate Category Status',
+                text: 'Reward data already exist',
                 icon: 'warning',
                 confirmButtonColor: '#364574',
                 allowOutsideClick: false,
@@ -207,13 +205,6 @@ export class RewardaddComponent {
               break;
             case 400:  
         }
-
-      
-        // if (data.responseStatusCode == 200 ) {
-          
-        //   this.router.navigate(['/merchant/merchantedit',this.merchantId], { relativeTo: this.route });
-                                          
-        // }    
       },);
   
     }  
@@ -223,4 +214,15 @@ export class RewardaddComponent {
     this.router.navigate(['/merchant/merchantedit/', this.merchantId], { relativeTo: this.route });
     
   }
+
+    //Validation for only enter number
+    keyPressOnlynum(event: any) {
+      var inp = String.fromCharCode(event.keyCode);
+      if (/[0-9]/.test(inp)) {
+        return true;
+      } else {
+        event.preventDefault();
+        return false;
+      }
+    }
 }

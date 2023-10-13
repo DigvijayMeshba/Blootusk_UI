@@ -1,5 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppService } from 'src/app/app.service';
@@ -56,9 +56,9 @@ export class MessageaddComponent {
     this.GetModeList();
     this.uploadForm = new FormGroup({
       merchantId: new FormControl('', []),
-      messageContent: new FormControl('', []),
-      messageTypeId: new FormControl('', []),
-      modeTypeId: new FormControl('', []),
+      messageContent: new FormControl('', [Validators.required]),
+      messageTypeId: new FormControl('', [Validators.required]),
+      modeTypeId: new FormControl('', [Validators.required]),
       recStatus: new FormControl('', []),
       token: new FormControl('', []),
       createdBy: new FormControl('', []),

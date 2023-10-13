@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import Swal from 'sweetalert2';
+import { listReffreal } from '../customer';
 @Component({
   selector: 'app-referrallist',
   templateUrl: './referrallist.component.html',
@@ -13,9 +14,10 @@ export class ReferrallistComponent {
 CustomerList!:any [];
 customerId!:number;
 public page: number = 1;
+keyword! :string;
 public count = 10;
   constructor(public appService: AppService,private EncrDecr: EncrDecrServiceService,
-    private route: ActivatedRoute,private tokenStorage: TokenStorageService,) {
+    private route: ActivatedRoute,private tokenStorage: TokenStorageService,private router: Router) {
 
   //  this.customerId = this.route.snapshot.params['id'];
    // this.GettemplateList()
@@ -25,7 +27,7 @@ public count = 10;
    ngOnInit(): void {
     debugger;
     this.customerId =this.tokenStorage.getcustcode();
-    this.GettemplateList()
+    this.GetRewardPointList()
    }
 
 
@@ -35,9 +37,16 @@ public count = 10;
     return this.CustomerList.slice(startIndex, endIndex);
   }
 
-   public GettemplateList()
+   public GetRewardPointList()
    {
-       this.appService.getById("api/User/GetCustomerListForRefferal?CustId=",this.customerId).subscribe(
+    debugger;
+    let edituserModel: listReffreal = {
+      "CustomerId" : this.customerId,
+      "Keyword": this.keyword == undefined? "" : this.keyword,
+       "pageNumber" : this.page ==0 ? 0:this.page,
+       "MerchantID" : 0,
+    }   
+       this.appService.GetAllList("api/User/GetCustomerListForRefferal",edituserModel).subscribe(
        (x: any) => {
          this.CustomerList = x.responseData.customerList;
          console.log('ListCustref',x.responseData);
@@ -54,9 +63,15 @@ public count = 10;
            });
           }
        });
-      
-    
-     
+   }
+
+
+   public ClearSearchdata()
+   {
+     debugger;
+     this.keyword = '';
+     this.router.navigate(['/customer/rewardpointlist'], { relativeTo: this.route });
+     this.GetRewardPointList()
    }
 
 }

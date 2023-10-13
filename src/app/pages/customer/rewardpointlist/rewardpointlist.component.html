@@ -22,7 +22,7 @@
                                         <div>
                                             <label for="basiInput" class="form-label">Transaction Type </label>
                                             <select class="form-select" aria-label="Default select example" [(ngModel)]="rewardPointId" >
-                                               <option value=""  selected>Select Transaction Type </option>                                             
+                                               <option value="" disabled selected>Select Transaction Type</option>                                          
                                                <option *ngFor="let modes of TransactionTypeLists" [value]="modes.id">
                                                 {{ modes.name }}
                                               </option>                                                      
@@ -32,9 +32,9 @@
 
                                     <div class="col-md-8 ">                                        
                                         <div class="mt-4 text-right gap-1 ">                                      
-                                            <button type="button" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
+                                            <button type="button" class="btn btn-primary ms-auto"  (click)="GettemplateList()"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
                                             &nbsp;
-                                            <button type="button" class="btn btn-primary ms-auto"><i class="ri-refresh-line cardicon label-icon align-middle"></i>Clear</button>
+                                            <button type="button" class="btn btn-primary ms-auto" (click)="ClearSearchdata()"><i class="ri-refresh-line cardicon label-icon align-middle"></i>Clear</button>
                                         </div>
                                     </div>
     

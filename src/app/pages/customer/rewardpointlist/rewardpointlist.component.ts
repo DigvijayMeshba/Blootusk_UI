@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
@@ -28,7 +28,7 @@ rewardPointId!:number;
 
 
   constructor(public appService: AppService,private EncrDecr: EncrDecrServiceService,
-    private route: ActivatedRoute,private tokenStorage: TokenStorageService,) {
+    private route: ActivatedRoute,private tokenStorage: TokenStorageService,private router: Router) {
 
   //  this.customerId = this.route.snapshot.params['id'];
    // this.GettemplateList()
@@ -52,6 +52,7 @@ rewardPointId!:number;
    public GettemplateList()
    {
 
+    this.page =0;
     if(this.rewardPointId == undefined)
     {
        this.rewardPointId = 0;
@@ -79,9 +80,14 @@ rewardPointId!:number;
            });
           }
        });
-     
    }
 
-
+   public ClearSearchdata()
+   {
+     debugger;
+     this.rewardPointId = 0;
+     this.router.navigate(['/customer/rewardpointlist'], { relativeTo: this.route });
+     this.GettemplateList()
+   }
 
 }

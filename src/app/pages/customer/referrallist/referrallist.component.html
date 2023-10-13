@@ -22,10 +22,9 @@
                                     <div class="col-md-8">
                                         <div>
                                             <label for="labelInput" class="form-label">Referral Name</label>
-                                            <input type="text" class="form-control" placeholder="Enter Referral Name">
+                                            <input type="text" class="form-control" [(ngModel)]="keyword"  placeholder="Enter Referral Name">
                                         </div>
                                     </div>
-    
                                 </div>
     
                                 <div class="row mb-3">
@@ -41,9 +40,9 @@
 
                                     <div class="col-md-12 ">                                        
                                         <div class="mt-4  text-right gap-1 ">                                      
-                                            <button type="button" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
+                                            <button type="button" class="btn btn-primary ms-auto" (click)="GetRewardPointList()"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
                                             &nbsp;
-                                            <button type="button" class="btn btn-primary ms-auto"><i class="ri-refresh-line cardicon label-icon align-middle"></i>Clear</button>
+                                            <button type="button" class="btn btn-primary ms-auto" (click)="ClearSearchdata()"><i class="ri-refresh-line cardicon label-icon align-middle"></i>Clear</button>
                                         </div>
                                     </div>
                                 </div>
@@ -61,7 +60,7 @@
                                         <th scope="col">Referral Name</th>
                                         
                                         <th scope="col">Merchant Name</th>
-                                        <th scope="col">Reward Points</th>
+                                        <th scope="col">Total Reward Points</th>
                                         <!-- <th scope="col">Transaction Type</th> -->
                                     </tr>
                                 </thead>

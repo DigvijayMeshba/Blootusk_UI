@@ -133,7 +133,7 @@
                                                                 class="form-control pe-5" placeholder="Enter password"
                                                                 id="password-input" formControlName="password" maxlength="15"
                                                                 [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
-                                                                minlength="8">
+                                                                minlength="8" (input)="checkPasswordStrength()" >
                                                             <button
                                                                 class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted btn-eye"
                                                                 type="button" id="password-addon"><i class="mdi align-middle pass-eye" [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1
@@ -141,6 +141,7 @@
                                                             <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
                                                                 <div *ngIf="f['password'].errors['required']">Password is required</div>
                                                                 <div *ngIf="f['password'].errors['minlength']">Password at least 8 to 15 digits long</div>
+                                                                <div *ngIf="f['password'].errors['weakPassword']">Combine Symbols,Numbers, lowercase and uppercase letters. </div>
                                                               
                                                             </div>
     
@@ -174,24 +175,23 @@
                                                                 <label for="basiInput" class="form-label">Merchant (Organization) Name <span class="mnd-fld">*</span> </label>
                                                                 <input type="text" class="form-control" formControlName="organizationName" placeholder="Enter Merchant (Organization) Name" 
                                                               >
-                                                                <div *ngIf="submitted && f['organizationName'].errors" class="invalid-feedback">
-                                                                    <div *ngIf="f['organizationName'].errors['required']">Merchant Name is required</div>OrganizationNameTemp
-                                                                    <div *ngIf="f['organizationName'].errors['minlength']">Merchant Name least 3 char long
-                                                                    </div>
-                        
-                                                                </div>
+                                                              <div *ngIf="this.uploadForm.get('posInfo.organizationName')?.invalid && submitted" class="invalid-feedback d-block">
+                                                                <div *ngIf="this.uploadForm.get('posInfo.organizationName')?.errors?.['required']">Organization Name is required</div>                                                        
+                                                            <div *ngIf="this.uploadForm.get('posInfo.organizationName')?.errors?.['minlength']">Organization Name least 3 char long                                               </div>
+                                                       
+                                                             </div> 
                                                             
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <div>
-                                                                <label for="basiInput" class="form-label">POS Name (Point of sale) <span class="mnd-fld">*</span></label>
-                                                                <input type="text" class="form-control" formControlName="posname" placeholder="Enter POS Name">
-                                                                <div *ngIf="this.uploadForm.get('posInfo.posname')?.invalid && submitted" class="invalid-feedback d-block">
+                                                                <label for="basiInput" class="form-label">Location Name </label>
+                                                                <input type="text" class="form-control" formControlName="posname" placeholder="Enter Location Name">
+                                                                <!-- <div *ngIf="this.uploadForm.get('posInfo.posname')?.invalid && submitted" class="invalid-feedback d-block">
                                                                     <div *ngIf="this.uploadForm.get('posInfo.posname')?.errors?.['required']">Pos Name is required</div>                                                        
                                                                 <div *ngIf="this.uploadForm.get('posInfo.posname')?.errors?.['minlength']">Pos Name least 3 char long                                               </div>
-                                                             </div> 
+                                                             </div>  -->
                                                             
                                                             </div>
                                                         </div>
@@ -216,12 +216,12 @@
                                                         </div>
                                                         <div class="col-md-8">
                                                             <div>
-                                                                <label for="basiInput" class="form-label">POS Address <span class="mnd-fld">*</span></label>
-                                                                <textarea class="form-control" rows="1" placeholder="Enter POS Address" formControlName="posAddress"></textarea>
+                                                                <label for="basiInput" class="form-label">Business Address <span class="mnd-fld">*</span></label>
+                                                                <textarea class="form-control" rows="1" placeholder="Enter Business Address" formControlName="posAddress"></textarea>
                                                             
                                                                 <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.invalid && submitted" class="invalid-feedback d-block">
-                                                                    <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.errors?.['required']">Pos Address is required</div>                                                        
-                                                                <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.errors?.['minlength']">Pos Address least 3 char long                                               </div>
+                                                                    <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.errors?.['required']">Business Address is required</div>                                                        
+                                                                <div *ngIf="this.uploadForm.get('posInfo.posAddress')?.errors?.['minlength']">Business Address least 3 char long                                               </div>
                                                              </div> 
                                                             </div>
                                                         </div>

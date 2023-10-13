@@ -87,6 +87,8 @@
                                             {{ template.messageType }}
                                           </option> 
                                     </select>
+
+                                  
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -109,6 +111,11 @@
                                 <div>
                                     <label for="basiInput" class="form-label">Message Content </label>
                                     <textarea class="form-control" rows="2" formControlName="messageContent" placeholder="Enter Message Content"></textarea>
+                                    <div *ngIf="submitted && f['messageContent'].errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f['messageContent'].errors['required']">Message Content is required</div>
+                                       
+                                    </div>
+                                
                                 </div>
                             </div>
                         </div>
@@ -140,7 +147,7 @@
                                         <button type="button" (click)="CancelForm()" class="btn btn-info ms-auto"><i class="ri-close-line label-icon align-middle me-2"></i> Cancel</button>
                                       
                                         
-                                        <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Update</button>
+                                        <button type="submit" (click)="submit()" class="btn btn-primary"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Update</button>
                                 
                                         <!-- <app-alert [isVisibleSuccess]="isVisibleSuccess" [isVisibleDanger]="isVisibleDanger" [isVisibleWarning]="isVisibleWarning" [messageContent]="messageContent"></app-alert>
 

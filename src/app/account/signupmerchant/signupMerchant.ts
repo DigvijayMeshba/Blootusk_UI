@@ -15,6 +15,7 @@ export interface signupMerchant
         isEmailValidate: number;
         approvalStatus: string;
         recStatus: string;
+        generatedBy:string,
         remark: string;
         posInfo: {
           posid: number;
@@ -27,12 +28,17 @@ export interface signupMerchant
           posaddress: string;
           zip: string;
           stateId: number;
-          stateName: number;
+          stateName: string;
           countryId: number;
           countryName:string;
           latitude: string;
           longitude: string
+             
         },
+        createdBy: number;
+        createdDate:Date;
+        modifyBy: number;
+        modifyDate: Date;
 
         merchantURL : string;
         remarkList: [

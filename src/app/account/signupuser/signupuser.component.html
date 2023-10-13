@@ -39,7 +39,7 @@
                             <div class="p-2 ">
                                 <div class="live-preview">
                                     <form [formGroup]="uploadForm" fxLayout="row wrap"
-                                    (ngSubmit)="createUser(uploadForm.value)">
+                                    (ngSubmit)="SubmitForm(uploadForm.value)">
                                     <div class="alert alert-borderless alert-warning text-center mb-2 mx-2" role="alert">
                                         <br>
                                         Your merchant name is 
@@ -47,11 +47,8 @@
            <br>
          
            <div *ngIf="CustomerCode!=null">
-            Your User name is 
-            <span  class="merchant-name-placeholder">{{customerName}}</span>
-
-           </div>
-                                    
+           
+            <span  class="merchant-name-placeholder">{{customerName}}</span>          </div>                                    
                                         
                                         <label  class="getmerchantid" >{{merchantId}} </label>
                                        
@@ -61,7 +58,7 @@
                                     
                                     </div>
                                             <div class="row mb-3">
-                                                <div class="col-md-12">
+                                                <!-- <div class="col-md-12">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Name 
                                                             <span class="madatory">*</span>
@@ -77,7 +74,7 @@
                                                         </div>            
                                                     </div>                                                  
                                                    </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                 
                                             <div class="row mb-3">
@@ -94,7 +91,7 @@
                                                     <div *ngIf="submitted && f['phoneNumber'].errors" class="invalid-feedback">
                                                         <div *ngIf="f['phoneNumber'].errors['required']">Mobile No. is required
                                                         </div>
-                                                        <div *ngIf="f['phoneNumber'].errors['minlength']">Phone enter valid Mobile
+                                                        <div *ngIf="f['phoneNumber'].errors['minlength']">Please enter valid Mobile
                                                             No.</div>
                                                     </div>
                                                     </div>
@@ -109,22 +106,22 @@
                                                             <div class="col-md-3">
                                                         
                                                             </div>
-                                                            <div class="col-md-6">
+                                                            <!-- <div class="col-md-6">
                                                                 <p>Enter the text shown below:</p>
                                                                 <h2>{{ generatedText }}</h2>
 
                                                                 <input type="text" class="form-control "  formControlName="usertext"  [(ngModel)]="userText"  placeholder="Enter the text" />
                                                               
                                                                 <button class="btn btn-primary mt-2 mb-2" (click)="verifyCaptcha()">Verify</button>    
-                                                            </div>
-                                                            <div class="col-md-3">
+                                                            </div> -->
+                                                            <!-- <div class="col-md-3">
                                                             </div>
                                                             <div *ngIf="isVerified" class="success">{{capchatext}}</div>
-                                                       
+                                                        -->
                                                         </div>
                                                         
 <div >
-    <button type="submit" [disabled]="isSubmitBtnDisabled" name="btnsignup" (click)="submit()" class="btn btn-primary" ><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+    <button type="submit"  name="btnsignup" (click)="submit()" class="btn btn-primary" ><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
                                             
 </div>
 <!-- <div *ngIf="isSubmitBtnDisabled">

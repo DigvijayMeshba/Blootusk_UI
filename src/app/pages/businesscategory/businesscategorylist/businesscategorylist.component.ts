@@ -4,6 +4,7 @@ import { AppService } from 'src/app/app.service';
 import Swal from 'sweetalert2';
 import { listCatagory } from '../bisnesscatagory';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-businesscategorylist',
@@ -21,7 +22,7 @@ export class BusinesscategorylistComponent {
     get f() { return this.uploadForm.controls; }
   
   
-    constructor(public appService: AppService) { }
+    constructor(public appService: AppService,private route: ActivatedRoute,private router: Router) { }
   
     ngOnInit(): void {
      // this.GetAllUserList();
@@ -49,20 +50,12 @@ export class BusinesscategorylistComponent {
  
     public ClearSearchdata()
     {
-      location.reload();
-   
-      // let ListCategoryModel: listCatagory = {
-      //   "categoryName": '',
-      //   "rewardPoint": 1
-      // }
-      // this.appService.GetAllList('api/CategoryMaster/GetAllCategory', ListCategoryModel)
-      // .pipe(
-      //   catchError((error) => {          
-      //     return throwError(error); 
-      //   })).subscribe((data: any) => {      
-      //     this.BusinesscategoryList = data.responseData;    
-      //   },);  
-
+      let ListCategoryModel: listCatagory = {
+        "categoryName": '',
+        "rewardPoint": 1
+      }
+      this.router.navigate(['/businesscategory/businesscategorylist'], { relativeTo: this.route });
+     
     }
     
     public Searchdata(formData: any) {

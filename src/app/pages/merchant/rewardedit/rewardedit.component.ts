@@ -1,5 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppService } from 'src/app/app.service';
@@ -51,11 +51,11 @@ export class RewardeditComponent {
        
   this.uploadForm = new FormGroup({
        merchantId : new FormControl('',[]),    
-       rewardPoint : new FormControl('',[]),    
+       rewardPoint : new FormControl('',[Validators.required]),     
        rewardTypeID : new FormControl('', []),
        rewardDate : new FormControl('',[]),
        issuedBy : new FormControl('',[]),  
-       validity :  new FormControl('',[]),
+       validity :  new FormControl('',[Validators.required]),
        recStatus:new FormControl('', []),     
        isAdmin :new FormControl('',[]),    
        token: new FormControl('', []),

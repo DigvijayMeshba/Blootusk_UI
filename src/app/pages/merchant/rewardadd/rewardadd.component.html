@@ -98,6 +98,11 @@
                                 <div>
                                     <label for="basiInput" class="form-label">Reward Date </label> 
                                     <input type="date" class="form-control" placeholder="Enter Reward Date"  [(ngModel)]="currentDate" [min]="currentDate"  formControlName ="rewardDate">
+                                
+                                    <div *ngIf="submitted && f['rewardDate'].errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f['rewardDate'].errors['required']">Reward Date is required</div>
+                                       
+                                    </div>
                                 </div>
                             </div>   
 
@@ -110,13 +115,25 @@
                                           {{ rewardType.rewardType }}
                                         </option>                                                                  
                                     </select>
+                                    <div *ngIf="submitted && f['rewardTypeId'].errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f['rewardTypeId'].errors['required']">Reward Type is required</div>
+                                       
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Reward Points </label> 
-                                    <input type="text" class="form-control" placeholder="Enter Reward Points" formControlName="rewardPoint">
+                                    <input type="text" class="form-control" (keypress)="keyPressOnlynum($event)" placeholder="Enter Reward Points" formControlName="rewardPoint"
+                                    [ngClass]="{ 'is-invalid': submitted && f['rewardPoint'].errors }"
+                                    >
+                                    <div *ngIf="submitted && f['rewardPoint'].errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f['rewardPoint'].errors['required']">Reward Point is required</div>
+                                       
+                                    </div> 
+                                             
+                               
                                 </div>
                             </div>   
 
@@ -127,21 +144,28 @@
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Issued By </label> 
-                                    <!-- <input type="text" class="form-control" placeholder="Enter Issued By" formControlName="issuedBy">
-                                 -->
+                                   
                                     <select class="form-select" aria-label="Default select example" formControlName ="issuedBy" >
                                         <option *ngFor="let Issued of IssuedLists" [value]="Issued.id">
                                           {{ Issued.name }}
                                         </option>                                                                  
                                     </select>
-                                
+                                    <div *ngIf="submitted && f['issuedBy'].errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f['issuedBy'].errors['required']">Issued By is required</div>
+                                       
+                                    </div>
                                 </div>
                             </div>   
 
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Validity (Months)</label> 
-                                    <input type="text" class="form-control" placeholder="Enter Validity" formControlName="validity">
+                                    <input type="text" class="form-control" (keypress)="keyPressOnlynum($event)" placeholder="Enter Validity" formControlName="validity">
+                             
+                                    <div *ngIf="submitted && f['validity'].errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f['validity'].errors['required']">Validity is required</div>
+                                       
+                                    </div>
                                 </div>
                             </div>  
                         </div>
@@ -161,8 +185,8 @@
                                 <div class="col-lg-12">
                                     <div class="text-end d-flex align-items-start gap-2 ">
                                         <button type="button" (click)="CancelForm()" class="btn btn-info ms-auto"><i class="ri-close-line label-icon align-middle me-2"></i> Cancel</button>
-                                      
-                                        <button type="submit" class="btn btn-primary"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Save</button>
+                                        <button type="submit" (click)="submit()" class="btn btn-primary"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+                                    
                                     </div>
                                 </div>
                             </div>

@@ -368,19 +368,19 @@ if(this.uploadForm.valid)
       
     } 
   
-    SubmitForm(formDdt: UserForOtp)
+    SubmitForm(formDdt: Signupuser)
     {
 debugger;
     let refer;
       debugger;
-      let AdduserOtpModel: UserForOtp = formDdt;
+      let AdduserOtpModel: Signupuser = formDdt;
 
-      const userForOtp: UserForOtp = {
-        email: "",
-        phoneNumber: AdduserOtpModel.phoneNumber,
-        emailOTP :'',
-        phoneNumberOTP: '',
-       } 
+      // const userForOtp: UserForOtp = {
+      //   email: "",
+      //   phoneNumber: AdduserOtpModel.phoneNumber,
+      //   emailOTP :'',
+      //   phoneNumberOTP: '',
+      //  } 
        if(this.CustomerCode != null)
        {
         refer = this.customerId;
@@ -394,7 +394,7 @@ debugger;
       
         
         merchantID:this.merchantId,
-        name : this.CustName,
+        name :"",
         phoneNumber:this.MobileNo,
         merchantCode: this.merchantCode,
         isPhoneNumberValidate:0,
@@ -413,8 +413,8 @@ debugger;
         MerchantName : "",
       }  
      
-      if(formDdt.phoneNumberOTP == this.UserSendOTP || formDdt.phoneNumberOTP == '123456')
-      {      
+      // if(formDdt.phoneNumberOTP == this.UserSendOTP || formDdt.phoneNumberOTP == '123456')
+      // {      
          console.log(AddUsertDtail);
         this.appService.Add('api/User/AddCustomer', AddUsertDtail).subscribe((data: any) => {
           let statuscode : number = data.responseStatusCode;
@@ -480,7 +480,7 @@ debugger;
                 case 603:
                   Swal.fire({
                     title:'Duplication',
-                    text: 'Duplicate Category Status',
+                    text: 'Merchant Not Save RewardPoint or Message Template ',
                     icon: 'warning',
                     confirmButtonColor: '#364574',
                     allowOutsideClick: false,
@@ -499,20 +499,20 @@ debugger;
                     }); 
           }   
         },);
-      }
-      else
-      {      
-         Swal.fire({
-        title:'Error',
-        text: 'Otp Not Valid',
-        icon: 'warning',
-        confirmButtonColor: '#364574',
-        allowOutsideClick: false,
-        allowEscapeKey: false
-      }); 
+      // }
+      // else
+      // {      
+        //  Swal.fire({
+        // title:'Error',
+        // text: 'Otp Not Valid',
+        // icon: 'warning',
+        // confirmButtonColor: '#364574',
+        // allowOutsideClick: false,
+        // allowEscapeKey: false
+     // }); 
      
           
-      }   
+     // }   
     }
 
 
