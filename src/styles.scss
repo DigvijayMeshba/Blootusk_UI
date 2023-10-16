@@ -7,6 +7,29 @@
     }
 }
 
+.reflink{
+    float: right;
+    cursor: pointer;
+}
+
+.inf-btn{
+    float: right !important;
+    height: 20px !important; 
+}
+
+.csp{
+    cursor: pointer;
+}
+
+.avt-sm{
+    height: 34px !important;
+    width: 34px !important;
+}
+
+.form-icon > input{
+    padding-right: 35px;
+}
+
 .table-nowrap td {
     white-space: break-spaces !important;
 }​

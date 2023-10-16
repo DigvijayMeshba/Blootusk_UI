@@ -111,6 +111,7 @@
                                     <label for="basiInput" class="form-label">Reward Type </label>
                                   
                                     <select class="form-select" aria-label="Default select example" formControlName ="rewardTypeId" >
+                                        <option value="" selected disabled hidden>Select Reward Type</option>  
                                         <option *ngFor="let rewardType of RewardTypeList" [value]="rewardType.rewardTypeID">
                                           {{ rewardType.rewardType }}
                                         </option>                                                                  
@@ -146,6 +147,7 @@
                                     <label for="basiInput" class="form-label">Issued By </label> 
                                    
                                     <select class="form-select" aria-label="Default select example" formControlName ="issuedBy" >
+                                        <option value="" selected disabled hidden>Select Issued By</option>  
                                         <option *ngFor="let Issued of IssuedLists" [value]="Issued.id">
                                           {{ Issued.name }}
                                         </option>                                                                  

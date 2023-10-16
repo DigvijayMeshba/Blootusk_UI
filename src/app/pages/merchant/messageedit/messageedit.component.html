@@ -93,7 +93,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div>
-                                    <label for="basiInput" class="form-label">Message Type </label>
+                                    <label for="basiInput" class="form-label">Mode Type </label>
                                     <select class="form-select" aria-label="Default select example"  (change)="onDropdownChange($event)"  formControlName ="messageTypeId" >
                                         <option hidden value="" disabled selected>Select Mode Type</option>
                                         <option *ngFor="let modes of ModeLists" [value]="modes.messageTypeId">
@@ -103,14 +103,61 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-4">
+                                <button type="button" (click)="openModalCI(cicontent)" class="inf-btn btn btn-success btn-icon waves-effect waves-light" title="Content Information"><i class="ri-information-line"></i></button>
+                            </div>
+
                         </div>
+
+                        <!-- CI Modal -->
+                        <ng-template #cicontent role="document" let-modal>
+                            <div class="modal-header">
+                                <h5 class="modal-title mt-0">Content Information Details</h5>
+                                <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div>
+                                    <form >
+                                        <div class="row">
+                                            <div class="col-md-12"> 
+                                                
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-striped align-middle table-nowrap mb-0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>[User]</td>
+                                                                <td>Some Inforamiton..</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>[Merchant Name]</td>
+                                                                <td>Some Inforamiton..</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>[Friend's Name]</td>
+                                                                <td>Some Inforamiton..</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>[Referral Link]</td>
+                                                                <td>Some Inforamiton..</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>                        
+                        </ng-template>
+                        <!-- CI Modal --> 
 
                         <!-- For SMS -->
                         <div class="row mb-3" *ngIf="showDiv.current">
                             <div class="col-md-12">
                                 <div>
                                     <label for="basiInput" class="form-label">Message Content </label>
-                                    <textarea class="form-control" rows="2" formControlName="messageContent" placeholder="Enter Message Content"></textarea>
+                                    <textarea class="form-control" rows="6" formControlName="messageContent" placeholder="Enter Message Content"></textarea>
                                     <div *ngIf="submitted && f['messageContent'].errors" class="invalid-feedback d-block">
                                         <div *ngIf="f['messageContent'].errors['required']">Message Content is required</div>
                                        

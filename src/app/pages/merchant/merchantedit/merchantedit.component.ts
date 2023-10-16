@@ -181,6 +181,10 @@ export class MerchanteditComponent {
   });    
   }
 
+  openModalCI(cicontent: any) {  
+    this.modalService.open(cicontent, { size: 'lg' }); 
+    }
+
   //add for alert
   showMessageSuccess() {
     //this.messageContent = 'Merchant Update Successfully.';
