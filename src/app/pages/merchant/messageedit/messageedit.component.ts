@@ -72,6 +72,12 @@ export class MessageeditComponent {
 
    
   }
+
+  
+  openModalCI(cicontent: any) {  
+    this.modalService.open(cicontent, { size: 'lg' }); 
+    }
+
   get f() { return this.uploadForm.controls; }
 
   public submit() {

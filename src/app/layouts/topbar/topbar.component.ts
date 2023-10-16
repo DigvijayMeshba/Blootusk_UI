@@ -16,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { CartModel } from './topbar.model';
 import { cartData } from './data';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-topbar',
@@ -41,7 +42,7 @@ export class TopbarComponent implements OnInit {
   sessionuserrole: any;
   sessionuserfullName: any;
 
-  constructor(@Inject(DOCUMENT) private document: any, private eventService: EventService, public languageService: LanguageService,
+  constructor(private modalService: NgbModal, @Inject(DOCUMENT) private document: any, private eventService: EventService, public languageService: LanguageService,
     public _cookiesService: CookieService, public translate: TranslateService, private authService: AuthenticationService, private authFackservice: AuthfakeauthenticationService,
     private router: Router, private TokenStorageService: TokenStorageService,) { }
 
@@ -71,6 +72,10 @@ export class TopbarComponent implements OnInit {
     this.sessionuserrole = this.TokenStorageService.getUser().roleName;
 
   }
+
+  openModalUD(udcontent: any) {  
+    this.modalService.open(udcontent, { size: 'sm' }); 
+    }
 
   /**
    * Toggle the menu bar when having mobile screen
