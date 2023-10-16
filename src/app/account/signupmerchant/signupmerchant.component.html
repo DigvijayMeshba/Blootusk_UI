@@ -133,7 +133,7 @@
                                                              [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1
                                                              }" (click)="toggleFieldTextType1()"></i></button>
                                                        
-                                                             <div *ngIf="submitted && f['password'].errors && (f['password'].dirty || f['password'].touched)"  class="invalid-feedback">
+                                                             <div *ngIf="submitted && f['password'].errors && (f['password'].dirty && f['password'].touched)"  class="invalid-feedback">
                                                             <div *ngIf="f['password'].errors['required']">Password is required</div>
                                                             <div *ngIf="f['password'].errors['minlength']">Password at least 8 to 15 digits long</div>
                                                             <div *ngIf="f['password'].errors['weakPassword']">Combine Symbols,Numbers, lowercase, and uppercase letters. </div>

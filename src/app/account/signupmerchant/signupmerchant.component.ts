@@ -455,7 +455,9 @@ console.log('Decrypted :' + decrypted);
    // let addUserDeatil = this.tokenStorage.getUser();   
     //let AddMerchantDtail=   this.tokenStorage.getMerchant();
     let  AddMerchantDtail =  formData;
-   
+    if(this.uploadForm.valid)
+    {
+    
     AddMerchantDtail.posInfo.posid = 0;
     AddMerchantDtail.posInfo.merchantId = 0;    
     AddMerchantDtail.isEmailValidate = 1;
@@ -474,7 +476,7 @@ console.log('Decrypted :' + decrypted);
     AddMerchantDtail.posInfo.countryName = ""? "":AddMerchantDtail.posInfo.countryName,
     AddMerchantDtail.posInfo.posname = ""? "":AddMerchantDtail.posInfo.posname,
    
-AddMerchantDtail.merchantURL = '',
+    AddMerchantDtail.merchantURL = '',
     console.log(AddMerchantDtail);
 
     // this.prvopt = this.tokenStorage.getPhoneNOOtp();
@@ -571,6 +573,8 @@ debugger;
           }          
             
       },);
+
+    }
     
     // }
     // else

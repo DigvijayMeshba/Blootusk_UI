@@ -28,7 +28,7 @@
                                             <label for="basiInput" class="form-label">Category Name</label>
                                             <!-- <input type="text" class="form-control" placeholder="Enter Category Name">
                                             -->
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control"  [(ngModel)]="keyword"
                                             formControlName="categoryName" required minlength="3"
                                             [ngClass]="{ 'is-invalid': submitted && f['categoryName'].errors }"
                                              placeholder="Enter Category Name">
@@ -45,15 +45,16 @@
                                     <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Reward Points</label>
-                                            <input type="text" formControlName="rewardPoint" class="form-control"  formc placeholder="Enter Reward Points">
+                                            <input type="text" formControlName="rewardPoint" [(ngModel)]="SearchKeyword" class="form-control"  formc placeholder="Enter Reward Points">
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 ">                                        
                                         <div class="mt-4  text-right gap-1 ">                                      
-                                            <button type="button" (click)="Searchdata(uploadForm.value)" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
+                                            <button type="button" (click)="Searchdata()" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
                                             &nbsp;
                                             <button type="button" (click)="ClearSearchdata()" class="btn btn-primary ms-auto"><i class="ri-refresh-line cardicon label-icon align-middle"></i>Clear</button>
+                                      
                                         </div>
                                     </div>     
                                 </div>
@@ -88,8 +89,11 @@
                                                 
                                                 &nbsp;&nbsp;
 
-                                                <a *ngIf="object.recStatus=='A'" class="link-danger fs-15"> <!-- <i class="bx bx-block"></i>  --> <i class="ri-checkbox-blank-circle-line"></i></a>
+                                                <a *ngIf="object.recStatus=='A'" class="link-success fs-15"><!-- <i class="ri-checkbox-blank-circle-line"></i> --><i class="ri-checkbox-circle-fill"></i> </a>
 
+                                                <a *ngIf="object.recStatus!='A'" class="link-success fs-15"><!-- <i class="ri-checkbox-blank-circle-line"></i> --><i class=""></i> </a>
+
+         
                                             </div>
 
                                             <!-- <div class="gap-3">

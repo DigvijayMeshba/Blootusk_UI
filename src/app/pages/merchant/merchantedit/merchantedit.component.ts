@@ -111,12 +111,12 @@ export class MerchanteditComponent {
     console.log(this.statusLists);
     this.merchantId = this.route.snapshot.params['id'];
     this.TempmerchantId = this.merchantId;
-    this.GetAlltemplateList();
+  //  this.GetAlltemplateList();
     this.GetCountryList();
     this.getCatagoryList(); 
     this.GetStateList();
     this.getMerchantbyId(this.merchantId);
-    this.GetAllRewardPointList();
+    //this.GetAllRewardPointList();
   
    
   this.uploadForm = new FormGroup({     
@@ -392,10 +392,15 @@ public getMerchantbyId(merchantId: any) {
         recStatus : data.responseData.recStatus == "A"? true : false,
     
       });
+      debugger;
       this.OrganizationNameTemp = data.responseData.organizationName,
       this.ContactPersonNameTemp = data.responseData.contactPersonName,
       this.MobileNoTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 
       this.EmailIdTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email)
+    
+    this.TemplateList = data.responseData.smstemplateList;
+    this.RewardList = data.responseData.rewardPointlist;
+    
     });
   }
 }
@@ -619,49 +624,47 @@ CancelForm()
   }
 
 
-      //List of All Template
-      public   GetAlltemplateList() {
-        debugger;
+//       //List of All Template
+//       public   GetAlltemplateList() {
+//         debugger;
        
      
-          this.appService.getById("api/SMSTemplate/GetAllSmsTemplate/", this.merchantId)
-          .pipe(
-            catchError((error) => {          
-              return throwError(error); 
-            })).subscribe((data: any) => {    
+//           this.appService.getById("api/SMSTemplate/GetAllSmsTemplate/", this.merchantId)
+//           .pipe(
+//             catchError((error) => {          
+//               return throwError(error); 
+//             })).subscribe((data: any) => {    
               
-              console.log('allmerchant',data.responseData)
-              this.TemplateList = data.responseData             
-              if(data.responseData.length == 0)
-              {
-                // this.swalMessage('Data not found')
-              }        
-          },);        
-  }
+//               console.log('allmerchant',data.responseData)
+//               this.TemplateList = data.responseData             
+//               if(data.responseData.length == 0)
+//               {
+//                 // this.swalMessage('Data not found')
+//               }        
+//           },);        
+//   }
+//   //List Of Reward POint
 
-
-  //List Of Reward POint
-
-    //List of All Company
-    public   GetAllRewardPointList() {
-      debugger;
-        this.appService.getById("api/RewardPoint/GetAllRewardPoint/", this.merchantId)
+//     //List of All Company
+//     public   GetAllRewardPointList() {
+//       debugger;
+//         this.appService.getById("api/RewardPoint/GetAllRewardPoint/", this.merchantId)
        
-        .pipe(
-          catchError((error) => {          
-            return throwError(error); 
-          })).subscribe((data: any) => {    
+//         .pipe(
+//           catchError((error) => {          
+//             return throwError(error); 
+//           })).subscribe((data: any) => {    
             
-            console.log('reward',data.responseData)
-            this.RewardList = data.responseData             
-            if(data.responseData.length == 0)
-            {
-              // this.swalMessage('Data not found')
-            }        
-        },);  
+//             console.log('reward',data.responseData)
+//             this.RewardList = data.responseData             
+//             if(data.responseData.length == 0)
+//             {
+//               // this.swalMessage('Data not found')
+//             }        
+//         },);  
     
     
-}
+// }
 
 validateStrongPassword(control: { value: any; }) {
   const password = control.value;
