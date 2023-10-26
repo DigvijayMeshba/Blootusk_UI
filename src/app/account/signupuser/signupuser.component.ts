@@ -99,7 +99,7 @@ export class SignupuserComponent {
         this.merchantCode = btoa(dryptedmerchantcode)
      //   this.merchantCode = this.EncrDecr.set('12$#@BLOO$^@TUSK', dryptedmerchantcode)
       }
-      //this.GetMerchantName(this.merchantCode);
+      this.GetMerchantName(this.merchantCode);
       this.GetCustomerName(this.CustomerCode)
      }
   
@@ -140,14 +140,14 @@ export class SignupuserComponent {
     
     get f() { return this.uploadForm.controls; }
   
-    // GetMerchantName(merchantCode:any)
-    // {
-    //   this.appService.getById("api/Merchant/GetMarchantByCode/",merchantCode).subscribe(data => {
+    GetMerchantName(merchantCode:any)
+    {
+      this.appService.getById("api/Merchant/GetMarchantByCode/",merchantCode).subscribe(data => {
       
-    //    this.merchantName = data.responseData.organizationName;
-    //    this.merchantId = data.responseData.merchantID;
-    //   });
-    // }
+       this.merchantName = data.responseData.organizationName;
+       this.merchantId = data.responseData.merchantID;
+      });
+    }
 
 
     GetCustomerName(customerCode:any)
@@ -157,9 +157,6 @@ export class SignupuserComponent {
       console.log('custdata', data.responseData)
        this.customerName = data.responseData.phoneNumber;
        this.customerId = data.responseData.customerID;
-       this.merchantName = data.responseData.organizationName;
-       this.merchantId = data.responseData.merchantID;
-       this.merchantCode = data.responseData.merchantCode;
       
       });
     }
@@ -450,8 +447,8 @@ debugger;
                 case  500 : 
 
                 Swal.fire({
-                  title:'Error',
-                  text: 'Error Status',
+                  title:'Warning',
+                  text: 'Customer is added but We are Unable to send Messages',
                   icon: 'error',
                   confirmButtonColor: '#364574',
                   allowOutsideClick: false,

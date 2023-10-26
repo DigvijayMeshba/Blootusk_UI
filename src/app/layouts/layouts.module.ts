@@ -18,6 +18,7 @@ import { HorizontalComponent } from './horizontal/horizontal.component';
 import { HorizontalTopbarComponent } from './horizontal-topbar/horizontal-topbar.component';
 import { TwoColumnComponent } from './two-column/two-column.component';
 import { TwoColumnSidebarComponent } from './two-column-sidebar/two-column-sidebar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
 //  { path: 'horizontal-topbar', loadChildren: () => import('./horizontal-topbar/horizontal-topbar.module').then(m => m.HorizontalTopbarModule)},
@@ -46,6 +47,8 @@ const routes: Routes = [
     RouterModule,
     NgbDropdownModule,
     NgbNavModule,
+    FormsModule,
+    ReactiveFormsModule,
     SimplebarAngularModule,
     TranslateModule,
     [RouterModule.forChild(routes)],

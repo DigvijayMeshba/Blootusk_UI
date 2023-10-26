@@ -70,7 +70,7 @@ public count = 10;
    {
      debugger;
      this.keyword = '';
-     this.router.navigate(['/customer/rewardpointlist'], { relativeTo: this.route });
+     this.router.navigate(['/customer/referrallist'], { relativeTo: this.route });
      this.GetRewardPointList()
    }
 

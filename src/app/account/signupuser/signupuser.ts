@@ -1,3 +1,17 @@
+
+export interface addUserDeatil
+{
+  customerID: number;
+  Name:string;
+  ApprovalStatus:string;
+  CustomerCode:string;
+  MerchantCode:string;
+  MerchantName:string;
+  PhoneNumber:string;
+  RecStatus:string;
+  ReferCode:string;
+}
+
 export interface Signupuser
 {
     email: string;

@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { EventService } from '../../core/services/event.service';
+import { AppService } from 'src/app/app.service';
 
 //Logout
 import { environment } from '../../../environments/environment';
@@ -17,6 +18,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { CartModel } from './topbar.model';
 import { cartData } from './data';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
+import { AddCustomer, Signupuser, addUserDeatil } from 'src/app/account/signupuser/signupuser';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-topbar',
@@ -41,12 +45,30 @@ export class TopbarComponent implements OnInit {
   addRoleDeatil:any;
   sessionuserrole: any;
   sessionuserfullName: any;
+    CustId !: number;
+  CustName !: string;
+  submitted = false;
 
   constructor(private modalService: NgbModal, @Inject(DOCUMENT) private document: any, private eventService: EventService, public languageService: LanguageService,
     public _cookiesService: CookieService, public translate: TranslateService, private authService: AuthenticationService, private authFackservice: AuthfakeauthenticationService,
-    private router: Router, private TokenStorageService: TokenStorageService,) { }
+    private router: Router,  public appService: AppService,private TokenStorageService: TokenStorageService,) { }
 
+    uploadForm!:FormGroup;  
   ngOnInit(): void {
+
+    this.uploadForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      // createdDate: new FormControl('', []),
+      // customerID: new FormControl('', []),
+      // ApprovalStatus: new FormControl('', []),
+      // CustomerCode: new FormControl('', []),
+      // MerchantCode: new FormControl('', []),
+      // MerchantName: new FormControl('', []),
+      // PhoneNumber: new FormControl('', []),
+      // RecStatus: new FormControl('', []),
+      // ReferCode: new FormControl('', []),
+    })
+
     this.userData = this.TokenStorageService.getUser();
     this.element = document.documentElement;
     this.addRoleDeatil = this.TokenStorageService.GetRole();  
@@ -72,7 +94,7 @@ export class TopbarComponent implements OnInit {
     this.sessionuserrole = this.TokenStorageService.getUser().roleName;
 
   }
-
+  get f() { return this.uploadForm.controls; }
   openModalUD(udcontent: any) {  
     this.modalService.open(udcontent, { size: 'sm' }); 
     }
@@ -147,6 +169,11 @@ export class TopbarComponent implements OnInit {
     }
   }
 
+  allowOnlySpaces(event:any) {
+    if (event.key !== ' ' && !/^[a-zA-Z]*$/.test(event.key)) {
+      event.preventDefault();
+    }
+  }
   /***
    * Language Listing
    */
@@ -256,5 +283,135 @@ export class TopbarComponent implements OnInit {
     searchOptions.classList.add("d-none");
     searchInputReponsive.value = "";
   }
+
+
+  SubmitForm(formData: addUserDeatil)
+  {
+    this.CustId =  this.TokenStorageService.getcustcode();
+    let refer;
+    debugger;
+    if(this.uploadForm.valid)
+    { 
+    const  AddUserDeatil: addUserDeatil  =  {    
+      
+      Name :this.CustName,
+      customerID:this.CustId,
+      ApprovalStatus:"",
+      CustomerCode:'',
+      MerchantCode:'',
+      MerchantName:'',
+      PhoneNumber:'',
+      RecStatus:'',
+      ReferCode:''
+    }  
+      this.appService.Add('api/User/UpdateCustomer', AddUserDeatil).subscribe((data: any) => {
+        let statuscode : number = data.responseStatusCode;
+     
+        switch(statuscode)
+        {
+            case 200:
+          
+            Swal.fire({
+              title:'Success',
+              text: 'User Updated Successfully.',
+              icon: 'success',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false             
+            }).then(function() {
+            location.reload();
+          });
+            break;
+              case 212 :
+              Swal.fire({
+                title:'Warning',
+                text: 'Something Went wrong.',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });
+                break;
+              case  500 : 
+
+              Swal.fire({
+                title:'Error',
+                text: 'Error Status',
+                icon: 'error',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });    
+                break;
+              case 601 :
+                Swal.fire({
+                  title:'Duplication',
+                  text: 'Mobile Number is Duplicate',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+                });
+                break;
+              case 602:
+                Swal.fire({
+                  title:'Duplication',
+                  text: 'Duplicate Email',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+                });                 
+                break;
+              case 603:
+                Swal.fire({
+                  title:'Duplication',
+                  text: 'Merchant Not Save RewardPoint or Message Template ',
+                  icon: 'warning',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+                });                     
+                         
+                break;
+              case 400:              
+                  Swal.fire({
+                    title:'Error',
+                    text: 'Bad Request Status',
+                    icon: 'error',
+                    confirmButtonColor: '#364574',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false
+                  }); 
+        }   
+      },);
+     }
+    }
+
+     keyPressOnlyChar(event: any) {
+      var inp = String.fromCharCode(event.keyCode);
+      if (/[a-zA-Z]/.test(inp) || /[' ']/.test(inp)) {
+        return true;
+      } else {
+        event.preventDefault();
+        return false;
+      }
+    }
+
+     onChangeShareCapitalType(event: any) {
+
+      if (event.target.value) {
+        this.CustName = event.target.value;     
+      } else {    
+  
+      }
+  
+    }
+
+    public submit() {
+   
+      this.submitted = true;   
+      
+    }
 
 }

@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import { listReward } from '../customer';
 import Swal from 'sweetalert2';
+import { mode } from 'crypto-js';
+import { event } from 'jquery';
 
 @Component({
   selector: 'app-rewardpointlist',
@@ -18,7 +20,8 @@ customerId!:number;
 merchantId!:number;
 public page: number = 1;
 public count = 10;
-rewardPointId!:number;
+rewardPointId:number = 0;
+selectedValue: string = '';
 
   TransactionTypeLists = [   
     { name: 'Signup', id:'1' },
@@ -27,10 +30,12 @@ rewardPointId!:number;
   ];
 
 
+
+
   constructor(public appService: AppService,private EncrDecr: EncrDecrServiceService,
     private route: ActivatedRoute,private tokenStorage: TokenStorageService,private router: Router) {
 
-  //  this.customerId = this.route.snapshot.params['id'];
+   // this.customerId = this.route.snapshot.params['id'];
    // this.GettemplateList()
    }
 
@@ -49,15 +54,30 @@ rewardPointId!:number;
     return this.CustomerRewardList.slice(startIndex, endIndex);
   }
 
+  ShareCaptiitalTypeIdPost: any
+
+  onChangeShareCapitalType(event: any) {
+debugger;
+    if (event.target.value != undefined)
+    {
+      this.rewardPointId = event.target.value;     
+    } 
+    else 
+     {    
+     
+       event.target.value.options = 0;     
+    }
+
+  }
+
    public GettemplateList()
    {
-
+debugger;
     this.page =0;
     if(this.rewardPointId == undefined)
     {
        this.rewardPointId = 0;
     }
-
     
        this.appService.GetAllRewardPonit(
         "api/User/GetCustomerListForReward?rewardPointId=" + this.rewardPointId +"&CustomerId= "+this.customerId+""
@@ -81,11 +101,13 @@ rewardPointId!:number;
           }
        });
    }
-
+eventreward:undefined;     
    public ClearSearchdata()
    {
-     debugger;
-     this.rewardPointId = 0;
+     debugger;     
+      
+    // this.onChangeShareCapitalType(this.eventreward)
+    this.selectedValue ='';
      this.router.navigate(['/customer/rewardpointlist'], { relativeTo: this.route });
      this.GettemplateList()
    }

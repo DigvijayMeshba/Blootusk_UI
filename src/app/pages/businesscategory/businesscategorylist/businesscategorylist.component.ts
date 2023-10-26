@@ -16,7 +16,7 @@ export class BusinesscategorylistComponent {
     public BusinesscategoryList: any = [];
     public page: number = 1;
     public count = 10;
-    public SearchKeyword: any;
+    public SearchKeyword!: any;
     uploadForm!:FormGroup;
     submitted = false;
     keyword! :string;
@@ -51,18 +51,16 @@ export class BusinesscategorylistComponent {
       public ClearSearchdata()
       {
         this.keyword ='';
-       
-        this.SearchKeyword = 0;
+        this.SearchKeyword = '';
         this.Searchdata();
         this.getPageData();
-        this.SearchKeyword ='';
       }
     
      Searchdata() {
       debugger;
       let ListCategoryModel = {
       "categoryName": this.keyword  == ''? "":this.keyword,
-      "rewardPoint": this.SearchKeyword? 0:this.SearchKeyword     
+      "rewardPoint": this.SearchKeyword == 0 ? 0 :this.SearchKeyword     
     }
   
     this.appService.GetAllList('api/CategoryMaster/GetAllCategory', ListCategoryModel)

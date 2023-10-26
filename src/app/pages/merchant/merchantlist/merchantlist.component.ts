@@ -100,9 +100,7 @@ public ClearMerchantList()
       // "approvalStatus": this.approvalStatus == ''? "":this.approvalStatus,    
        "pageNumber" : this.page == 0? 0:this.page,
     }   
-    console.log(edituserModel);
-    debugger;
-    this.page = 1;
+    
     //var encrypted = this.EncrDecr.set('123456$#@$^@1ERF', 'M1110001');
     // if( edituserModel.merchantPhoneNumber != '')
     // {
@@ -119,7 +117,8 @@ public ClearMerchantList()
           
           console.log('allmerchant',data.responseData.merchantList)
           this.MerchantList = data.responseData.merchantList  
-          this.page ==1;
+          this.page =1;
+        
          
           if(data.responseData.length == 0)
           {
