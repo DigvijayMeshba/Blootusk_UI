@@ -93,7 +93,7 @@
         
         <div class="row">
 
-            <div class="col-xl-5">
+            <!-- <div class="col-xl-5">
                 <div class="animate">
                     <div class="card-body cupbody">
                         <div class="">
@@ -140,9 +140,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="col-xl-5">
+            <div class="col-xl-5" *ngFor="let object of CustomerCouponList" >
                 <div class="animate">
                     <div class="card-body cupbody">
                         <div class="">
@@ -155,16 +155,16 @@
                                 </div>
                             </div>
                             <div class="row mb-0">
-                                <div class="col-md-12"><div class="mt-2"><h4>20% Off</h4></div></div>
+                                <div class="col-md-12"><div class="mt-2"><h4>object.discountValue </h4></div></div>
                             </div>
                             <div class="row mb-0">
-                                <div class="col-md-12"><div class="mt-2"><h6>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore.</h6></div></div>
+                                <div class="col-md-12"><div class="mt-2"><h6>object.couponDiscerption</h6></div></div>
                             </div>
                             <div class="row mb-0">
-                                <div class="col-md-12"><div class="mt-2"><h5>Delhi Darbaar, New York</h5></div></div>
+                                <div class="col-md-12"><div class="mt-2"><h5>object.merchantDetail</h5></div></div>
                             </div>
                             <div class="row mb-0">
-                                <div class="col-md-1"></div><div class="col-md-10"><div class="cupcd"><h5 class="mb-0">Coupon Code : WIN20</h5></div></div><div class="col-md-1"></div>
+                                <div class="col-md-1"></div><div class="col-md-10"><div class="cupcd"><h5 class="mb-0">Coupon Code : object.couponCode</h5></div></div><div class="col-md-1"></div>
                             </div>
                             <div class="row mb-0 mt-2">
                                 <table>
@@ -178,11 +178,9 @@
                                             </tr>
                                         </td>
                                         <td class="w-30">
-                                            <h6 class="cpdt">Date</h6><h5 class="cpd">15 August 23</h5>
+                                            <h6 class="cpdt">Date</h6><h5 class="cpd">object.endDate</h5>
                                         </td>
-                                        <td class="w-30">
-                                            <h6 class="cpdt">Points Required</h6><h5 class="cpd">55</h5>
-                                        </td>
+                                        
                                     </tr>
                                 </table>
                             </div>

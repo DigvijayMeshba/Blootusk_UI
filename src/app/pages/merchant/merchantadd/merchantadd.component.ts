@@ -309,8 +309,6 @@ export class MerchantaddComponent {
     debugger;    
     if(this.uploadForm.valid)
     {
-
-     
       AddMerchantModel.GeneratedBy = "",
       AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
       AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
