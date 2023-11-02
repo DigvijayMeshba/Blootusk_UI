@@ -85,7 +85,7 @@
                                         <th scope="col">Email Id</th>
                                         <th scope="col">Verification</th>
                                         <th scope="col">Created By</th>
-                                        <th scope="col" class=" w-10 text-center">Action</th>
+                                        <th scope="col" class=" w-8 text-center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody *ngFor="let object of getPageData()">
@@ -101,23 +101,23 @@
                                         </td>
                                        
                                        
-                                        <td class="w-10 text-center">                                          
-                                            <div class="gap-3" >
+                                        <td class="w-8 text-center">                                          
+                                            <div>
                                                 
-                                               
-                                                <a [routerLink]="['/merchant/merchantedit', object.merchantId]" placement="bottom" ngbTooltip="Edit This" class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
-                                              
-                                                
+                                                <table class="w-100">
+                                                    <tr>
+                                                        <td class="w-50">
+                                                            <a [routerLink]="['/merchant/merchantedit', object.merchantId]" placement="bottom" ngbTooltip="Edit This" class="link-success fs-15"><i class="ri-edit-2-line"></i></a>
+                                                        </td>
+                                                        <td class="w-50">
+                                                            <a *ngIf="object.recStatus=='A'" class="link-success fs-15"><!-- <i class="ri-checkbox-blank-circle-line"></i> --><i class="ri-checkbox-circle-fill"></i> </a>
+                                                            <a *ngIf="object.recStatus!='A'" class="link-success fs-15"><!-- <i class="ri-checkbox-blank-circle-line"></i> --><i class=""></i> </a>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                                 
                                                 <!-- <div id="tooltip" class="hidden">Edit</div> -->
-
-                                                &nbsp;&nbsp;
-
-                                                <a *ngIf="object.recStatus=='A'" class="link-success fs-15"><!-- <i class="ri-checkbox-blank-circle-line"></i> --><i class="ri-checkbox-circle-fill"></i> </a>
-
-                                                <a *ngIf="object.recStatus!='A'" class="link-success fs-15"><!-- <i class="ri-checkbox-blank-circle-line"></i> --><i class=""></i> </a>
-
-                                                                                             
+           
                                                 <!-- <div id="tooltip" class="hidden">Edit</div> -->
 
                                                 <!-- <span *ngIf="object.recStatus; else elseBlock">
