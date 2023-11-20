@@ -756,7 +756,6 @@
                                                             <div class="gridjs-search">
                                                                 <!-- <input type="search" placeholder="Type keyword..." aria-label="Type a keyword..."class="gridjs-input gridjs-search-input" > -->
                                                                 <button [routerLink]="['/merchant/rewardadd/', TempmerchantId]" type="button" class="btn btn-info ms-auto"> <i class="ri-add-fill cardicon label-icon align-middle"></i>Add</button>
-                                                    
                                                             </div>
                                                         </div>
                                                     </div>
@@ -777,7 +776,7 @@
                                                     </thead>
                                                     <tbody *ngFor="let object of RewardList">
                                                         <tr>
-                                                            <td>{{object.rewardDate | date:'dd/MM/yyyy'}}</td>
+                                                            <td>{{object.rewardDate }}</td>
                                                             <td>{{object.rewardType}}</td>
                                                             <td>{{object.rewardPoint}}</td>
                                                             <td>{{object.issuedByName}}</td>

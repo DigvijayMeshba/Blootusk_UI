@@ -223,9 +223,9 @@ export class SignupcustomerComponent {
           {
             case 200:
            this.tokenStorage.custcode(res.responseData.customerID);
-           this.tokenStorage.SaveRole(this.IsCustomer)
-
-          
+           this.tokenStorage.SaveRole(this.IsCustomer);
+           this.tokenStorage.SavePhoneNOOtp(this.MobileNo);
+                     
           if (res.responseData.token != undefined) {
             this.isLoggedIn = true;
             this.tokenStorage.saveToken(res.responseData.token);

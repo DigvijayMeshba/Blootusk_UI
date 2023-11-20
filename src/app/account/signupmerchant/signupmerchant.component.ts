@@ -456,8 +456,7 @@ console.log('Decrypted :' + decrypted);
     //let AddMerchantDtail=   this.tokenStorage.getMerchant();
     let  AddMerchantDtail =  formData;
     if(this.uploadForm.valid)
-    {
-    
+    {    
     AddMerchantDtail.posInfo.posid = 0;
     AddMerchantDtail.posInfo.merchantId = 0;    
     AddMerchantDtail.isEmailValidate = 1;

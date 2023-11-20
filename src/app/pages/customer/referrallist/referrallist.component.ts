@@ -13,6 +13,7 @@ import { listReffreal } from '../customer';
 export class ReferrallistComponent {
 CustomerList!:any [];
 customerId!:number;
+phoneNumber!:string;
 public page: number = 1;
 keyword! :string;
 public count = 10;
@@ -23,13 +24,12 @@ public count = 10;
    // this.GettemplateList()
    }
 
-
    ngOnInit(): void {
     debugger;
     this.customerId =this.tokenStorage.getcustcode();
+    this.phoneNumber = this.tokenStorage.GetPhoneNO();
     this.GetRewardPointList()
    }
-
 
   public getPageData(): any[] {
     const startIndex = (this.page - 1) * this.count;
@@ -45,6 +45,7 @@ public count = 10;
       "Keyword": this.keyword == undefined? "" : this.keyword,
        "pageNumber" : this.page ==0 ? 0:this.page,
        "MerchantID" : 0,
+       "phoneNumber": this.phoneNumber,
     }   
        this.appService.GetAllList("api/User/GetCustomerListForRefferal",edituserModel).subscribe(
        (x: any) => {

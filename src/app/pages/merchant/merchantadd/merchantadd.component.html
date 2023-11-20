@@ -83,8 +83,60 @@
                                                         </div>
                                                     </div>                                                   
                                                  </div>
-                                        </div>        
+                                        </div>     
+                                        
+                                        
+
                                     </div>
+                                    <div class="row mb-3">
+
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="basiInput" class="form-label">Password  <span class="madatory">*</span></label>
+                                                <div class="position-relative auth-pass-inputgroup">
+                                                    <input [type]="fieldTextType1 ? 'text' : 'password'"
+                                                    class="form-control pe-5" placeholder="Enter Password"
+                                                    id="password-input" formControlName="password"
+                                                    [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+                                                    minlength="6"  (input)="checkPasswordStrength()">
+                                                <button
+                                                    class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted btn-eye"
+                                                    type="button" id="password-addon"><i class="mdi align-middle pass-eye"
+                                                     [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1
+                                                     }" (click)="toggleFieldTextType1()"></i></button>
+                                               
+                                                     <div *ngIf="submitted && f['password'].errors || (f['password'].dirty && f['password'].touched)"  class="invalid-feedback">
+                                                    <div *ngIf="f['password'].errors!['required']">Password is required</div>
+                                                    <div *ngIf="f['password'].errors!['minlength']">Password at least 8 to 15 digits long</div>
+                                                    <div *ngIf="f['password'].errors!['weakPassword']">Combine Symbols,Numbers, lowercase, and uppercase letters. </div>
+                                                    
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div>
+                                                <label for="basiInput" class="form-label">Confirm Password  <span class="madatory">*</span></label>
+                                                <div class="position-relative auth-pass-inputgroup">
+                                              <input [type]="fieldTextType2? 'text' : 'password'"
+                                                    class="form-control pe-5" placeholder="Enter Confirm Password"
+                                                    id="password-input" formControlName="confirmPassword"
+                                                    [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }"   minlength="6">
+                                                <button  class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted btn-eye"
+                                                    type="button" id="password-addon"><i class="mdi align-middle pass-eye" [ngClass]="{'mdi-eye-off-outline': !fieldTextType2, 'mdi-eye-outline': fieldTextType2
+                                                     }" (click)="toggleFieldTextType2()"></i></button>
+                                               
+                                                     <div *ngIf="f['confirmPassword'].errors && submitted"  class="invalid-feedback d-block">
+                                                    <div *ngIf="f['confirmPassword'].errors?.['required']">Confirm Password is required</div>
+                                                    <div *ngIf="f['confirmPassword'].errors?.['matching']"> Password and Confirm password must be same</div>
+                                                </div>
+ 
+                                               </div>
+                                            </div>
+                                       
+                                        </div>
+</div>
                                 </div>
                             </div>
                             <hr>

@@ -9,7 +9,7 @@ const OTPEMAIL_KEY = 'MerchantSignupEmailOTP';
 const USEROTP_KEY = 'userphoneNumberOTP';
 const MerchantUrl_KEY = 'merchantUrl';
 const Custcode_KEY = 'custcode';
-
+const Phoneno_KEY = 'PhoneNumber';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +76,23 @@ export class TokenStorageService {
     window.localStorage.removeItem(OTP_KEY);
     window.localStorage.setItem(OTP_KEY, JSON.stringify(phoneNootp));
   }
+
+  public SavePhoneNOOtp(PhoneNo:any)
+  {
+    window.localStorage.removeItem(Phoneno_KEY);
+    window.localStorage.setItem(Phoneno_KEY, JSON.stringify(PhoneNo));
+  }
+
+  
+
+  public GetPhoneNO(): any {
+    const phoneNo =  window.localStorage.getItem(Phoneno_KEY);
+    if (phoneNo) {
+      return JSON.parse(phoneNo);
+    }
+    return {};
+  }
+
 
   public SaveUSerPhoneOtp(UserOtp:any): void {
     window.localStorage.removeItem(USEROTP_KEY);

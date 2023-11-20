@@ -69,6 +69,11 @@ export class AppService {
     return this.http.get<any>(this.createCompleteRoute(path + Id, this._envUrl.urlAddress),{ headers: this.headers });
   }
 
+
+  // getById
+  public getByIdString = (path: any, phoneNumber: any) => {
+    return this.http.get<any>(this.createCompleteRoute(path + phoneNumber, this._envUrl.urlAddress),{ headers: this.headers });
+  }
    // getById
    public getByIdMerchant = (path: any, Id: any) => {   
     return this.http.post<any>(this.createCompleteRoute(path + Id, this._envUrl.urlAddress), { headers: this.headers });

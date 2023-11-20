@@ -22,6 +22,7 @@ public page: number = 1;
 public count = 10;
 rewardPointId:number = 0;
 selectedValue: string = '';
+CustPhoneNumber!:string;
 
   TransactionTypeLists = [   
     { name: 'Signup', id:'1' },
@@ -30,7 +31,7 @@ selectedValue: string = '';
   ];
 
 
-
+  phoneNumber!:string;
 
   constructor(public appService: AppService,private EncrDecr: EncrDecrServiceService,
     private route: ActivatedRoute,private tokenStorage: TokenStorageService,private router: Router) {
@@ -43,7 +44,7 @@ selectedValue: string = '';
    ngOnInit(): void {
     debugger;
     this.customerId =this.tokenStorage.getcustcode();
-    
+    this.phoneNumber = this.tokenStorage.GetPhoneNO();    
     this.GettemplateList()
    }
 
@@ -78,16 +79,14 @@ debugger;
     {
        this.rewardPointId = 0;
     }
+  this.CustPhoneNumber = this.EncrDecr.set('12$#@BLOO$^@TUSK', this.phoneNumber);
     
        this.appService.GetAllRewardPonit(
-        "api/User/GetCustomerListForReward?rewardPointId=" + this.rewardPointId +"&CustomerId= "+this.customerId+""
-     
+        "api/User/GetCustomerListForReward?rewardPointId=" + this.rewardPointId +"&PhoneNumber="+this.CustPhoneNumber +""
         ).subscribe(
        (x: any) => {
          this.CustomerRewardList = x.responseData.customerList;
          console.log('testrewardpoint' , this.CustomerRewardList )
-
-
          if(x.responseData.length == 0)
          {
            Swal.fire({

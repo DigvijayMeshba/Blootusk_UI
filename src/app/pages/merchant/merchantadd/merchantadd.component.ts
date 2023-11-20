@@ -66,6 +66,7 @@ export class MerchantaddComponent {
   messageContent!:string; 
 
   fieldTextType1!: boolean;
+  
   selectedAccount = 'Select';
   Default = [
     { name: 'Data 1' },
@@ -100,6 +101,8 @@ export class MerchantaddComponent {
   public roleId: any;
   prvopt :any;
   prvemailopt:any;
+  showPasswordStrengthMessage: boolean = false;
+  strengthMessage: string = '';
 
   constructor(public formBuilder: FormBuilder,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
@@ -118,6 +121,7 @@ export class MerchantaddComponent {
     this.GetCountryList();
     this.getCatagoryList(); 
     this.GetStateList();
+    
 
     this.uploadForm = this.formBuilder.group({
      
@@ -125,8 +129,8 @@ export class MerchantaddComponent {
      // organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
-     // password: new FormControl('', [Validators.required, Validators.minLength(6)]),
-     // confirmPassword: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      confirmPassword: new FormControl('', [Validators.required]),
      
       contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]), 
       isPhoneNumberValidate:new FormControl('', []),
@@ -160,13 +164,8 @@ export class MerchantaddComponent {
         poscode: new FormControl('', []),
         latitude: new FormControl('', []),
         longitude: new FormControl('', []),
-       })
-      
+       })      
     });
-
-
-    
-  
 
    if (this.tokenStorage.getToken()) {
     this.isLoggedIn = true;
@@ -290,6 +289,20 @@ export class MerchantaddComponent {
 
     this.submitted = true;
   }
+  checkPasswordStrength() {
+    const password = this.uploadForm.get('password')?.value;
+    this.showPasswordStrengthMessage = true;
+
+    // You can implement your password strength logic here
+    // For example, you can check for uppercase, lowercase, digits, special characters, etc.
+    // Update this logic to match your password strength requirements
+
+    if (/[A-Z]/.test(password) && /[a-z]/.test(password) && /\d/.test(password) && /[0-9]/.test(password)) {
+      this.strengthMessage = 'Strong password';
+    } else {
+      this.strengthMessage = 'Weak password';
+    }
+  }
   
  
 
@@ -328,7 +341,7 @@ export class MerchantaddComponent {
       AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
       AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
       AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
-      AddMerchantModel.password=   "12345678";
+      AddMerchantModel.password=   AddMerchantModel.password;
       AddMerchantModel.merchantURL = '';
       AddMerchantModel.posInfo.posname = ""?"":AddMerchantModel.posInfo.posname,
   

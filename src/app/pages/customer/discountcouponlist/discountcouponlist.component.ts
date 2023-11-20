@@ -10,6 +10,10 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
 import { data } from 'jquery';
 import { Observable, catchError, throwError } from 'rxjs';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
+import * as QRCode from 'qrcode'; 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import html2canvas from 'html2canvas';
+import { listCustCoupon } from '../customer';
 
 @Component({
   selector: 'app-discountcouponlist',
@@ -20,30 +24,106 @@ export class DiscountcouponlistComponent {
 
   customerId!:number;
   CustomerCouponList!:any [];
-  constructor(public formBuilder: FormBuilder,public appService: AppService,
+  qrCode!: string;
+  receivedLink!: string;
+  phoneNumber!:string;
+  CustPhoneNumber!:string;
+  array = ['Qr'];
+
+  constructor(public formBuilder: FormBuilder,private modalService: NgbModal,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
     private router: Router,private EncrDecr: EncrDecrServiceService,)
    {
       
    }
+
    ngOnInit(): void {
     this.customerId =this.tokenStorage.getcustcode();
+    this.CustPhoneNumber = this.tokenStorage.GetPhoneNO();
+    this.phoneNumber = this.EncrDecr.set('12$#@BLOO$^@TUSK', this.CustPhoneNumber);
     this.GetCouponList(); 
-  
   }
 
   GetCouponList()
   {
-    debugger;
-   
-      this.appService.getById("api/CouponMaster/GetCustomerCouponList/", this.customerId).subscribe
-      (data => {  
-          this.CustomerCouponList = data.responseData.customerList;
-          //type = percentage %
-          //value 16
 
-         console.log('CustomerCouponList' , this.CustomerCouponList )
-      });
+    let GetCouponListModel: listCustCoupon = {         
+      "phoneNumber": this.phoneNumber == ''? "":this.phoneNumber,  
+       "customerId" : 0,
+    }  
+
+    // this.appService.GetAllList("api/CouponMaster/GetCustomerCouponList", GetCouponListModel).subscribe
+    //   (data => {  
+    //       this.CustomerCouponList = data.responseData;
+    //      console.log('CustomerCouponList' , this.CustomerCouponList )
+    //   });
+
+
+      this.appService.GetAllList("api/CouponMaster/GetCustomerCouponList",GetCouponListModel)
+      .pipe(
+        catchError((error) => {          
+          return throwError(error); 
+        })).subscribe((data: any) => {    
+          
+          this.CustomerCouponList = data.responseData  
+         
+         
+          if(data.responseData.length == 0)
+          {
+             this.swalMessage('Data not found')
+          }        
+      },);  
+  
+
+  }
+
+  swalMessage(swalTitle:any)
+{
+  Swal.fire({
+    title:swalTitle,
+    icon: 'info',
+    confirmButtonColor: '#364574',
+    allowOutsideClick: false,
+    allowEscapeKey: false
+    
+  });
+}
+
+  openModalQR(qrcontent: any,CouponCode:any) {  
+    this.receivedLink = "/" + CouponCode + "/" +  this.CustPhoneNumber;
+    this.receivedLink = 'http://crm.blootusk.com/CouponCode='  + CouponCode + "/" +  this.CustPhoneNumber;
+    QRCode.toDataURL( this.receivedLink, (err, url) => {
+      debugger;
+      if (err) {
+        console.error(err);
+      } else {
+        this.qrCode = url;
+      }
+    });
+    this.modalService.open(qrcontent, { size: 'sm' }); 
+    }
+
+    public trivialDownload() {
+      console.log("Downloading image one by one, without a loop");
+      this._download(0, this.array);
+    }
+
+    private _download(index:any, array:any) {
+      debugger;
+      if (index >= array.length) {
+        console.log("Done!")
+      } else {
+        let docElem = document.getElementById(array[index].toString());
+          html2canvas(docElem!).then((canvas) => {
+            let generatedImage = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+            let a = document.createElement('a');
+            a.href = generatedImage;
+            a.download = `${array[index]}.png`;
+            a.click();
+            // at this point, image has been downloaded, then call the next download.
+            this._download(index + 1, array)
+          });
+      }
   }
 
 }
