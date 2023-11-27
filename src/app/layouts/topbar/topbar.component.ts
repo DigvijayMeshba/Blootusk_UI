@@ -48,6 +48,7 @@ export class TopbarComponent implements OnInit {
     CustId !: number;
   CustName !: string;
   submitted = false;
+  UserName !:string;
 
   constructor(private modalService: NgbModal, @Inject(DOCUMENT) private document: any, private eventService: EventService, public languageService: LanguageService,
     public _cookiesService: CookieService, public translate: TranslateService, private authService: AuthenticationService, private authFackservice: AuthfakeauthenticationService,
@@ -72,6 +73,8 @@ export class TopbarComponent implements OnInit {
     this.userData = this.TokenStorageService.getUser();
     this.element = document.documentElement;
     this.addRoleDeatil = this.TokenStorageService.GetRole();  
+    this.UserName  = this.TokenStorageService.getUser();
+    console.log('UserName',this.UserName)
     // Cookies wise Language set
     this.cookieValue = this._cookiesService.get('lang');
     const val = this.listLang.filter(x => x.lang === this.cookieValue);

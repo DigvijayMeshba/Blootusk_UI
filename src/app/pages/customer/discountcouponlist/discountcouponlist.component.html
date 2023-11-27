@@ -12,9 +12,17 @@
                                 <div class="col-md-6 mt-1">
                                     <img src="../../../../assets/images/cupico.png" alt="" height="30" class="cupico">
                                 </div>
-                                <!-- <div class="col-md-6 text-right mt-2">
-                                    <h5>DD120056</h5>
-                                </div> -->
+                                <div class="col-md-6 text-right mt-2">
+                                    <h5 style="color: green;" *ngIf="object.status==1">
+                                        {{"Live"}} 
+                                    </h5>
+                                    <h5 style="color: red;" *ngIf="object.status==2">
+                                        {{"Expired"}} 
+                                    </h5>
+                                    <h5  style="color: orange;" *ngIf="object.status==3">
+                                        {{"Reddem"}} 
+                                    </h5>
+                                </div>
                             </div>
                             <div class="row mb-0">
                                 <div class="col-md-12"><div class="mt-2"><h4>{{object.discountValue}} 
@@ -41,14 +49,13 @@
                                             <tr>
                                                 <td class="w-4"><img src="../../../../assets/images/jdepp.png" alt="" height="40" class="cupimg"></td>
                                                 <td class="w-4">
-                                                    <h6 class="cpdt">Campaign Source</h6><h5 class="cpd">Johnny Depp</h5>
+                                                    <h6 class="cpdt">Campaign Source</h6><h5 class="cpd">{{object.source}}</h5>
                                                 </td>
                                             </tr>
                                         </td>
                                         <td class="w-30">
                                             <h6 class="cpdt">Expire Date</h6><h5 class="cpd">{{object.endDate| date:'dd/MM/yyyy'}}</h5>
-                                        </td>
-                                        
+                                        </td>                                        
                                     </tr>
                                 </table>
                             </div>

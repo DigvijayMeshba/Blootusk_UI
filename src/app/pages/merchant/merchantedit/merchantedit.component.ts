@@ -348,11 +348,8 @@ keyPressOnlynum(event: any) {
 }
 
 public submit() { 
-  this.submitted = true;  
-  
+  this.submitted = true;    
 }
-
-
 
 public getMerchantbyId(merchantId: any) {
  
@@ -367,9 +364,7 @@ public getMerchantbyId(merchantId: any) {
         //phoneNumber:data.responseData.phoneNumber,
         //email:data.responseData.email,
         password: this.EncrDecr.get('12$#@BLOO$^@TUSK',data.responseData.password),
-       
         contactPersonName: data.responseData.contactPersonName,    
-       
         posInfo:{
           posid: data.responseData.posInfo.posid,
           zip: data.responseData.posInfo.zip,        
@@ -403,6 +398,7 @@ public getMerchantbyId(merchantId: any) {
       this.EmailIdTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email)
     
     this.TemplateList = data.responseData.smstemplateList;
+    console.log("RewardList",data.responseData.rewardPointlist)
     this.RewardList = data.responseData.rewardPointlist;
     
     });
@@ -461,6 +457,7 @@ public GetTemplateData():any[]
 
 public GetRewardData():any[]
 {
+  debugger;
   console.log('reward',this.RewardList)
   const startIndex = (this.page -1) * this.count;
   const endIndex = startIndex + this.count;

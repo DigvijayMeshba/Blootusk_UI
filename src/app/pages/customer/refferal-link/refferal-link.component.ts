@@ -1,0 +1,57 @@
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AppService } from 'src/app/app.service';
+import { TokenStorageService } from 'src/app/core/services/token-storage.service';
+import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
+import Swal from 'sweetalert2';
+import { listReffreal } from '../customer';
+@Component({
+  selector: 'app-refferal-link',
+  templateUrl: './refferal-link.component.html',
+  styleUrls: ['./refferal-link.component.scss']
+})
+export class RefferalLinkComponent
+ {
+
+  CustomerList!:any [];
+  customerId!:number;
+  phoneNumber!:string;
+  public page: number = 1;
+  keyword! :string;
+  public count = 10;
+    constructor(public appService: AppService,private EncrDecr: EncrDecrServiceService,
+      private route: ActivatedRoute,private tokenStorage: TokenStorageService,private router: Router) {
+    }
+  
+     ngOnInit(): void {
+      debugger;
+      this.customerId =this.tokenStorage.getcustcode();
+      this.phoneNumber = this.tokenStorage.GetPhoneNO();
+      this.GetRewardPointList()
+     }
+  
+    public getPageData(): any[] {
+      const startIndex = (this.page - 1) * this.count;
+      const endIndex = startIndex + this.count;
+      return this.CustomerList.slice(startIndex, endIndex);
+    }
+  
+     public GetRewardPointList()
+     {        
+      this.appService.getById("api/User/GetRefferalLinkList/",this.phoneNumber).subscribe(data => {
+        console.log(data.responseData)
+        this.CustomerList = data.responseData.referlist;        
+    });
+  
+          
+     }
+  
+  
+     public ClearSearchdata()
+     {
+       debugger;
+       this.keyword = '';
+       this.router.navigate(['/customer/referrallist'], { relativeTo: this.route });
+       this.GetRewardPointList()
+     }
+    }

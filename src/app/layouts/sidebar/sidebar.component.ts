@@ -32,7 +32,6 @@ export class SidebarComponent implements OnInit {
    console.log('Role',this.addRoleDeatil)
     this.menuItems = MENU;
     this.menuCustomerItems =  MENUCustomerItems;
-
      
   }
 

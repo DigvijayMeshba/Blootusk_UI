@@ -35,6 +35,7 @@ import { AppService } from 'src/app/app.service';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { APP_BASE_HREF } from '@angular/common';
 import { EncrDecrServiceService } from './encr-decr-service.service';
+import { RefferalLinkComponent } from './pages/customer/refferal-link/refferal-link.component';
 
 
 
@@ -53,6 +54,7 @@ if (environment.defaultauth === 'firebase') {
 @NgModule({
   declarations: [
     AppComponent,
+    RefferalLinkComponent,
     
     
     

@@ -34,7 +34,7 @@
       <ngx-simplebar class="sidebar-menu-scroll" style="max-height: calc(100vh - 70px)">
         <ul class="metismenu list-unstyled navbar-nav" id="navbar-nav">
 
-          <div *ngIf="addRoleDeatil=='Admin' ">
+          <div *ngIf="addRoleDeatil=='Admin'">
             <ng-container *ngFor="let item of menuItems">
               <li class="menu-title" *ngIf="item.isTitle"><span data-key="t-menu">{{ item.label | translate }}</span></li>
   
@@ -197,9 +197,6 @@
             </ng-container>
           </div>
           <!-- id condition for a admin or customer -->
-          
-
-
         </ul>
       </ngx-simplebar>
     </div>

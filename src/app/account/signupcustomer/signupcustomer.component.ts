@@ -29,12 +29,16 @@ export class SignupcustomerComponent {
   MobileNo!:string;
   compareControlName!: string; 
   IsCustomer:string = 'Customer';
+  UsersName!:string;
 
   constructor(  private _authService: AuthenticationService, private _router: Router,
     private tokenStorage: TokenStorageService,public appService: AppService,) 
   { }
 
   ngOnInit(): void {
+
+
+           
     this.loginCustomerForm = new FormGroup({
       phoneNumber: new FormControl("", [Validators.required, Validators.minLength(10)])
     }),
@@ -184,8 +188,7 @@ export class SignupcustomerComponent {
                         next : false
                       }     
                       break;
-              }
-        })  
+              }})  
   }
   }
 
@@ -202,34 +205,34 @@ export class SignupcustomerComponent {
       emailOTP :'',
       phoneNumberOTP: '',
      } 
-     
      const AddCusttDtail: CustomerForAutintication  =  {
       phoneNumber : this.MobileNo,
      }
     if(formDdt.phoneNumberOTP == this.UserSendOTP || formDdt.phoneNumberOTP == '123456')
     {        
       this._authService.loginCustomer('api/Authenticate/CustomerLogin', AddCusttDtail).pipe(
-        catchError((error) => {
-          
-          return throwError(error); // Throw the error to propagate it further
-        })
-      )
+        catchError((error) => {          
+          return throwError(error); 
+        }))
         .subscribe((res: any) => {
           debugger;
           console.log(res.responseData);
           let statuscode : number = res.responseStatusCode;
+          this.UsersName = res.responseData.custName;
 
           switch(statuscode)
           {
             case 200:
+              
            this.tokenStorage.custcode(res.responseData.customerID);
-           this.tokenStorage.SaveRole(this.IsCustomer);
+        //   this.tokenStorage.SaveRole(this.IsCustomer);
            this.tokenStorage.SavePhoneNOOtp(this.MobileNo);
+           this.tokenStorage.SaveRole(this.IsCustomer)
                      
           if (res.responseData.token != undefined) {
             this.isLoggedIn = true;
             this.tokenStorage.saveToken(res.responseData.token);
-            this.tokenStorage.saveUser(res.responseData);
+            this.tokenStorage.saveUser(this.UsersName);
             this._authService.sendAuthStateChangeNotification(res.responseMessage);
             this._router.routeReuseStrategy.shouldReuseRoute = () => false;
             this._router.onSameUrlNavigation = 'reload';

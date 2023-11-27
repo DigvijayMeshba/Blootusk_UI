@@ -30,6 +30,7 @@ export class LoginComponent implements OnInit {
   fieldTextType!: boolean;
   error = '';
   emailExistsError: string | null = null;
+  UsersName!:string;
 
   year: number = new Date().getFullYear();
 
@@ -43,8 +44,9 @@ export class LoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       email: new FormControl("", [Validators.required]),
       password: new FormControl("", [Validators.required, Validators.minLength(6)])
+     
     })
-
+    this.UsersName = "Admin";
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.roleId = this.tokenStorage.getUser().roleId;
@@ -92,11 +94,12 @@ export class LoginComponent implements OnInit {
           if (res.responseData.token != undefined) {
             this.tokenStorage.SaveRole(this.Isadmin)
             this.tokenStorage.saveToken(res.responseData.token);
-            this.tokenStorage.saveUser(res.responseData);
+           // this.tokenStorage.saveUser(res.responseData);
             this.isLoggedIn = true;
             this._authService.sendAuthStateChangeNotification(res.responseMessage);
             this._router.routeReuseStrategy.shouldReuseRoute = () => false;
             this._router.onSameUrlNavigation = 'reload';
+            this.tokenStorage.saveUser(this.UsersName);
             
             this.router.navigate(['../dashboards/dashboard']);
           

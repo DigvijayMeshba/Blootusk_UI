@@ -22,6 +22,7 @@ receivedLink!: string;
 qrCode!: string;
 CustPhoneNumber!:string;
 phoneNumber!:string;
+ReferralCount!:string;
 
 constructor( private modalService: NgbModal, private _authService: AuthenticationService, private _router: Router,
   private tokenStorage: TokenStorageService,private EncrDecr: EncrDecrServiceService,
@@ -35,7 +36,16 @@ ngOnInit(): void {
   this.getRewardPointcount();
   this.getreffrallink();
   this.getCouponcount();
+  this.GetRewardPointList()
   debugger;
+}
+
+public GetRewardPointList()
+{        
+ this.appService.getById("api/User/GetRefferalLinkList/",this.CustPhoneNumber).subscribe(data => {
+   console.log(data.responseData)
+   this.ReferralCount = data.responseData.countOfRefferalLink;        
+});
 }
 
 public GetList()
@@ -54,6 +64,11 @@ public GetRewardList()
   this._router.navigate(['/customer/rewardpointlist'], { relativeTo: this.route });
 }
 
+
+public GetRefferlLinkList()
+{
+  this._router.navigate(['/customer/refferalLink'], { relativeTo: this.route });
+}
 public getcount()
 {
   this.CustId =  this.tokenStorage.getcustcode();

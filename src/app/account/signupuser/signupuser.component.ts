@@ -388,8 +388,7 @@ debugger;
        }
 
       //let addUserDeatil = this.tokenStorage.getUser();   
-      const  AddUsertDtail: AddCustomer  =  {
-      
+      const  AddUsertDtail: AddCustomer  =  {      
         
         merchantID:this.merchantId,
         name :"",

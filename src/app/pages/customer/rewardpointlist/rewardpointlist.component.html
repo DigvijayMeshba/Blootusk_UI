@@ -53,6 +53,7 @@
     
                             </div>
                         </div>
+                        
 
                         <hr>
 
@@ -62,7 +63,8 @@
                                     <tr>
                                         <th scope="col">Transaction Date</th>                                      
                                         <th scope="col">Transaction Type</th>
-                                        <th scope="col">Reward Points</th>                                     
+                                        <th scope="col">Reward Points</th>     
+                                        <th scope="col">Merchant Name</th>                                
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -70,6 +72,7 @@
                                       <td>{{object.transactionDate | date:'dd/MM/yyyy'}} </td>
                                       <td>{{object.transactionType}} </td>
                                       <td>{{object.rewardPoint}} </td>
+                                      <td>{{object.merchantName}}</td>
                                     </tr>
                                 </tbody>
                             </table>

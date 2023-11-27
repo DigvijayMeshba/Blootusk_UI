@@ -13,11 +13,14 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { ReferrallistComponent } from './referrallist/referrallist.component';
 import { RewardpointlistComponent } from './rewardpointlist/rewardpointlist.component';
 import { DiscountcouponlistComponent } from './discountcouponlist/discountcouponlist.component';
+import { RefferalLinkComponent } from './refferal-link/refferal-link.component';
 
 const routes: Routes = [
   { path: "referrallist", component: ReferrallistComponent },
   { path: "rewardpointlist", component: RewardpointlistComponent },
   { path: "discountcouponlist", component: DiscountcouponlistComponent },
+  {path:"refferalLink",component:RefferalLinkComponent}
+
 ]
 
 
@@ -26,6 +29,7 @@ const routes: Routes = [
     ReferrallistComponent,
     RewardpointlistComponent,
     DiscountcouponlistComponent
+    
   ],
   imports: [
     CommonModule,
