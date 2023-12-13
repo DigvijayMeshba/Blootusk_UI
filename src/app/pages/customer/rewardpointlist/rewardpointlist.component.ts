@@ -74,7 +74,6 @@ debugger;
    public GettemplateList()
    {
 debugger;
-    this.page =0;
     if(this.rewardPointId == undefined)
     {
        this.rewardPointId = 0;
@@ -82,7 +81,7 @@ debugger;
   this.CustPhoneNumber = this.EncrDecr.set('12$#@BLOO$^@TUSK', this.phoneNumber);
     
        this.appService.GetAllRewardPonit(
-        "api/User/GetCustomerListForReward?rewardPointId=" + this.rewardPointId +"&PhoneNumber="+this.CustPhoneNumber +""
+        "api/User/GetCustomerListForReward?rewardPointId=" + this.rewardPointId +"&PhoneNumber="+this.phoneNumber +""
         ).subscribe(
        (x: any) => {
          this.CustomerRewardList = x.responseData.customerList;
@@ -98,6 +97,7 @@ debugger;
       
            });
           }
+          this.rewardPointId = 0;
        });
    }
 eventreward:undefined;     
@@ -106,8 +106,8 @@ eventreward:undefined;
      debugger;     
       
     // this.onChangeShareCapitalType(this.eventreward)
-    this.selectedValue ='';
-     this.router.navigate(['/customer/rewardpointlist'], { relativeTo: this.route });
+     this.selectedValue ='';
+    //  this.router.navigate(['/customer/rewardpointlist'], { relativeTo: this.route });
      this.GettemplateList()
    }
 

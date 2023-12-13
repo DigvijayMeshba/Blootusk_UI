@@ -45,6 +45,8 @@ export class SignupmerchantComponent {
   ]; 
   submitted = false;
   merchantId: string | any;
+  defaultStateId = 8;
+  defaultcountryId =1;
   showDiv = {
     current : true,
     next : false

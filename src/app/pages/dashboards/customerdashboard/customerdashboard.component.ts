@@ -99,7 +99,6 @@ public getRewardPointcount()
 {
     this.CustId =  this.tokenStorage.getcustcode();    
     this.appService.getById("api/User/GetRewardPointCount/",this.CustPhoneNumber).subscribe(data => {
-   
     this.RewardPointCount = data.responseData;
   });  
 }

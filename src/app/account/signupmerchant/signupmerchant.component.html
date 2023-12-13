@@ -124,7 +124,7 @@
                                                         <div class="position-relative auth-pass-inputgroup">
                                                             <input [type]="fieldTextType1 ? 'text' : 'password'"
                                                             class="form-control pe-5" placeholder="Enter Password"
-                                                            id="password-input" formControlName="password"
+                                                            id="password-input" formControlName="password" max="16"
                                                             [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
                                                             minlength="6"  (input)="checkPasswordStrength()">
                                                         <button
@@ -274,14 +274,20 @@
                                                                 {{ State.stateName}}
                                                             </option>
                                                         </select>       -->
-
-                                                        <select class="form-select" aria-label="Default select example" formControlName="stateId">
-                                                            <option value="" disabled selected>Select State</option>
-                                             
+<!-- 
+                                                        <select class="form-select" aria-label="Default select example" formControlName="stateId"  [(ngModel)]="defaultStateId">
+                                                            <option value="" disabled selected>Select State</option>                                             
                                                             <option  *ngFor="let State of StateList; let isFirst = first" [value]="State.stateId">
                                                                 {{ State.stateName }}
                                                             </option>
-                                                        </select>
+                                                        </select> -->
+
+                                                        <select class="form-select" aria-label="Default select example" formControlName="stateId" [(ngModel)]="defaultStateId">
+                                                            <option value="" disabled>Select State</option>
+                                                            <option *ngFor="let State of StateList" [value]="State.stateId">{{ State.stateName }}</option>
+                                                          </select>
+
+
                                                         <div *ngIf="this.uploadForm.get('posInfo.stateId')?.invalid && submitted" class="invalid-feedback d-block">
                                                             <div *ngIf="this.uploadForm.get('posInfo.stateId')?.errors?.['required']">Please select State</div>                                                        
                                                      </div>                                                  
@@ -291,13 +297,21 @@
                                                 <div class="col-md-4">
                                                     <div>
                                                         <label for="basiInput" class="form-label">Country  <span class="madatory">*</span></label>
-                                                        <select class="form-select" aria-label="Default select example"  formControlName ="countryId">
+                                                        <!-- <select class="form-select" aria-label="Default select example"  formControlName ="countryId">
                                                             <option value="" disabled selected>Select Country</option>
                                              
                                                             <option  *ngFor="let Country of CountryList" [value]="Country.countryId">
                                                                 {{Country.countryName}}
                                                             </option>
-                                                        </select>
+                                                        </select> -->
+
+                                                        <select class="form-select" aria-label="Default select example" formControlName="countryId" [(ngModel)]="defaultcountryId">
+                                                            <option value="" disabled>Select State</option>
+                                                            <option *ngFor="let Country of CountryList" [value]="Country.countryId">{{ Country.countryName }}</option>
+                                                          </select>
+
+
+
                                                         <div *ngIf="this.uploadForm.get('posInfo.countryId')?.invalid && submitted" class="invalid-feedback d-block">
                                                             <div *ngIf="this.uploadForm.get('posInfo.countryId')?.errors?.['required']">Please select Country</div>                                                        
                                                      </div>

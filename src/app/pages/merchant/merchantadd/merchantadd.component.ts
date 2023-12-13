@@ -174,10 +174,8 @@ export class MerchantaddComponent {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
   }
-    
-  }
+}
   get conposinfo() { return this.uploadForm.get('posInfo')?.hasError;  }
-  
 
   get PosInfos(){
     return this.uploadForm.get('posInfo') as FormGroup;
@@ -202,8 +200,6 @@ export class MerchantaddComponent {
       const nestedControl = this.outerForm.get('innerGroup.nestedControl');
       return nestedControl?.invalid && (nestedControl.dirty || nestedControl.touched);
     }
-
-
   
   public validateControl = (controlName: string) => {
     return this.uploadForm.controls[controlName].invalid && this.uploadForm.controls[controlName].touched

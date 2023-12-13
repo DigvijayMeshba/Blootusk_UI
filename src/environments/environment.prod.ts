@@ -4,9 +4,8 @@ export const environment = {
 
   //uncomment while publish
   //urlAddress: 'http://34.66.214.227',
-  urlAddress  :'http://api.blootusk.com',
-  
 
+  urlAddress  :'https://api.blootusk.com',
   defaultauth: 'fackbackend',
   firebaseConfig: {
     apiKey: '',

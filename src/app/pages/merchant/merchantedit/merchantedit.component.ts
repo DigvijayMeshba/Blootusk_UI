@@ -263,9 +263,8 @@ openModalQR(qrcontent: any) {
   {
 
     this.receivedLink= this.signupurl
-    this.urlsubstring = 'http://crm.blootusk.com/#UI/auth/signupuser/'
+    this.urlsubstring = 'https://crm.blootusk.com/#UI/auth/signupuser/'
     let encryptedcode = this.receivedLink.replace(this.urlsubstring,'') 
-
      encryptedcode = btoa(encryptedcode);
 //-- its use to decode value --//
    //  const decryptedData = atob(encryptedcode);
