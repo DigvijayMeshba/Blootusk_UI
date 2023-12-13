@@ -10,7 +10,7 @@ export const environment = {
   //local
   urlAddress :'https://localhost:44328',
   //urlAddress: 'http://34.66.214.227',
- // urlAddress  :'http://api.blootusk.com',
+  //urlAddress  :'https://api.blootusk.com',
 
 
   defaultauth: 'fackbackend',
