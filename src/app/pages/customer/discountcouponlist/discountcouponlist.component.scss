@@ -12,34 +12,45 @@
 }
 
 .cupbody{
-    background: #f5f8fe;
-    border-radius: 18px;
-    border: 2px solid #c6c6c6;
-    padding: 15px !important;
+    background: #e9effa;
+    border-radius: 10px;
+    border: 1.5px solid #bdbbe9;
+    padding: 8px !important;
     margin-top: 12px;
+    cursor: pointer;
+}
+
+.cupdis{
+    font-size: 11px;
+}
+
+.cupnm{
+    font-size: 13px;
+    color: #6570b3;
 }
 
 .cupcd{
     text-align: center;
-    background: #f8fbff;
+    background: #c6d4e8;
     border-radius: 50px;
-    border: 2px solid #c6c6c6;
+    border: 1px solid #3d419e;
     padding: 8px !important;
-    margin: 10px;
+    margin: 5px;
 }
 
 .w-30{
     border-left: 1px solid #bebebe;
-    padding-left: 10px;
 }
 
 .cpdt{
-    color: #a3a3a3;
-    font-size: 12px;
+    color: #9b4c4c;
+    font-size: 9px;
+    padding-left: 7px;
 }
 
 .cpd{
-    font-size: 13px;
+    font-size: 9px;
+    padding-left: 7px;
 }
 
 .w-4{

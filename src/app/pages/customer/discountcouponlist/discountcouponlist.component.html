@@ -4,43 +4,43 @@
         
         <div class="row">
 
-            <div class="col-xl-5" *ngFor="let object of CustomerCouponList" (click)="openModalQR(qrcontent,object.couponCode)">
+            <div class="col-xl-3" *ngFor="let object of CustomerCouponList" (click)="openModalQR(qrcontent,object.couponCode)">
                 <div class="animate">
                     <div class="card-body cupbody">
                         <div class="">
                             <div class="row mb-0">
                                 <div class="col-md-6 mt-1">
-                                    <img src="../../../../assets/images/cupico.png" alt="" height="30" class="cupico">
+                                    <img src="../../../../assets/images/cupico.png" alt="" height="20" class="cupico">
                                 </div>
                                 <div class="col-md-6 text-right mt-2">
-                                    <h5 style="color: green;" *ngIf="object.status==1">
+                                    <h6 style="color: green;" *ngIf="object.status==1">
                                         {{"Live"}} 
-                                    </h5>
-                                    <h5 style="color: red;" *ngIf="object.status==2">
+                                    </h6>
+                                    <h6 style="color: red;" *ngIf="object.status==2">
                                         {{"Expired"}} 
-                                    </h5>
-                                    <h5  style="color: orange;" *ngIf="object.status==3">
+                                    </h6>
+                                    <h6  style="color: orange;" *ngIf="object.status==3">
                                         {{"Availed"}} 
-                                    </h5>
+                                    </h6>
                                 </div>
                             </div>
                             <div class="row mb-0">
-                                <div class="col-md-12"><div class="mt-2"><h4>{{object.discountValue}} 
-                                  
-                                    <a *ngIf="object.discountType=='percentage'" class="link-success fs-15"><i class="ri-percent-line"></i> </a>
-                                    <a *ngIf="object.discountType=='dollar'" class="link-success fs-15"><i class="bx bx-dollar"></i> </a>
+                                <div class="col-md-12"><div class="mt-0">
+                                    <h6 class="mb-0">{{object.discountValue}} 
+                                    <a *ngIf="object.discountType=='percentage'" class="link-success fs-11"><i class="ri-percent-line"></i> </a>
+                                    <a *ngIf="object.discountType=='dollar'" class="link-success fs-11"><i class="bx bx-dollar"></i> </a>
                                     Off
-                                </h4>
+                                </h6>
                             </div></div>
                             </div>
                             <div class="row mb-0">
-                                <div class="col-md-12"><div class="mt-2"><h6>{{object.couponDiscerption}}</h6></div></div>
+                                <div class="col-md-12"><div class="mt-2"><h6 class="cupdis">{{object.couponDiscerption}}</h6></div></div>
                             </div>
                             <div class="row mb-0">
-                                <div class="col-md-12"><div class="mt-2"><h5>{{object.merchantDetail}}</h5></div></div>
+                                <div class="col-md-12"><div class="mt-0"><h5 class="cupnm">{{object.merchantDetail}}</h5></div></div>
                             </div>
                             <div class="row mb-0">
-                                <div class="col-md-1"></div><div class="col-md-10"><div class="cupcd"><h5 class="mb-0">Coupon Code : {{object.couponCode}}</h5></div></div><div class="col-md-1"></div>
+                                <div class="col-md-12"><div class="cupcd"><h5 class="mb-0 cupdis">Coupon Code : {{object.couponCode}}</h5></div></div>
                             </div>
                             <div class="row mb-0 mt-2">
                                 <table>
@@ -60,6 +60,17 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div class="text-center mt-3">
+                <div class="gridjs-pagination">
+                    <div class="gridjs-pages">
+                        <button tabindex="0" role="button" title="Previous" aria-label="Previous">Previous</button>
+                        <button tabindex="0" role="button">1</button>
+                        <button tabindex="0" role="button" title="Next" aria-label="Next">Next</button>
                     </div>
                 </div>
             </div>
