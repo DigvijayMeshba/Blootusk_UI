@@ -124,7 +124,7 @@
                                                         <div class="position-relative auth-pass-inputgroup">
                                                             <input [type]="fieldTextType1 ? 'text' : 'password'"
                                                             class="form-control pe-5" placeholder="Enter Password"
-                                                            id="password-input" formControlName="password" max="16"
+                                                            id="password-input" formControlName="password" max="15"
                                                             [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
                                                             minlength="6"  (input)="checkPasswordStrength()">
                                                         <button
