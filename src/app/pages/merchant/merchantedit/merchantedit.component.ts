@@ -480,21 +480,20 @@ CancelForm()
 
     let AddMerchantModel: editMerchant = formData;  
 
-    AddMerchantModel.GeneratedBy = "",
-    AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
-    AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
-    AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
-    AddMerchantModel.organizationName = AddMerchantModel.posInfo.organizationName,
-       AddMerchantModel.merchantId = this.merchantId,
-       AddMerchantModel.posInfo.merchantId = this.merchantId,
-       AddMerchantModel.isEmailValidate = 1;
-       AddMerchantModel.isPhoneNumberValidate = 1;
-       AddMerchantModel.createdBy = this.userId;
-       AddMerchantModel.modifyBy = 0;
-       AddMerchantModel.createdDate = new Date(); 
-       AddMerchantModel.modifyDate = new Date();
+      AddMerchantModel.GeneratedBy = "",
+      AddMerchantModel.posInfo.stateName = ""? "":AddMerchantModel.posInfo.stateName,
+      AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
+      AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
+      AddMerchantModel.organizationName = AddMerchantModel.posInfo.organizationName,
+      AddMerchantModel.merchantId = this.merchantId,
+      AddMerchantModel.posInfo.merchantId = this.merchantId,
+      AddMerchantModel.isEmailValidate = 1;
+      AddMerchantModel.isPhoneNumberValidate = 1;
+      AddMerchantModel.createdBy = this.userId;
+      AddMerchantModel.modifyBy = 0;
+      AddMerchantModel.createdDate = new Date(); 
+      AddMerchantModel.modifyDate = new Date();
       AddMerchantModel.merchantURL ='';
-
        AddMerchantModel.posInfo.stateName = "";
        AddMerchantModel.posInfo.categoryName = "";
        AddMerchantModel.posInfo.countryName = "";

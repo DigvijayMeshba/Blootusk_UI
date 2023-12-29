@@ -4,15 +4,19 @@
         
         <div class="row">
 
-            <div class="col-xl-3" *ngFor="let object of CustomerCouponList" (click)="openModalQR(qrcontent,object.couponCode)">
+            <div class="col-xl-3"  *ngFor="let object of getPageData()" (click)="openModalQR(qrcontent,object.couponCode)">
                 <div class="animate">
                     <div class="card-body cupbody">
                         <div class="">
                             <div class="row mb-0">
-                                <div class="col-md-6 mt-1">
+                                <div class="col-md-8 mt-1">
                                     <img src="../../../../assets/images/cupico.png" alt="" height="20" class="cupico">
-                                </div>
-                                <div class="col-md-6 text-right mt-2">
+                                
+                                    <label style="font-size: 12px; margin-right: 2px;" *ngIf="object.couponType==1"> {{"Transferable"}} </label>
+                                <label style="font-size: 12px;" *ngIf="object.couponType==2"> {{"Non Transferable"}} </label>
+                               
+                            </div>
+                                <div class="col-md-4 text-right mt-2">
                                     <h6 style="color: green;" *ngIf="object.status==1">
                                         {{"Live"}} 
                                     </h6>
@@ -47,8 +51,9 @@
                                     <tr>
                                         <td class="w-40">
                                             <tr>
-                                                <!-- <td class="w-4"><img src="../../../../assets/images/jdepp.png" alt="" height="40" class="cupimg"></td>
-                                               --> <td class="w-4"> 
+                                                <td class="w-4"><img src="{{object.imageUrl}}" alt="" height="40" class="cupimg"></td>
+                                              
+                                                <td class="w-4"> 
                                                     <h6 class="cpdt">Campaign Source</h6><h5 class="cpd">{{object.source}}</h5>
                                                 </td>
                                             </tr>
@@ -67,10 +72,21 @@
 
             <div class="text-center mt-3">
                 <div class="gridjs-pagination">
-                    <div class="gridjs-pages">
-                        <button tabindex="0" role="button" title="Previous" aria-label="Previous">Previous</button>
-                        <button tabindex="0" role="button">1</button>
-                        <button tabindex="0" role="button" title="Next" aria-label="Next">Next</button>
+                    <div class="gridjs-pages" *ngIf="CustomerCouponList.length > 0">
+                        <button tabindex="0" role="button" (click)="onPageChanged3(page - 1)"
+                            [disabled]="page === 1" title="Previous" aria-label="Previous">
+                            Previous
+                        </button>
+                        <button tabindex="0" role="button" *ngFor="let pageNumber of getPageNumbers3()"
+                            (click)="onPageChanged3(pageNumber)"
+                            [class.gridjs-currentPage]="page === pageNumber"
+                            [attr.title]="'Page ' + pageNumber" [attr.aria-label]="'Page ' + pageNumber">
+                            {{ pageNumber }}
+                        </button>
+                        <button tabindex="0" role="button" (click)="onPageChanged3(page + 1)"
+                            [disabled]="page === getTotalPages3()" title="Next" aria-label="Next">
+                            Next
+                        </button>
                     </div>
                 </div>
             </div>

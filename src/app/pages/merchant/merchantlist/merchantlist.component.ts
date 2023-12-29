@@ -61,8 +61,6 @@ swalMessage(swalTitle:any)
 public ClearMerchantList()
 {
   this.keyword ='',
-    
-  
     // // this.merchnatCode = 'a',
     // // this.mobileNo ='',
     // // this.approvalStatus = ''
@@ -183,11 +181,7 @@ public ClearMerchantList()
     {
          allmerchantList=  this.MerchantList.slice(startIndex, endIndex);
     }
-
-    return  allmerchantList;
-
-
-      
+    return  allmerchantList;      
     }
   
     public getTotalPages(): number {

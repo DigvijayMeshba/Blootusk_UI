@@ -10,10 +10,7 @@ import { data } from 'jquery';
 import { catchError, throwError } from 'rxjs';
 import { addMerchant } from '../merchant';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
-
-
-
-
+import Validation from 'src/app/account/matchpassword.validator';
 
 @Component({
   selector: 'app-merchantadd',
@@ -129,7 +126,7 @@ export class MerchantaddComponent {
      // organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+      password: new FormControl('', [this.validateStrongPassword,Validators.required, Validators.minLength(8),Validators.maxLength(15)]),
       confirmPassword: new FormControl('', [Validators.required]),
      
       contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]), 
@@ -165,7 +162,12 @@ export class MerchantaddComponent {
         latitude: new FormControl('', []),
         longitude: new FormControl('', []),
        })      
-    });
+    }
+    ,
+     { 
+      validators: [Validation.match('password', 'confirmPassword')], 
+     },
+    );
 
    if (this.tokenStorage.getToken()) {
     this.isLoggedIn = true;
@@ -189,6 +191,19 @@ export class MerchantaddComponent {
   {
     return this.PosInfos.get('posAddress');
   }
+
+  validateStrongPassword(control: { value: any; }) {
+    const password = control.value;
+
+    if (!password) {
+      return null; 
+    }
+
+    const isStrong = password.length >= 8 && /[A-Z]/.test(password) && /[!@#$%^&*]/.test(password)&& /[0-9]/.test(password);
+
+    return isStrong ? null : { weakPassword: true };
+  }
+
 
   get f()
    {   

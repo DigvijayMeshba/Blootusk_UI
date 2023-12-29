@@ -124,7 +124,7 @@
                                                         <div class="position-relative auth-pass-inputgroup">
                                                             <input [type]="fieldTextType1 ? 'text' : 'password'"
                                                             class="form-control pe-5" placeholder="Enter Password"
-                                                            id="password-input" formControlName="password" max="15"
+                                                            id="password-input" formControlName="password" maxlength="15"
                                                             [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
                                                             minlength="6"  (input)="checkPasswordStrength()">
                                                         <button
@@ -316,10 +316,16 @@
                                                      </div>
                                                     </div>
                                                 </div>
-                
                                             </div>
 
-
+                                            <div class="row">
+                                                <div class="">                                                               
+                                                    I want to receive messages via Text as well as emails from BlooTusk” and “I acknowledge that I agree to the <a href="https://blootusk.com/termsconditions.html">Terms 
+                                                    </a>of Use  and have read the 
+                                                        <a href="https://blootusk.com/privacypolicy.html"> Privacy Policy.</a><br>
+                                                  </div>
+                                            </div>                                                        
+<br>
                                    </div>
                                             <div class="row">
                                                 <div class="col-lg-12">
@@ -387,6 +393,9 @@
                     </form>
                 </div> -->
             </div>
+
+            
+     
             
 
            

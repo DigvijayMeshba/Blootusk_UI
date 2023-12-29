@@ -17,7 +17,8 @@ export interface listReffreal
 export interface listCustCoupon
 {
     phoneNumber:string;
-    customerId : number;
+    customerId : number; 
+    pageNumber:number;
 }
 
 

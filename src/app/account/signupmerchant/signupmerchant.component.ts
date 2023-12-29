@@ -118,7 +118,7 @@ console.log('Decrypted :' + decrypted);
       merchantCode: new FormControl('', []),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      password: new FormControl('', [this.validateStrongPassword,Validators.required, Validators.minLength(8)]),
+      password: new FormControl('', [this.validateStrongPassword,Validators.required, Validators.minLength(8),Validators.maxLength(15)]),
       organizationName: new FormControl('', []),
     
       confirmPassword: new FormControl('', [Validators.required]),     

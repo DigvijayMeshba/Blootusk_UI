@@ -23,11 +23,14 @@ import { listCustCoupon } from '../customer';
 export class DiscountcouponlistComponent {
 
   customerId!:number;
-  CustomerCouponList!:any [];
+
+  public CustomerCouponList: any = [];
   qrCode!: string;
   receivedLink!: string;
   phoneNumber!:string;
   CustPhoneNumber!:string;
+  public page: number = 1;
+  public count = 12;
   array = ['Qr'];
 
   constructor(public formBuilder: FormBuilder,private modalService: NgbModal,public appService: AppService,
@@ -49,7 +52,8 @@ export class DiscountcouponlistComponent {
 
     let GetCouponListModel: listCustCoupon = {         
       "phoneNumber": this.phoneNumber == ''? "":this.phoneNumber,  
-       "customerId" : 0,
+      "customerId" : 0,
+      "pageNumber" : this.page,
     }  
 
     // this.appService.GetAllList("api/CouponMaster/GetCustomerCouponList", GetCouponListModel).subscribe
@@ -65,7 +69,7 @@ export class DiscountcouponlistComponent {
           return throwError(error); 
         })).subscribe((data: any) => {    
           
-          this.CustomerCouponList = data.responseData  
+          this.CustomerCouponList = data.responseData.couponList 
          
          
           if(data.responseData.length == 0)
@@ -125,5 +129,36 @@ export class DiscountcouponlistComponent {
           });
       }
   }
+
+
+ 
+    ///Code for Pagination
+    public getPageData(): any[] {
+      debugger;
+      let allmerchantList;
+      const startIndex = (this.page - 1) * this.count;
+      const endIndex = startIndex + this.count;
+    if(this.CustomerCouponList != null)
+    {
+         allmerchantList=  this.CustomerCouponList.slice(startIndex, endIndex);
+    }
+    return  allmerchantList;      
+    }
+
+  public onPageChanged3(page: number) {
+    debugger;
+    this.page = page;
+    window.scrollTo(0, 0);
+  }
+  
+  public getPageNumbers3(): number[] {
+    return Array.from({ length: this.getTotalPages3() }, (_, i) => i + 1);
+  }
+  
+  public getTotalPages3(): number {
+  return Math.ceil(this.CustomerCouponList.length / this.count);
+  }
+      ///Code for Pagination
+     
 
 }

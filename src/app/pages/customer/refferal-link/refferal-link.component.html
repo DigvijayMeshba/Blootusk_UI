@@ -21,16 +21,16 @@
                             <table class="table table-bordered table-striped align-middle table-nowrap mb-0">
                                 <thead class="table-light">
                                     <tr>
-                                        <th scope="col">Referral Link</th>                                        
+                                        <th scope="col">Referral Link</th>   
+                                                                     
                                         <th scope="col">Merchant Name</th>
-                                        <!-- <th scope="col">Transaction Type</th> -->
+                                        
                                     </tr>
                                 </thead>
                                 <tbody *ngFor="let object of CustomerList" >
                                     <tr>
-                                        <td>{{object.rEfferalLink}}</td>                                        
-                                        <td>{{object.merchantName}}</td>
-                                     
+                                        <td>{{ object.rEfferalLink }}</td>   
+                                        <td>{{ object.merchantName }}</td>
                                         <!-- <td>Data</td> -->
                                     </tr>
                                 </tbody>

@@ -14,6 +14,9 @@ import { ReferrallistComponent } from './referrallist/referrallist.component';
 import { RewardpointlistComponent } from './rewardpointlist/rewardpointlist.component';
 import { DiscountcouponlistComponent } from './discountcouponlist/discountcouponlist.component';
 import { RefferalLinkComponent } from './refferal-link/refferal-link.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { share } from 'rxjs';
+
 
 const routes: Routes = [
   { path: "referrallist", component: ReferrallistComponent },
@@ -34,9 +37,11 @@ const routes: Routes = [
   imports: [
     CommonModule,
     NgSelectModule,
+    SharedModule,
     NgbNavModule,
     ArchwizardModule,
     RouterModule.forChild(routes),
+    
     FormsModule,
     NgxPaginationModule,
     FormsModule,
