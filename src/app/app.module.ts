@@ -18,6 +18,7 @@ import { NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
+
 // Auth
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS  } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -32,7 +33,6 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 import { AppService } from 'src/app/app.service';
-
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { APP_BASE_HREF } from '@angular/common';
 import { EncrDecrServiceService } from './encr-decr-service.service';
@@ -79,6 +79,7 @@ if (environment.defaultauth === 'firebase') {
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
+   
     FlatpickrModule,
     NgbTooltipModule,
     NgbModule,

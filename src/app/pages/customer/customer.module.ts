@@ -16,6 +16,7 @@ import { DiscountcouponlistComponent } from './discountcouponlist/discountcoupon
 import { RefferalLinkComponent } from './refferal-link/refferal-link.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { share } from 'rxjs';
+import { SharethisAngularModule } from 'sharethis-angular';
 
 
 const routes: Routes = [
@@ -39,6 +40,7 @@ const routes: Routes = [
     NgSelectModule,
     SharedModule,
     NgbNavModule,
+    SharethisAngularModule,
     ArchwizardModule,
     RouterModule.forChild(routes),
     

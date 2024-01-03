@@ -22,7 +22,7 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col">Referral Link</th>   
-                                                                     
+                                        <th></th>
                                         <th scope="col">Merchant Name</th>
                                         
                                     </tr>
@@ -30,6 +30,15 @@
                                 <tbody *ngFor="let object of CustomerList" >
                                     <tr>
                                         <td>{{ object.rEfferalLink }}</td>   
+                                        <td>
+                                            <button
+                                              (click)="shareReferralLink(object.rEfferalLink)"
+                                              style="background-color: #007bff; color: #fff; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; text-align: center;"
+                                            >
+                                              Share <i class="fas fa-share"></i>
+                                            </button>
+                                          </td>
+                                                                     
                                         <td>{{ object.merchantName }}</td>
                                         <!-- <td>Data</td> -->
                                     </tr>

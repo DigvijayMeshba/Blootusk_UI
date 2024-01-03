@@ -45,6 +45,7 @@ export class RefferalLinkComponent
   
           
      }
+     
   
   
      public ClearSearchdata()
@@ -54,4 +55,35 @@ export class RefferalLinkComponent
        this.router.navigate(['/customer/referrallist'], { relativeTo: this.route });
        this.GetRewardPointList()
      }
+
+     shareReferralLink(referralLink: string) {
+      const message = `Check out this referral link: ${referralLink}`;
+    
+      if (navigator.share) {
+        navigator
+          .share({
+            title: 'Share Referral Link',
+            text: message,
+            url: referralLink,
+          })
+          .then(() => console.log('Successfully shared'))
+          .catch((error) => console.log('Error sharing:', error));
+      } else {
+        // Fallback for browsers that do not support the Web Share API
+        // Open a WhatsApp share link if WhatsApp is installed
+        const isWhatsAppInstalled = /WhatsApp/.test(navigator.userAgent);
+    
+        if (isWhatsAppInstalled) {
+          const whatsappLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+          window.location.href = whatsappLink;
+        } else {
+          // Fallback for other browsers
+          alert(`Share this link: ${referralLink}`);
+        }
+      }
     }
+    
+  }
+  
+     
+    

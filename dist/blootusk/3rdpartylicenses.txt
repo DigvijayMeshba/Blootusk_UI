@@ -1400,6 +1400,8 @@ Apache-2.0
  
 
 
+sharethis-angular
+
 shepherd.js
 MIT
 The MIT License (MIT)
