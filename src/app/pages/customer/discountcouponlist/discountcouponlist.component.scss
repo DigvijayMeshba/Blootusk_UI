@@ -1,5 +1,5 @@
 .project-wrapper{
-    background: white !important;
+    // background: white;
     border-radius: 10px;
     margin-top: -10px;
     margin-bottom: 10px;
@@ -12,9 +12,9 @@
 }
 
 .cupbody{
-    background: #e9effa;
+    background: inherit;
     border-radius: 10px;
-    border: 1.5px solid #bdbbe9;
+    border: 1.5px solid #405189;
     padding: 8px !important;
     margin-top: 12px;
     cursor: pointer;
@@ -31,7 +31,7 @@
 
 .cupcd{
     text-align: center;
-    background: #c6d4e8;
+    // background: #c6d4e8;
     border-radius: 50px;
     border: 1px solid #3d419e;
     padding: 8px !important;

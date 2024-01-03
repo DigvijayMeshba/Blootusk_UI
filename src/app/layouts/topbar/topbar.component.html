@@ -6,19 +6,19 @@
                 <div class="navbar-brand-box horizontal-logo">
                     <a routerLink="" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="assets/images/cslogo.png" alt="" height="22">
+                            <img src="assets/images/logo.png" alt="" height="22" >
                         </span>
                         <span class="logo-lg">
-                            <img src="assets/images/cslogo.png" alt="" height="40">
+                            <img src="assets/images/logo.png" alt="" height="40">
                         </span>
                     </a>
 
                     <a routerLink="" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="assets/images/cslogo.png" alt="" height="22">
+                            <img src="assets/images/logo.png" alt="" height="22" class="mlogo">
                         </span>
                         <span class="logo-lg">
-                            <img src="assets/images/cslogo.png" alt="" height="40">
+                            <img src="assets/images/logo.png" alt="" height="40">
                         </span>
                     </a>
                 </div>
@@ -37,7 +37,7 @@
 
             <div class="d-flex align-items-center">
 
-                <div class="dropdown d-md-none topbar-head-dropdown header-item" ngbDropdown>
+                <div class="dropdown d-none topbar-head-dropdown header-item" ngbDropdown>
                     <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle"
                         id="page-header-search-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false" ngbDropdownToggle>
@@ -135,7 +135,7 @@
                                 alt="Header Avatar" style="display: none;">
                             <span class="text-start ms-xl-2">
                                 <span
-                                class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Hi {{this.UserName}}</span>
+                                class="d-md-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">Hi {{this.UserName}}</span>
                                     <span *ngIf="addRoleDeatil=='Admin'"
                                     class="d-none d-xl-inline-block ms-1 fw-medium user-name-text"></span>                                
                                     
@@ -154,7 +154,7 @@
                                 class="align-middle">User Details</span></a>
                     
                   </a>
-                  <a class="dropdown-item " href="javascript: void(0);" (click)="logout()"><i
+                  <a class="dropdown-item dropdown-items" href="javascript: void(0);" (click)="logout()"><i
                     class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span
                     class="align-middle" data-key="t-logout">Logout</span></a>
                   </div>
