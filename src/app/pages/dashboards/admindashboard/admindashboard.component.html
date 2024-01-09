@@ -1,1 +1,262 @@
-<p>Admin Dashboard</p>
+<div class="row project-wrapper">
+
+    <div class="row">
+        <div class="col-4 mb-3">
+            <select class="form-select" aria-label="Default select example" >
+                <option value="" disabled selected>Select Merchant</option>                                       
+                <option> Merchant 1</option>   
+                <option> Merchant 2</option> 
+                <option> All</option>                                                    
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="row row-cols-xxl-5 row-cols-lg-3 row-cols-1">
+                <div class="col">
+                    <div class="card card-body">
+                        <div class="d-flex mb-0 align-items-center">
+                            <div class="flex-shrink-0">
+                                <p class="text-uppercase fw-medium text-primary text-truncate mb-3">USERS</p>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                <h4 class="card-title mb-1 text-right font20">2.5 K</h4>
+                            </div>
+                        </div>
+                        <hr>
+                        <h6 class="mb-1 pots">MTD : 1570</h6>
+                    </div>
+                </div><!-- end col -->
+                <div class="col">
+                    <div class="card card-body">
+                        <div class="d-flex mb-0 align-items-center">
+                            <div class="flex-shrink-0">
+                                <p class="text-uppercase fw-medium text-primary text-truncate mb-3">MERCHANTS</p>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                <h4 class="card-title mb-1 text-right font20">450</h4>
+                            </div>
+                        </div>
+                        <hr>
+                        <h6 class="mb-1 pots">Verification Pending : 25</h6>
+                    </div>
+                </div><!-- end col -->
+                <div class="col">
+                    <div class="card card-body">
+                        <div class="d-flex mb-0 align-items-center">
+                            <div class="flex-shrink-0">
+                                <p class="text-uppercase fw-medium text-primary text-truncate mb-3">POINTS</p>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                <h4 class="card-title mb-1 text-right font20">35.5 K</h4>
+                            </div>
+                        </div>
+                        <hr>
+                        <h6 class="mb-1 pots">MTD : 8000 Pts.</h6>
+                    </div>
+                </div><!-- end col -->
+                <div class="col">
+                    <div class="card card-body">
+                        <div class="d-flex mb-0 align-items-center">
+                            <div class="flex-shrink-0">
+                                <p class="text-uppercase fw-medium text-primary text-truncate mb-3">REDEEMED POINTS</p>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                <h4 class="card-title mb-1 text-right font20">18.5 K</h4>
+                            </div>
+                        </div>
+                        <hr>
+                        <h6 class="mb-1 pots">MTD : 5000 Pts.</h6>
+                    </div>
+                </div><!-- end col -->
+                <div class="col">
+                    <div class="card card-body">
+                        <div class="d-flex mb-0 align-items-center">
+                            <div class="flex-shrink-0">
+                                <p class="text-uppercase fw-medium text-primary text-truncate mb-3">CAMPAIGN</p>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                <h4 class="card-title mb-1 text-right font20">25</h4>
+                            </div>
+                        </div>
+                        <hr>
+                        <h6 class="mb-1 pots"><span class="fltl">Coupon : 2560</span> <span class="fltr">Redeem : 1200</span></h6>
+                    </div>
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end col -->
+    </div><!-- end row -->
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header bckwhite">
+                    <h4 class="card-title mb-0">USERS <span class="card-title mb-1 text-right font20 fltr">2.5 K</span></h4> 
+                </div><!-- end card header -->
+
+                <div class="card-header p-0 border-0 bg-light-subtle">
+                    <div class="row g-0 text-center">
+                        <div class="col-6 col-sm-6">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="7585">1.5 K</span></h5>
+                                <p class="text-muted mb-0">Walk In</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-6 col-sm-6">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">1 K</span></h5>
+                                <p class="text-muted mb-0">Referaal</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                </div>
+    
+                <div class="card-body">
+                    <apx-chart [series]="groupedBarChart.series" [chart]="groupedBarChart.chart"
+                        [dataLabels]="groupedBarChart.dataLabels" [plotOptions]="groupedBarChart.plotOptions"
+                        [xaxis]="groupedBarChart.xaxis" [stroke]="groupedBarChart.stroke" [colors]="groupedBarChart.colors"
+                        dir="ltr"></apx-chart>
+                </div><!-- end card-body -->
+            </div><!-- end card -->
+        </div>
+        <!-- end col -->
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header bckwhite">
+                    <h4 class="card-title mb-0">POINTS <span class="card-title mb-1 text-right font20 fltr">35.5 K</span></h4>
+                </div><!-- end card header -->
+
+                <div class="card-header p-0 border-0 bg-light-subtle">
+                    <div class="row g-0 text-center">
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="7585">15 K</span></h5>
+                                <p class="text-muted mb-0">Sign In</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">20.5 K</span></h5>
+                                <p class="text-muted mb-0">Referaal</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="7585">5.25 K</span></h5>
+                                <p class="text-muted mb-0">Redeemed</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">2.5 K</span></h5>
+                                <p class="text-muted mb-0">Earn</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                </div>
+    
+                <div class="card-body">
+                    <apx-chart [series]="groupedBarChart1.series" [chart]="groupedBarChart1.chart"
+                        [dataLabels]="groupedBarChart1.dataLabels" [plotOptions]="groupedBarChart1.plotOptions"
+                        [xaxis]="groupedBarChart1.xaxis" [stroke]="groupedBarChart1.stroke" [colors]="groupedBarChart1.colors"
+                        dir="ltr"></apx-chart>
+                </div><!-- end card-body -->
+            </div><!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header bckwhite">
+                    <h4 class="card-title mb-0">COUPONS</h4>
+                </div><!-- end card header -->
+
+                <div class="card-header p-0 border-0 bg-light-subtle">
+                    <div class="row g-0 text-center">
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="7585">125</span></h5>
+                                <p class="text-muted mb-0">Campaign</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">12.5 K</span></h5>
+                                <p class="text-muted mb-0">Coupon</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="7585">6 K</span></h5>
+                                <p class="text-muted mb-0">Redeemed</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">4 K</span></h5>
+                                <p class="text-muted mb-0">Transfer</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                </div>
+    
+                <div class="card-body">
+                    <apx-chart [series]="groupedBarChart2.series" [chart]="groupedBarChart2.chart"
+                        [dataLabels]="groupedBarChart2.dataLabels" [plotOptions]="groupedBarChart2.plotOptions"
+                        [xaxis]="groupedBarChart2.xaxis" [stroke]="groupedBarChart2.stroke" [colors]="groupedBarChart2.colors"
+                        dir="ltr"></apx-chart>
+                </div><!-- end card-body -->
+            </div><!-- end card -->
+        </div>
+        <!-- end col -->
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header bckwhite">
+                    <h4 class="card-title mb-0">FREQUENT USERS</h4>
+                </div><!-- end card header -->
+    
+                <div class="card-header p-0 border-0 bg-light-subtle">
+                    <div class="row g-0 text-center">
+                        <div class="col-6 col-sm-6">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="7585">25.1 K</span></h5>
+                                <p class="text-muted mb-0">Visit</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-6 col-sm-6">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">5 K</span></h5>
+                                <p class="text-muted mb-0">Users</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    <apx-chart [series]="groupedBarChart3.series" [chart]="groupedBarChart3.chart"
+                        [dataLabels]="groupedBarChart3.dataLabels" [plotOptions]="groupedBarChart3.plotOptions"
+                        [xaxis]="groupedBarChart3.xaxis" [stroke]="groupedBarChart3.stroke" [colors]="groupedBarChart3.colors"
+                        dir="ltr"></apx-chart>
+                </div><!-- end card-body -->
+            </div><!-- end card -->
+        </div>
+        <!-- end col -->
+    </div>
+
+
+</div>
