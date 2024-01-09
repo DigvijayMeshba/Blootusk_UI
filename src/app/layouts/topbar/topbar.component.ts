@@ -208,13 +208,16 @@ export class TopbarComponent implements OnInit {
    * Logout the user
    */
   logout() {
+    debugger;
     this.authService.logout();
     // if (environment.defaultauth === 'firebase') {
     //   this.authService.logout();
     // } else {
     //   this.authFackservice.logout();
     // }
-    this.router.navigate(['/auth/login']);
+   // this.router.navigate(['/auth/login']);
+   // this.router.navigate(['https://blootusk.com']);
+   window.location.href = 'https://blootusk.com';
   }
 
   windowScroll() {
@@ -312,8 +315,7 @@ export class TopbarComponent implements OnInit {
      
         switch(statuscode)
         {
-            case 200:
-          
+            case 200:          
             Swal.fire({
               title:'Success',
               text: 'User Updated Successfully.',

@@ -22,9 +22,8 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col">Referral Link</th>   
-                                        <th></th>
-                                        <th scope="col">Merchant Name</th>
-                                        <th scope="col">Share</th>
+                                        <th scope="col">Copy</th>
+                                        <th scope="col">Merchant Name</th>                                   
                                         
                                     </tr>
                                 </thead>
@@ -32,16 +31,26 @@
                                     <tr>
                                         <td>{{ object.rEfferalLink }}</td>   
                                         <td>
-                                            <button
+                                            <!-- <button type="button" class="btn btn-primary"
                                               (click)="shareReferralLink(object.rEfferalLink)"
-                                              style="background-color: #007bff; color: #fff; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; text-align: center;"
-                                            >
-                                              Share <i class="fas fa-share"></i>
+                                              style="background-color: #007bff; color: #fff; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; text-align: center;">
+                                               <i class="ri-share-line label-icon align-middle"></i>
+                                            </button> -->
+
+                                            <!-- app.component.html -->
+ 
+                                            <button  (click)="copyInputMessage(object.rEfferalLink)">
+                                            <i  class="ri-file-copy-2-fill"></i>
                                             </button>
-                                          </td>
+                                            <span *ngIf="isCopied" class="side-text">Copied!</span>
+
+                                            
+
+
+                                        </td>
                                                                      
                                         <td>{{ object.merchantName }}</td>
-                                        <td><button type="button" class="btn btn-primary"><i class="ri-share-line label-icon align-middle"></i> </button></td>
+                                       
                                     </tr>
                                 </tbody>
                             </table>

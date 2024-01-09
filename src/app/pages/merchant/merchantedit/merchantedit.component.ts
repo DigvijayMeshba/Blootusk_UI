@@ -262,17 +262,22 @@ openModalQR(qrcontent: any) {
   if(this.approvstatus == 'V')
   {
 
-    this.receivedLink= this.signupurl
-    this.urlsubstring = 'https://crm.blootusk.com/#UI/auth/signupuser/'
+   // this.receivedLink= this.signupurl
+   this.receivedLink = this.signupurl; 
+   this.urlsubstring = 'https://crm.blootusk.com/#UI/auth/signupuser/'
     let encryptedcode = this.receivedLink.replace(this.urlsubstring,'') 
-     encryptedcode = btoa(encryptedcode);
+    // encryptedcode = btoa(encryptedcode);
+
+
+     let dcodeMerchantCode = atob(encryptedcode); 
+     let dryptedmerchantcode = this.EncrDecr.get('12$#@BLOO$^@TUSK', dcodeMerchantCode)
 //-- its use to decode value --//
    //  const decryptedData = atob(encryptedcode);
    
   //  let test = this.EncrDecr.get('12$#@BLOO$^@TUSK', 'xof0gDd/9lWWEyMXQSboYw==')
   //  console.log(test)
     
-   this.receivedLink = this.urlsubstring + encryptedcode;
+   this.receivedLink = this.urlsubstring + dryptedmerchantcode;
 
       // QRCode.toDataURL(this.receivedLink)
       //   .then(url => {
@@ -282,7 +287,7 @@ openModalQR(qrcontent: any) {
       //     console.error('QR Code generation error:', err);
       //   });
 
-    QRCode.toDataURL(this.receivedLink, (err, url) => {
+    QRCode.toDataURL(this.signupurl, (err, url) => {
       if (err) {
         console.error(err);
       } else {
@@ -395,6 +400,7 @@ public getMerchantbyId(merchantId: any) {
       this.ContactPersonNameTemp = data.responseData.contactPersonName,
       this.MobileNoTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 
       this.EmailIdTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email)
+      this.signupurl  =  data.responseData.merchantURL,
     
     this.TemplateList = data.responseData.smstemplateList;
     console.log("RewardList",data.responseData.rewardPointlist)

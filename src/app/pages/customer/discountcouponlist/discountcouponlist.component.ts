@@ -49,20 +49,17 @@ export class DiscountcouponlistComponent {
 
   GetCouponList()
   {
-
     let GetCouponListModel: listCustCoupon = {         
       "phoneNumber": this.phoneNumber == ''? "":this.phoneNumber,  
       "customerId" : 0,
       "pageNumber" : this.page,
-    }  
+    } 
 
     // this.appService.GetAllList("api/CouponMaster/GetCustomerCouponList", GetCouponListModel).subscribe
     //   (data => {  
     //       this.CustomerCouponList = data.responseData;
     //      console.log('CustomerCouponList' , this.CustomerCouponList )
     //   });
-
-
       this.appService.GetAllList("api/CouponMaster/GetCustomerCouponList",GetCouponListModel)
       .pipe(
         catchError((error) => {          
@@ -70,8 +67,6 @@ export class DiscountcouponlistComponent {
         })).subscribe((data: any) => {    
           
           this.CustomerCouponList = data.responseData.couponList 
-         
-         
           if(data.responseData.length == 0)
           {
              this.swalMessage('Data not found')

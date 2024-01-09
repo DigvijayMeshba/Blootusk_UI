@@ -8,7 +8,7 @@ import { catchError, throwError } from 'rxjs';
 import { AddCustomer, Signupuser, UserForOtp } from './signupuser';
 import Swal from 'sweetalert2';
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
-
+import { split } from 'lodash';
 
 
 @Component({
@@ -73,34 +73,62 @@ export class SignupuserComponent {
     isCaptchaVerified = false;
     UserSendOTP!:string;
     CustomerCode!:any;
-  
+    Ismerchant!:boolean;
+    MerchantCode!:any;
     constructor(public formBuilder: FormBuilder,public appService: AppService,
       private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
       private router: Router,private EncrDecr: EncrDecrServiceService)
      {
-
       let ecodeMerchantCode = this.route.snapshot.params['id'];    
       let dcodeMerchantCode = atob(ecodeMerchantCode); 
       let dryptedmerchantcode = this.EncrDecr.get('12$#@BLOO$^@TUSK', dcodeMerchantCode)
-      //if condition use for a referal singup
-      if(dryptedmerchantcode.length > 8)
-      {
-        let SplitCode = dryptedmerchantcode.split("C");
-        this.merchantCode = SplitCode[0];
-        this.CustomerCode = 'C'+SplitCode[1];
 
-      //   this.merchantCode = this.EncrDecr.set('12$#@BLOO$^@TUSK', this.merchantCode);
-         this.merchantCode = btoa(this.merchantCode)
+      // let SplitCode = dryptedmerchantcode.split("M0");
+      // if(SplitCode[1] != null)
+      // {
+      //   this.Ismerchant == true;
+      // }
+
+
+      let decryptedMerchantCode = dryptedmerchantcode;
+let SplitCode = decryptedMerchantCode.match(/(\d+|[A-Za-z]+)/g);
+
+if (SplitCode !== null) {
+    // splitCode will be an array containing ["338", "MO"]
+    console.log(SplitCode[0]); // "338"
+
+    if(SplitCode[1] == "M")
+    {
+      this.Ismerchant = true;
+    }
+    this.merchantCode = SplitCode[0];
+}
+
+         
+     //temp hide this code
+      //if condition use for a referal singup
+    //   if(dryptedmerchantcode.length > 8)
+    //   {
+    //     let SplitCode = dryptedmerchantcode.split("C");
+    //     this.merchantCode = SplitCode[0];
+    //     this.CustomerCode = 'C'+ SplitCode[1];
+
+    //   //   this.merchantCode = this.EncrDecr.set('12$#@BLOO$^@TUSK', this.merchantCode);
+    //      this.merchantCode = btoa(this.merchantCode)
    
-      }
-       //if condition use for a QR singup     
-      else
-      {
-        this.merchantCode = btoa(dryptedmerchantcode)
-     //   this.merchantCode = this.EncrDecr.set('12$#@BLOO$^@TUSK', dryptedmerchantcode)
-      }
+    //   }
+    //    //if condition use for a QR singup     
+    //   else
+    //   {
+      //  this.merchantCode = btoa(dryptedmerchantcode)
+    //  this.merchantCode = this.EncrDecr.set('12$#@BLOO$^@TUSK', dryptedmerchantcode)
+    //   }
       this.GetMerchantName(this.merchantCode);
-      this.GetCustomerName(this.CustomerCode)
+      if(SplitCode != null)
+      {
+        this.GetCustomerName(dryptedmerchantcode)
+      }
+
      }
   
      ngOnInit(): void {
@@ -142,10 +170,13 @@ export class SignupuserComponent {
   
     GetMerchantName(merchantCode:any)
     {
-      this.appService.getById("api/Merchant/GetMarchantByCode/",merchantCode).subscribe(data => {
-      
+     // this.appService.getByMerchantId("api/Merchant/GetMarchantByCode/",merchantCode,"?isMerchant="Ismerchant).subscribe(data => {
+        this.appService.getByMerchantId("api/Merchant/GetMarchantByCode/", merchantCode, "?isMerchant=" + this.Ismerchant).subscribe(data => {
+       
+
        this.merchantName = data.responseData.organizationName;
        this.merchantId = data.responseData.merchantID;
+       this.MerchantCode = data.responseData.merchantCode;
       });
     }
 
@@ -153,7 +184,7 @@ export class SignupuserComponent {
     GetCustomerName(customerCode:any)
     {
       debugger;
-      this.appService.getById("api/User/GetCustomerByCOde/",this.CustomerCode).subscribe(data => {
+      this.appService.getById("api/User/GetCustomerByCOde/",customerCode).subscribe(data => {
       console.log('custdata', data.responseData)
        this.customerName = data.responseData.phoneNumber;
        this.customerId = data.responseData.customerID;
@@ -393,7 +424,7 @@ debugger;
         merchantID:this.merchantId,
         name :"",
         phoneNumber:this.MobileNo,
-        merchantCode: this.merchantCode,
+        merchantCode: this.MerchantCode,
         isPhoneNumberValidate:0,
         createdBy:0,
         modifyBy:0,      
@@ -408,7 +439,7 @@ debugger;
         approvalStatus: '',
         recStatus: '',  
         MerchantName : "",
-      }  
+      }   
      
       // if(formDdt.phoneNumberOTP == this.UserSendOTP || formDdt.phoneNumberOTP == '123456')
       // {      

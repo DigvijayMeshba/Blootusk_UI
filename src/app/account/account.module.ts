@@ -32,6 +32,7 @@ import { OptverifyComponent } from './optverify/optverify.component';
 
 import { ImageCaptchaComponent } from './image-captcha/image-captcha.component';
 import { SignupcustomerComponent } from './signupcustomer/signupcustomer.component';
+import { SignupmerchantuserComponent } from './signupmerchantuser/signupmerchantuser.component';
 
 
 
@@ -46,6 +47,7 @@ import { SignupcustomerComponent } from './signupcustomer/signupcustomer.compone
     OptverifyComponent,
     ImageCaptchaComponent,
     SignupcustomerComponent,
+    SignupmerchantuserComponent,
     
   ],
   imports: [

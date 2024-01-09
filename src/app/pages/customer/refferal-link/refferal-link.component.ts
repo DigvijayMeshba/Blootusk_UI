@@ -19,6 +19,7 @@ export class RefferalLinkComponent
   public page: number = 1;
   keyword! :string;
   public count = 10;
+  isCopied!:boolean;
     constructor(public appService: AppService,private EncrDecr: EncrDecrServiceService,
       private route: ActivatedRoute,private tokenStorage: TokenStorageService,private router: Router) {
     }
@@ -41,13 +42,32 @@ export class RefferalLinkComponent
       this.appService.getById("api/User/GetRefferalLinkList/",this.phoneNumber).subscribe(data => {
         console.log(data.responseData)
         this.CustomerList = data.responseData.referlist;        
-    });
+    });  
+  }
+  copyInputMessage(referralLink: string): void {
   
-          
-     }
-     
-  
-  
+    const tempInputElement = document.createElement('textarea');
+    tempInputElement.value = referralLink;
+    document.body.appendChild(tempInputElement);
+
+    tempInputElement.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInputElement);
+
+    // Use the Clipboard API as a fallback if execCommand is not supported
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(referralLink)
+        .then(() => console.log('Text copied successfully'))
+        .catch(err => console.error('Error copying text: ', err));
+    }
+
+    this.isCopied = true;
+
+    // Reset the 'Copied!' message after a delay (e.g., 2 seconds)
+    setTimeout(() => {
+      this.isCopied = false;
+    }, 2000);
+  }
      public ClearSearchdata()
      {
        debugger;
@@ -55,6 +75,12 @@ export class RefferalLinkComponent
        this.router.navigate(['/customer/referrallist'], { relativeTo: this.route });
        this.GetRewardPointList()
      }
+
+     
+
+    copyData(copydata:any) {
+      return JSON.stringify(copydata);
+    }
 
      shareReferralLink(referralLink: string) {
       const message = `Check out this referral link: ${referralLink}`;

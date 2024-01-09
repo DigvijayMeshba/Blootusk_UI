@@ -27,7 +27,7 @@ import { initFirebaseBackend } from './authUtils';
 import { FakeBackendInterceptor } from './core/helpers/fake-backend';
 import { ErrorInterceptor } from './core/helpers/error.interceptor';
 import { JwtInterceptor } from './core/helpers/jwt.interceptor';
-
+import { ClipboardModule } from 'ngx-clipboard';
 // Language
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -37,6 +37,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { APP_BASE_HREF } from '@angular/common';
 import { EncrDecrServiceService } from './encr-decr-service.service';
 import { RefferalLinkComponent } from './pages/customer/refferal-link/refferal-link.component';
+import { MyNewComponentComponent } from './my-new-component/my-new-component.component';
 
 
 
@@ -56,6 +57,7 @@ if (environment.defaultauth === 'firebase') {
   declarations: [
     AppComponent,
     RefferalLinkComponent,
+    MyNewComponentComponent,
     
     
     
@@ -75,6 +77,7 @@ if (environment.defaultauth === 'firebase') {
     AppRoutingModule,
     LayoutsModule,
     PagesModule,
+    ClipboardModule,
     Ng2SearchPipeModule,
     MatSnackBarModule,
     FormsModule,
