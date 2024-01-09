@@ -101,6 +101,10 @@ if (SplitCode !== null) {
     {
       this.Ismerchant = true;
     }
+    else 
+    {
+      this.Ismerchant = false;
+    }
     this.merchantCode = SplitCode[0];
 }
 
