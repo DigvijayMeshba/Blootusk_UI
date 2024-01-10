@@ -73,6 +73,7 @@ export class SignupuserComponent {
     isCaptchaVerified = false;
     UserSendOTP!:string;
     CustomerCode!:any;
+    referBy!:any;
     Ismerchant!:boolean;
     MerchantCode!:any;
     constructor(public formBuilder: FormBuilder,public appService: AppService,
@@ -192,6 +193,8 @@ if (SplitCode !== null) {
       console.log('custdata', data.responseData)
        this.customerName = data.responseData.phoneNumber;
        this.customerId = data.responseData.customerID;
+       this.CustomerCode = data.responseData.custcode;
+       this.referBy = data.responseData.customerID;
       
       });
     }
@@ -414,13 +417,13 @@ debugger;
       //   emailOTP :'',
       //   phoneNumberOTP: '',
       //  } 
-       if(this.CustomerCode != null)
-       {
-        refer = this.customerId;
-       }
-       else{
-        refer = 0;
-       }
+      //  if(this.CustomerCode != null)
+      //  {
+      //   refer = this.customerId;
+      //  }
+      //  else{
+      //   refer = 0;
+      //  }
 
       //let addUserDeatil = this.tokenStorage.getUser();   
       const  AddUsertDtail: AddCustomer  =  {      
@@ -434,7 +437,7 @@ debugger;
         modifyBy:0,      
         createdDate : new Date(),
         modifyDate :new Date(),        
-        referBy:refer,
+        referBy:this.referBy,
         rewardPoint:0,
         customerID:0,
         customerCode :"",       

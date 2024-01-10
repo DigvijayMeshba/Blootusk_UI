@@ -1,3 +1,7 @@
 npm install html2canvas
 
 npm install qrcode
+
+
+
+npm install ngx-clipboard
