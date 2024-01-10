@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { NgApexchartsModule } from 'ng-apexcharts';
+
 import { AdmindashboardComponent } from './admindashboard/admindashboard.component';
 import { DashboardsRoutingModule } from "./dashboards-routing.module";
 import { SharedModule } from '../../shared/shared.module';
@@ -29,7 +31,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     DashboardsRoutingModule,
     SharedModule,
-    NgbModule
+    NgbModule,
+    NgApexchartsModule,
   ],
   exports: [RouterModule],
 })
