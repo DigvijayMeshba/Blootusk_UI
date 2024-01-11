@@ -57,6 +57,10 @@ export class TopbarComponent implements OnInit {
     uploadForm!:FormGroup;  
   ngOnInit(): void {
 
+    this.UserName  = this.TokenStorageService.getUser();
+    // this.userData = this.TokenStorageService.getUser();
+    
+    this.addRoleDeatil = this.TokenStorageService.GetRole();  
     this.uploadForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       // createdDate: new FormControl('', []),
@@ -70,10 +74,7 @@ export class TopbarComponent implements OnInit {
       // ReferCode: new FormControl('', []),
     })
 
-    this.userData = this.TokenStorageService.getUser();
-    this.element = document.documentElement;
-    this.addRoleDeatil = this.TokenStorageService.GetRole();  
-    this.UserName  = this.TokenStorageService.getUser();
+
     console.log('UserName',this.UserName)
     // Cookies wise Language set
     this.cookieValue = this._cookiesService.get('lang');
@@ -93,8 +94,8 @@ export class TopbarComponent implements OnInit {
       this.total += item_price
     });
 
-    this.sessionuserfullName = this.TokenStorageService.getUser().fullName;
-    this.sessionuserrole = this.TokenStorageService.getUser().roleName;
+    //this.sessionuserfullName = this.TokenStorageService.getUser().fullName;
+    //this.sessionuserrole = this.TokenStorageService.getUser().roleName;
 
   }
   get f() { return this.uploadForm.controls; }
