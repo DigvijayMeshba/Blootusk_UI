@@ -25,6 +25,44 @@ export const MENU: MenuItem[] =
     icon: 'ri-honour-line',
     link: 'businesscategory/businesscategorylist',
   },  
+
+  // {
+  //   id: 102,
+  //   label: 'Merchant Statement',
+  //   icon: 'ri-honour-line',
+  //   link: 'reports/merchantstatement',
+  // },  
+
+  // {
+  //   id: 103,
+  //   label: 'Customer Statement',
+  //   icon: 'ri-honour-line',
+  //   link: 'reports/customerstatement',
+  // }, 
+
+
+  {
+    id: 102,
+    label: 'Reports',
+    icon: 'ri-book-3-fill',
+    parentId: 8,
+    subItems: [
+      {
+        id: 24,
+        label: 'Merchant Statement',
+        icon: 'ri-file-user-fill',
+        link: 'reports/merchantstatement',
+        parentId: 102
+      },
+      {
+        id: 25,
+        label: 'Customer Statement',
+        icon: 'ri-shopping-bag-2-line',
+        link: 'reports/customerstatement',
+        parentId: 102
+      }
+    ]
+  },
  
 
 ];
