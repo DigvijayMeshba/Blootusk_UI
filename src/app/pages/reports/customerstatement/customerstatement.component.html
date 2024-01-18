@@ -23,7 +23,7 @@
 
                                 <div class="row mb-3">
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Customer Code</label>
                                            
@@ -37,7 +37,7 @@
                                        
                                     </div>
 
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Merchant Code</label>
                                             <input type="text" class="form-control" placeholder="Enter Merchant Code">
@@ -48,16 +48,27 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3">
+                                </div>
+                                    
+                                <div class="row mb-3">
+
+                                    <div class="col-md-4">
                                         <div>
-                                            <label for="basiInput" class="form-label">From & To Date</label>
-                                            <input class="form-control flatpickr-input" type="text" mwlFlatpickr [altInput]="true"[convertModelValue]="true" mode="range">
-                                        
-                                        
+                                            <label for="basiInput" class="form-label">From Date</label>
+                                            <input type="date" class="form-control" placeholder="Enter From Date">
+                                            <!-- <input class="form-control flatpickr-input" type="text" mwlFlatpickr [altInput]="true"[convertModelValue]="true" mode="range"> -->
                                         </div>
                                     </div>
 
-                                    <div class="col-md-3 ">                                        
+                                    <div class="col-md-4">
+                                        <div>
+                                            <label for="basiInput" class="form-label">To Date</label>
+                                            <input type="date" class="form-control" placeholder="Enter To Date">
+                                            <!-- <input class="form-control flatpickr-input" type="text" mwlFlatpickr [altInput]="true"[convertModelValue]="true" mode="range"> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 ">                                        
                                         <div class="mt-4  text-right gap-1 ">                                      
                                             <button type="button" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
                                             &nbsp;
