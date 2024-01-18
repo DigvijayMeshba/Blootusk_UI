@@ -37,10 +37,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { APP_BASE_HREF } from '@angular/common';
 import { EncrDecrServiceService } from './encr-decr-service.service';
 import { RefferalLinkComponent } from './pages/customer/refferal-link/refferal-link.component';
-import { MyNewComponentComponent } from './my-new-component/my-new-component.component';
-
-
-
+import { RedeemCouponComponent } from './account/redeem-coupon/redeem-coupon.component';
 
 
 export function createTranslateLoader(http: HttpClient): any {
@@ -56,11 +53,8 @@ if (environment.defaultauth === 'firebase') {
 @NgModule({
   declarations: [
     AppComponent,
-    RefferalLinkComponent,
-    MyNewComponentComponent,
-    
-    
-    
+    RefferalLinkComponent,    
+    RedeemCouponComponent,
   ],
   imports: [
     TranslateModule.forRoot({
@@ -82,7 +76,6 @@ if (environment.defaultauth === 'firebase') {
     MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
-   
     FlatpickrModule,
     NgbTooltipModule,
     NgbModule,
@@ -92,10 +85,9 @@ if (environment.defaultauth === 'firebase') {
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: FakeBackendInterceptor, multi: true },
-    
-    {provide: APP_BASE_HREF, useValue: 'UI'},
-    EncrDecrServiceService,
-   
+    //change for #
+    {provide: APP_BASE_HREF, useValue: ''},
+    EncrDecrServiceService,   
     AppService
   ],  
   

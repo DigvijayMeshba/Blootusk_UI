@@ -81,7 +81,8 @@ export class RewardaddComponent {
   public getMerchantbyId(merchantId: any) {
  
     if (merchantId > 0) {
-      this.appService.getById("api/Merchant/GetMerchantById/", merchantId).subscribe(data => {     
+      this.appService.getById("api/Merchant/GetMerchantById/", merchantId).subscribe(data => { 
+            
         this.OrganizationNameTemp = data.responseData.organizationName,
         this.ContactPersonNameTemp = data.responseData.contactPersonName,
         this.MobileNoTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 

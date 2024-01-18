@@ -7,10 +7,9 @@ import { LayoutComponent } from './layouts/layout.component';
 import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
-
   { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
   { path: '', component: LayoutComponent, loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule)},
-  { path: 'auth', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
+  { path: '', loadChildren: () => import('./account/account.module').then(m => m.AccountModule) },
   { path: 'pages1', loadChildren: () => import('./extraspages/extraspages.module').then(m => m.ExtraspagesModule) },
 
 ];
@@ -20,7 +19,8 @@ const routes: Routes = [
     preloadingStrategy: PreloadAllModules, // <- comment this line for activate lazy load
      //relativeLinkResolution: 'legacy',
     // initialNavigation: 'enabled',  // for one load page, without reload
-      useHash: true,
+   //change for #
+     useHash: true,
 })
   ],
   exports: [RouterModule]

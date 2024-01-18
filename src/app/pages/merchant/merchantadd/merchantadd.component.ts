@@ -314,10 +314,6 @@ export class MerchantaddComponent {
       this.strengthMessage = 'Weak password';
     }
   }
-  
- 
-
- 
   CancelForm()
   {
     this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });

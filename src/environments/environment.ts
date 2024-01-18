@@ -11,7 +11,7 @@ export const environment = {
   urlAddress :'https://localhost:44328',
 
   //urlAddress: 'https://34.66.214.227',
-  //urlAddress  :'https://api.blootusk.com',
+ // urlAddress  :'https://api.blootusk.com',
 
   //urlAddress: 'http://34.66.214.227',
   //urlAddress  :'https://api.blootusk.com',

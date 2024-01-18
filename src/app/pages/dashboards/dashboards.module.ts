@@ -32,6 +32,7 @@ const routes: Routes = [
     DashboardsRoutingModule,
     SharedModule,
     NgbModule,
+    FormsModule,
     NgApexchartsModule,
   ],
   exports: [RouterModule],

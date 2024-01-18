@@ -39,7 +39,7 @@ export class DiscountcouponlistComponent {
    {
       
    }
-
+   
    ngOnInit(): void {
     this.customerId =this.tokenStorage.getcustcode();
     this.CustPhoneNumber = this.tokenStorage.GetPhoneNO();
@@ -90,7 +90,9 @@ export class DiscountcouponlistComponent {
 
   openModalQR(qrcontent: any,CouponCode:any) {  
     this.receivedLink = "/" + CouponCode + "/" +  this.CustPhoneNumber;
-    this.receivedLink = 'http://crm.blootusk.com/CouponCode='  + CouponCode + "/" +  this.CustPhoneNumber;
+   // this.receivedLink = 'http://crm.blootusk.com/CouponCode='  + CouponCode + "/" +  this.CustPhoneNumber;
+   this.receivedLink = 'http://crm.blootusk.com/#/C/'  + CouponCode + "/" +  this.CustPhoneNumber;
+   
     QRCode.toDataURL( this.receivedLink, (err, url) => {
       debugger;
       if (err) {

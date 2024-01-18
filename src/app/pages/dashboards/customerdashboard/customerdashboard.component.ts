@@ -24,7 +24,7 @@ CustPhoneNumber!:string;
 phoneNumber!:string;
 ReferralCount!:string;
 
-constructor( private modalService: NgbModal, private _authService: AuthenticationService, private _router: Router,
+constructor(private modalService: NgbModal, private _authService: AuthenticationService, private _router: Router,
   private tokenStorage: TokenStorageService,private EncrDecr: EncrDecrServiceService,
   public appService: AppService,private route: ActivatedRoute,) 
 { }

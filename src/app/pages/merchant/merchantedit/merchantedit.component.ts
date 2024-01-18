@@ -117,7 +117,6 @@ export class MerchanteditComponent {
     this.GetStateList();
     this.getMerchantbyId(this.merchantId);
     //this.GetAllRewardPointList();
-  
    
   this.uploadForm = new FormGroup({     
       merchantCode: new FormControl('', []),
@@ -264,20 +263,20 @@ openModalQR(qrcontent: any) {
 
    // this.receivedLink= this.signupurl
    this.receivedLink = this.signupurl; 
-   this.urlsubstring = 'https://crm.blootusk.com/#UI/auth/signupuser/'
+   this.urlsubstring = 'https://crm.blootusk.com/#/R/'
     let encryptedcode = this.receivedLink.replace(this.urlsubstring,'') 
     // encryptedcode = btoa(encryptedcode);
 
 
-     let dcodeMerchantCode = atob(encryptedcode); 
-     let dryptedmerchantcode = this.EncrDecr.get('12$#@BLOO$^@TUSK', dcodeMerchantCode)
+    // let dcodeMerchantCode = atob(encryptedcode); 
+    // let dryptedmerchantcode = this.EncrDecr.get('12$#@BLOO$^@TUSK', dcodeMerchantCode)
 //-- its use to decode value --//
    //  const decryptedData = atob(encryptedcode);
    
   //  let test = this.EncrDecr.get('12$#@BLOO$^@TUSK', 'xof0gDd/9lWWEyMXQSboYw==')
   //  console.log(test)
     
-   this.receivedLink = this.urlsubstring + dryptedmerchantcode;
+   this.receivedLink = this.receivedLink; // this.urlsubstring + dryptedmerchantcode;
 
       // QRCode.toDataURL(this.receivedLink)
       //   .then(url => {

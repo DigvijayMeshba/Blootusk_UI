@@ -1,16 +1,38 @@
 <div class="row project-wrapper">
 
+
+    <form [formGroup]="uploadForm">
     <div class="row mb-3">
         <div class="col-4 ">
-            <select class="form-select" aria-label="Default select example" >
+            
+            <!-- <select class="form-select" aria-label="Default select example" >
                 <option value="" disabled selected>Select Merchant</option>                                       
                 <option> Merchant 1</option>   
                 <option> Merchant 2</option> 
                 <option> All</option>                                                    
-            </select>
+            </select> -->
+            <!-- <select class="form-select" aria-label="Default select example"
+            [(ngModel)]="selectedMerchantId"
+            formControlName ="countryId" >      
+                <option value="" disabled selected>Select Country</option>
+                <option *ngFor="let merchant of MerchantList" [value]="merchant.merchantId" >
+                  {{ merchant.organizationName }}
+                </option>
+                </select>  -->
+
+                <select class="form-select" aria-label="Default select example" formControlName="merchantId"  [(ngModel)]="selectedMerchantId">
+                    <option value="" disabled selected>Select Merchant</option> 
+                    <option *ngFor="let merchant of MerchantList" [value]="merchant.merchantId">
+                      {{ merchant.organizationName}}
+                    </option>
+                </select>
         </div>
         <div class="col-4 ">
-            <button type="button" class="btn btn-primary ms-auto"> <i class="ri-eye-fill cardicon label-icon align-middle"></i>View</button>
+            <div class="col-4">
+                <button type="button" class="btn btn-primary ms-auto" (click)="viewMerchantData(selectedMerchantId)">
+                  <i class="ri-eye-fill cardicon label-icon align-middle"></i>View
+                </button>
+              </div>
         </div>
     </div>
 
@@ -24,11 +46,11 @@
                                 <p class="text-uppercase fw-medium text-primary text-truncate mb-3">USERS</p>
                             </div>
                             <div class="flex-grow-1 ms-2">
-                                <h4 class="card-title mb-1 text-right font20">2.5 K</h4>
+                                <h4 class="card-title mb-1 text-right font20">{{Users}}</h4>
                             </div>
                         </div>
                         <hr>
-                        <h6 class="mb-1 pots">MTD : 1570</h6>
+                        <h6 class="mb-1 pots">MTD : {{UsersMtd}}</h6>
                     </div>
                 </div><!-- end col -->
                 <div class="col">
@@ -38,7 +60,7 @@
                                 <p class="text-uppercase fw-medium text-primary text-truncate mb-3">MERCHANTS</p>
                             </div>
                             <div class="flex-grow-1 ms-2">
-                                <h4 class="card-title mb-1 text-right font20">450</h4>
+                                <h4 class="card-title mb-1 text-right font20">{{Merchants}}</h4>
                             </div>
                         </div>
                         <hr>
@@ -52,11 +74,11 @@
                                 <p class="text-uppercase fw-medium text-primary text-truncate mb-3">POINTS</p>
                             </div>
                             <div class="flex-grow-1 ms-2">
-                                <h4 class="card-title mb-1 text-right font20">35.5 K</h4>
+                                <h4 class="card-title mb-1 text-right font20">{{Points}}</h4>
                             </div>
                         </div>
                         <hr>
-                        <h6 class="mb-1 pots">MTD : 8000 Pts.</h6>
+                        <h6 class="mb-1 pots">MTD : {{PointsMtd}}</h6>
                     </div>
                 </div><!-- end col -->
                 <div class="col">
@@ -66,11 +88,11 @@
                                 <p class="text-uppercase fw-medium text-primary text-truncate mb-3">REDEEMED POINTS</p>
                             </div>
                             <div class="flex-grow-1 ms-2">
-                                <h4 class="card-title mb-1 text-right font20">18.5 K</h4>
+                                <h4 class="card-title mb-1 text-right font20">{{ReddemPoints}} K</h4>
                             </div>
                         </div>
                         <hr>
-                        <h6 class="mb-1 pots">MTD : 5000 Pts.</h6>
+                        <h6 class="mb-1 pots">MTD : {{ReddemPointsMtd}} Pts.</h6>
                     </div>
                 </div><!-- end col -->
                 <div class="col">
@@ -80,11 +102,11 @@
                                 <p class="text-uppercase fw-medium text-primary text-truncate mb-3">CAMPAIGN</p>
                             </div>
                             <div class="flex-grow-1 ms-2">
-                                <h4 class="card-title mb-1 text-right font20">25</h4>
+                                <h4 class="card-title mb-1 text-right font20">{{Campaign}}</h4>
                             </div>
                         </div>
                         <hr>
-                        <h6 class="mb-1 pots"><span class="fltl">Coupon : 2560</span> <span class="fltr">Redeem : 1200</span></h6>
+                        <h6 class="mb-1 pots"><span class="fltl">Coupon : 2560</span> <span class="fltr">Redeem : {{CouponRedeem}}</span></h6>
                     </div>
                 </div><!-- end col -->
             </div><!-- end row -->
@@ -95,21 +117,21 @@
         <div class="col-xl-6">
             <div class="card">
                 <div class="card-header bckwhite">
-                    <h4 class="card-title mb-0">USERS <span class="card-title mb-1 text-right font20 fltr">2.5 K</span></h4> 
+                    <h4 class="card-title mb-0">USERS <span class="card-title mb-1 text-right font20 fltr">{{Users}} K</span></h4> 
                 </div><!-- end card header -->
 
                 <div class="card-header p-0 border-0 bg-light-subtle">
                     <div class="row g-0 text-center">
                         <div class="col-6 col-sm-6">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="7585">1.5 K</span></h5>
+                                <h5 class="mb-1"><span class="counter-value" data-target="7585">{{UserWalkIn}} K</span></h5>
                                 <p class="text-muted mb-0">Walk In</p>
                             </div>
                         </div>
                         <!--end col-->
                         <div class="col-6 col-sm-6">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">1 K</span></h5>
+                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">{{UserRefferal}} K</span></h5>
                                 <p class="text-muted mb-0">Referaal</p>
                             </div>
                         </div>
@@ -129,35 +151,35 @@
         <div class="col-xl-6">
             <div class="card">
                 <div class="card-header bckwhite">
-                    <h4 class="card-title mb-0">POINTS <span class="card-title mb-1 text-right font20 fltr">35.5 K</span></h4>
+                    <h4 class="card-title mb-0">POINTS <span class="card-title mb-1 text-right font20 fltr">{{Points}} K</span></h4>
                 </div><!-- end card header -->
 
                 <div class="card-header p-0 border-0 bg-light-subtle">
                     <div class="row g-0 text-center">
                         <div class="col-6 col-sm-3">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="7585">15 K</span></h5>
+                                <h5 class="mb-1"><span class="counter-value" data-target="7585">{{SignInPoint}} K</span></h5>
                                 <p class="text-muted mb-0">Sign In</p>
                             </div>
                         </div>
                         <!--end col-->
                         <div class="col-6 col-sm-3">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">20.5 K</span></h5>
+                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">{{RefferalPoint}} K</span></h5>
                                 <p class="text-muted mb-0">Referaal</p>
                             </div>
                         </div>
                         <!--end col-->
                         <div class="col-6 col-sm-3">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="7585">5.25 K</span></h5>
+                                <h5 class="mb-1"><span class="counter-value" data-target="7585">{{ReddemPoints}} K</span></h5>
                                 <p class="text-muted mb-0">Redeemed</p>
                             </div>
                         </div>
                         <!--end col-->
                         <div class="col-6 col-sm-3">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">2.5 K</span></h5>
+                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">{{EarnPoint}} K</span></h5>
                                 <p class="text-muted mb-0">Earn</p>
                             </div>
                         </div>
@@ -187,28 +209,28 @@
                     <div class="row g-0 text-center">
                         <div class="col-6 col-sm-3">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="7585">125</span></h5>
+                                <h5 class="mb-1"><span class="counter-value" data-target="7585">{{Campaign}}</span></h5>
                                 <p class="text-muted mb-0">Campaign</p>
                             </div>
                         </div>
                         <!--end col-->
                         <div class="col-6 col-sm-3">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">12.5 K</span></h5>
+                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">{{Campaign}} K</span></h5>
                                 <p class="text-muted mb-0">Coupon</p>
                             </div>
                         </div>
                         <!--end col-->
                         <div class="col-6 col-sm-3">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="7585">6 K</span></h5>
+                                <h5 class="mb-1"><span class="counter-value" data-target="7585">{{CouponRedeem}} K</span></h5>
                                 <p class="text-muted mb-0">Redeemed</p>
                             </div>
                         </div>
                         <!--end col-->
                         <div class="col-6 col-sm-3">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">4 K</span></h5>
+                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">{{CouponTransfer}} K</span></h5>
                                 <p class="text-muted mb-0">Transfer</p>
                             </div>
                         </div>
@@ -235,14 +257,14 @@
                     <div class="row g-0 text-center">
                         <div class="col-6 col-sm-6">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="7585">25.1 K</span></h5>
+                                <h5 class="mb-1"><span class="counter-value" data-target="7585">{{FrequentUserVisit}} K</span></h5>
                                 <p class="text-muted mb-0">Visit</p>
                             </div>
                         </div>
                         <!--end col-->
                         <div class="col-6 col-sm-6">
                             <div class="p-3 border border-dashed border-start-0">
-                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">5 K</span></h5>
+                                <h5 class="mb-1"><span class="counter-value" data-target="22.89">{{FrequentUser}} K</span></h5>
                                 <p class="text-muted mb-0">Users</p>
                             </div>
                         </div>
@@ -260,6 +282,6 @@
         </div>
         <!-- end col -->
     </div>
-
+</form>
 
 </div>

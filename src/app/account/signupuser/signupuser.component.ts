@@ -83,6 +83,7 @@ export class SignupuserComponent {
       let ecodeMerchantCode = this.route.snapshot.params['id'];    
       let dcodeMerchantCode = atob(ecodeMerchantCode); 
       let dryptedmerchantcode = this.EncrDecr.get('12$#@BLOO$^@TUSK', dcodeMerchantCode)
+      
 
       // let SplitCode = dryptedmerchantcode.split("M0");
       // if(SplitCode[1] != null)

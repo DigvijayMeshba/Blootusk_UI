@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AppService } from 'src/app/app.service';
 
 @Component({
   selector: 'app-admindashboard',
@@ -12,18 +14,54 @@ export class AdmindashboardComponent {
   groupedBarChart2: any;
   groupedBarChart3: any;
 
-  constructor() { }
+  Users !:number;
+  UsersMtd !:number;
+  UserRefferal !:number;
+  UserWalkIn !:number;
+  FrequentUserVisit !:number;
+  FrequentUser !:number;
+  Merchants !:number;
+  MerchantsMtd !:number;
+  Points !:number;
+  PointsMtd !:number;
+  SignInPoint !:number;
+  RefferalPoint !:number;      
+  EarnPoint !:number;
+  ReddemPoints !:number;
+  ReddemPointsMtd !:number;  
+  Campaign !:number;
+  CampaignMtd !:number;
+  Coupon !:number;
+  CouponRedeem !:number;
+  CouponTransfer !:number;
 
-  ngOnInit(): void {
- 
+  MerchantList: any[] = []; 
+  uploadForm!:FormGroup; 
+  selectedMerchantId: any;
 
+  constructor(public appService: AppService,) { }
+
+  // ngOnInit(): void {
+  //   this.uploadForm = new FormGroup({
+  //     merchantId : new FormControl('', [Validators.required]),
+  //   });
+
+    ngOnInit(): void {
+      // Create the form group and add form controls
+      this.uploadForm = new FormGroup({
+        merchantId: new FormControl('')
+      });
+    
+
+
+ debugger;
+    this.GetMerchantList();
      // Chart Color Data Get Function
 
      this._groupedBarChart('["--vz-primary", "--vz-success"]');
      this._groupedBarChart1('["--vz-primary", "--vz-success"]');
      this._groupedBarChart2('["--vz-primary", "--vz-success"]');
      this._groupedBarChart3('["--vz-primary", "--vz-success"]');
-   
   }
 
     // Chart Colors Set
@@ -50,7 +88,6 @@ export class AdmindashboardComponent {
           }
       });
     }
-
 
   private _groupedBarChart(colors:any) {
     colors = this.getChartColorsArray(colors);
@@ -258,6 +295,50 @@ export class AdmindashboardComponent {
       },
       colors: colors,
     };
+  }
+
+  GetMerchantList() {
+    this.appService.GetAll("api/AdminDashbaord/GetMerchantDDL").subscribe(
+      (x: any) => {
+        this.MerchantList = x.responseData;     
+      });
+  }
+
+  viewMerchantData(merchantId: any) {
+debugger;
+
+if (merchantId > 0) {
+    this.appService.getById("api/AdminDashbaord/AdminDashboard/", merchantId)
+    .subscribe(data => {  
+      console.log('test', data);
+      
+     this.Users = data.users;
+      this.UsersMtd =data.usersMtd;
+      this.UserRefferal =data.userRefferal;
+      this.UserWalkIn =data.userWalkIn;
+      this.FrequentUserVisit =data.frequentUserVisit;
+      this.FrequentUser =data.frequentUser;
+      this.Merchants =data.merchants;
+      this.MerchantsMtd =data.merchantsMtd;
+      this.Points =data.points;
+      this.PointsMtd =data.pointsMtd;
+      this.SignInPoint =data.signInPoint;
+      this.RefferalPoint =data.refferalPoint;      
+      this.EarnPoint =data.earnPoint;
+      this.ReddemPoints =data.reddemPoints;
+      this.ReddemPointsMtd =data.reddemPointsMtd;  
+      this.Campaign =data.campaign;
+      this.CampaignMtd =data.campaignMtd;
+      this.Coupon =data.coupon;
+      this.CouponRedeem =data.couponRedeem;
+      this.CouponTransfer =data.couponTransfer;
+
+      
+    
+    
+    });
+  }
+    // You can perform further actions with the merchantId as needed
   }
 
 }
