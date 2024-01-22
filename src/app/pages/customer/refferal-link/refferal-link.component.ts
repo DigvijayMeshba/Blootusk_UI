@@ -83,6 +83,7 @@ export class RefferalLinkComponent
     }
 
      shareReferralLink(referralLink: string) {
+      debugger;
       const message = `Check out this referral link: ${referralLink}`;
     
       if (navigator.share) {

@@ -4,7 +4,7 @@
         
         <div class="row">
 
-            <div class="col-xl-3"  *ngFor="let object of getPageData()" (click)="openModalQR(qrcontent,object.couponCode)">
+            <div class="col-xl-3"  *ngFor="let object of getPageData()" >
                 <div class="animate">
                     <div class="card-body card card-animate mt-2">
                         <div class="">
@@ -17,7 +17,7 @@
                                
                             </div>
                                 <div class="col-md-4 text-right mt-2">
-                                    <h6 style="color: green;" *ngIf="object.status==1">
+                                    <!-- <h6 style="color: green;" *ngIf="object.status==1">
                                         {{"Live"}} 
                                     </h6>
                                     <h6 style="color: red;" *ngIf="object.status==2">
@@ -25,7 +25,14 @@
                                     </h6>
                                     <h6  style="color: orange;" *ngIf="object.status==3">
                                         {{"Availed"}} 
-                                    </h6>
+                                    </h6> -->
+                               
+
+                                    <button type="button" *ngIf="object.couponType==1" class="btn btn-primary"
+                                    (click)="shareReferralLink(object.couponCode)"
+                                    style="background-color: #007bff; color: #fff; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; text-align: center;">
+                                     <i class="ri-share-line label-icon align-middle"></i>
+                                  </button>
                                 </div>
                             </div>
                             <div class="row mb-0">
@@ -63,11 +70,14 @@
                                         </td>                                        
                                     </tr>
                                 </table>
+                                <button type="button" class="btn btn-primary" 
+                                (click)="openModalQR(qrcontent,object.couponCode)">
+                                View Qr
+                               </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                
             </div>
 
             <div class="text-center mt-3">

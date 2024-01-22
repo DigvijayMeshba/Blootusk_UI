@@ -9,6 +9,7 @@ import { SignupmerchantComponent } from "./signupmerchant/signupmerchant.compone
 import { SignupuserComponent } from "./signupuser/signupuser.component";
 import { OptverifyComponent } from "./optverify/optverify.component";
 import { SignupcustomerComponent } from "./signupcustomer/signupcustomer.component";
+import { RedeemCouponComponent } from './redeem-coupon/redeem-coupon.component';
 
 const routes: Routes = [
 
@@ -40,6 +41,11 @@ const routes: Routes = [
   {
     path: "R/:id",
     component: SignupuserComponent
+  },
+
+  {
+    path:"C/:id",
+    component : RedeemCouponComponent
   },
   
   {

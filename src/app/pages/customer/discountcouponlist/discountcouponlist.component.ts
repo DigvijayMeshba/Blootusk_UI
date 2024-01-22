@@ -102,7 +102,7 @@ export class DiscountcouponlistComponent {
       }
     });
     this.modalService.open(qrcontent, { size: 'sm' }); 
-    }
+  }
 
     public trivialDownload() {
       console.log("Downloading image one by one, without a loop");
@@ -127,8 +127,6 @@ export class DiscountcouponlistComponent {
       }
   }
 
-
- 
     ///Code for Pagination
     public getPageData(): any[] {
       debugger;
@@ -156,6 +154,44 @@ export class DiscountcouponlistComponent {
   return Math.ceil(this.CustomerCouponList.length / this.count);
   }
       ///Code for Pagination
+
+      ShareInputMessage(referralLink: string): void {
+  
+        const tempInputElement = document.createElement('textarea');
+        tempInputElement.value = referralLink;
+        document.body.appendChild(tempInputElement);
+    
+        tempInputElement.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInputElement);
+     
+      }
+
+      shareReferralLink(referralLink: string) {
+        const message = `Check out this referral link: ${  referralLink}`;
+      
+        if (navigator.share) {
+          navigator
+            .share({
+              title: 'Share Referral Link',
+              text: message,
+              url: '#/C/' + referralLink,
+            })
+            .then(() => console.log('Successfully shared'))
+            .catch((error) => console.log('Error sharing:', error));
+        } else {
+    
+          const isWhatsAppInstalled = /WhatsApp/.test(navigator.userAgent);
+      
+          if (isWhatsAppInstalled) {
+            const whatsappLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+            window.location.href = whatsappLink;
+          } else {
+            // Fallback for other browsers
+            alert(`Share this link: ${referralLink}`);
+          }
+        }
+      }
      
 
 }

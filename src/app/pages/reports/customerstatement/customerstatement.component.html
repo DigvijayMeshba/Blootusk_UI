@@ -15,8 +15,7 @@
 
                     <div class="live-preview">
 
-                        <form [formGroup]="uploadForm" fxLayout="row wrap"
-                        >
+                        <form [formGroup]="uploadForm" fxLayout="row wrap">
                        
                         <div class="card">
                             <div class="card-body">
@@ -26,12 +25,10 @@
                                     <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Customer Code</label>
-                                           
-                                            <input type="text" class="form-control" formControlName="CustomerCode" placeholder="Enter Customer Code">
-                                          
-                                       
-                                        <div *ngIf="submitted && f['CustomerCode'].errors" class="invalid-feedback d-block">
-                                            <div *ngIf="f['CustomerCode'].errors['required']">CustomerCode is required</div>
+                                            <input type="text" class="form-control" [(ngModel)]="customerCode"  placeholder="Enter Customer Code">
+                                      
+                                            <div *ngIf="submitted && f['customerCode'].errors" class="invalid-feedback d-block">
+                                            <div *ngIf="f['customerCode'].errors['required']">CustomerCode is required</div>
                                             </div>
                                         </div>
                                        
@@ -40,11 +37,10 @@
                                     <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">Merchant Code</label>
-                                            <input type="text" class="form-control" placeholder="Enter Merchant Code">
-                                            <div *ngIf="submitted && f['MerchantCode'].errors" class="invalid-feedback d-block">
-                                                <div *ngIf="f['MerchantCode'].errors['required']">MerchantCode is required</div>
+                                            <input type="text" class="form-control" [(ngModel)]="merchantCode" placeholder="Enter Merchant Code">
+                                            <div *ngIf="submitted && f['merchantCode'].errors" class="invalid-feedback d-block">
+                                                <div *ngIf="f['merchantCode'].errors['required']">MerchantCode is required</div>
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -54,8 +50,8 @@
 
                                     <div class="col-md-4">
                                         <div>
-                                            <label for="basiInput" class="form-label">From Date</label>
-                                            <input type="date" class="form-control" placeholder="Enter From Date">
+                                            <label for="basiInput"  class="form-label">From Date</label>
+                                            <input type="date" class="form-control" [(ngModel)]="fromDate" placeholder="Enter From Date">
                                             <!-- <input class="form-control flatpickr-input" type="text" mwlFlatpickr [altInput]="true"[convertModelValue]="true" mode="range"> -->
                                         </div>
                                     </div>
@@ -63,14 +59,15 @@
                                     <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">To Date</label>
-                                            <input type="date" class="form-control" placeholder="Enter To Date">
+                                            <input type="date"  [(ngModel)]="toDate" class="form-control" placeholder="Enter To Date">
                                             <!-- <input class="form-control flatpickr-input" type="text" mwlFlatpickr [altInput]="true"[convertModelValue]="true" mode="range"> -->
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 ">                                        
                                         <div class="mt-4  text-right gap-1 ">                                      
-                                            <button type="button" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
+                                            <button type="button" (click)="SubmitCustomerStatementList()" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
+                                  
                                             &nbsp;
                                             <button type="button" class="btn btn-primary ms-auto"><i class="ri-refresh-line cardicon label-icon align-middle"></i>Clear</button>
                                         </div>
@@ -81,7 +78,7 @@
                             </div>
                         </div>
 
-                        </form>
+                    </form>
 
                         <hr>
 
@@ -123,14 +120,15 @@
                                         <th scope="col">Balance Points</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
+                                <tbody  *ngFor="let object of getPageData()">
+                                    <tr >
                                         
-                                        <td>Data</td>
-                                        <td>Data</td>
-                                        <td>Data</td>
-                                        <td>Data</td>
-                                       
+                                        <td>{{object.transactionDate | date:'dd/MM/yyyy'}}</td>
+                                        <td>{{object.transaction}}</td>
+                                        <td>{{object.points }}</td>
+                                        <td>{{object.balancePoints}}</td>
+                                        
+                                                                              
                                     </tr>
                                 </tbody>
                             </table>
@@ -138,17 +136,27 @@
 
                         <div class="text-center mt-3">
                             <div class="gridjs-pagination">
-                                <div class="gridjs-pages">
-                                    <button tabindex="0" role="button" title="Previous" aria-label="Previous">Previous</button>
-                                    <button tabindex="0" role="button">1</button>
-                                    <button tabindex="0" role="button" title="Next" aria-label="Next">Next</button>
+                                <div class="gridjs-pages" *ngIf="StatementList.length > 0">
+                                    <button tabindex="0" role="button" (click)="onPageChanged(page - 1)"
+                                        [disabled]="page === 1" title="Previous" aria-label="Previous">
+                                        Previous
+                                    </button>
+                                    <button tabindex="0" role="button" *ngFor="let pageNumber of getPageNumbers()"
+                                        (click)="onPageChanged(pageNumber)"
+                                        [class.gridjs-currentPage]="page === pageNumber"
+                                        [attr.title]="'Page ' + pageNumber" [attr.aria-label]="'Page ' + pageNumber">
+                                        {{ pageNumber }}
+                                    </button>
+                                    <button tabindex="0" role="button" (click)="onPageChanged(page + 1)"
+                                        [disabled]="page === getTotalPages()" title="Next" aria-label="Next">
+                                        Next
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-
                   
-
+                 
 
                         
                     </div>

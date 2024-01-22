@@ -20,6 +20,14 @@ import { custmerchtStatement } from '../custmerchtStatement';
 })
 export class CustomerstatementComponent {
 
+
+  merchantCode!:string;
+  customerCode!:string;
+  fromDate!:Date;
+  public page: number = 1;
+  public count = 10;
+  public StatementList: any = [];
+  toDate!:Date;
   constructor(public formBuilder: FormBuilder,private modalService: NgbModal,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
     private router: Router,private EncrDecr: EncrDecrServiceService,)
@@ -27,46 +35,77 @@ export class CustomerstatementComponent {
       
    }
      get f() { return this.uploadForm.controls; }
+     
    uploadForm!:FormGroup; 
    submitted = false; 
    ngOnInit(): void {
     this.uploadForm = this.formBuilder.group({
      
-      merchantCode: new FormControl('', [Validators.required]),
+      merchantCode: new FormControl('', []),
       customerCode: new FormControl('', []),
-      fromDate: new FormControl('', [Validators.required]),
-      toDate: new FormControl('', [Validators.required]),
+      fromDate: new FormControl('', []),
+      toDate: new FormControl('', []),
    
     })
+    this.SubmitCustomerStatementList();
   }
   public submit() { 
     this.submitted = true;    
   }
 
-  SubmitCustomerStatementList(formData: custmerchtStatement)
-  {
-    
-    let GetCustomerStatement: custmerchtStatement = formData;  
-    
-    GetCustomerStatement.merchantCode,
-    GetCustomerStatement.customerCode = ""? "":GetCustomerStatement.customerCode,
-    GetCustomerStatement.fromDate,
-    GetCustomerStatement.toDate,   
+  SubmitCustomerStatementList()
+  {    
+  //  let GetCustomerStatement: custmerchtStatement = formData;  
+   
+    let ListOfStatement: custmerchtStatement = {
+   
+     "merchantCode":  this.merchantCode == '' ? "":this.merchantCode,
+     "customerCode": this.customerCode = ""? "":this.customerCode,
+     "fromDate":this.fromDate = ""? new Date:this.fromDate,
+     "toDate":  this.toDate = ""?new Date:this.toDate,
+    }   
   
-      this.appService.Add("api/CouponMaster/GetCustomerCouponList",GetCustomerStatement)
+      this.appService.Add("api/AdminDashbaord/Customerstatement",ListOfStatement)
       .pipe(
         catchError((error) => {          
           return throwError(error); 
         })).subscribe((data: any) => {    
-          
-          if(data.responseData.length == 0)
-          {
-             this.swalMessage('Data not found')
-          }        
+          this.StatementList = data.customerTransactions
+
+          console.log('Statement', data)
+               
       },);  
   
 
   }
+
+  public getPageData(): any[] {
+    debugger;
+    let allStatementList;
+    const startIndex = (this.page - 1) * this.count;
+    const endIndex = startIndex + this.count;
+  if(this.StatementList != null)
+  {
+       allStatementList=  this.StatementList.slice(startIndex, endIndex);
+  }
+  return  allStatementList;      
+  }
+
+  public getTotalPages(): number {
+    return Math.ceil(this.StatementList.length / this.count);
+  }
+
+  public getPageNumbers(): number[] {
+    return Array.from({ length: this.getTotalPages() }, (_, i) => i + 1);
+  }
+
+  public onPageChanged(page: number) {
+    this.page = page;
+    window.scrollTo(0, 0);
+
+  }
+
+
 
   swalMessage(swalTitle:any)
 {

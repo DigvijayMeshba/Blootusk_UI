@@ -18,54 +18,87 @@ import { custmerchtStatement } from '../custmerchtStatement';
   styleUrls: ['./merchantstatement.component.scss']
 })
 export class MerchantstatementComponent {
-
+  merchantCode!:string;
+  customerCode!:string;
+  fromDate!:Date;
+  public page: number = 1;
+  public count = 10;
+  public StatementList: any = [];
+  toDate!:Date;
+  merchantName!:string;
   constructor(public formBuilder: FormBuilder,private modalService: NgbModal,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-    private router: Router,private EncrDecr: EncrDecrServiceService,)
-   {
+   )
+   {    this.SubmitMerchantStatementList();
       
    }
      get f() { return this.uploadForm.controls; }
    uploadForm!:FormGroup; 
    submitted = false; 
    ngOnInit(): void {
-    this.uploadForm = this.formBuilder.group({
-     
-      merchantCode: new FormControl('', [Validators.required]),
-      customerCode: new FormControl('', []),
-      fromDate: new FormControl('', [Validators.required]),
-      toDate: new FormControl('', [Validators.required]),
-   
-    })
+    // this.uploadForm = this.formBuilder.group({
+    //   merchantCode: new FormControl('', [Validators.required]),
+    //   customerCode: new FormControl('', []),
+    //   fromDate: new FormControl('', [Validators.required]),
+    //   toDate: new FormControl('', [Validators.required]),
+    // })
+
   }
   public submit() { 
     this.submitted = true;    
   }
 
-  SubmitCustomerStatementList(formData: custmerchtStatement)
+  SubmitMerchantStatementList()
   {
-    
-    let GetCustomerStatement: custmerchtStatement = formData;  
-    
-    GetCustomerStatement.merchantCode,
-    GetCustomerStatement.customerCode = ""? "":GetCustomerStatement.customerCode,
-    GetCustomerStatement.fromDate,
-    GetCustomerStatement.toDate,   
-  
-      this.appService.Add("api/CouponMaster/GetCustomerCouponList",GetCustomerStatement)
-      .pipe(
-        catchError((error) => {          
-          return throwError(error); 
-        })).subscribe((data: any) => {    
-          
-          if(data.responseData.length == 0)
-          {
-             this.swalMessage('Data not found')
-          }        
-      },);  
-  
+    debugger;
+    let ListOfStatement: custmerchtStatement = {
+   
+      "merchantCode":  this.merchantCode == '' ? "":this.merchantCode,
+      "customerCode": this.customerCode = ""? "":this.customerCode,
+      "fromDate":this.fromDate = ""? new Date:this.fromDate,
+      "toDate":  this.toDate = ""?new Date:this.toDate,
+     }   
+   
+       this.appService.Add("api/AdminDashbaord/MerchantStatement",ListOfStatement)
+       .pipe(
+         catchError((error) => {          
+           return throwError(error); 
+         })).subscribe((data: any) => {  
+          this.merchantName = data.merchantName;  
+           this.StatementList = data.merchantTransactions;
+ 
+           console.log('Statementmerchant', data)
+                
+       },);  
 
   }
+
+  public getPageData(): any[] {
+    debugger;
+    let allStatementList;
+    const startIndex = (this.page - 1) * this.count;
+    const endIndex = startIndex + this.count;
+  if(this.StatementList != null)
+  {
+       allStatementList=  this.StatementList.slice(startIndex, endIndex);
+  }
+  return  allStatementList;      
+  }
+
+ 
+public onPageChanged3(page: number) {
+  debugger;
+  this.page = page;
+  window.scrollTo(0, 0);
+}
+
+public getPageNumbers3(): number[] {
+  return Array.from({ length: this.getTotalPages3() }, (_, i) => i + 1);
+}
+
+public getTotalPages3(): number {
+return Math.ceil(this.StatementList.length / this.count);
+}
 
   swalMessage(swalTitle:any)
 {
