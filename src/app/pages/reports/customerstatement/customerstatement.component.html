@@ -14,8 +14,6 @@
                 <div class="card-body">
 
                     <div class="live-preview">
-
-                        <form [formGroup]="uploadForm" fxLayout="row wrap">
                        
                         <div class="card">
                             <div class="card-body">
@@ -78,7 +76,7 @@
                             </div>
                         </div>
 
-                    </form>
+                   
 
                         <hr>
 
@@ -88,7 +86,7 @@
                                 <div>
                                     <label for="basiInput" class="form-label">Customer Name</label>
                                     <br/>
-                                    <label for="basiInput" class="form-label form-view">XXXX XXX</label>
+                                    <label for="basiInput" class="form-label form-view">{{customerName}}</label>
                                 </div>
                             </div>
 
@@ -96,7 +94,7 @@
                                 <div>
                                     <label for="basiInput" class="form-label">Opening Balance</label>
                                     <br/>
-                                    <label for="basiInput" class="form-label form-view">1234</label>
+                                    <label for="basiInput" class="form-label form-view">{{OpeningBal}}</label>
                                 </div>
                             </div>
 
@@ -104,7 +102,7 @@
                                 <div>
                                     <label for="basiInput" class="form-label">From & To Date</label>
                                     <br/>
-                                    <label for="basiInput" class="form-label form-view">01 Jan 2023 To 31 Dec 2023</label>
+                                    <label for="basiInput" class="form-label form-view">{{fromDate}} To {{toDate}}</label>
                                 </div>
                             </div>
 
@@ -120,43 +118,40 @@
                                         <th scope="col">Balance Points</th>
                                     </tr>
                                 </thead>
-                                <tbody  *ngFor="let object of getPageData()">
-                                    <tr >
+                                
                                         
-                                        <td>{{object.transactionDate | date:'dd/MM/yyyy'}}</td>
-                                        <td>{{object.transaction}}</td>
-                                        <td>{{object.points }}</td>
-                                        <td>{{object.balancePoints}}</td>
-                                        
-                                                                              
-                                    </tr>
-                                </tbody>
+                                        <tbody  *ngFor="let object of getPageData()">
+                                            <tr >
+                                                
+                                                <td>{{object.transactionDate | date:'dd/MM/yyyy'}}</td>
+                                                <td>{{object.transaction}}</td>
+                                                <td>{{object.points }}</td>
+                                                <td>{{object.balPoint}}</td>          
+                                            </tr>
+                                        </tbody>
                             </table>
                         </div>
 
                         <div class="text-center mt-3">
                             <div class="gridjs-pagination">
-                                <div class="gridjs-pages" *ngIf="StatementList.length > 0">
-                                    <button tabindex="0" role="button" (click)="onPageChanged(page - 1)"
+                                <!-- <div class="gridjs-pages" *ngIf="StatementList.length > 0">
+                                    <button tabindex="0" role="button" (click)="onPageChanged3(page - 1)"
                                         [disabled]="page === 1" title="Previous" aria-label="Previous">
                                         Previous
                                     </button>
-                                    <button tabindex="0" role="button" *ngFor="let pageNumber of getPageNumbers()"
-                                        (click)="onPageChanged(pageNumber)"
+                                    <button tabindex="0" role="button" *ngFor="let pageNumber of getPageNumbers3()"
+                                        (click)="onPageChanged3(pageNumber)"
                                         [class.gridjs-currentPage]="page === pageNumber"
                                         [attr.title]="'Page ' + pageNumber" [attr.aria-label]="'Page ' + pageNumber">
                                         {{ pageNumber }}
                                     </button>
-                                    <button tabindex="0" role="button" (click)="onPageChanged(page + 1)"
-                                        [disabled]="page === getTotalPages()" title="Next" aria-label="Next">
+                                    <button tabindex="0" role="button" (click)="onPageChanged3(page + 1)"
+                                        [disabled]="page === getTotalPages3()" title="Next" aria-label="Next">
                                         Next
                                     </button>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
-
-                  
-                 
 
                         
                     </div>

@@ -26,6 +26,7 @@ export class MerchantstatementComponent {
   public StatementList: any = [];
   toDate!:Date;
   merchantName!:string;
+  OpeningBal!:number;
   constructor(public formBuilder: FormBuilder,private modalService: NgbModal,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
    )
@@ -64,14 +65,18 @@ export class MerchantstatementComponent {
          catchError((error) => {          
            return throwError(error); 
          })).subscribe((data: any) => {  
+          console.log('MerStatement',data)
           this.merchantName = data.merchantName;  
            this.StatementList = data.merchantTransactions;
+           this.OpeningBal =data.openingBalance;
  
            console.log('Statementmerchant', data)
                 
        },);  
 
   }
+
+  
 
   public getPageData(): any[] {
     debugger;

@@ -34,6 +34,7 @@ export class AdmindashboardComponent {
   Coupon !:number;
   CouponRedeem !:number;
   CouponTransfer !:number;
+  MerchantsPending !:number;
 
   MerchantList: any[] = []; 
   uploadForm!:FormGroup; 
@@ -47,14 +48,15 @@ export class AdmindashboardComponent {
   //   });
 
     ngOnInit(): void {
+      this.viewMerchantData(0);
       // Create the form group and add form controls
       this.uploadForm = new FormGroup({
         merchantId: new FormControl('')
       });
-    
+     
 
 
- debugger;
+
     this.GetMerchantList();
      // Chart Color Data Get Function
 
@@ -187,7 +189,7 @@ export class AdmindashboardComponent {
         intersect: false,
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Ssp', 'Oct', 'Nov','Dec'],
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','Dec'],
       },
       colors: colors,
     };
@@ -307,7 +309,7 @@ export class AdmindashboardComponent {
   viewMerchantData(merchantId: any) {
 debugger;
 
-if (merchantId > 0) {
+
     this.appService.getById("api/AdminDashbaord/AdminDashboard/", merchantId)
     .subscribe(data => {  
       console.log('test', data);
@@ -320,6 +322,7 @@ if (merchantId > 0) {
       this.FrequentUser =data.frequentUser;
       this.Merchants =data.merchants;
       this.MerchantsMtd =data.merchantsMtd;
+      this.MerchantsPending = data.merchantsPending;
       this.Points =data.points;
       this.PointsMtd =data.pointsMtd;
       this.SignInPoint =data.signInPoint;
@@ -337,7 +340,7 @@ if (merchantId > 0) {
     
     
     });
-  }
+  
     // You can perform further actions with the merchantId as needed
   }
 

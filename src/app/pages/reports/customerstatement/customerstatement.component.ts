@@ -13,6 +13,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { custmerchtStatement } from '../custmerchtStatement';
 
 
+
+
 @Component({
   selector: 'app-customerstatement',
   templateUrl: './customerstatement.component.html',
@@ -20,11 +22,13 @@ import { custmerchtStatement } from '../custmerchtStatement';
 })
 export class CustomerstatementComponent {
 
-
+  customerName!:string;
+  OpeningBal!:number;
   merchantCode!:string;
   customerCode!:string;
   fromDate!:Date;
   public page: number = 1;
+  
   public count = 10;
   public StatementList: any = [];
   toDate!:Date;
@@ -53,32 +57,6 @@ export class CustomerstatementComponent {
     this.submitted = true;    
   }
 
-  SubmitCustomerStatementList()
-  {    
-  //  let GetCustomerStatement: custmerchtStatement = formData;  
-   
-    let ListOfStatement: custmerchtStatement = {
-   
-     "merchantCode":  this.merchantCode == '' ? "":this.merchantCode,
-     "customerCode": this.customerCode = ""? "":this.customerCode,
-     "fromDate":this.fromDate = ""? new Date:this.fromDate,
-     "toDate":  this.toDate = ""?new Date:this.toDate,
-    }   
-  
-      this.appService.Add("api/AdminDashbaord/Customerstatement",ListOfStatement)
-      .pipe(
-        catchError((error) => {          
-          return throwError(error); 
-        })).subscribe((data: any) => {    
-          this.StatementList = data.customerTransactions
-
-          console.log('Statement', data)
-               
-      },);  
-  
-
-  }
-
   public getPageData(): any[] {
     debugger;
     let allStatementList;
@@ -91,19 +69,72 @@ export class CustomerstatementComponent {
   return  allStatementList;      
   }
 
-  public getTotalPages(): number {
-    return Math.ceil(this.StatementList.length / this.count);
+
+  SubmitCustomerStatementList()
+  {    
+  //  let GetCustomerStatement: custmerchtStatement = formData;  
+   
+    let ListOfStatement: custmerchtStatement = {
+   
+     "merchantCode":  this.merchantCode == '' ? "":this.merchantCode,
+     "customerCode": this.customerCode = ""? "":this.customerCode,
+     "fromDate":this.fromDate = ""? new Date:this.fromDate,
+     "toDate":  this.toDate = ""?new Date:this.toDate,
+    }   
+  
+      // this.appService.Add("api/AdminDashbaord/Customerstatement",ListOfStatement)
+      // .pipe(
+      //   catchError((error) => {          
+      //     return throwError(error); 
+      //   })).subscribe((data: any) => {    
+        
+      //     this.StatementList = data.customerTransactions
+          
+      //     this.customerName = data.customerName;  
+      //     this.StatementList = data.merchantTransactions;
+      //     this.OpeningBal =data.openingBalance;
+
+      //     console.log('Statement', data.customerTransactions)
+      //     console.log('StatementList', this.StatementList)
+               
+      // },);  
+
+      this.appService.Add("api/AdminDashbaord/Customerstatement",ListOfStatement)
+      .pipe(
+        catchError((error) => {          
+          return throwError(error); 
+        })).subscribe((data: any) => {  
+         console.log('MerStatement',data)
+
+         this.customerName = data.customerName;  
+         this.StatementList = data.customerTransactions;
+         this.OpeningBal =data.openingBalance;
+
+          
+          console.log('Statement', data)
+          console.log('StatementList', this.StatementList)
+               
+      },); 
+  
+
   }
 
-  public getPageNumbers(): number[] {
-    return Array.from({ length: this.getTotalPages() }, (_, i) => i + 1);
-  }
 
-  public onPageChanged(page: number) {
+
+  public onPageChanged3(page: number) {
+    debugger;
     this.page = page;
     window.scrollTo(0, 0);
-
   }
+  
+  public getPageNumbers3(): number[] {
+    return Array.from({ length: this.getTotalPages3() }, (_, i) => i + 1);
+  }
+  
+  public getTotalPages3(): number {
+  return Math.ceil(this.StatementList.length / this.count);
+  }
+  
 
 
 

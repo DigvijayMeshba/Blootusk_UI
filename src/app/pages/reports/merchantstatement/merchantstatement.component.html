@@ -79,7 +79,7 @@
                                 <div>
                                     <label for="basiInput" class="form-label">Opening Balance</label>
                                     <br/>
-                                    <label for="basiInput" class="form-label form-view">1234</label>
+                                    <label for="basiInput" class="form-label form-view">{{OpeningBal}}</label>
                                 </div>
                             </div>
 
@@ -111,13 +111,9 @@
                                                 <td>{{object.transactionDate | date:'dd/MM/yyyy'}}</td>
                                                 <td>{{object.transaction}}</td>
                                                 <td>{{object.points }}</td>
-                                                <td>{{object.balancePoints}}</td>
-                                                
-                                                                                      
+                                                <td>{{object.balPoint}}</td>          
                                             </tr>
                                         </tbody>
-                                       
-                                    
                             </table>
                         </div>
 
@@ -141,12 +137,6 @@
                                 </div>
                             </div>
                         </div>
-         
-
-
-                  
-
-
                         
                     </div>
 
