@@ -20,6 +20,7 @@ import { ReferrallistComponent } from './customer/referrallist/referrallist.comp
 import { RewardaddComponent } from './merchant/rewardadd/rewardadd.component';
 import { RewardeditComponent } from './merchant/rewardedit/rewardedit.component';
 
+
 const routes: Routes = [
 
   { path: "dashboards/dashboard",component: AdmindashboardComponent },
@@ -62,5 +63,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
+  
 })
 export class PagesRoutingModule { }

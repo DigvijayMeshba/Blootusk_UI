@@ -11,6 +11,7 @@ import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { custmerchtStatement } from '../custmerchtStatement';
+import { ExcelService } from '../services/excel.service';
 
 
 
@@ -24,16 +25,17 @@ export class CustomerstatementComponent {
 
   customerName!:string;
   OpeningBal!:number;
-  merchantCode!:string;
-  customerCode!:string;
-  fromDate!:Date;
+  merchantCode:string | null = null;
+  customerCode:string| null = null;;
+  fromDate: Date | null = null;
+  toDate: Date | null = null;
   public page: number = 1;
   
   public count = 10;
   public StatementList: any = [];
-  toDate!:Date;
+
   constructor(public formBuilder: FormBuilder,private modalService: NgbModal,public appService: AppService,
-    private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
+    private route: ActivatedRoute,private excelService: ExcelService , private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
     private router: Router,private EncrDecr: EncrDecrServiceService,)
    {
       
@@ -72,6 +74,7 @@ export class CustomerstatementComponent {
 
   SubmitCustomerStatementList()
   {    
+    debugger;
   //  let GetCustomerStatement: custmerchtStatement = formData;  
    
     let ListOfStatement: custmerchtStatement = {
@@ -120,6 +123,20 @@ export class CustomerstatementComponent {
   }
 
 
+  public ClearSearchdata()
+  {
+    this.merchantCode =null;
+    this.customerCode = null;
+    this.fromDate = null;
+    this.toDate =null;
+    this.SubmitCustomerStatementList();
+    this.getPageData();
+  }
+
+  exportDataToExcel(): void {
+    this.excelService.exportToExcel(this.StatementList, 'Statementdata', 'StatementSheet');  
+  }
+  
 
   public onPageChanged3(page: number) {
     debugger;

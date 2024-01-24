@@ -67,7 +67,7 @@
                                             <button type="button" (click)="SubmitCustomerStatementList()" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
                                   
                                             &nbsp;
-                                            <button type="button" class="btn btn-primary ms-auto"><i class="ri-refresh-line cardicon label-icon align-middle"></i>Clear</button>
+                                            <button type="button"  (click)="ClearSearchdata()" class="btn btn-primary ms-auto"><i class="ri-refresh-line cardicon label-icon align-middle"></i>Clear</button>
                                         </div>
                                     </div>
 
@@ -82,7 +82,7 @@
 
                         <div class="row mb-3">
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div>
                                     <label for="basiInput" class="form-label">Customer Name</label>
                                     <br/>
@@ -90,7 +90,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div>
                                     <label for="basiInput" class="form-label">Opening Balance</label>
                                     <br/>
@@ -98,13 +98,19 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div>
                                     <label for="basiInput" class="form-label">From & To Date</label>
                                     <br/>
-                                    <label for="basiInput" class="form-label form-view">{{fromDate}} To {{toDate}}</label>
-                                </div>
+                                    <label *ngIf="fromDate!=null" for="basiInput" class="form-label form-view">{{fromDate}} To {{toDate}}</label>
+                                
+                                 
+                                </div>                                
                             </div>
+                            <div class="col-md-3">
+                                <button type="button"  (click)="exportDataToExcel()" class="btn btn-primary ms-auto"><i class="ri-refresh-line cardicon label-icon align-middle"></i>Export</button>
+                            </div>
+                            
 
                         </div>
 
@@ -134,7 +140,7 @@
 
                         <div class="text-center mt-3">
                             <div class="gridjs-pagination">
-                                <!-- <div class="gridjs-pages" *ngIf="StatementList.length > 0">
+                                <div class="gridjs-pages" *ngIf="StatementList.length > 0">
                                     <button tabindex="0" role="button" (click)="onPageChanged3(page - 1)"
                                         [disabled]="page === 1" title="Previous" aria-label="Previous">
                                         Previous
@@ -149,7 +155,7 @@
                                         [disabled]="page === getTotalPages3()" title="Next" aria-label="Next">
                                         Next
                                     </button>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
 

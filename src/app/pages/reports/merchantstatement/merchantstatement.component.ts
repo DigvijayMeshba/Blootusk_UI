@@ -11,6 +11,10 @@ import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { custmerchtStatement } from '../custmerchtStatement';
+import * as XLSX from 'xlsx';
+import { ExcelService } from '../services/excel.service';
+
+
 
 @Component({
   selector: 'app-merchantstatement',
@@ -18,17 +22,19 @@ import { custmerchtStatement } from '../custmerchtStatement';
   styleUrls: ['./merchantstatement.component.scss']
 })
 export class MerchantstatementComponent {
-  merchantCode!:string;
-  customerCode!:string;
-  fromDate!:Date;
+  merchantCode:string | null = null;
+  customerCode:string | null = null;
+ // fromDate!:Date;
   public page: number = 1;
   public count = 10;
   public StatementList: any = [];
-  toDate!:Date;
+  fromDate: Date | null = null;
+  toDate: Date | null = null;
+
   merchantName!:string;
   OpeningBal!:number;
   constructor(public formBuilder: FormBuilder,private modalService: NgbModal,public appService: AppService,
-    private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
+    private route: ActivatedRoute,private excelService: ExcelService, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
    )
    {    this.SubmitMerchantStatementList();
       
@@ -76,7 +82,7 @@ export class MerchantstatementComponent {
 
   }
 
-  
+ 
 
   public getPageData(): any[] {
     debugger;
@@ -115,6 +121,20 @@ return Math.ceil(this.StatementList.length / this.count);
     allowEscapeKey: false
     
   });
+}
+
+public ClearSearchdata()
+{
+  this.merchantCode =null;
+  this.customerCode = null;
+  this.fromDate = null;
+  this.toDate = null;
+  this.SubmitMerchantStatementList();
+  this.getPageData();
+}
+
+exportDataToExcel(): void {
+  this.excelService.exportToExcel(this.StatementList, 'Statementdata', 'StatementSheet');  
 }
 
 }
