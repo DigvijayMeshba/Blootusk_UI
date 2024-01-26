@@ -37,7 +37,7 @@ ngOnInit(): void {
   this.getreffrallink();
   this.getCouponcount();
   this.GetRewardPointList()
-  debugger;
+  
 }
 
 public GetRewardPointList()
@@ -50,7 +50,7 @@ public GetRewardPointList()
 
 public GetList()
 {
-  debugger;
+  
   this._router.navigate(['/customer/referrallist'], { relativeTo: this.route });  
 }
 
@@ -73,7 +73,7 @@ public getcount()
 {
   this.CustId =  this.tokenStorage.getcustcode();
 
-    debugger;
+    
     this.appService.getByIdString("api/User/GetReferalCount/",this.CustPhoneNumber).subscribe(data => {
     
      this.Count = data.responseData;
@@ -86,7 +86,7 @@ public getcount()
 public getCouponcount()
 {
  // this.CustId =  this.tokenStorage.getcustcode();
-    debugger;
+    
     this.appService.getByIdString("api/User/GetDiscountCouponCount/", this.CustPhoneNumber).subscribe(data => {
   //   this.appService.getById("api/User/GetDiscountCouponCount/",this.phoneNumber).subscribe(data => {
     console.log('custdata', data.responseData)
@@ -107,7 +107,7 @@ public getreffrallink()
 {
   this.CustId =  this.tokenStorage.getcustcode();
 
-  debugger;
+  
     this.appService.getById("api/User/GetRefferalLink/",this.CustId).subscribe(data => {
       console.log(data.responseData)
        this.receivedLink = data.responseData;
@@ -118,7 +118,7 @@ openModalQR(qrcontent: any) {
 
   
   QRCode.toDataURL( this.receivedLink, (err, url) => {
-    debugger;
+    
     if (err) {
       console.error(err);
     } else {
@@ -137,7 +137,7 @@ openModalQR(qrcontent: any) {
   }
 
   private _download(index:any, array:any) {
-    debugger;
+    
     if (index >= array.length) {
       console.log("Done!")
     } else {

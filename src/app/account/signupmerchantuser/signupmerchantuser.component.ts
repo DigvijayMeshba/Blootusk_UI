@@ -161,7 +161,7 @@ export class SignupmerchantuserComponent {
   
       GetCustomerName(customerCode:any)
       {
-        debugger;
+        
         this.appService.getById("api/User/GetCustomerByCOde/",customerCode).subscribe(data => {
         console.log('custdata', data.responseData)
          this.customerName = data.responseData.phoneNumber;
@@ -230,7 +230,7 @@ export class SignupmerchantuserComponent {
       }
       //create new user
       public createUser(formData: Signupuser) {
-        debugger;
+        
   
         let AdduserModel: Signupuser = formData;  
     
@@ -377,9 +377,9 @@ export class SignupmerchantuserComponent {
     
       SubmitForm(formDdt: Signupuser)
       {
-  debugger;
+  
       let refer;
-        debugger;
+        
         let AdduserOtpModel: Signupuser = formDdt;
   
         // const userForOtp: UserForOtp = {
@@ -524,7 +524,7 @@ export class SignupmerchantuserComponent {
   
       generateCaptcha() 
       {
-        debugger;
+        
         const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         const captchaLength = 6; // Length of the generated CAPTCHA text
         let captcha = '';
@@ -540,7 +540,7 @@ export class SignupmerchantuserComponent {
     
       capchatext : any;
       verifyCaptcha() {
-  debugger;
+  
         if (this.userText.toLowerCase() === this.generatedText.toLowerCase()) {
     
           this.capchatext ="CAPTCHA verification successful.",

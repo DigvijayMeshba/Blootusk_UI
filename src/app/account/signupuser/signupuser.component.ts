@@ -189,7 +189,7 @@ if (SplitCode !== null) {
 
     GetCustomerName(customerCode:any)
     {
-      debugger;
+      
       this.appService.getById("api/User/GetCustomerByCOde/",customerCode).subscribe(data => {
       console.log('custdata', data.responseData)
        this.customerName = data.responseData.phoneNumber;
@@ -260,7 +260,7 @@ if (SplitCode !== null) {
     }
     //create new user
     public createUser(formData: Signupuser) {
-      debugger;
+      
 
       let AdduserModel: Signupuser = formData;  
   
@@ -407,9 +407,9 @@ if(this.uploadForm.valid)
   
     SubmitForm(formDdt: Signupuser)
     {
-debugger;
+
     let refer;
-      debugger;
+      
       let AdduserOtpModel: Signupuser = formDdt;
 
       // const userForOtp: UserForOtp = {
@@ -554,7 +554,7 @@ debugger;
 
     generateCaptcha() 
     {
-      debugger;
+      
       const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
       const captchaLength = 6; // Length of the generated CAPTCHA text
       let captcha = '';
@@ -570,7 +570,7 @@ debugger;
   
     capchatext : any;
     verifyCaptcha() {
-debugger;
+
       if (this.userText.toLowerCase() === this.generatedText.toLowerCase()) {
   
         this.capchatext ="CAPTCHA verification successful.",

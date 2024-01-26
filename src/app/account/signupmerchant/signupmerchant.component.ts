@@ -91,14 +91,14 @@ export class SignupmerchantComponent {
 
 
 //adding form encr/Decr 
-debugger;
+
 var encrypted = this.EncrDecr.set('12$#@BLOO$^@TUSK', 'M1110001');
 var decrypted = this.EncrDecr.get('12$#@BLOO$^@TUSK', encrypted);
 
 console.log('Encrypted :' + encrypted);
 console.log('Decrypted :' + decrypted);
 
-    debugger;
+    
  
     let addUserDeatil = this.tokenStorage.getUser();
     console.log(addUserDeatil);
@@ -234,7 +234,7 @@ console.log('Decrypted :' + decrypted);
   }
   
    GetCountryList() {
-    debugger;
+    
     this.appService.GetAll("api/Merchant/GetCountryDDL").subscribe(
       (x: any) => {
         this.CountryList = x.responseData;
@@ -244,7 +244,7 @@ console.log('Decrypted :' + decrypted);
 
    GetStateList()
   {
-    debugger;
+    
     this.appService.GetAll("api/Merchant/GetStateDDL").subscribe(
       (data:any) => {
       this.StateList = data.responseData;
@@ -290,7 +290,7 @@ console.log('Decrypted :' + decrypted);
   //create new user
   public createMerchant(formData: signupMerchant) {
     
-    debugger;
+    
     let AdduserModel: signupMerchant = formData;  
 
     const userForOtp: UserForOtp = {
@@ -310,7 +310,7 @@ console.log('Decrypted :' + decrypted);
         })
       )   
         .subscribe((res: any) => {
-        debugger;
+        
           console.log(res.responseData)
           let statuscode : number = res.responseStatusCode;
           switch(statuscode)
@@ -484,7 +484,7 @@ console.log('Decrypted :' + decrypted);
     // this.prvemailopt = this.tokenStorage.getEmailOtp();
 
    
-debugger;
+
 
 //       if((formData.phoneNumberOTP == this.merchantMobileOTP || formData.phoneNumberOTP == '123456') && 
 // (formData.emailOTP == this.merchantEmailOTP || formData.emailOTP == '123456'))

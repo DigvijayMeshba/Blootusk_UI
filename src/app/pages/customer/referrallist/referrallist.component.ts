@@ -25,7 +25,7 @@ public count = 10;
    }
 
    ngOnInit(): void {
-    debugger;
+    
     this.customerId =this.tokenStorage.getcustcode();
     this.phoneNumber = this.tokenStorage.GetPhoneNO();
     this.GetRewardPointList()
@@ -39,7 +39,7 @@ public count = 10;
 
    public GetRewardPointList()
    {
-    debugger;
+    
     let edituserModel: listReffreal = {
       "CustomerId" : this.customerId,
       "Keyword": this.keyword == undefined? "" : this.keyword,
@@ -69,7 +69,7 @@ public count = 10;
 
    public ClearSearchdata()
    {
-     debugger;
+     
      this.keyword = '';
      this.router.navigate(['/customer/referrallist'], { relativeTo: this.route });
      this.GetRewardPointList()

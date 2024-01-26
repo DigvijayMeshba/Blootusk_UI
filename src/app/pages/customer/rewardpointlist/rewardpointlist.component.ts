@@ -42,7 +42,7 @@ CustPhoneNumber!:string;
 
 
    ngOnInit(): void {
-    debugger;
+    
     this.customerId =this.tokenStorage.getcustcode();
     this.phoneNumber = this.tokenStorage.GetPhoneNO();    
     this.GettemplateList()
@@ -58,7 +58,7 @@ CustPhoneNumber!:string;
   ShareCaptiitalTypeIdPost: any
 
   onChangeShareCapitalType(event: any) {
-debugger;
+
     if (event.target.value != undefined)
     {
       this.rewardPointId = event.target.value;     
@@ -73,7 +73,7 @@ debugger;
 
    public GettemplateList()
    {
-debugger;
+
     if(this.rewardPointId == undefined)
     {
        this.rewardPointId = 0;
@@ -103,7 +103,7 @@ debugger;
 eventreward:undefined;     
    public ClearSearchdata()
    {
-     debugger;     
+          
       
     // this.onChangeShareCapitalType(this.eventreward)
      this.selectedValue ='';

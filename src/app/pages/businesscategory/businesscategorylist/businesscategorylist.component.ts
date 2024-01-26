@@ -57,7 +57,7 @@ export class BusinesscategorylistComponent {
       }
     
      Searchdata() {
-      debugger;
+      
       let ListCategoryModel = {
       "categoryName": this.keyword  == ''? "":this.keyword,
       "rewardPoint": this.SearchKeyword == 0 ? 0 :this.SearchKeyword     
@@ -84,7 +84,7 @@ export class BusinesscategorylistComponent {
   }
   
     deleterecord(object: any) {
-      debugger;
+      
       Swal.fire({
         title: 'Confirmation',
         text: 'Are you sure you want to Delete this Business Category?',

@@ -51,7 +51,7 @@ export class SignupcustomerComponent {
 
   public loginCustomer =(formData: CustomerForAutintication) => {
     
-    debugger;
+    
 
     let AdduserModel: CustomerForAutintication = formData;  
 
@@ -214,7 +214,7 @@ export class SignupcustomerComponent {
           return throwError(error); 
         }))
         .subscribe((res: any) => {
-          debugger;
+          
           console.log(res.responseData);
           let statuscode : number = res.responseStatusCode;
           this.UsersName = res.responseData.custName;

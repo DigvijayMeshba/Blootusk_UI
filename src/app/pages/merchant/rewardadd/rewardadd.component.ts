@@ -104,7 +104,7 @@ export class RewardaddComponent {
      //create new Template
      public createTemplate(formData: any) {
 
-      debugger;
+      
       let AdduserModel: addReward = {
         "merchantId": this.merchantId,
         "rewardPoint" : formData.rewardPoint,
@@ -135,7 +135,7 @@ export class RewardaddComponent {
         switch(statuscode)
         {          
           case 200:
-            debugger;       
+                   
             
             Swal.fire({
               title:'Success',

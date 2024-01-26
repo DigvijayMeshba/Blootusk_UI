@@ -128,7 +128,7 @@ export class BusinesscategoryaddComponent {
 
     //create new user
     public createCatagory(formData: any) {
-      debugger;
+      
       let AdduserModel: addCatagory = {
       "catgoryId":formData.catagoryId,
       "categoryName": formData.categoryName,

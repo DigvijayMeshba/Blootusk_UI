@@ -323,10 +323,10 @@ export class MerchantaddComponent {
   
   //create new user
   public createMerchant(formData: addMerchant) {
-    debugger;
+    
     let addUserDeatil = this.tokenStorage.getUser();
     let AddMerchantModel: addMerchant = formData;  
-    debugger;    
+        
     if(this.uploadForm.valid)
     {
       AddMerchantModel.GeneratedBy = "",
@@ -360,7 +360,7 @@ export class MerchantaddComponent {
           })
         )   
           .subscribe((res: any) => {
-            debugger;
+            
 
             let statuscode : number = res.responseStatusCode;
 

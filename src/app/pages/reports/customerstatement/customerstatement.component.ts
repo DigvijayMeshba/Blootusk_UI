@@ -60,7 +60,7 @@ export class CustomerstatementComponent {
   }
 
   public getPageData(): any[] {
-    debugger;
+    
     let allStatementList;
     const startIndex = (this.page - 1) * this.count;
     const endIndex = startIndex + this.count;
@@ -74,7 +74,7 @@ export class CustomerstatementComponent {
 
   SubmitCustomerStatementList()
   {    
-    debugger;
+    
   //  let GetCustomerStatement: custmerchtStatement = formData;  
    
     let ListOfStatement: custmerchtStatement = {
@@ -139,7 +139,7 @@ export class CustomerstatementComponent {
   
 
   public onPageChanged3(page: number) {
-    debugger;
+    
     this.page = page;
     window.scrollTo(0, 0);
   }

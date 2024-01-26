@@ -83,14 +83,14 @@
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Message Type </label>
-                                    <select class="form-select" aria-label="Default select example" formControlName ="modeTypeId" >
+                                    <select class="form-select" aria-label="Default select example" formControlName ="messageTypeId" >
                                         <option hidden value="" disabled selected>Select Message Type</option>
-                                         <option *ngFor="let template of TemplateLists" [value]="template.modeTypeId">
+                                         <option *ngFor="let template of TemplateLists" [value]="template.messageTypeId">
                                             {{ template.messageType }}
                                           </option> 
                                     </select>
-                                    <div *ngIf="submitted && f['modeTypeId'].errors" class="invalid-feedback d-block">
-                                        <div *ngIf="f['modeTypeId'].errors['required']">Message Type is required</div>
+                                    <div *ngIf="submitted && f['messageTypeId'].errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f['messageTypeId'].errors['required']">Message Type is required</div>
                                        
                                     </div>
                                 </div>
@@ -99,14 +99,14 @@
                             <div class="col-md-4">
                                 <div>
                                     <label for="basiInput" class="form-label">Mode Type </label>
-                                    <select class="form-select" aria-label="Default select example"  (change)="onDropdownChange($event)" formControlName="messageTypeId">
+                                    <select class="form-select" aria-label="Default select example"  (change)="onDropdownChange($event)" formControlName="modeTypeId">
                                         <option hidden value="" disabled selected>Select Mode Type</option>
-                                        <option *ngFor="let modes of ModeLists" [value]="modes.messageTypeId">
+                                        <option *ngFor="let modes of ModeLists" [value]="modes.modeTypeId">
                                             {{ modes.messageType }}
                                         </option>
                                     </select>
-                                    <div *ngIf="submitted && f['messageTypeId'].errors" class="invalid-feedback d-block">
-                                        <div *ngIf="f['messageTypeId'].errors['required']">Mode Type is required</div>
+                                    <div *ngIf="submitted && f['modeTypeId'].errors" class="invalid-feedback d-block">
+                                        <div *ngIf="f['modeTypeId'].errors['required']">Mode Type is required</div>
                                        
                                     </div>
                                 </div>

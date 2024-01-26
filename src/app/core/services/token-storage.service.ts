@@ -51,7 +51,7 @@ export class TokenStorageService {
   }
 
   public custcode(custcode:any): void {
-    debugger;
+    
     window.localStorage.removeItem(Custcode_KEY);
     window.localStorage.setItem(Custcode_KEY, JSON.stringify(custcode));
   }
@@ -72,7 +72,7 @@ export class TokenStorageService {
   }
 
   public SavePhoneOtp(phoneNootp:any): void {
-    debugger;
+    
     window.localStorage.removeItem(OTP_KEY);
     window.localStorage.setItem(OTP_KEY, JSON.stringify(phoneNootp));
   }

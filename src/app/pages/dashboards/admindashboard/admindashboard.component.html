@@ -238,11 +238,27 @@
                     </div>
                 </div>
     
-                <div class="card-body">
+                <div class="card-body">    
+                    
+                    <div class="card-body">
+                        <apx-chart [series]="groupedBarChart2.series" [chart]="groupedBarChart2.chart"
+                            [dataLabels]="groupedBarChart2.dataLabels" [plotOptions]="groupedBarChart2.plotOptions"
+                            [xaxis]="groupedBarChart2.xaxis" [stroke]="groupedBarChart2.stroke" [colors]="groupedBarChart2.colors"
+                            dir="ltr"></apx-chart>
+                    </div>
+
+<!-- 
                     <apx-chart [series]="groupedBarChart2.series" [chart]="groupedBarChart2.chart"
                         [dataLabels]="groupedBarChart2.dataLabels" [plotOptions]="groupedBarChart2.plotOptions"
                         [xaxis]="groupedBarChart2.xaxis" [stroke]="groupedBarChart2.stroke" [colors]="groupedBarChart2.colors"
-                        dir="ltr"></apx-chart>
+                        dir="ltr">
+                    </apx-chart> -->
+
+                       
+
+
+<!-- Your other HTML content -->
+
                 </div><!-- end card-body -->
             </div><!-- end card -->
         </div>

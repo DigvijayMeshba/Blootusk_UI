@@ -57,7 +57,7 @@ export class MerchantstatementComponent {
 
   SubmitMerchantStatementList()
   {
-    debugger;
+    
     let ListOfStatement: custmerchtStatement = {
    
       "merchantCode":  this.merchantCode == '' ? "":this.merchantCode,
@@ -85,7 +85,7 @@ export class MerchantstatementComponent {
  
 
   public getPageData(): any[] {
-    debugger;
+    
     let allStatementList;
     const startIndex = (this.page - 1) * this.count;
     const endIndex = startIndex + this.count;
@@ -98,7 +98,7 @@ export class MerchantstatementComponent {
 
  
 public onPageChanged3(page: number) {
-  debugger;
+  
   this.page = page;
   window.scrollTo(0, 0);
 }

@@ -90,7 +90,7 @@ public ClearMerchantList()
 
     //List of All Company
   public   GetAllMerchantList() {
-    debugger;
+    
     let edituserModel: listMerchant = {
       // "merchantCode": this.merchnatCode == ''? "":this.merchnatCode,
       // "merchantPhoneNumber": this.mobileNo == ''? "":this.mobileNo,      
@@ -173,7 +173,7 @@ public ClearMerchantList()
   
     ///Code for Pagination
     public getPageData(): any[] {
-      debugger;
+      
       let allmerchantList;
       const startIndex = (this.page - 1) * this.count;
       const endIndex = startIndex + this.count;
@@ -216,7 +216,7 @@ public ClearMerchantList()
 
 
 public onPageChanged3(page: number) {
-  debugger;
+  
   this.page = page;
   window.scrollTo(0, 0);
 }

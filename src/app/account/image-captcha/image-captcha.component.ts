@@ -17,7 +17,7 @@ export class ImageCaptchaComponent {
 
   generateCaptcha() 
   {
-    debugger;
+    
     const possibleChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     const captchaLength = 6; // Length of the generated CAPTCHA text
     let captcha = '';

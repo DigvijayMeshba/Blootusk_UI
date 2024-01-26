@@ -14,6 +14,9 @@ export class AdmindashboardComponent {
   groupedBarChart2: any;
   groupedBarChart3: any;
 
+
+  adminCouponsGraphs:any;
+
   Users !:number;
   UsersMtd !:number;
   UserRefferal !:number;
@@ -53,17 +56,15 @@ export class AdmindashboardComponent {
       this.uploadForm = new FormGroup({
         merchantId: new FormControl('')
       });
-     
-
-
 
     this.GetMerchantList();
      // Chart Color Data Get Function
+    
 
-     this._groupedBarChart('["--vz-primary", "--vz-success"]');
-     this._groupedBarChart1('["--vz-primary", "--vz-success"]');
-     this._groupedBarChart2('["--vz-primary", "--vz-success"]');
-     this._groupedBarChart3('["--vz-primary", "--vz-success"]');
+    // this._groupedBarChart(this.adminCouponsGraphs,'["--vz-primary", "--vz-success"]');
+   //  this._groupedBarChart1('["--vz-primary", "--vz-success"]');
+    // this._groupedBarChart2(this.adminCouponsGraphs,'["--vz-primary", "--vz-success"]');
+   //  this._groupedBarChart3('["--vz-primary", "--vz-success"]');
   }
 
     // Chart Colors Set
@@ -91,16 +92,23 @@ export class AdmindashboardComponent {
       });
     }
 
-  private _groupedBarChart(colors:any) {
+  private _groupedBarChart(usergraphdatares: any,colors:any) {
     colors = this.getChartColorsArray(colors);
+    console.log('usergraph',usergraphdatares.userwainindata)
+    let couponresdatas = usergraphdatares.userwainindata.replace(/'/g, '').split(', ');
+    let CouponRedeemData =  usergraphdatares.userrefferaldata.replace(/'/g, '').split(', ');
+    
+    let dataArray = usergraphdatares.usermonthdata.replace(/'/g, '').split(', ');
+
+
     this.groupedBarChart = {
       series: [{
           name: "Walk In",
-          data: [44, 55, 41, 64, 22, 43, 21, 35, 52, 36, 42, 38],
+          data: couponresdatas,
         },
         {
           name: "Referral",
-          data: [53, 32, 33, 52, 13, 44, 32, 38, 48, 34, 40, 35],
+          data: CouponRedeemData,
         },
       ],
       chart: {
@@ -137,24 +145,83 @@ export class AdmindashboardComponent {
         intersect: false,
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','Dec'],
+        categories: dataArray,// ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','Dec'],
       },
       colors: colors,
     };
   }
 
-  private _groupedBarChart1(colors:any) {
+  // private _groupedBarChart1(usergraphdatares: any,colors:any) {
+  //   colors = this.getChartColorsArray(colors);
+  //   this.groupedBarChart1 = {
+  //     series: [{
+  //         name: "Points Earn",
+  //         data: [44, 55, 41, 64, 22, 43, 21, 35, 52, 36, 42, 38],
+  //       },
+  //       {
+  //         name: "Points Redeemed",
+  //         data: [53, 32, 33, 52, 13, 44, 32, 38, 48, 34, 40, 35],
+  //       },
+  //     ],
+  //     chart: {
+  //       type: "bar",
+  //       height: 310,
+  //       toolbar: {
+  //         show: false,
+  //       },
+  //     },
+  //     plotOptions: {
+  //       bar: {
+  //         horizontal: false,
+  //         dataLabels: {
+  //           position: "top",
+            
+  //         },
+  //       },
+  //     },
+  //     dataLabels: {
+  //       enabled: true,
+  //       offsetX: 0,
+  //       style: {
+  //         fontSize: "8px",
+  //         colors: ["#fff"],
+  //       },
+  //     },
+  //     stroke: {
+  //       show: true,
+  //       width: 1,
+  //       colors: ["#fff"],
+  //     },
+  //     tooltip: {
+  //       shared: true,
+  //       intersect: false,
+  //     },
+  //     xaxis: {
+  //       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','Dec'],
+  //     },
+  //     colors: colors,
+  //   };
+  // }
+
+  private _groupedBarChart1(pointdatares: any,colors:any) {
     colors = this.getChartColorsArray(colors);
-    this.groupedBarChart1 = {
-      series: [{
-          name: "Points Earn",
-          data: [44, 55, 41, 64, 22, 43, 21, 35, 52, 36, 42, 38],
-        },
-        {
-          name: "Points Redeemed",
-          data: [53, 32, 33, 52, 13, 44, 32, 38, 48, 34, 40, 35],
-        },
-      ],
+ debugger;
+  let pointresdatas = pointdatares.pointearndata.replace(/'/g, '').split(', ');
+  let pointRedeemData =  pointdatares.pointreddemdata.replace(/'/g, '').split(', ');  
+  let pointdataArray = pointdatares.pointmonthdata.replace(/'/g, '').split(', ');
+
+    this.groupedBarChart1 = {           
+
+
+    series: [{
+      name: "Visits",
+      data: pointresdatas,// [44, 55, 41, 64, 22, 43, 21, 35, 52, 36, 42, 38],
+    },
+    {
+      name: "Users",
+      data: pointRedeemData,//[53, 32, 33, 52, 13, 44, 32, 38, 48, 34, 40, 35],
+    },
+  ],
       chart: {
         type: "bar",
         height: 310,
@@ -188,25 +255,86 @@ export class AdmindashboardComponent {
         shared: true,
         intersect: false,
       },
+      // xaxis: {
+      //   categories: pointdataArray,
+      // },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','Dec'],
+        categories: pointdataArray,//['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','Dec'],
       },
       colors: colors,
     };
   }
 
-  private _groupedBarChart2(colors:any) {
+  // private _groupedBarChart2(colors:any) {
+  //   colors = this.getChartColorsArray(colors);
+  //   this.groupedBarChart2 = {
+  //     series: [{
+  //         name: "Coupons",
+  //         data: [44, 55, 41, 64, 22, 43, 21, 35, 52, 36, 42, 38],
+  //       },
+  //       {
+  //         name: "Redeemed",
+  //         data: [53, 32, 33, 52, 13, 44, 32, 38, 48, 34, 40, 35],
+  //       },
+  //     ],
+  //     chart: {
+  //       type: "bar",
+  //       height: 310,
+  //       toolbar: {
+  //         show: false,
+  //       },
+  //     },
+  //     plotOptions: {
+  //       bar: {
+  //         horizontal: false,
+  //         dataLabels: {
+  //           position: "top",
+            
+  //         },
+  //       },
+  //     },
+  //     dataLabels: {
+  //       enabled: true,
+  //       offsetX: 0,
+  //       style: {
+  //         fontSize: "8px",
+  //         colors: ["#fff"],
+  //       },
+  //     },
+  //     stroke: {
+  //       show: true,
+  //       width: 1,
+  //       colors: ["#fff"],
+  //     },
+  //     tooltip: {
+  //       shared: true,
+  //       intersect: false,
+  //     },
+  //     xaxis: {
+  //       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','Dec'],
+  //     },
+  //     colors: colors,
+  //   };
+  // }
+
+
+  private _groupedBarChart2(coupondatares: any,colors:any) {
     colors = this.getChartColorsArray(colors);
-    this.groupedBarChart2 = {
+
+  let couponresdatas = coupondatares.coupondata.replace(/'/g, '').split(', ');
+  let CouponRedeemData =  coupondatares.couponredeemdata.replace(/'/g, '').split(', ');  
+  let dataArray = coupondatares.monthdata.replace(/'/g, '').split(', ');
+   
+    this.groupedBarChart2 = {     
       series: [{
-          name: "Coupons",
-          data: [44, 55, 41, 64, 22, 43, 21, 35, 52, 36, 42, 38],
-        },
-        {
-          name: "Redeemed",
-          data: [53, 32, 33, 52, 13, 44, 32, 38, 48, 34, 40, 35],
-        },
-      ],
+        name: "Coupons",
+        data: couponresdatas,
+      },
+      {
+        name: "Redeemed",
+        data: CouponRedeemData,
+      },
+    ],
       chart: {
         type: "bar",
         height: 310,
@@ -241,22 +369,27 @@ export class AdmindashboardComponent {
         intersect: false,
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','Dec'],
+        categories: dataArray,
       },
       colors: colors,
     };
   }
 
-  private _groupedBarChart3(colors:any) {
+  private _groupedBarChart3(frequentdatares: any,colors:any) {
+
+    let couponresdatas = frequentdatares.frequentvistdata.replace(/'/g, '').split(', ');
+    let CouponRedeemData =  frequentdatares.frequentuserdata.replace(/'/g, '').split(', ');  
+    let dataArray = frequentdatares.frequentmonthdata.replace(/'/g, '').split(', ');
+
     colors = this.getChartColorsArray(colors);
     this.groupedBarChart3 = {
       series: [{
           name: "Visits",
-          data: [44, 55, 41, 64, 22, 43, 21, 35, 52, 36, 42, 38],
+          data: couponresdatas, //[44, 55, 41, 64, 22, 43, 21, 35, 52, 36, 42, 38],
         },
         {
           name: "Users",
-          data: [53, 32, 33, 52, 13, 44, 32, 38, 48, 34, 40, 35],
+          data: CouponRedeemData, //[53, 32, 33, 52, 13, 44, 32, 38, 48, 34, 40, 35],
         },
       ],
       chart: {
@@ -293,7 +426,7 @@ export class AdmindashboardComponent {
         intersect: false,
       },
       xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','Dec'],
+        categories: dataArray,// ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','Dec'],
       },
       colors: colors,
     };
@@ -307,7 +440,7 @@ export class AdmindashboardComponent {
   }
 
   viewMerchantData(merchantId: any) {
-debugger;
+ 
 
 
     this.appService.getById("api/AdminDashbaord/AdminDashboard/", merchantId)
@@ -335,13 +468,31 @@ debugger;
       this.Coupon =data.coupon;
       this.CouponRedeem =data.couponRedeem;
       this.CouponTransfer =data.couponTransfer;
-
-      
-    
     
     });
-  
+
+
+    this.appService.getById("api/AdminDashbaord/AdminGrapgData/",merchantId)
+    .subscribe(data => {  
+      console.log('graph', data);
+      
+    //  this.groupedBarChart1.data =data.adminCouponsGraphs.month;
+      this.adminCouponsGraphs =data;
+    //   this.groupedBarChart3.series.data =data;
+    //   this.groupedBarChart.series.data =data;
+     this._groupedBarChart(this.adminCouponsGraphs, '["--vz-primary", "--vz-success"]')
+     this._groupedBarChart1(this.adminCouponsGraphs,'["--vz-primary", "--vz-success"]')
+    this._groupedBarChart2(this.adminCouponsGraphs, '["--vz-primary", "--vz-success"]')
+     this._groupedBarChart3(this.adminCouponsGraphs, '["--vz-primary", "--vz-success"]')
+   
+    });
+
+
+    
+    // this._groupedBarChart2(this.adminCouponsGraphs, '["--vz-primary", "--vz-success"]')
     // You can perform further actions with the merchantId as needed
   }
 
+
+  
 }

@@ -34,7 +34,7 @@ export class RedeemCouponComponent {
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
     private router: Router,private EncrDecr: EncrDecrServiceService,public appService: AppService,)
    {
-    debugger; 
+     
 
    // this.GetCoupondata(ecodeMerchantCode);
     //this.customerId =this.tokenStorage.getcustcode();
@@ -42,7 +42,7 @@ export class RedeemCouponComponent {
     //this.phoneNumber = this.EncrDecr.set('12$#@BLOO$^@TUSK', this.CustPhoneNumber);
    }
    ngOnInit(): void {
-    debugger;
+    
     let ecodeMerchantCode = this.route.snapshot.params['id'];   
    this.GetCoupondata(ecodeMerchantCode);
    }
@@ -54,7 +54,7 @@ export class RedeemCouponComponent {
   }
 
   private _download(index:any, array:any) {
-    debugger;
+    
     if (index >= array.length) {
       console.log("Done!")
     } else {
@@ -77,7 +77,7 @@ export class RedeemCouponComponent {
    this.receivedLink = 'http://crm.blootusk.com/#/C/'  + CouponCode + "/" +  this.CustPhoneNumber;
    
     QRCode.toDataURL( this.receivedLink, (err, url) => {
-      debugger;
+      
       if (err) {
         console.error(err);
       } else {

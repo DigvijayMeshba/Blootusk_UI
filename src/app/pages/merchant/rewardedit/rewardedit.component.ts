@@ -86,7 +86,7 @@ export class RewardeditComponent {
 
      //create new Template
      public updateReward(formData: any) {
-      debugger;
+      
       let AdduserModel: editReward = {   
 
       "RewardPonitId":this.templateId ,
@@ -119,7 +119,7 @@ export class RewardeditComponent {
         switch(statuscode)
         {          
           case 200:
-            debugger;       
+                   
             
             Swal.fire({
               title:'Success',

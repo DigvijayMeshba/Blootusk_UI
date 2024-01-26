@@ -26,17 +26,24 @@ export class MessageaddComponent {
   uploadForm!: FormGroup;
 
   public Editor = ClassicEditor;
-  ModeLists: any[] = [];
+  TemplateLists: any[] = [];
   showDiv = {
     current: true,
     next: false
   }
 
-  TemplateLists = [
-    { messageType: 'Signup', modeTypeId: '1' },
-    { messageType: 'Refferal', modeTypeId: '2' },
-    { messageType: 'Redeem', modeTypeId: '3' },
+  ModeLists = [
+    { messageType: 'SMS', modeTypeId: '1' },
+    { messageType: 'Email', modeTypeId: '2' },
   ];
+
+  // TemplateLists = [
+  //   { messageType: 'Signup', modeTypeId: '1' },
+  //   { messageType: 'Reffer to Friend', modeTypeId: '2' },
+  //   { messageType: 'Referral Successful', modeTypeId: '3' },
+  //   { messageType: 'Transferrable Coupon', modeTypeId: '4' },
+  //   { messageType: 'Coupon Offer', modeTypeId: '5' },
+  // ];
   userText!: any;
   submitted = false;
   messagecontent!: string;
@@ -81,7 +88,7 @@ export class MessageaddComponent {
 
   selectedValue!:number;
   onDropdownChange(event: Event) {
-    debugger;
+    
     const selectedValue = (event.target as HTMLSelectElement).value;
   
 
@@ -115,7 +122,7 @@ export class MessageaddComponent {
   public GetModeList() {
     this.appService.GetAll("api/SMSTemplate/GetMessageTypeDDL").subscribe(
       (x: any) => {
-        this.ModeLists = x.responseData;
+        this.TemplateLists = x.responseData;
         console.log(x.responseData);
       });
 
@@ -123,7 +130,7 @@ export class MessageaddComponent {
 
   //create new Template
   public createTemplate(formData: any) {
-    debugger;
+    
     let AdduserModel: addMessageTemplate = {
       "templateId": 0,
       "messageTypeId": formData.messageTypeId,
@@ -150,7 +157,7 @@ export class MessageaddComponent {
 
           switch (statuscode) {
             case 200:
-              debugger;
+              
 
               Swal.fire({
                 title: 'Success',

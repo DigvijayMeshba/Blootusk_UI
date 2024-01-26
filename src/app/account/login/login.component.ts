@@ -87,7 +87,7 @@ export class LoginComponent implements OnInit {
         })
       )
         .subscribe((res: any) => {
-          debugger;
+          
           console.log('token data==',res)
           //status code
           this.Isadmin = 'Admin';

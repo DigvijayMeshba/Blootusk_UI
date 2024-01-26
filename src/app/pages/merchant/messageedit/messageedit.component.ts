@@ -28,16 +28,15 @@ export class MessageeditComponent {
   templateId!:number;
   messageContent!:string;
   public Editor = ClassicEditor;
-  ModeLists: any[] = [];
+  TemplateLists: any[] = [];
   showDiv = {
     current: true,
     next: false
   }
 
-  TemplateLists = [
-    { messageType: 'Signup', modeTypeId: '1' },
-    { messageType: 'Refferal', modeTypeId: '2' },
-    { messageType: 'Redeem', modeTypeId: '3' },
+  ModeLists = [
+    { messageType: 'SMS', modeTypeId: '1' },
+    { messageType: 'Email', modeTypeId: '2' },
   ];
 
   constructor(private modalService: NgbModal,public formBuilder: FormBuilder,public appService: AppService,
@@ -92,15 +91,15 @@ export class MessageeditComponent {
   {
       this.appService.GetAll("api/SMSTemplate/GetMessageTypeDDL").subscribe(
       (x: any) => {
-        this.ModeLists = x.responseData;
-        console.log(x.responseData);
+        this.TemplateLists = x.responseData;
+        console.log('test', x.responseData);
       });
     
   }
 
      //create new Template
      public createTemplate(formData: any) {
-      debugger;
+      
       let AdduserModel: addMessageTemplate = {      
       "templateId":this.templateId,
       "messageTypeId":formData.messageTypeId,
@@ -131,7 +130,7 @@ export class MessageeditComponent {
         switch(statuscode)
         {          
           case 200:
-            debugger;       
+                   
             
             Swal.fire({
               title:'Success',
@@ -222,7 +221,7 @@ export class MessageeditComponent {
 
   selectedValue!:number;
   onDropdownChange(event: Event) {
-    debugger;
+    
     const selectedValue = (event.target as HTMLSelectElement).value;
   
     if(selectedValue == "1")

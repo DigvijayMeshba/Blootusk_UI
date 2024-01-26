@@ -209,7 +209,7 @@ export class TopbarComponent implements OnInit {
    * Logout the user
    */
   logout() {
-    debugger;
+    
     this.authService.logout();
     // if (environment.defaultauth === 'firebase') {
     //   this.authService.logout();
@@ -296,7 +296,7 @@ export class TopbarComponent implements OnInit {
   {
     this.CustId =  this.TokenStorageService.getcustcode();
     let refer;
-    debugger;
+    
     if(this.uploadForm.valid)
     { 
     const  AddUserDeatil: addUserDeatil  =  {    

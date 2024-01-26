@@ -25,7 +25,7 @@ export class RefferalLinkComponent
     }
   
      ngOnInit(): void {
-      debugger;
+      
       this.customerId =this.tokenStorage.getcustcode();
       this.phoneNumber = this.tokenStorage.GetPhoneNO();
       this.GetRewardPointList()
@@ -70,7 +70,7 @@ export class RefferalLinkComponent
   }
      public ClearSearchdata()
      {
-       debugger;
+       
        this.keyword = '';
        this.router.navigate(['/customer/referrallist'], { relativeTo: this.route });
        this.GetRewardPointList()
@@ -83,7 +83,7 @@ export class RefferalLinkComponent
     }
 
      shareReferralLink(referralLink: string) {
-      debugger;
+      
       const message = `Check out this referral link: ${referralLink}`;
     
       if (navigator.share) {

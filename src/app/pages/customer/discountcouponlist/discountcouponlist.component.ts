@@ -67,6 +67,7 @@ export class DiscountcouponlistComponent {
         })).subscribe((data: any) => {    
           
           this.CustomerCouponList = data.responseData.couponList 
+        
           if(data.responseData.length == 0)
           {
              this.swalMessage('Data not found')
@@ -94,7 +95,7 @@ export class DiscountcouponlistComponent {
    this.receivedLink = 'http://crm.blootusk.com/#/C/'  + CouponCode + "/" +  this.CustPhoneNumber;
    
     QRCode.toDataURL( this.receivedLink, (err, url) => {
-      debugger;
+      
       if (err) {
         console.error(err);
       } else {
@@ -110,7 +111,7 @@ export class DiscountcouponlistComponent {
     }
 
     private _download(index:any, array:any) {
-      debugger;
+      
       if (index >= array.length) {
         console.log("Done!")
       } else {
@@ -129,7 +130,7 @@ export class DiscountcouponlistComponent {
 
     ///Code for Pagination
     public getPageData(): any[] {
-      debugger;
+      
       let allmerchantList;
       const startIndex = (this.page - 1) * this.count;
       const endIndex = startIndex + this.count;
@@ -141,7 +142,7 @@ export class DiscountcouponlistComponent {
     }
 
   public onPageChanged3(page: number) {
-    debugger;
+    
     this.page = page;
     window.scrollTo(0, 0);
   }
@@ -167,13 +168,14 @@ export class DiscountcouponlistComponent {
      
       }
 
-      shareReferralLink(referralLink: string) {
+      shareReferralLink(referralLink: string,sourcename :string) {
         const message = `Check out this referral link: ${  referralLink}`;
       
+        let messagetital =  "Hi, I just discovered a great place called ,"+ sourcename + 'Show this coupon';
         if (navigator.share) {
           navigator
             .share({
-              title: 'Share Referral Link',
+              title: messagetital,
               text: message,
               url: '#/C/' + referralLink,
             })

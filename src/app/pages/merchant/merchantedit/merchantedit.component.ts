@@ -106,7 +106,7 @@ export class MerchanteditComponent {
   get f() { return this.uploadForm.controls; }
 
   ngOnInit(): void {
-    debugger;
+    
 
     console.log(this.statusLists);
     this.merchantId = this.route.snapshot.params['id'];
@@ -257,7 +257,7 @@ export class MerchanteditComponent {
   }
 
 openModalQR(qrcontent: any) {  
-  debugger;
+  
   if(this.approvstatus == 'V')
   {
 
@@ -394,7 +394,7 @@ public getMerchantbyId(merchantId: any) {
         recStatus : data.responseData.recStatus == "A"? true : false,
     
       });
-      debugger;
+      
       this.OrganizationNameTemp = data.responseData.organizationName,
       this.ContactPersonNameTemp = data.responseData.contactPersonName,
       this.MobileNoTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 
@@ -412,7 +412,7 @@ public getMerchantbyId(merchantId: any) {
 //create Remark 
 AddRemark(formDt: remarkHistory)
 {
-  debugger;
+  
   let AddRemarkModel: remarkHistory = formDt;  
 
   const remarkdetail = { ...formDt };   
@@ -428,7 +428,7 @@ AddRemark(formDt: remarkHistory)
   
 
   console.log(remarkdetail);
-  debugger;
+  
   this.appService.Add('api/Merchant/AddMerchantRemark', addremarks).subscribe((data: any) => {
     debugger  
    
@@ -461,7 +461,7 @@ public GetTemplateData():any[]
 
 public GetRewardData():any[]
 {
-  debugger;
+  
   console.log('reward',this.RewardList)
   const startIndex = (this.page -1) * this.count;
   const endIndex = startIndex + this.count;
@@ -473,7 +473,7 @@ CancelForm()
   this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
 }
   public updateMerchant(formData: editMerchant) {
-    debugger;
+    
 
     if(formData.recStatus == true)
     {
@@ -515,14 +515,14 @@ CancelForm()
           })
         )   
         .subscribe((res: any) => {
-          debugger;
+          
           console.log('data',res)
         let statuscode : number = res.responseStatusCode;
 
           switch(statuscode)
           {          
             case 200:
-              debugger;       
+                     
               
               Swal.fire({
                 title:'Success',
@@ -610,7 +610,7 @@ CancelForm()
     }
 
      private _download(index:any, array:any) {
-      debugger;
+      
       if (index >= array.length) {
         console.log("Done!")
       } else {
@@ -630,7 +630,7 @@ CancelForm()
 
 //       //List of All Template
 //       public   GetAlltemplateList() {
-//         debugger;
+//         
        
      
 //           this.appService.getById("api/SMSTemplate/GetAllSmsTemplate/", this.merchantId)
@@ -651,7 +651,7 @@ CancelForm()
 
 //     //List of All Company
 //     public   GetAllRewardPointList() {
-//       debugger;
+//       
 //         this.appService.getById("api/RewardPoint/GetAllRewardPoint/", this.merchantId)
        
 //         .pipe(
