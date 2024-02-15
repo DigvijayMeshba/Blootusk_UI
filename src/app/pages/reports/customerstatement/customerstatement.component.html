@@ -1,6 +1,10 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
+            <form  [formGroup]="uploadForm" fxLayout="row wrap"
+            fxLayout="row wrap"
+           (ngSubmit)="SubmitCustomerStatementList(uploadForm.value)"
+            >  
             <div class="card">
 
                
@@ -19,14 +23,13 @@
                             <div class="card-body">
 
                                 <div class="row mb-3">
-
                                     <div class="col-md-4">
                                         <div>
-                                            <label for="basiInput" class="form-label">Customer Code</label>
-                                            <input type="text" class="form-control" [(ngModel)]="customerCode"  placeholder="Enter Customer Code">
+                                            <label for="basiInput" class="form-label">Customer Phone No.</label>
+                                            <input type="text" class="form-control" formControlName="CustPhoneNo" placeholder="Enter Customer Phone No">
                                       
-                                            <div *ngIf="submitted && f['customerCode'].errors" class="invalid-feedback d-block">
-                                            <div *ngIf="f['customerCode'].errors['required']">CustomerCode is required</div>
+                                            <div *ngIf="submitted && f['CustPhoneNo'].errors" class="invalid-feedback d-block">
+                                            <div *ngIf="f['CustPhoneNo'].errors['required']">CustomerCode is required</div>
                                             </div>
                                         </div>
                                        
@@ -34,11 +37,16 @@
 
                                     <div class="col-md-4">
                                         <div>
-                                            <label for="basiInput" class="form-label">Merchant Code</label>
-                                            <input type="text" class="form-control" [(ngModel)]="merchantCode" placeholder="Enter Merchant Code">
-                                            <div *ngIf="submitted && f['merchantCode'].errors" class="invalid-feedback d-block">
-                                                <div *ngIf="f['merchantCode'].errors['required']">MerchantCode is required</div>
-                                            </div>
+                                            <label for="basiInput" class="form-label">Merchant Name</label>
+                                            <!-- <input type="text" class="form-control" [(ngModel)]="merchantCode" placeholder="Enter Merchant Code">
+                                            -->
+                                             <select class="form-select" aria-label=" select example"   formControlName="merchantId">                                       >
+                                            <option value="" disabled selected>Select Merchant</option> 
+                                            <option *ngFor="let merchant of MerchantList" [value]="merchant.merchantId">
+                                            {{ merchant.organizationName}}
+                                            </option>
+                                        </select>
+                                          
                                         </div>
                                     </div>
 
@@ -49,22 +57,44 @@
                                     <div class="col-md-4">
                                         <div>
                                             <label for="basiInput"  class="form-label">From Date</label>
-                                            <input type="date" class="form-control" [(ngModel)]="fromDate" placeholder="Enter From Date">
-                                            <!-- <input class="form-control flatpickr-input" type="text" mwlFlatpickr [altInput]="true"[convertModelValue]="true" mode="range"> -->
-                                        </div>
+                                          
+                                            <input [(ngModel)]="fromDate" 
+                                            type="text" formControlName="fromDate"
+                                            class="form-control custom-date-input"
+                                            placeholder="Enter From Date"
+                                            bsDatepicker
+                                            [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY', containerClass: 'theme-default'}"
+                                          />
+                                          <div *ngIf="submitted && this.uploadForm.get('fromDate')?.invalid" class="invalid-feedback d-block">
+                                            <div *ngIf="this.uploadForm.get('fromDate')?.errors?.['required']">Please Select From Date</div>
+                                         </div>
+                                          
+                                       </div>
                                     </div>
 
                                     <div class="col-md-4">
                                         <div>
                                             <label for="basiInput" class="form-label">To Date</label>
-                                            <input type="date"  [(ngModel)]="toDate" class="form-control" placeholder="Enter To Date">
+                                            <!-- <input type="date"  [(ngModel)]="toDate" class="form-control" placeholder="Enter To Date">
+                                            -->
+                                            <input [(ngModel)]="toDate" 
+                                            type="text" formControlName="toDate"
+                                            class="form-control custom-date-input"
+                                            placeholder="Enter From Date"
+                                            bsDatepicker
+                                            [bsConfig]="{ dateInputFormat: 'MM-DD-YYYY', containerClass: 'theme-default'}"
+                                          />
+                                          <div *ngIf="submitted && this.uploadForm.get('toDate')?.invalid" class="invalid-feedback d-block">
+                                            <div *ngIf="this.uploadForm.get('toDate')?.errors?.['required']">Please Select To Date</div>
+                                         </div>                
+       
                                             <!-- <input class="form-control flatpickr-input" type="text" mwlFlatpickr [altInput]="true"[convertModelValue]="true" mode="range"> -->
                                         </div>
                                     </div>
 
                                     <div class="col-md-4 ">                                        
                                         <div class="mt-4  text-right gap-1 ">                                      
-                                            <button type="button" (click)="SubmitCustomerStatementList()" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
+                                            <button type="submit" (click)="submit()" class="btn btn-primary ms-auto"> <i class="ri-search-line cardicon label-icon align-middle"></i>Search</button>
                                   
                                             &nbsp;
                                             <button type="button"  (click)="ClearSearchdata()" class="btn btn-primary ms-auto"><i class="ri-refresh-line cardicon label-icon align-middle"></i>Clear</button>
@@ -102,7 +132,7 @@
                                 <div>
                                     <label for="basiInput" class="form-label">From & To Date</label>
                                     <br/>
-                                    <label *ngIf="fromDate!=null" for="basiInput" class="form-label form-view">{{fromDate}} To {{toDate}}</label>
+                                    <label *ngIf="fromDate!=null" for="basiInput" class="form-label form-view">{{fromDate | date:'dd/MM/yyyy'}} To {{toDate | date:'dd/MM/yyyy'}}</label>
                                 
                                  
                                 </div>                                
@@ -129,7 +159,7 @@
                                         <tbody  *ngFor="let object of getPageData()">
                                             <tr >
                                                 
-                                                <td>{{object.transactionDate | date:'dd/MM/yyyy'}}</td>
+                                                <td>{{object.transactionDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                                                 <td>{{object.transaction}}</td>
                                                 <td>{{object.points }}</td>
                                                 <td>{{object.balPoint}}</td>          
@@ -138,7 +168,7 @@
                             </table>
                         </div>
 
-                        <div class="text-center mt-3">
+                        <!-- <div class="text-center mt-3">
                             <div class="gridjs-pagination">
                                 <div class="gridjs-pages" *ngIf="StatementList.length > 0">
                                     <button tabindex="0" role="button" (click)="onPageChanged3(page - 1)"
@@ -157,7 +187,7 @@
                                     </button>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         
                     </div>
@@ -169,6 +199,7 @@
 
 
             </div>
+            </form>
         </div>
     </div>
  </div>

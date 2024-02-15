@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  url:'',
+  
 
   //uncomment while publish
   //urlAddress: 'http://34.66.214.227',

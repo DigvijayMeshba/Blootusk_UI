@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class AppService {
-  public url = environment.url + '/assets/data/';
+ // public url = environment.url + '/assets/data/';
   private headers: HttpHeaders;
 
   constructor(

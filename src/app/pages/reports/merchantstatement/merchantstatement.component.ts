@@ -13,6 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { custmerchtStatement } from '../custmerchtStatement';
 import * as XLSX from 'xlsx';
 import { ExcelService } from '../services/excel.service';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -22,51 +23,67 @@ import { ExcelService } from '../services/excel.service';
   styleUrls: ['./merchantstatement.component.scss']
 })
 export class MerchantstatementComponent {
-  merchantCode:string | null = null;
+  merchantCode!:number;
   customerCode:string | null = null;
  // fromDate!:Date;
   public page: number = 1;
   public count = 10;
   public StatementList: any = [];
-  fromDate: Date | null = null;
-  toDate: Date | null = null;
-
+  fromDate!: Date;
+  toDate!: Date;
+  MerchantList: any[] = []; 
   merchantName!:string;
   OpeningBal!:number;
   constructor(public formBuilder: FormBuilder,private modalService: NgbModal,public appService: AppService,
-    private route: ActivatedRoute,private excelService: ExcelService, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
+    private route: ActivatedRoute,private excelService: ExcelService,
+    private datePipe: DatePipe,
+    private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
    )
-   {    this.SubmitMerchantStatementList();
-      
+   {   
+    // this.SubmitMerchantStatementList();
+        this.GetMerchantList();
    }
-     get f() { return this.uploadForm.controls; }
    uploadForm!:FormGroup; 
    submitted = false; 
+
    ngOnInit(): void {
-    // this.uploadForm = this.formBuilder.group({
-    //   merchantCode: new FormControl('', [Validators.required]),
-    //   customerCode: new FormControl('', []),
-    //   fromDate: new FormControl('', [Validators.required]),
-    //   toDate: new FormControl('', [Validators.required]),
-    // })
+    this.GetMerchantList();    
+
+    this.uploadForm = this.formBuilder.group({
+      merchantId: new FormControl('', [Validators.required]),
+      CustPhoneNo: new FormControl('', []),
+      fromDate: new FormControl('', [Validators.required]),
+      toDate: new FormControl('', [Validators.required]),
+
+    })
 
   }
+
+  get f()
+  {   
+    return this.uploadForm.controls;   
+  }  
+
+public validateControl = (controlName: string) => {
+  return this.uploadForm.controls[controlName].invalid && this.uploadForm.controls[controlName].touched
+}
+
+public hasError = (controlName: string, errorName: string) => {
+  return this.uploadForm.controls[controlName].hasError(errorName)
+}
   public submit() { 
     this.submitted = true;    
   }
 
-  SubmitMerchantStatementList()
+  SubmitMerchantStatementList(formData: custmerchtStatement )
   {
     
-    let ListOfStatement: custmerchtStatement = {
-   
-      "merchantCode":  this.merchantCode == '' ? "":this.merchantCode,
-      "customerCode": this.customerCode = ""? "":this.customerCode,
-      "fromDate":this.fromDate = ""? new Date:this.fromDate,
-      "toDate":  this.toDate = ""?new Date:this.toDate,
-     }   
-   
-       this.appService.Add("api/AdminDashbaord/MerchantStatement",ListOfStatement)
+ 
+    let AddMerchantModel: custmerchtStatement = formData;  
+    AddMerchantModel.fromDate = this.datePipe.transform(AddMerchantModel.fromDate, 'yyyy-MM-dd HH:mm:ss');
+    AddMerchantModel.toDate = this.datePipe.transform(AddMerchantModel.toDate, 'yyyy-MM-dd HH:mm:ss');
+
+       this.appService.Add("api/AdminDashbaord/MerchantStatement",AddMerchantModel)
        .pipe(
          catchError((error) => {          
            return throwError(error); 
@@ -74,26 +91,33 @@ export class MerchantstatementComponent {
           console.log('MerStatement',data)
           this.merchantName = data.merchantName;  
            this.StatementList = data.merchantTransactions;
-           this.OpeningBal =data.openingBalance;
- 
-           console.log('Statementmerchant', data)
-                
+           this.OpeningBal =data.openingBalance; 
+           console.log('Statementmerchant', data)                
        },);  
 
   }
 
- 
+
+  GetMerchantList() {
+    this.appService.GetAll("api/AdminDashbaord/GetMerchantDDL").subscribe(
+      (x: any) => {
+        this.MerchantList = x.responseData;     
+      });
+  }
+
+  
 
   public getPageData(): any[] {
-    
-    let allStatementList;
+ 
+  
+  let allStatementList;
     const startIndex = (this.page - 1) * this.count;
     const endIndex = startIndex + this.count;
   if(this.StatementList != null)
   {
        allStatementList=  this.StatementList.slice(startIndex, endIndex);
   }
-  return  allStatementList;      
+  return  allStatementList;  
   }
 
  
@@ -125,11 +149,8 @@ return Math.ceil(this.StatementList.length / this.count);
 
 public ClearSearchdata()
 {
-  this.merchantCode =null;
-  this.customerCode = null;
-  this.fromDate = null;
-  this.toDate = null;
-  this.SubmitMerchantStatementList();
+  this.uploadForm.reset();
+
   this.getPageData();
 }
 

@@ -44,30 +44,61 @@ export class RefferalLinkComponent
         this.CustomerList = data.responseData.referlist;        
     });  
   }
-  copyInputMessage(referralLink: string): void {
+
+
+  // copyInputMessage(referralLink: string): void {
   
-    const tempInputElement = document.createElement('textarea');
-    tempInputElement.value = referralLink;
-    document.body.appendChild(tempInputElement);
+  //   const tempInputElement = document.createElement('textarea');
+  //   tempInputElement.value = referralLink;
+  //   document.body.appendChild(tempInputElement);
 
-    tempInputElement.select();
-    document.execCommand('copy');
-    document.body.removeChild(tempInputElement);
+  //   tempInputElement.select();
+  //   document.execCommand('copy');
+  //   document.body.removeChild(tempInputElement);
 
-    // Use the Clipboard API as a fallback if execCommand is not supported
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(referralLink)
-        .then(() => console.log('Text copied successfully'))
-        .catch(err => console.error('Error copying text: ', err));
-    }
+  //   // Use the Clipboard API as a fallback if execCommand is not supported
+  //   if (navigator.clipboard) {
+  //     navigator.clipboard.writeText(referralLink)
+  //       .then(() => console.log('Text copied successfully'))
+  //       .catch(err => console.error('Error copying text: ', err));
+  //   }
 
-    this.isCopied = true;
+  //   this.isCopied = true;
 
-    // Reset the 'Copied!' message after a delay (e.g., 2 seconds)
-    setTimeout(() => {
-      this.isCopied = false;
-    }, 2000);
+  //   // Reset the 'Copied!' message after a delay (e.g., 2 seconds)
+  //   setTimeout(() => {
+  //     this.isCopied = false;
+  //   }, 2000);
+  // }
+
+  lastClickedButtonIndex: number | null = null;
+
+copyInputMessage(referralLink: string, index: number): void {
+  const tempInputElement = document.createElement('textarea');
+  tempInputElement.value = referralLink;
+  document.body.appendChild(tempInputElement);
+
+  tempInputElement.select();
+  document.execCommand('copy');
+  document.body.removeChild(tempInputElement);
+
+  // Use the Clipboard API as a fallback if execCommand is not supported
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(referralLink)
+      .then(() => console.log('Text copied successfully'))
+      .catch(err => console.error('Error copying text: ', err));
   }
+
+  this.lastClickedButtonIndex = index;
+
+  // Reset the 'Copied!' message after a delay (e.g., 2 seconds)
+  setTimeout(() => {
+    this.lastClickedButtonIndex = null;
+  }, 3000);
+}
+
+
+  
      public ClearSearchdata()
      {
        
@@ -84,7 +115,7 @@ export class RefferalLinkComponent
 
      shareReferralLink(referralLink: string) {
       
-      const message = `Check out this referral link: ${referralLink}`;
+      const message = `Check out this referral link: ${referralLink}` ;
     
       if (navigator.share) {
         navigator

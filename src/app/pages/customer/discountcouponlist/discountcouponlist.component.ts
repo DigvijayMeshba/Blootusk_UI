@@ -14,6 +14,7 @@ import * as QRCode from 'qrcode';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import html2canvas from 'html2canvas';
 import { listCustCoupon } from '../customer';
+import { url } from 'inspector';
 
 @Component({
   selector: 'app-discountcouponlist',
@@ -168,32 +169,55 @@ export class DiscountcouponlistComponent {
      
       }
 
-      shareReferralLink(referralLink: string,sourcename :string) {
-        const message = `Check out this referral link: ${  referralLink}`;
-      
-        let messagetital =  "Hi, I just discovered a great place called ,"+ sourcename + 'Show this coupon';
-        if (navigator.share) {
-          navigator
-            .share({
-              title: messagetital,
-              text: message,
-              url: '#/C/' + referralLink,
-            })
-            .then(() => console.log('Successfully shared'))
-            .catch((error) => console.log('Error sharing:', error));
-        } else {
-    
-          const isWhatsAppInstalled = /WhatsApp/.test(navigator.userAgent);
-      
-          if (isWhatsAppInstalled) {
-            const whatsappLink = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-            window.location.href = whatsappLink;
-          } else {
-            // Fallback for other browsers
-            alert(`Share this link: ${referralLink}`);
-          }
-        }
-      }
-     
 
+  shareMessage() {
+    const message = 'Check out this amazing message!';
+    const websiteUrl = 'https://your-website.com'; // Replace with your actual website URL
+
+    // Check if the Web Share API is supported
+    if (navigator.share) {
+      navigator.share({
+        title: 'Shared Message',
+        text: `${message}\n\n${websiteUrl}`,
+      })
+        .then(() => console.log('Successfully shared'))
+        .catch((error) => console.log('Error sharing:', error));
+    } else {
+      // Fallback: If Web Share API is not supported, provide an alternative way to share the message
+      console.log('Web Share API is not supported. Fallback:');
+      // Implement your custom fallback here
+    }
+  }
+
+
+  shareReferralLink(referralLink: string, sourcename: string) {
+      
+      let messagetitle = "Hi, I just discovered a great place called " + sourcename + ". Show this coupon";
+      
+
+    const urlParts = window.location.href.split('#');
+    const urlWithoutHash = urlParts.length > 0 ? urlParts[0] : '';
+
+  // Define the URL
+  const testurl = urlWithoutHash + '#/C/' + referralLink;
+
+  if (navigator.share) {
+    const websiteUrl = ''+testurl+''; // Replace with your actual website URL
+  
+    navigator.share({
+      title: 'Shared Message',
+      text: `${messagetitle}\n\n${testurl} at store and enjoy coupon benefits`,
+    //  url:  '#/C/' + referralLink // `${messagetitle}\n\n${testurl} at store and enjoy coupon benefits`, // You can include the URL in the 'text' property
+  })
+  
+      .then(() => console.log('Successfully shared'))
+      .catch((error) => console.log('Error sharing:', error));
+  } else {
+    // Fallback: If Web Share API is not supported, provide an alternative way to share the message
+    console.log('Web Share API is not supported. Fallback:');
+    // Implement your custom fallback here
+  }
+  
+}      
+     
 }

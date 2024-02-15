@@ -15,8 +15,6 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
   styleUrls: ['./signupcustomer.component.scss']
 })
 export class SignupcustomerComponent {
-
-
   showDiv = {
     current : true,
     next : false

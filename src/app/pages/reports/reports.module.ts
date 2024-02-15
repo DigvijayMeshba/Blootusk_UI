@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { ArchwizardModule } from 'angular-archwizard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Select Droup down
@@ -14,6 +14,8 @@ import { CustomerstatementComponent } from './customerstatement/customerstatemen
 
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FlatpickrModule } from 'angularx-flatpickr';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+
 
 
 const routes: Routes = [
@@ -25,10 +27,13 @@ const routes: Routes = [
   declarations: [
     MerchantstatementComponent,
     CustomerstatementComponent
+    
   ],
   imports: [
     CommonModule,
     NgSelectModule,
+    BsDatepickerModule.forRoot(),
+    
     NgbNavModule,
     ArchwizardModule,
     RouterModule.forChild(routes),
@@ -40,6 +45,7 @@ const routes: Routes = [
     NgbModule,
     CKEditorModule,
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [DatePipe],
 })
 export class ReportsModule { }

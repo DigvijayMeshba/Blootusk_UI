@@ -1,9 +1,9 @@
 export interface custmerchtStatement
 {
-    merchantCode: string| null;
-    customerCode: string| null;
-    fromDate: Date | null ;
-  toDate: Date | null ;
+    merchantId: number|0;
+    CustPhoneNo: string;
+    fromDate: string | null ;
+  toDate: string | null;
 
 }
   

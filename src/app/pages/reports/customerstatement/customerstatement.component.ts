@@ -12,6 +12,8 @@ import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { custmerchtStatement } from '../custmerchtStatement';
 import { ExcelService } from '../services/excel.service';
+import * as moment from 'moment';
+import { DatePipe } from '@angular/common';
 
 
 
@@ -25,40 +27,53 @@ export class CustomerstatementComponent {
 
   customerName!:string;
   OpeningBal!:number;
-  merchantCode:string | null = null;
+  merchantCode!:number;
   customerCode:string| null = null;;
-  fromDate: Date | null = null;
-  toDate: Date | null = null;
+  fromDate!: Date;
+  toDate!: Date;
+  fromDateddmmyyy!:Date;
+  toDateddmmyyy!:Date;
+  
   public page: number = 1;
+  MerchantList: any[] = []; 
   
   public count = 10;
   public StatementList: any = [];
 
   constructor(public formBuilder: FormBuilder,private modalService: NgbModal,public appService: AppService,
     private route: ActivatedRoute,private excelService: ExcelService , private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
-    private router: Router,private EncrDecr: EncrDecrServiceService,)
+    private router: Router,private EncrDecr: EncrDecrServiceService,private datePipe: DatePipe,)
    {
-      
+    this.GetMerchantList();
    }
      get f() { return this.uploadForm.controls; }
      
    uploadForm!:FormGroup; 
    submitted = false; 
    ngOnInit(): void {
+       
     this.uploadForm = this.formBuilder.group({
-     
-      merchantCode: new FormControl('', []),
-      customerCode: new FormControl('', []),
-      fromDate: new FormControl('', []),
-      toDate: new FormControl('', []),
-   
+      merchantId: new FormControl('', []),
+      CustPhoneNo: new FormControl('', [Validators.required]),
+      fromDate: new FormControl('', [Validators.required]),
+      toDate: new FormControl('', [Validators.required]),
+
     })
-    this.SubmitCustomerStatementList();
+    
   }
   public submit() { 
+
     this.submitted = true;    
   }
 
+
+  GetMerchantList() {
+    this.appService.GetAll("api/AdminDashbaord/GetMerchantDDL").subscribe(
+      (x: any) => {
+        this.MerchantList = x.responseData;   
+        console.log('MerchantList',this.MerchantList)  
+      });
+  }
   public getPageData(): any[] {
     
     let allStatementList;
@@ -71,20 +86,34 @@ export class CustomerstatementComponent {
   return  allStatementList;      
   }
 
+ 
 
-  SubmitCustomerStatementList()
+  SubmitCustomerStatementList(formData: custmerchtStatement)
   {    
+    debugger;
+
+    let AddMerchantModel: custmerchtStatement = formData;  
+
     
-  //  let GetCustomerStatement: custmerchtStatement = formData;  
+    AddMerchantModel.fromDate = this.datePipe.transform(AddMerchantModel.fromDate, 'yyyy-MM-dd HH:mm:ss');
+    AddMerchantModel.toDate = this.datePipe.transform(AddMerchantModel.toDate, 'yyyy-MM-dd HH:mm:ss');
+    AddMerchantModel.merchantId = Number(AddMerchantModel.merchantId);
    
-    let ListOfStatement: custmerchtStatement = {
-   
-     "merchantCode":  this.merchantCode == '' ? "":this.merchantCode,
-     "customerCode": this.customerCode = ""? "":this.customerCode,
-     "fromDate":this.fromDate = ""? new Date:this.fromDate,
-     "toDate":  this.toDate = ""?new Date:this.toDate,
-    }   
+
+    // AddMerchantModel.merchantId = AddMerchantModel.merchantId = "" ? 0: AddMerchantModel.merchantId; 
   
+    
+ //  let GetCustomerStatement: custmerchtStatement = formData;  
+   
+    // let ListOfStatement: custmerchtStatement = {
+   
+    //  "merchantId":  this.merchantCode = 0 ? 0:this.merchantCode,
+    //  "CustPhoneNo": this.customerCode = ""? "":this.customerCode,
+    //  "fromDate":this.fromDate,
+    //  "toDate":  this.toDate,
+    // }   
+  
+
       // this.appService.Add("api/AdminDashbaord/Customerstatement",ListOfStatement)
       // .pipe(
       //   catchError((error) => {          
@@ -101,8 +130,9 @@ export class CustomerstatementComponent {
       //     console.log('StatementList', this.StatementList)
                
       // },);  
+console.log('request',AddMerchantModel);
 
-      this.appService.Add("api/AdminDashbaord/Customerstatement",ListOfStatement)
+      this.appService.Add("api/AdminDashbaord/Customerstatement",AddMerchantModel)
       .pipe(
         catchError((error) => {          
           return throwError(error); 
@@ -112,24 +142,15 @@ export class CustomerstatementComponent {
          this.customerName = data.customerName;  
          this.StatementList = data.customerTransactions;
          this.OpeningBal =data.openingBalance;
-
-          
           console.log('Statement', data)
-          console.log('StatementList', this.StatementList)
-               
+          console.log('StatementList', this.StatementList)               
       },); 
-  
-
   }
 
 
   public ClearSearchdata()
   {
-    this.merchantCode =null;
-    this.customerCode = null;
-    this.fromDate = null;
-    this.toDate =null;
-    this.SubmitCustomerStatementList();
+    this.uploadForm.reset();
     this.getPageData();
   }
 

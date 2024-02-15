@@ -469,8 +469,9 @@ if(this.uploadForm.valid)
                
               }).then(function() {
   
-              location.reload();
+          
             });
+            this.router.navigate(['/logincustomer'], { relativeTo: this.route });  
               break;
                 case 212 :
                 Swal.fire({

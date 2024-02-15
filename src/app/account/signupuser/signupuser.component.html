@@ -33,7 +33,7 @@
   
                         <div class="card-body p-4" >
                             <div class="text-center mt-2">
-                                <h5 class="text-primary">Signup Here!</h5>
+                                <h5 class="text-primary">Welcome to BlooTusk!!</h5>
                             </div>
 
                             <div class="p-2 ">
@@ -42,12 +42,19 @@
                                     (ngSubmit)="SubmitForm(uploadForm.value)">
                                     <div class="alert alert-borderless alert-warning text-center mb-2 mx-2" role="alert">
                                         <br>
-                                        Your merchant name is 
-                                        <span class="merchant-name-placeholder"> {{merchantName}}</span>.
-           <br>
+                                  
+                                        <div *ngIf="customerName==null">
+                                            Thank you for supporting
+                                            <span class="merchant-name-placeholder"> {{merchantName}}</span>.
+               
+                                            <br>
+                                        </div>
+                                  
          
            <div *ngIf="customerName!=null">
-            Reffered By is 
+            You are referred to 
+            <span class="merchant-name-placeholder"> {{merchantName}}</span>.
+            by 
             <span  class="merchant-name-placeholder">{{customerName}}</span>   
         
          </div>                                    
@@ -122,13 +129,13 @@
                                                         -->
                                                         </div>
 
-                                                        <div class="row">
+                                                        <!-- <div class="row">
                                                             <div class="">                                                               
                                                                 I want to receive messages via Text as well as emails from BlooTusk” and “I acknowledge that I agree to the <a href="https://blootusk.com/termsconditions.html">Terms 
                                                                 </a>of Use  and have read the 
                                                                     <a href="https://blootusk.com/privacypolicy.html"> Privacy Policy.</a><br>
                                                               </div>
-                                                        </div>                                                        
+                                                        </div>                                                         -->
 <div ><br>
     <button type="submit"  name="btnsignup" (click)="submit()" class="btn btn-primary" ><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
                                             
@@ -214,7 +221,7 @@
             <div class="">
                 <div class="col-lg-12">
                     <div class="text-center">
-                        <p class="mb-0 text-muted">&copy; 2023 BlooTusk. </p>
+                        <p class="mb-0 text-muted">&copy; 2024 BlooTusk. </p>
                     </div>
                 </div>
             </div>

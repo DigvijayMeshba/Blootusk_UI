@@ -61,6 +61,7 @@ export class MerchanteditComponent {
   ContactPersonNameTemp!: string;
   MobileNoTemp!:string;
   EmailIdTemp!: string;
+  MerchantName !: String;
 
 //use for a template List
   public page: number = 1;
@@ -68,8 +69,7 @@ export class MerchanteditComponent {
   public TemplateList! : any[]
   public RewardList!:any[]
   TempmerchantId ! : number;
-  
-  
+
   statusLists = [   
     { name: 'New', id:'N' },
     { name: 'In Progress', id:'I' },
@@ -170,6 +170,7 @@ export class MerchanteditComponent {
     this.userId = this.tokenStorage.getUser().userId;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
+   
   }
 
   this.remarkForm =new FormGroup({
@@ -400,6 +401,7 @@ public getMerchantbyId(merchantId: any) {
       this.MobileNoTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 
       this.EmailIdTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email)
       this.signupurl  =  data.responseData.merchantURL,
+      this.MerchantName = data.responseData.organizationName
     
     this.TemplateList = data.responseData.smstemplateList;
     console.log("RewardList",data.responseData.rewardPointlist)

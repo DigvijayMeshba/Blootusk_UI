@@ -325,8 +325,10 @@ export class TopbarComponent implements OnInit {
               allowOutsideClick: false,
               allowEscapeKey: false             
             }).then(function() {
+              
             location.reload();
           });
+          this.TokenStorageService.saveUser(this.CustName);
             break;
               case 212 :
               Swal.fire({

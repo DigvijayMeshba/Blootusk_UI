@@ -499,7 +499,7 @@ console.log('Decrypted :' + decrypted);
             
               Swal.fire({
                 title:'Success',
-                text: 'Merchant Signup Successfully.',
+                text: 'Application submitted Sucessfully, BlooTusk team will contact you for verification process.',
                 icon: 'success',
                 confirmButtonColor: '#364574',
                 allowOutsideClick: false,

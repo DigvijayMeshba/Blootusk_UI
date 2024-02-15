@@ -38,10 +38,10 @@ export class AdmindashboardComponent {
   CouponRedeem !:number;
   CouponTransfer !:number;
   MerchantsPending !:number;
-
+  selectedMerchantId: any = 0;
   MerchantList: any[] = []; 
   uploadForm!:FormGroup; 
-  selectedMerchantId: any;
+  //selectedMerchantId: any;
 
   constructor(public appService: AppService,) { }
 
@@ -214,11 +214,11 @@ export class AdmindashboardComponent {
 
 
     series: [{
-      name: "Visits",
+      name: "Points Earn",
       data: pointresdatas,// [44, 55, 41, 64, 22, 43, 21, 35, 52, 36, 42, 38],
     },
     {
-      name: "Users",
+      name: "Redeem Point",
       data: pointRedeemData,//[53, 32, 33, 52, 13, 44, 32, 38, 48, 34, 40, 35],
     },
   ],
@@ -325,6 +325,7 @@ export class AdmindashboardComponent {
   let CouponRedeemData =  coupondatares.couponredeemdata.replace(/'/g, '').split(', ');  
   let dataArray = coupondatares.monthdata.replace(/'/g, '').split(', ');
    
+
     this.groupedBarChart2 = {     
       series: [{
         name: "Coupons",

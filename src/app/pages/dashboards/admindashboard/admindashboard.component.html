@@ -20,12 +20,25 @@
                 </option>
                 </select>  -->
 
-                <select class="form-select" aria-label="Default select example" formControlName="merchantId"  [(ngModel)]="selectedMerchantId">
+
+
+                <select class="form-select" aria-label="Default select example" formControlName="merchantId" [(ngModel)]="selectedMerchantId" >
                     <option value="" disabled selected>Select Merchant</option> 
                     <option *ngFor="let merchant of MerchantList" [value]="merchant.merchantId">
                       {{ merchant.organizationName}}
                     </option>
                 </select>
+
+               
+
+
+                <!-- <select class="form-select" aria-label="Default select example" formControlName="merchantId" [(ngModel)]="selectedMerchantId">
+                    <option value="" selected disabled>Select Merchant</option>
+                    <option *ngFor="let merchant of MerchantList" [value]="merchant.merchantId">
+                        {{ merchant.organizationName }}
+                    </option>
+                </select> -->
+                
         </div>
         <div class="col-4 ">
             <div class="col-md-4">
