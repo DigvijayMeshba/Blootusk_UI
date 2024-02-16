@@ -77,7 +77,7 @@
                                     </tr>
                                 </table>
                                 <button type="button" class="btn btn-primary" 
-                                (click)="openModalQR(qrcontent,object.couponCode)">
+                                (click)="openModalQR(qrcontent,object.couponCode,object.source)">
                                 View QR Code
                                </button>
                             </div>
@@ -106,8 +106,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     
             <!-- QR Modal -->
@@ -122,6 +120,8 @@
                             <div class="row">
                                 <div class="col-md-12">   
                                     <div [id]="id" *ngFor="let id of array" class="qr-code-container">
+                                        <label for="basiInput" class="form-label merchant" style="text-align: center;">Merchant Name: {{merchantName}} </label>
+                                                                                  
                                         <img src="assets/images/Logo_squre.jpg" alt="Logo" class="logo" >
                                         <img  src="{{ qrCode }}" alt="QR Code" class="qr-code">
                                     </div>

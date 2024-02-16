@@ -32,6 +32,7 @@ export class DiscountcouponlistComponent {
   CustPhoneNumber!:string;
   public page: number = 1;
   public count = 12;
+  merchantName!:string;
   array = ['Qr'];
 
   constructor(public formBuilder: FormBuilder,private modalService: NgbModal,public appService: AppService,
@@ -90,7 +91,8 @@ export class DiscountcouponlistComponent {
   });
 }
 
-  openModalQR(qrcontent: any,CouponCode:any) {  
+  openModalQR(qrcontent: any,CouponCode:any,SourceName:any) {  
+    this.merchantName = SourceName;
     this.receivedLink = "/" + CouponCode + "/" +  this.CustPhoneNumber;
    // this.receivedLink = 'http://crm.blootusk.com/CouponCode='  + CouponCode + "/" +  this.CustPhoneNumber;
    this.receivedLink = 'http://crm.blootusk.com/#/C/'  + CouponCode + "/" +  this.CustPhoneNumber;
