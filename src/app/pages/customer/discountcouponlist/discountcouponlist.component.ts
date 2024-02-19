@@ -41,20 +41,23 @@ export class DiscountcouponlistComponent {
    {
       
    }
-   
+
    ngOnInit(): void {
     this.customerId =this.tokenStorage.getcustcode();
     this.CustPhoneNumber = this.tokenStorage.GetPhoneNO();
     this.phoneNumber = this.EncrDecr.set('12$#@BLOO$^@TUSK', this.CustPhoneNumber);
-    this.GetCouponList(); 
+   
+   this.GetCouponList(1)
+
   }
 
-  GetCouponList()
+  GetCouponList(coupontype:number)
   {
     let GetCouponListModel: listCustCoupon = {         
       "phoneNumber": this.phoneNumber == ''? "":this.phoneNumber,  
       "customerId" : 0,
       "pageNumber" : this.page,
+      "couponFilter":coupontype,
     } 
 
     // this.appService.GetAllList("api/CouponMaster/GetCustomerCouponList", GetCouponListModel).subscribe
@@ -74,18 +77,11 @@ export class DiscountcouponlistComponent {
           {
              this.swalMessage('Data not found')
           }        
-      },);  
-  
-
-  }
-
-  CouponFilter(coupontype:number)
-  {
-
+      },); 
   }
 
 
-  swalMessage(swalTitle:any)
+swalMessage(swalTitle:any)
 {
   Swal.fire({
     title:swalTitle,

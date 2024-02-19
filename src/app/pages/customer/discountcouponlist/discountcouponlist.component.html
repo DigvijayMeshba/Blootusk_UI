@@ -6,10 +6,10 @@
         <div class="container">
             <button type="button" 
             style="margin: 11px;"
-            class="btn btn-primary" (click)="CouponFilter(1)">Available</button>
+            class="btn btn-primary" (click)="GetCouponList(1)">Available</button>
             
-            <button type="button"  style="margin: 11px;" class="btn btn-primary" (click)="CouponFilter(1)">Redeemed</button>
-            <button type="button"  style="margin: 11px;" class="btn btn-primary" (click)="CouponFilter(1)">Expired</button>
+            <button type="button"  style="margin: 11px;" class="btn btn-primary" (click)="GetCouponList(3)">Redeemed</button>
+            <button type="button"  style="margin: 11px;" class="btn btn-primary" (click)="GetCouponList(2)">Expired</button>
         </div>
 
 
@@ -44,8 +44,7 @@
                                 </h6>
                                 <h6  style="color: orange;" *ngIf="object.status==3">
                                     {{"Availed"}} 
-                                </h6>
-                           
+                                </h6>                           
                                   </div>
                                     
                                

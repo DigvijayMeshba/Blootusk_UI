@@ -19,6 +19,7 @@ export interface listCustCoupon
     phoneNumber:string;
     customerId : number; 
     pageNumber:number;
+    couponFilter:number;
 }
 
 

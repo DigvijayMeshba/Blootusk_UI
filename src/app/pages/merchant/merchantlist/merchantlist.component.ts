@@ -11,7 +11,7 @@ import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
   templateUrl: './merchantlist.component.html',
   styleUrls: ['./merchantlist.component.scss']
 })
-export class MerchantlistComponent {
+export class MerchantlistComponent {z
 
     public MerchantList: any = [];
     public NewUserList: any = [];
