@@ -162,22 +162,19 @@
                                                 <label for="basiInput" class="form-label">Merchant (Organization) Name <span class="mnd-fld">*</span></label>
                                                 <input type="text" class="form-control" 
                                                 formControlName="organizationName" required minlength="3"
-                                              
                                                
                                                 placeholder="Enter Merchant (Organization) Name">
 
-
                                                <div *ngIf="this.uploadForm.get('posInfo.organizationName')?.invalid && submitted" class="invalid-feedback d-block">
                                                             <div *ngIf="this.uploadForm.get('posInfo.organizationName')?.errors?.['required']">Organization Name is required</div>                                                        
-                                                        <div *ngIf="this.uploadForm.get('posInfo.organizationName')?.errors?.['minlength']">Organization Name least 3 char long                                               </div>
-                                     ē              
-                                                         </div> 
+                                                        <div *ngIf="this.uploadForm.get('posInfo.organizationName')?.errors?.['minlength']">Organization Name least 3 char long                                            </div>
+                                               </div> 
                                             
                                             
                                             </div>
 
                                             <div class="col-md-6">
-                                                <label for="basiInput" class="form-label">Branch Name</label>
+                                                <label for="basiInput" class="form-label">Branch Name <i class="ri-information-fill infoicon" ngbTooltip="Enter your location name" ></i> </label>
                                                 <input type="text" class="form-control" formControlName="posName"   minlength="3"
                                               
                                                 placeholder="Enter Location Name">

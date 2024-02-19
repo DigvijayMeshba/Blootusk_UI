@@ -79,6 +79,12 @@ export class DiscountcouponlistComponent {
 
   }
 
+  CouponFilter(coupontype:number)
+  {
+
+  }
+
+
   swalMessage(swalTitle:any)
 {
   Swal.fire({

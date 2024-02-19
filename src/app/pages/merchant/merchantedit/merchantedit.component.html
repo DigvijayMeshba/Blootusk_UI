@@ -186,7 +186,7 @@
 
                                                         <div class="col-md-6">
                                                             <div>
-                                                                <label for="basiInput" class="form-label">Location Name </label>
+                                                                <label for="basiInput" class="form-label">Location Name   <i class="ri-information-fill infoicon" ngbTooltip="Enter your location name" ></i> </label>
                                                                 <input type="text" class="form-control" formControlName="posname" placeholder="Enter Location Name">
                                                                 <!-- <div *ngIf="this.uploadForm.get('posInfo.posname')?.invalid && submitted" class="invalid-feedback d-block">
                                                                     <div *ngIf="this.uploadForm.get('posInfo.posname')?.errors?.['required']">Pos Name is required</div>                                                        
@@ -433,10 +433,8 @@
                                                             <div class="modal-body">
                                                                 <div>
                                                                     <form >
-                                                                        <div class="row">
-                                                                            
-                                                                            <div class="col-md-12">   
-                                                                             
+                                                                        <div class="row">                                                                            
+                                                                            <div class="col-md-12">                                                                                
                                                                                 <div [id]="id" *ngFor="let id of array" class="qr-code-container">
                                                                                     <label for="basiInput" class="form-label merchant" style="text-align: center;">Merchant Name: {{MerchantName}}</label>
                                                                                     <img src="assets/images/Logo_squre.jpg" alt="Logo" class="logo" >
