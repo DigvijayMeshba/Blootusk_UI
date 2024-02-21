@@ -177,12 +177,21 @@
                             <div class="row">
                                 <div class="col-md-12">   
                                     <div>
-                                        <label for="basiInput" class="form-label">User Name</label>
+                                        <label for="basiInput" class="form-label">First Name</label>
                                         <input type="text" class="form-control required" required  (keypress)="keyPressOnlyChar($event)" formControlName="name" (change)="onChangeShareCapitalType($event)" 
-                                         [(ngModel)]="CustName" placeholder="Enter User Name">
+                                         [(ngModel)]="CustName" placeholder="Enter First Name">
                                         <div *ngIf="submitted && f['name'].errors" class="invalid-feedback  d-block">
-                                            <div *ngIf="f['name'].errors['required']">User Name is required</div>
-                                            <div *ngIf="f['name'].errors['minlength']">User Name least 3 char long
+                                            <div *ngIf="f['name'].errors['required']">First Name is required</div>
+                                            <div *ngIf="f['name'].errors['minlength']">First Name least 3 char long
+                                            </div>            
+                                        </div> 
+
+                                        <label for="basiInput" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control required" required   formControlName="lastname" 
+                                         [(ngModel)]="CustLastName" placeholder="Enter Last Name">
+                                        <div *ngIf="submitted && f['lastname'].errors" class="invalid-feedback  d-block">
+                                            <div *ngIf="f['lastname'].errors['required']">Last Name is required</div>
+                                            <div *ngIf="f['lastname'].errors['minlength']">Last Name least 3 char long
                                             </div>            
                                         </div> 
                                     

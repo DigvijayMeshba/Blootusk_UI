@@ -5,11 +5,11 @@
 
         <div class="container">
             <div class="gap-1">
-                <button type="button" class="btn btn-success" (click)="CouponFilter(1)"><i class="ri-coupon-line cardicon align-middle"></i> Available</button>
+                <button type="button" class="btn btn-success" (click)="GetCouponList(1)"><i class="ri-coupon-line cardicon align-middle"></i> Available</button>
                 &nbsp;
-                <button type="button" class="btn btn-warning" (click)="CouponFilter(1)"><i class="ri-coupon-fill cardicon align-middle"></i> Redeemed</button>
+                <button type="button" class="btn btn-warning" (click)="GetCouponList(3)"><i class="ri-coupon-fill cardicon align-middle"></i> Redeemed</button>
                 &nbsp;
-                <button type="button" class="btn btn-danger" (click)="CouponFilter(1)"><i class="ri-coupon-2-fill cardicon align-middle"></i> Expired</button>
+                <button type="button" class="btn btn-danger" (click)="GetCouponList(2)"><i class="ri-coupon-2-fill cardicon align-middle"></i> Expired</button>
             </div>
 
         </div>
@@ -26,11 +26,14 @@
                                     <img src="../../../../assets/images/cupico.png" alt="" height="20" class="cupico">
                                 
                                     <label style="font-size: 12px; margin-right: 2px;" *ngIf="object.couponType==1"> {{"Transferable"}}
-                                        <i class="ri-information-fill infoicon" ngbTooltip="Non-Transferable Coupon: A Coupon exclusively for you. This Coupon is Specific to your account and cannot be forwarded to others." ></i> 
-                               
+                                  
+                                        <i class="ri-information-fill infoicon" ngbTooltip="Transferable Coupon: A Coupon that can be shared with friends and family. Spread the  benefits by forwarding this coupon to others." ></i> 
+                           
+                                
                                     </label>
                                 <label style="font-size: 12px;" *ngIf="object.couponType==2"> {{"Non Transferable"}} 
-                                    <i class="ri-information-fill infoicon" ngbTooltip="Transferable Coupon: A Coupon that can be shared with friends and family. Spread the  benefits by forwarding this coupon to others." ></i> 
+                                    <i class="ri-information-fill infoicon" ngbTooltip="Non-Transferable Coupon: A Coupon exclusively for you. This Coupon is Specific to your account and cannot be forwarded to others." ></i> 
+                               
                                 </label>
                                
                             </div>  
@@ -139,7 +142,7 @@
                                 <div class="col-md-12">   
                                     <div [id]="id" *ngFor="let id of array" class="qr-code-container">
                                         <label for="basiInput" class="form-label merchant" style="text-align: center;">Merchant Name: {{merchantName}} </label>
-                                                                                  
+                                        <br>                      
                                         <img src="assets/images/Logo_squre.jpg" alt="Logo" class="logo" >
                                         <img  src="{{ qrCode }}" alt="QR Code" class="qr-code">
                                     </div>

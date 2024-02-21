@@ -121,17 +121,18 @@
                                                         <label for="basiInput" class="form-label">Password  <span class="madatory">*</span></label>
                                                         <div class="position-relative auth-pass-inputgroup">
                                                             <input [type]="fieldTextType1 ? 'text' : 'password'"
-                                                            class="form-control pe-5" placeholder="Enter Password"
+                                                            class="form-control pe-5" placeholder=" Use Alphanumric, one Apecial character and one Uppercase"
                                                             id="password-input" formControlName="password" maxlength="15"
                                                             [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
-                                                            minlength="6"  (input)="checkPasswordStrength()">
+                                                            minlength="6"  (input)="checkPasswordStrength()"> 
                                                         <button
                                                             class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted btn-eye"
                                                             type="button" id="password-addon"><i class="mdi align-middle pass-eye"
                                                              [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1
                                                              }" (click)="toggleFieldTextType1()"></i></button>
-                                                           <div  *ngIf="f['password'].dirty">Password is required Combine Symbols,Numbers, lowercase, and uppercase letters.</div>
-                                                           
+                                                          
+                                                          <!-- <div  *ngIf="f['password'].dirty">Password is required Combine Symbols,Numbers, lowercase, and uppercase letters.</div>
+                                                            -->
                                                              <div *ngIf="submitted && f['password'].errors || (f['password'].dirty && f['password'].touched)"  class="invalid-feedback">
                                                             <div *ngIf="f['password'].errors!['required']">Password is required</div>
                                                             <div *ngIf="f['password'].errors!['minlength']">Password at least 8 to 15 digits long</div>
@@ -199,7 +200,7 @@
 
                                                 <div class="col-md-6">
                                                     <div>
-                                                        <label for="basiInput" class="form-label">Branch Name <i class="ri-information-fill infoicon" ngbTooltip="Enter your location name" ></i></label>
+                                                        <label for="basiInput" class="form-label">Branch Name <i class="ri-information-fill infoicon" ngbTooltip="Enter your Branch name" ></i></label>
                                                         <input type="text" id="posName" formControlName="posName" class="form-control" placeholder="Enter Branch Name">                                                      
                                                      
                                                         <!-- <div *ngIf="this.uploadForm.get('posInfo.posName')?.invalid && submitted" class="invalid-feedback d-block">

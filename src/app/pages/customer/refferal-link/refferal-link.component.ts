@@ -5,6 +5,7 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
 import { EncrDecrServiceService } from 'src/app/encr-decr-service.service';
 import Swal from 'sweetalert2';
 import { listReffreal } from '../customer';
+import { UpdateCustMerchant } from 'src/app/account/signupuser/signupuser';
 @Component({
   selector: 'app-refferal-link',
   templateUrl: './refferal-link.component.html',
@@ -16,6 +17,7 @@ export class RefferalLinkComponent
   CustomerList!:any [];
   customerId!:number;
   phoneNumber!:string;
+  toggleValue!:false;
   public page: number = 1;
   keyword! :string;
   public count = 10;
@@ -95,9 +97,7 @@ copyInputMessage(referralLink: string, index: number): void {
   setTimeout(() => {
     this.lastClickedButtonIndex = null;
   }, 3000);
-}
-
-
+ }
   
      public ClearSearchdata()
      {
@@ -113,6 +113,35 @@ copyInputMessage(referralLink: string, index: number): void {
       return JSON.stringify(copydata);
     }
 
+    toggle(UserId:any,sms:any,index: number)
+    {
+
+      const  AddUsertDtail: UpdateCustMerchant  =  {    
+
+        userMerchantMapperId : UserId,
+        stopMessage :sms.checked,
+        merchantId : 0,
+        customerId : 0,
+        referCode  :"",
+        referBy : 0,
+        approvlStatus : "",
+      }   
+
+     
+
+      this.appService.Add('api/User/UpdateCustomerMerchant', AddUsertDtail).subscribe((data: any) => {
+        let statuscode : number = data.responseStatusCode;
+      console.log('adddata',data.responseData)
+        switch(statuscode)
+        {
+              case 200:
+          
+           
+
+        }
+      })
+    }
+  
      shareReferralLink(referralLink: string) {
       
       const message = `Check out this referral link: ${referralLink}` ;

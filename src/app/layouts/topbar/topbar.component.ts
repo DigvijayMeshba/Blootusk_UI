@@ -47,6 +47,7 @@ export class TopbarComponent implements OnInit {
   sessionuserfullName: any;
     CustId !: number;
   CustName !: string;
+  CustLastName!: string;
   submitted = false;
   UserName !:string;
 
@@ -63,6 +64,7 @@ export class TopbarComponent implements OnInit {
     this.addRoleDeatil = this.TokenStorageService.GetRole();  
     this.uploadForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
+      lastname:new FormControl('', [Validators.required]),
       // createdDate: new FormControl('', []),
       // customerID: new FormControl('', []),
       // ApprovalStatus: new FormControl('', []),
@@ -299,9 +301,10 @@ export class TopbarComponent implements OnInit {
     
     if(this.uploadForm.valid)
     { 
-    const  AddUserDeatil: addUserDeatil  =  {    
+     const  AddUserDeatil: addUserDeatil  =  {    
       
       Name :this.CustName,
+      LastName : this.CustLastName,
       customerID:this.CustId,
       ApprovalStatus:"",
       CustomerCode:'',
@@ -324,11 +327,10 @@ export class TopbarComponent implements OnInit {
               confirmButtonColor: '#364574',
               allowOutsideClick: false,
               allowEscapeKey: false             
-            }).then(function() {
-              
+            }).then(function() {              
             location.reload();
           });
-          this.TokenStorageService.saveUser(this.CustName);
+          this.TokenStorageService.saveUser(this.CustName + ' ' + this.CustLastName);
             break;
               case 212 :
               Swal.fire({

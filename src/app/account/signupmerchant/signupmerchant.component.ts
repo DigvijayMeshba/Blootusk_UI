@@ -481,9 +481,7 @@ console.log('Decrypted :' + decrypted);
     console.log(AddMerchantDtail);
 
     // this.prvopt = this.tokenStorage.getPhoneNOOtp();
-    // this.prvemailopt = this.tokenStorage.getEmailOtp();
-
-   
+    // this.prvemailopt = this.tokenStorage.getEmailOtp();   
 
 
 //       if((formData.phoneNumberOTP == this.merchantMobileOTP || formData.phoneNumberOTP == '123456') && 

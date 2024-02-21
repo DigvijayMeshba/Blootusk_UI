@@ -29,7 +29,6 @@ export class MerchanteditComponent {
  @ViewChild('canvas') canvas?: ElementRef;
  @ViewChild('downloadLink') downloadLink?: ElementRef;
 
-
   showDiv = {
     inputs : false,
     buttons : false
@@ -51,7 +50,6 @@ export class MerchanteditComponent {
   fieldTextType1!: boolean; 
   StateLists: any[] = [];
   CatagoryLists: any[] = [];  
-
   public messageContent: string = '';
   CountryLists: any[] = []; 
   public RemarkList: any = [];  
@@ -540,7 +538,7 @@ CancelForm()
               
            
             });
-            this.router.navigate(['/merchant/merchantlist'], { relativeTo: this.route });
+            this.router.navigate(['/merchant/merchantedit'], { relativeTo: this.route });
           
                         
             break;

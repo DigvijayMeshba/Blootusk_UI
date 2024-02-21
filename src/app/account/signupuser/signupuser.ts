@@ -3,6 +3,7 @@ export interface addUserDeatil
 {
   customerID: number;
   Name:string;
+  LastName:string;
   ApprovalStatus:string;
   CustomerCode:string;
   MerchantCode:string;
@@ -34,9 +35,20 @@ export interface Signupuser
     createdBy: number;
     createdDate:Date,
     modifyBy: number;
-    modifyDate:Date;
+    modifyDate:Date;    
+}
 
-    
+
+export interface UpdateCustMerchant
+{
+  userMerchantMapperId : number;
+   stopMessage :boolean;
+   merchantId : number,
+   customerId : number;
+   referCode  :string;
+   referBy : number;
+   approvlStatus : string;
+
 }
 
 

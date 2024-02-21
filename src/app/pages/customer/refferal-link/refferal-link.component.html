@@ -22,7 +22,9 @@
                                 <thead class="table-light">
                                     <tr>
                                         <th scope="col">Referral Link</th>   
+                                        <th>Stop SMS</th>
                                         <th scope="col">Copy</th>
+
                                         <th scope="col">Share</th>
                                         <th scope="col">Merchant Name</th>                                  
                                         
@@ -31,6 +33,9 @@
                                 <tbody  *ngFor="let object of CustomerList; let i = index" >
                                     <tr>
                                         <td>{{ object.rEfferalLink }}</td>   
+                                        <td>
+                                            <input type="checkbox" [checked]="object.stopSms" (change)="toggle(object.userCustId, $event.target, i)">
+                                        </td>
                                         <td>
                                             <!-- <button type="button" class="btn btn-primary"
                                               (click)="shareReferralLink(object.rEfferalLink)"
@@ -46,6 +51,8 @@
                                             </button> 
                                         
                                         -->
+
+                                      
 
                                         <button (click)="copyInputMessage(object.rEfferalLink, i)">
                                             <i class="ri-file-copy-2-fill"></i>
