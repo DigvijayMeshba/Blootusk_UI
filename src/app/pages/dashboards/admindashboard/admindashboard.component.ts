@@ -53,7 +53,7 @@ export class AdmindashboardComponent {
 
 
     ngOnInit(): void {
-      this.viewMerchantData();
+      this.viewMerchantData(0);
       // Create the form group and add form controls
       this.uploadForm = new FormGroup({
         merchantId: new FormControl('')
@@ -339,11 +339,11 @@ export class AdmindashboardComponent {
     this.selectedMerchantId = id;
   }
 
-  viewMerchantData() { 
+  viewMerchantData(selectedMerchantId:any) { 
 
 
 
-    this.appService.getById("api/AdminDashbaord/AdminDashboard/", this.selectedMerchantId)
+    this.appService.getById("api/AdminDashbaord/AdminDashboard/", selectedMerchantId)
     .subscribe(data => {  
       console.log('test', data);
       
@@ -372,7 +372,7 @@ export class AdmindashboardComponent {
     });
 
 
-    this.appService.getById("api/AdminDashbaord/AdminGrapgData/",this.selectedMerchantId)
+    this.appService.getById("api/AdminDashbaord/AdminGrapgData/",selectedMerchantId)
     .subscribe(data => {  
       console.log('graph', data);
       

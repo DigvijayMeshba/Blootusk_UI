@@ -5,7 +5,7 @@
     <div class="row mb-3">
         <div class="col-md-4 ">
             
-                <select class="form-select" aria-label="Default select example" formControlName="merchantId" onselect="merchantSelectedid(merchantId)"  >
+                <select class="form-select" aria-label="Default select example" formControlName="merchantId">
                     <option value="" disabled selected>Select Merchant</option> 
                     <option *ngFor="let merchant of MerchantList" [value]="merchant.merchantId">
                       {{ merchant.organizationName}}
@@ -15,9 +15,12 @@
         </div>
         <div class="col-4 ">
             <div class="col-md-4">
-                <button type="submit" class="btn btn-primary ms-auto" (click)="viewMerchantData()">
-                  <i class="ri-eye-fill cardicon label-icon align-middle"></i>View
+         
+
+                <button type="button" class="btn btn-primary" (click)="viewMerchantData(uploadForm.get('merchantId')?.value)">
+                    <i class="ri-eye-fill cardicon label-icon align-middle"></i> View
                 </button>
+                
               </div>
         </div>
     </div>
