@@ -29,6 +29,7 @@ export class RedeemCouponComponent {
   MerchantName!:number;
   CoponCode!:string;
   ExpiryDate!:Date;
+  address!:string;
 
   constructor(public formBuilder: FormBuilder,private modalService: NgbModal,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
@@ -98,6 +99,8 @@ export class RedeemCouponComponent {
         this.MerchantName=data.responseData.merchantName
         this.CoponCode=data.responseData.couponCode
         this.ExpiryDate=data.responseData.endDate
+        this.address = data.responseData.address
+
        });  
     }
 

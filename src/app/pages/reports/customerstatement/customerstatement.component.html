@@ -22,14 +22,14 @@
                         <div class="card">
                             <div class="card-body">
 
-                                <div class="row mb-3">
-                                    <div class="col-md-4">
-                                        <div>
+                                <div class="row mb-3 col-md-12" >
+                                    <div class="col-md-4" *ngIf="addRoleDeatil=='Admin'">
+                                        <div  >
                                             <label for="basiInput" class="form-label">Customer Phone No.</label>
                                             <input type="text" class="form-control" formControlName="CustPhoneNo" placeholder="Enter Customer Phone No">
                                       
                                             <div *ngIf="submitted && f['CustPhoneNo'].errors" class="invalid-feedback d-block">
-                                            <div *ngIf="f['CustPhoneNo'].errors['required']">CustomerCode is required</div>
+                                            <div *ngIf="f['CustPhoneNo'].errors['required']">Customer Phone no is required</div>
                                             </div>
                                         </div>
                                        
@@ -150,6 +150,7 @@
                                     <tr>
                                         <th scope="col">Date</th>
                                         <th scope="col">Transaction</th>
+                                        <th scope="col">Coupon</th>
                                         <th scope="col">Points</th>
                                         <th scope="col">Balance Points</th>
                                     </tr>
@@ -161,6 +162,7 @@
                                                 
                                                 <td>{{object.transactionDate | date:'MM/dd/yyyy HH:mm:ss'}}</td>
                                                 <td>{{object.transaction}}</td>
+                                                <td>{{object.couponsCount}}</td>
                                                 <td>{{object.points }}</td>
                                                 <td>{{object.balPoint}}</td>          
                                             </tr>

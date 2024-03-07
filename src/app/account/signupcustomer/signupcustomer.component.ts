@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
 
 import { catchError, throwError } from 'rxjs';
@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 import { CustomerForAutintication, CustomerForOtp } from './CustomerForAutintication';
 import { AppService } from 'src/app/app.service';
 import { TokenStorageService } from 'src/app/core/services/token-storage.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { addUserDeatil } from '../signupuser/signupuser';
 
 @Component({
   selector: 'app-signupcustomer',
@@ -15,6 +17,8 @@ import { TokenStorageService } from 'src/app/core/services/token-storage.service
   styleUrls: ['./signupcustomer.component.scss']
 })
 export class SignupcustomerComponent {
+
+  @ViewChild('udcontent') udcontent: any;
   showDiv = {
     current : true,
     next : false
@@ -28,14 +32,16 @@ export class SignupcustomerComponent {
   compareControlName!: string; 
   IsCustomer:string = 'Customer';
   UsersName!:string;
+  uploadForm!:FormGroup;  
+  CustName !: string;
+  CustLastName!: string;
+  CustId !: number;
 
-  constructor(  private _authService: AuthenticationService, private _router: Router,
+  constructor(private modalService: NgbModal, private _authService: AuthenticationService, private _router: Router,
     private tokenStorage: TokenStorageService,public appService: AppService,) 
   { }
 
   ngOnInit(): void {
-
-
            
     this.loginCustomerForm = new FormGroup({
       phoneNumber: new FormControl("", [Validators.required, Validators.minLength(10)])
@@ -43,16 +49,16 @@ export class SignupcustomerComponent {
     this.OtpForm =new FormGroup({
       phoneNumber: new FormControl('', []),      
       phoneNumberOTP : new FormControl('', []),       
-    });
+    }),
+    this.uploadForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
+      lastname:new FormControl('', [Validators.required]),      
+    })    
   }
   
 
-  public loginCustomer =(formData: CustomerForAutintication) => {
-    
-    
-
+  public loginCustomer =(formData: CustomerForAutintication) => {  
     let AdduserModel: CustomerForAutintication = formData;  
-
     const CustomerForOtp: CustomerForOtp  = {
       email: '',
       phoneNumber: AdduserModel.phoneNumber,
@@ -68,11 +74,12 @@ export class SignupcustomerComponent {
               return throwError(error); // Throw the error to propagate it further
             })
           )   
-            .subscribe((res: any) => {
-          
+            .subscribe((res: any) => {          
               let statuscode : number = res.responseStatusCode;
+              debugger;
               switch(statuscode)
               {
+
                 case 200:
                   this.showDiv = {
                     current : false,
@@ -82,9 +89,9 @@ export class SignupcustomerComponent {
                   ) {      
       
                     this.UserSendOTP = res.responseData.phoneNumberOTP
-                  // this.tokenStorage.SaveUSerPhoneOtp(res.responseData.phoneNumberOTP);
-                    
+                  // this.tokenStorage.SaveUSerPhoneOtp(res.responseData.phoneNumberOTP);                    
                   }
+                  
                   break;
                   case 212 :
                   Swal.fire({
@@ -162,10 +169,7 @@ export class SignupcustomerComponent {
                       confirmButtonColor: '#364574',
                       allowOutsideClick: false,
                       allowEscapeKey: false
-              
-
-                    }); 
-                      
+                    });                       
                       this.showDiv = {
                         current : true,
                         next : false
@@ -233,7 +237,37 @@ export class SignupcustomerComponent {
             this._authService.sendAuthStateChangeNotification(res.responseMessage);
             this._router.routeReuseStrategy.shouldReuseRoute = () => false;
             this._router.onSameUrlNavigation = 'reload';
-            this._router.navigate(['../dashboards/customerdashboard']);           
+            this._router.navigate(['../dashboards/customerdashboard']);    
+            
+            
+            const startingUser = 'User -'; // Change this to your starting user
+                    const currentUser = this.tokenStorage.getUser();
+                    
+                    // Check if currentUser starts with 'User -'
+                    if (currentUser.startsWith(startingUser)) {
+                        // Split the currentUser string by 'User -'
+                        const [, userValue] = currentUser.split(startingUser);
+                    
+                        // Check if userValue exists and is not empty
+                        if (userValue && userValue.trim() !== '') {
+                            // Show popup with userValue
+                            Swal.fire({
+                              title: 'Warning',
+                              text: 'Please Update User Name.',
+                              icon: 'warning',
+                              confirmButtonColor: '#364574',
+                              allowOutsideClick: false,
+                              allowEscapeKey: false
+                          }).then((result) => {
+                              // Check if the user clicked the "OK" button
+                              if (result.isConfirmed) {
+                                  // Open the modal
+                                  this.modalService.open(this.udcontent, { size: 'sm' });
+                              }
+                          });
+                           
+                        }
+                    } 
           }
           break;
           case 212 :
@@ -297,6 +331,138 @@ validate(control: AbstractControl): ValidationErrors | null {
 
   return null;
 }
+keyPressOnlyChar(event: any) {
+  var inp = String.fromCharCode(event.keyCode);
+  if (/[a-zA-Z]/.test(inp) || /[' ']/.test(inp)) {
+    return true;
+  } else {
+    event.preventDefault();
+    return false;
+  }
+}
+
+
+onChangeShareCapitalType(event: any) {
+
+  if (event.target.value) {
+    this.CustName = event.target.value;     
+  } else {    
+
+  }
+
+}
+
+public submit() {
+   
+  this.submitted = true;   
+  
+}
+
+
+SubmitCustForm(formData: addUserDeatil)
+{
+  this.CustId =  this.tokenStorage.getcustcode();
+  let refer;
+  
+  if(this.uploadForm.valid)
+  { 
+   const  AddUserDeatil: addUserDeatil  =  {    
+    
+    Name :this.CustName,
+    LastName : this.CustLastName,
+    customerID:this.CustId,
+    ApprovalStatus:"",
+    CustomerCode:'',
+    MerchantCode:'',
+    MerchantName:'',
+    PhoneNumber:'',
+    RecStatus:'',
+    ReferCode:''
+  }  
+    this.appService.Add('api/User/UpdateCustomer', AddUserDeatil).subscribe((data: any) => {
+      let statuscode : number = data.responseStatusCode;
+   
+      switch(statuscode)
+      {
+          case 200:          
+          Swal.fire({
+            title:'Success',
+            text: 'User Updated Successfully.',
+            icon: 'success',
+            confirmButtonColor: '#364574',
+            allowOutsideClick: false,
+            allowEscapeKey: false             
+          }).then(function() {              
+          location.reload();
+        });
+        this.tokenStorage.saveUser(this.CustName + ' ' + this.CustLastName);
+          break;
+            case 212 :
+            Swal.fire({
+              title:'Warning',
+              text: 'Something Went wrong.',
+              icon: 'warning',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+            });
+              break;
+            case  500 : 
+
+            Swal.fire({
+              title:'Error',
+              text: 'Error Status',
+              icon: 'error',
+              confirmButtonColor: '#364574',
+              allowOutsideClick: false,
+              allowEscapeKey: false
+            });    
+              break;
+            case 601 :
+              Swal.fire({
+                title:'Duplication',
+                text: 'Mobile Number is Duplicate',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });
+              break;
+            case 602:
+              Swal.fire({
+                title:'Duplication',
+                text: 'Duplicate Email',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });                 
+              break;
+            case 603:
+              Swal.fire({
+                title:'Duplication',
+                text: 'Merchant Not Save RewardPoint or Message Template ',
+                icon: 'warning',
+                confirmButtonColor: '#364574',
+                allowOutsideClick: false,
+                allowEscapeKey: false
+              });                     
+                       
+              break;
+            case 400:              
+                Swal.fire({
+                  title:'Error',
+                  text: 'Bad Request Status',
+                  icon: 'error',
+                  confirmButtonColor: '#364574',
+                  allowOutsideClick: false,
+                  allowEscapeKey: false
+                }); 
+      }   
+    },);
+   }
+  }
+
 
 }
  

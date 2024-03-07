@@ -92,12 +92,12 @@
                                             </tr>
                                         </td>
                                         <td class="w-30">
-                                            <h6 class="cpdt">Expire Date</h6><h5 class="cpd">{{object.endDate| date:'dd/MM/yyyy'}}</h5>
+                                            <h6 class="cpdt">Expire Date</h6><h5 class="cpd">{{object.endDate| date:'MM/dd/yyyy'}}</h5>
                                         </td>                                        
                                     </tr>
                                 </table>
                                 <button type="button" class="btn btn-primary" 
-                                (click)="openModalQR(qrcontent,object.couponCode,object.source)">
+                                (click)="openModalQR(qrcontent,object.couponCode,object.source,object.address)">
                                 View QR Code
                                </button>
                             </div>
@@ -141,9 +141,11 @@
                             <div class="row">
                                 <div class="col-md-12">   
                                     <div [id]="id" *ngFor="let id of array" class="qr-code-container">
-                                        <label for="basiInput" class="form-label merchant" style="text-align: center;">Merchant Name: {{merchantName}} </label>
-                                        <br>                      
-                                        <img src="assets/images/Logo_squre.jpg" alt="Logo" class="logo" >
+                                        <label for="basiInput" class="form-label merchant" > {{merchantName}} </label>
+                                         
+                                        <label for="basiInput" class="form-label merchant">{{Address}} </label>
+                                                                                              
+                                        <img src="assets/images/Logo_squre.jpg" alt="Logo" class="Qrlogo" >
                                         <img  src="{{ qrCode }}" alt="QR Code" class="qr-code">
                                     </div>
                                     </div>

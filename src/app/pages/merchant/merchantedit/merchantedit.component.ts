@@ -60,7 +60,9 @@ export class MerchanteditComponent {
   MobileNoTemp!:string;
   EmailIdTemp!: string;
   MerchantName !: String;
-
+  Address !: string;
+  MerchantCity!:string;
+  isButtonEnabled: boolean = true;
 //use for a template List
   public page: number = 1;
   public count = 10;
@@ -132,7 +134,7 @@ export class MerchanteditComponent {
         state: new FormControl('', []),
         countryName: new FormControl('', []),
         organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    
+        city: new FormControl('', [Validators.required, Validators.minLength(3)]),    
         stateName: new FormControl('', []),
         categoryName: new FormControl('', []),
         country: new FormControl('', []),
@@ -153,13 +155,11 @@ export class MerchanteditComponent {
         deviceOS: new FormControl('', []),
         token: new FormControl('', []),
         createdBy: new FormControl('', []),
-        createdDate: new FormControl('', []),
-      
+        createdDate: new FormControl('', []),      
         modifyBy: new FormControl('', []),
         modifyDate: new FormControl('', []),
         phoneNumberOTP: new FormControl('',[]), 
-        merchantURL: new FormControl('',[]), 
-       
+        merchantURL: new FormControl('',[]),        
     });
 
    if (this.tokenStorage.getToken()) {
@@ -265,25 +265,9 @@ openModalQR(qrcontent: any) {
    this.urlsubstring = 'https://crm.blootusk.com/#/R/'
     let encryptedcode = this.receivedLink.replace(this.urlsubstring,'') 
     // encryptedcode = btoa(encryptedcode);
-
-
-    // let dcodeMerchantCode = atob(encryptedcode); 
-    // let dryptedmerchantcode = this.EncrDecr.get('12$#@BLOO$^@TUSK', dcodeMerchantCode)
-//-- its use to decode value --//
-   //  const decryptedData = atob(encryptedcode);
-   
-  //  let test = this.EncrDecr.get('12$#@BLOO$^@TUSK', 'xof0gDd/9lWWEyMXQSboYw==')
-  //  console.log(test)
     
    this.receivedLink = this.receivedLink; // this.urlsubstring + dryptedmerchantcode;
 
-      // QRCode.toDataURL(this.receivedLink)
-      //   .then(url => {
-      //     this.qrCodeDataURL = url;
-      //   })
-      //   .catch(err => {
-      //     console.error('QR Code generation error:', err);
-      //   });
 
     QRCode.toDataURL(this.signupurl, (err, url) => {
       if (err) {
@@ -362,9 +346,7 @@ public getMerchantbyId(merchantId: any) {
 
       this.uploadForm.patchValue({
         phoneNumber: this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 
-         email: this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email),
-        //phoneNumber:data.responseData.phoneNumber,
-        //email:data.responseData.email,
+         email: this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email),       
         password: this.EncrDecr.get('12$#@BLOO$^@TUSK',data.responseData.password),
         contactPersonName: data.responseData.contactPersonName,    
         posInfo:{
@@ -379,6 +361,7 @@ public getMerchantbyId(merchantId: any) {
           longitude: data.responseData.posInfo.longitude,    
           posAddress: data.responseData.posInfo.posaddress,
           organizationName: data.responseData.organizationName,
+          city:data.responseData.city,
           posname: data.responseData.posInfo.posname,
           stateId: data.responseData.posInfo.stateId,
           countryId: data.responseData.posInfo.countryId,
@@ -390,16 +373,19 @@ public getMerchantbyId(merchantId: any) {
         modifyDate: data.responseData.modifyDate,  
         approvalStatus : data.responseData.approvalStatus,
         merchantURL : data.responseData.merchantURL,
-        recStatus : data.responseData.recStatus == "A"? true : false,
-    
+        recStatus : data.responseData.recStatus == "A"? true : false,    
       });
       
       this.OrganizationNameTemp = data.responseData.organizationName,
+
       this.ContactPersonNameTemp = data.responseData.contactPersonName,
       this.MobileNoTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.phoneNumber), 
       this.EmailIdTemp = this.EncrDecr.get('12$#@BLOO$^@TUSK', data.responseData.email)
       this.signupurl  =  data.responseData.merchantURL,
-      this.MerchantName = data.responseData.organizationName
+      this.MerchantName = data.responseData.organizationName, 
+      this.Address = data.responseData.posInfo.posname ,
+      this.MerchantCity = "," +data.responseData.city,
+
     
     this.TemplateList = data.responseData.smstemplateList;
     console.log("RewardList",data.responseData.rewardPointlist)
@@ -423,9 +409,7 @@ AddRemark(formDt: remarkHistory)
     merchantID: this.merchantId,
     approvalStatus: this.approvstatus,
     remarkDate:  new Date(),     
-  }
-
-  
+  }  
 
   console.log(remarkdetail);
   
@@ -442,9 +426,7 @@ AddRemark(formDt: remarkHistory)
         allowEscapeKey: false
  
       });
-  
 
-                                              
      // this.router.navigate(['/merchant/merchantedit',this.merchantId], { relativeTo: this.route });    
 
       this.modalService.dismissAll();
@@ -482,7 +464,7 @@ CancelForm()
     else{
       formData.recStatus = 'I'
     }
-
+debugger;
     let AddMerchantModel: editMerchant = formData;  
 
       AddMerchantModel.GeneratedBy = "",
@@ -490,8 +472,10 @@ CancelForm()
       AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
       AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
       AddMerchantModel.organizationName = AddMerchantModel.posInfo.organizationName,
+      AddMerchantModel.city = AddMerchantModel.posInfo.city,
       AddMerchantModel.merchantId = this.merchantId,
       AddMerchantModel.posInfo.merchantId = this.merchantId,
+      AddMerchantModel.city = AddMerchantModel.posInfo.city,
       AddMerchantModel.isEmailValidate = 1;
       AddMerchantModel.isPhoneNumberValidate = 1;
       AddMerchantModel.createdBy = this.userId;
@@ -499,15 +483,16 @@ CancelForm()
       AddMerchantModel.createdDate = new Date(); 
       AddMerchantModel.modifyDate = new Date();
       AddMerchantModel.merchantURL ='';
-       AddMerchantModel.posInfo.stateName = "";
-       AddMerchantModel.posInfo.categoryName = "";
-       AddMerchantModel.posInfo.countryName = "";
-       AddMerchantModel.password=this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.password);
-       AddMerchantModel.phoneNumber =  this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.phoneNumber);
-       AddMerchantModel.email = this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.email.toLowerCase());
-       AddMerchantModel.posInfo.posname = ""?"":AddMerchantModel.posInfo.posname;
+      AddMerchantModel.posInfo.stateName = "";
+      AddMerchantModel.posInfo.categoryName = "";
+      AddMerchantModel.posInfo.countryName = "";
+      AddMerchantModel.password=this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.password);
+      AddMerchantModel.phoneNumber =  this.EncrDecr.set('12$#@BLOO$^@TUSK', AddMerchantModel.phoneNumber);
+      AddMerchantModel.email =  AddMerchantModel.email.toLowerCase();
+      AddMerchantModel.posInfo.posname = ""?"":AddMerchantModel.posInfo.posname;
     if(this.uploadForm.valid)
     {
+      this.isButtonEnabled = false;
     this.appService.Add('api/Merchant/EditMerchant', AddMerchantModel)
         .pipe(
           catchError((error) => {          
@@ -518,12 +503,10 @@ CancelForm()
           
           console.log('data',res)
         let statuscode : number = res.responseStatusCode;
-
+        this.isButtonEnabled = true;
           switch(statuscode)
           {          
-            case 200:
-                     
-              
+            case 200:     
               Swal.fire({
                 title:'Success',
                 text: 'Merchant Updated Successfully.',
@@ -534,15 +517,17 @@ CancelForm()
                
               }).then(function() {
   
-              // location.reload();
+               location.reload();
               
            
             });
-            this.router.navigate(['/merchant/merchantedit'], { relativeTo: this.route });
+
+            this.router.navigate(['/merchant/merchantedit',this.merchantId], { relativeTo: this.route });    
+
           
                         
             break;
-            
+            this.isButtonEnabled = true;
             case 212 :
               Swal.fire({
                 title:'Warning',

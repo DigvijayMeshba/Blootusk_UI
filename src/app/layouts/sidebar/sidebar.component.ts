@@ -27,6 +27,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {
     // Menu Items
+    debugger;
     
    this.addRoleDeatil = this.tokenStorage.GetRole();  
    console.log('Role',this.addRoleDeatil)

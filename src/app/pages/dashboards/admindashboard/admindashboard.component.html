@@ -5,44 +5,17 @@
     <div class="row mb-3">
         <div class="col-md-4 ">
             
-            <!-- <select class="form-select" aria-label="Default select example" >
-                <option value="" disabled selected>Select Merchant</option>                                       
-                <option> Merchant 1</option>   
-                <option> Merchant 2</option> 
-                <option> All</option>                                                    
-            </select> -->
-            <!-- <select class="form-select" aria-label="Default select example"
-            [(ngModel)]="selectedMerchantId"
-            formControlName ="countryId" >      
-                <option value="" disabled selected>Select Country</option>
-                <option *ngFor="let merchant of MerchantList" [value]="merchant.merchantId" >
-                  {{ merchant.organizationName }}
-                </option>
-                </select>  -->
-
-
-
-                <select class="form-select" aria-label="Default select example" formControlName="merchantId" [(ngModel)]="selectedMerchantId" >
+                <select class="form-select" aria-label="Default select example" formControlName="merchantId" onselect="merchantSelectedid(merchantId)"  >
                     <option value="" disabled selected>Select Merchant</option> 
                     <option *ngFor="let merchant of MerchantList" [value]="merchant.merchantId">
                       {{ merchant.organizationName}}
                     </option>
                 </select>
-
-               
-
-
-                <!-- <select class="form-select" aria-label="Default select example" formControlName="merchantId" [(ngModel)]="selectedMerchantId">
-                    <option value="" selected disabled>Select Merchant</option>
-                    <option *ngFor="let merchant of MerchantList" [value]="merchant.merchantId">
-                        {{ merchant.organizationName }}
-                    </option>
-                </select> -->
                 
         </div>
         <div class="col-4 ">
             <div class="col-md-4">
-                <button type="button" class="btn btn-primary ms-auto" (click)="viewMerchantData(selectedMerchantId)">
+                <button type="submit" class="btn btn-primary ms-auto" (click)="viewMerchantData()">
                   <i class="ri-eye-fill cardicon label-icon align-middle"></i>View
                 </button>
               </div>

@@ -10,6 +10,7 @@ export interface signupMerchant
         contactPersonName: string;
         deviceId: string;
         deviceOs: string;
+        city:string;
         token: string;
         isPhoneNumberValidate: number;
         isEmailValidate: number;
@@ -25,6 +26,7 @@ export interface signupMerchant
           poscode: string;
           organizationName: string;
           posname: string;
+          city:string;
           posaddress: string;
           zip: string;
           stateId: number;

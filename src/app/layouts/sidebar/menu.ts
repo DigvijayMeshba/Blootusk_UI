@@ -89,6 +89,12 @@ export const MENUCustomerItems: MenuItem[] =[
     link: 'customer/rewardpointlist',
   },
 
+  {
+    id: 25,
+    label: 'Customer Statement',
+    icon: 'ri-shopping-bag-2-line',
+    link: 'reports/customerstatement',   
+  }
  
 
 ]

@@ -33,7 +33,7 @@ export class CustomerstatementComponent {
   toDate!: Date;
   fromDateddmmyyy!:Date;
   toDateddmmyyy!:Date;
-  
+  addRoleDeatil:any;  
   public page: number = 1;
   MerchantList: any[] = []; 
   
@@ -51,7 +51,7 @@ export class CustomerstatementComponent {
    uploadForm!:FormGroup; 
    submitted = false; 
    ngOnInit(): void {
-       
+    this.addRoleDeatil = this.tokenStorage.GetRole();  
     this.uploadForm = this.formBuilder.group({
       merchantId: new FormControl('', []),
       CustPhoneNo: new FormControl('', [Validators.required]),
@@ -92,59 +92,32 @@ export class CustomerstatementComponent {
   {    
     debugger;
 
-    let AddMerchantModel: custmerchtStatement = formData;  
-
-    
-    AddMerchantModel.fromDate = this.datePipe.transform(AddMerchantModel.fromDate, 'yyyy-MM-dd HH:mm:ss');
-    AddMerchantModel.toDate = this.datePipe.transform(AddMerchantModel.toDate, 'yyyy-MM-dd HH:mm:ss');
-    AddMerchantModel.merchantId = Number(AddMerchantModel.merchantId);
-   
-
-    // AddMerchantModel.merchantId = AddMerchantModel.merchantId = "" ? 0: AddMerchantModel.merchantId; 
+    if(this.uploadForm.valid || this.addRoleDeatil == "Customer" )
+    {
+      let AddMerchantModel: custmerchtStatement = formData; 
+      
+    if(this.addRoleDeatil == "Customer")
+    {
+      AddMerchantModel.CustPhoneNo = this.tokenStorage.GetPhoneNO();
+    }
+      AddMerchantModel.fromDate = this.datePipe.transform(AddMerchantModel.fromDate, 'yyyy-MM-dd HH:mm:ss');
+      AddMerchantModel.toDate = this.datePipe.transform(AddMerchantModel.toDate, 'yyyy-MM-dd HH:mm:ss');
+      AddMerchantModel.merchantId = Number(AddMerchantModel.merchantId);
+       
+        this.appService.Add("api/AdminDashbaord/Customerstatement",AddMerchantModel)
+        .pipe(
+          catchError((error) => {          
+            return throwError(error); 
+          })).subscribe((data: any) => {  
+           console.log('MerStatement',data)
   
-    
- //  let GetCustomerStatement: custmerchtStatement = formData;  
-   
-    // let ListOfStatement: custmerchtStatement = {
-   
-    //  "merchantId":  this.merchantCode = 0 ? 0:this.merchantCode,
-    //  "CustPhoneNo": this.customerCode = ""? "":this.customerCode,
-    //  "fromDate":this.fromDate,
-    //  "toDate":  this.toDate,
-    // }   
-  
-
-      // this.appService.Add("api/AdminDashbaord/Customerstatement",ListOfStatement)
-      // .pipe(
-      //   catchError((error) => {          
-      //     return throwError(error); 
-      //   })).subscribe((data: any) => {    
-        
-      //     this.StatementList = data.customerTransactions
-          
-      //     this.customerName = data.customerName;  
-      //     this.StatementList = data.merchantTransactions;
-      //     this.OpeningBal =data.openingBalance;
-
-      //     console.log('Statement', data.customerTransactions)
-      //     console.log('StatementList', this.StatementList)
-               
-      // },);  
-console.log('request',AddMerchantModel);
-
-      this.appService.Add("api/AdminDashbaord/Customerstatement",AddMerchantModel)
-      .pipe(
-        catchError((error) => {          
-          return throwError(error); 
-        })).subscribe((data: any) => {  
-         console.log('MerStatement',data)
-
-         this.customerName = data.customerName;  
-         this.StatementList = data.customerTransactions;
-         this.OpeningBal =data.openingBalance;
-          console.log('Statement', data)
-          console.log('StatementList', this.StatementList)               
-      },); 
+           this.customerName = data.customerName;  
+           this.StatementList = data.customerTransactions;
+           this.OpeningBal =data.openingBalance;
+            console.log('Statement', data)
+            console.log('StatementList', this.StatementList)               
+        },); 
+    }
   }
 
 

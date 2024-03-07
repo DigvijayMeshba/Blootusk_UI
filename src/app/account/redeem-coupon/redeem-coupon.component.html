@@ -37,30 +37,7 @@
                             </div>
 
                             <div class="p-2 ">
-                                <div class="live-preview">
-                                   
-                                        <!-- <div class="alert alert-borderless alert-warning text-center mb-2 mx-2" role="alert">
-                                            <div class="alert alert-borderless alert-warning text-center mb-2 mx-2" role="alert">
-                                                  <span class="merchant-name-placeholder">{{CoponCode}}
-                                              </span>.
-                                            </div>
-
-                                            <label>
-                                                Coupon Title :      {{CouponTailtal}}  
-                                            </label>
-                                            <br>
-                                         Coupon Description :   <label>{{CouponDescription}}</label>
-                                           
-                                         <br>
-                                         Discount :  <label>{{CouponDiscount}} Off</label>
-<br>
-                                         Merchant Name : <label>{{MerchantName}}</label>
-                                        </div>                                           
-                                        <div class="text-center">
-                                            <button (click)="openModalQR(qrcontent, CoponCode)" class="btn btn-primary">
-                                              <i class="ri-save-3-fill label-icon align-middle me-2"></i>View QR Code
-                                            </button>
-                                        </div> -->
+                                <div class="live-preview">    
 
                                         <div class="col-xl-12"  >
                                             <div class="animate">
@@ -75,25 +52,14 @@
                                                            
                                                         </div>
                                                             <div class="col-md-4 text-right mt-2">
-                                                                <!-- <h6 style="color: green;" *ngIf="object.status==1">
-                                                                    {{"Live"}} 
-                                                                </h6>
-                                                                <h6 style="color: red;" *ngIf="object.status==2">
-                                                                    {{"Expired"}} 
-                                                                </h6>
-                                                                <h6  style="color: orange;" *ngIf="object.status==3">
-                                                                    {{"Availed"}} 
-                                                                </h6> -->
-                                                               
-                                                                
+                                                             
                                                               
                                                             </div>
                                                         </div>
                                                         <div class="row mb-0">
                                                             <div class="col-md-12"><div class="mt-0">
                                                                 <h6 class="mb-0">{{CouponDiscount}} 
-                                                                <!-- <a *ngIf="object.discountType=='percentage'" class="link-success fs-11"><i class="ri-percent-line"></i> </a>
-                                                                <a *ngIf="object.discountType=='dollar'" class="link-success fs-11"><i class="bx bx-dollar"></i> </a> -->
+                                                              
                                                                 Off
                                                             </h6>
                                                         </div></div>
@@ -124,11 +90,7 @@
                                                                     </td>                                        
                                                                 </tr>
                                                             </table>
-                                                            <!-- <button type="button" class="btn btn-primary"
-                                                            (click)="openModalQR(qrcontent,CoponCode)"
-                                                           style="background-color: #007bff; color: #fff; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; text-align: center;">
-                                                            View QR Code
-                                                         </button> -->
+                                                           
 
                                                          <button type="button" class="btn btn-primary" 
                                 (click)="openModalQR(qrcontent,CoponCode)">
@@ -138,11 +100,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                                                                      
-                                            
-                                       
-                               
+                                        </div>                                  
                     </div>
 
                         <!-- QR Modal -->
@@ -157,7 +115,11 @@
                             <div class="row">
                                 <div class="col-md-12">   
                                     <div [id]="id" *ngFor="let id of array" class="qr-code-container">
-                                        <img src="assets/images/Logo_squre.jpg" alt="Logo" class="logo" >
+                                        <label for="basiInput" class="form-label merchant" > {{MerchantName}}</label>
+                                                                                   
+                                        <label for="basiInput" class="form-label merchant">{{address}} </label>
+                                        
+                                        <img src="assets/images/Logo_squre.jpg" alt="Logo" class="Qrlogo" >
                                         <img  src="{{ qrCode }}" alt="QR Code" class="qr-code">
                                     </div>
                                     </div>

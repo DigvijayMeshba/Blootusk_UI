@@ -62,40 +62,37 @@
                                 
                                 <div class="row">
                                     <div class="">                                                               
-                                        I want to receive messages via Text as well as emails from BlooTusk” and “I acknowledge that I agree to the <a href="https://blootusk.com/termsconditions.html">Terms 
+                                        I want to receive messages via Text as well as emails from BlooTusk and I acknowledge that I agree to the <a href="https://blootusk.com/termsconditions.html">Terms 
                                         </a>of Use  and have read the 
                                             <a href="https://blootusk.com/privacypolicy.html"> Privacy Policy.</a><br>
                                       </div>
                                 </div>  
-
+                                
                                 <div class="mt-4">
                                     <button type="submit" class="btn btn-success w-100">Sign In</button>
                                 </div>
-                            </div>
-                          
-    
-                        </div>
-                      
-</form>
+                            </div> 
+                        </div>                      
+                  
+                    </form>
                         <div class="card-body p-4" *ngIf="showDiv.next">
                        
                             <form [formGroup]="OtpForm" fxLayout="row wrap"
                             (ngSubmit)="SubmitForm(OtpForm.value)">
+                            
                             <div class="text-center mt-2">
                                 <h5 class="text-primary">OTP Verification</h5>
                             </div>
+                           
                             <div class="p-2 mt-4">
                                 <div class="mb-3">
                                     <label class="form-label" for="username">Enter OTP sent to your Mobile No.<span class="madatory">*</span></label>
                                     <input type="text" class="form-control" formControlName="phoneNumberOTP" placeholder="Enter OTP Sent To Your Mobile No.">
                                 </div>
-
                                 <div class="mt-4">
                                     <button type="submit" class="btn btn-success w-100">Submit</button>
                                 </div>
-                            </div>
-
-                      
+                            </div> 
 </form>
 
                         </div>
@@ -103,8 +100,48 @@
                     </div>
                 </div>
             </div>
+              <!-- UD Modal -->
+              <ng-template #udcontent role="document"  let-modal >
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0">User Details</h5>
+                    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+                </div>
+                <div class="modal-body">
+                    <div>
+                        <form  [formGroup]="uploadForm" fxLayout="row wrap"
+                        (ngSubmit)="SubmitCustForm(uploadForm.value)">
+                            <div class="row">
+                                <div class="col-md-12">   
+                                    <div>
+                                        <label for="basiInput" class="form-label">First Name</label>
+                                        <input type="text" class="form-control required" required  (keypress)="keyPressOnlyChar($event)" formControlName="name" (change)="onChangeShareCapitalType($event)" 
+                                         [(ngModel)]="CustName" placeholder="Enter First Name">
+                                        <div *ngIf="submitted && f['name'].errors" class="invalid-feedback  d-block">
+                                            <div *ngIf="f['name'].errors['required']">First Name is required</div>
+                                            <div *ngIf="f['name'].errors['minlength']">First Name least 3 char long
+                                            </div>            
+                                        </div> 
 
+                                        <label for="basiInput" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control required" required   formControlName="lastname" 
+                                         [(ngModel)]="CustLastName" placeholder="Enter Last Name">
+                                        <div *ngIf="submitted && f['lastname'].errors" class="invalid-feedback  d-block">
+                                            <div *ngIf="f['lastname'].errors['required']">Last Name is required</div>
+                                            <div *ngIf="f['lastname'].errors['minlength']">Last Name least 3 char long
+                                            </div>            
+                                        </div> 
+                                    
+                                    </div>
+                                </div>
+                            </div>
 
+                            <div class="mt-3 text-center" >
+                                <button type="submit" (click)="submit()" class="btn btn-success"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </ng-template>
         </div>
 
     </div>

@@ -115,6 +115,7 @@
               </li>
             </ng-container>
           </div>
+
           <div *ngIf="addRoleDeatil=='Customer'">
             <ng-container *ngFor="let item of menuCustomerItems">
               <li class="menu-title" *ngIf="item.isTitle"><span data-key="t-menu">{{ item.label | translate }}</span></li>
@@ -196,6 +197,7 @@
               </li>
             </ng-container>
           </div>
+          
           <!-- id condition for a admin or customer -->
         </ul>
       </ngx-simplebar>

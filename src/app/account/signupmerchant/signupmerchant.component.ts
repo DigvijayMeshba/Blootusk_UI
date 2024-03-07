@@ -120,8 +120,9 @@ console.log('Decrypted :' + decrypted);
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
       password: new FormControl('', [this.validateStrongPassword,Validators.required, Validators.minLength(8),Validators.maxLength(15)]),
       organizationName: new FormControl('', []),
-    
-      confirmPassword: new FormControl('', [Validators.required]),     
+      confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8),Validators.maxLength(15)]),
+     
+      //confirmPassword: new FormControl('', [Validators.required],Validators.minLength(8),Validators.maxLength(15)),     
       contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]), 
       isPhoneNumberValidate:new FormControl('', []),
         isEmailValidate: new FormControl('', []),
@@ -145,6 +146,7 @@ console.log('Decrypted :' + decrypted);
         categoryId: new FormControl('', [Validators.required]),
         posAddress: new FormControl('', [Validators.required, Validators.minLength(3)]),
         organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        city: new FormControl('', [Validators.required, Validators.minLength(3)]),
         zip: new FormControl('', [Validators.required, Validators.minLength(5)]),
         stateId: new FormControl('', [Validators.required]),
         countryId: new FormControl('', [Validators.required]),
@@ -278,14 +280,11 @@ console.log('Decrypted :' + decrypted);
       return false;
     }
   }
-
+  isButtonEnabled: boolean = true;
   public submit() {
    
-    this.submitted = true;   
-    
+    this.submitted = true; 
   }
-
-
 
   //create new user
   public createMerchant(formData: signupMerchant) {
@@ -459,6 +458,9 @@ console.log('Decrypted :' + decrypted);
     let  AddMerchantDtail =  formData;
     if(this.uploadForm.valid)
     {    
+
+      
+   this.isButtonEnabled = false;
     AddMerchantDtail.posInfo.posid = 0;
     AddMerchantDtail.posInfo.merchantId = 0;    
     AddMerchantDtail.isEmailValidate = 1;
@@ -472,6 +474,7 @@ console.log('Decrypted :' + decrypted);
     AddMerchantDtail.deviceOs = "",
     AddMerchantDtail.generatedBy = "",
     AddMerchantDtail.organizationName = AddMerchantDtail.posInfo.organizationName,
+    AddMerchantDtail.city = AddMerchantDtail.posInfo.city,
     AddMerchantDtail.posInfo.stateName = ""? "":AddMerchantDtail.posInfo.stateName,
     AddMerchantDtail.posInfo.categoryName = ""? "":AddMerchantDtail.posInfo.categoryName,
     AddMerchantDtail.posInfo.countryName = ""? "":AddMerchantDtail.posInfo.countryName,
@@ -491,23 +494,28 @@ console.log('Decrypted :' + decrypted);
       this.appService.Add('api/Merchant/AddMerchant', AddMerchantDtail).subscribe((data: any) => {
         console.log('Addmerchant',data.responseData)
         let statuscode : number = data.responseStatusCode;
+        this.isButtonEnabled = true;
         switch(statuscode)
         {          
-            case 200:
-            
+            case 200:           
               Swal.fire({
                 title:'Success',
-                text: 'Application submitted Sucessfully, BlooTusk team will contact you for verification process.',
+                text: 'Application submitted Successfully, BlooTusk team will contact you for verification process.',
                 icon: 'success',
                 confirmButtonColor: '#364574',
                 allowOutsideClick: false,
                 allowEscapeKey: false
                
               }).then(function() {
-  
+
               location.reload();
+
+
             });
-              break;
+
+
+            break;
+            this.isButtonEnabled = true;
                 case 212 :
                 Swal.fire({
                   title:'Warning',
@@ -590,6 +598,22 @@ console.log('Decrypted :' + decrypted);
 
         
     // }   
+  }
+
+  checkConfirmPasswordStrength()
+  {
+    const confirmPassword = this.uploadForm.get('confirmPassword')?.value;
+    this.showPasswordStrengthMessage = true;
+
+    // You can implement your password strength logic here
+    // For example, you can check for uppercase, lowercase, digits, special characters, etc.
+    // Update this logic to match your password strength requirements
+
+    if (/[A-Z]/.test(confirmPassword) && /[a-z]/.test(confirmPassword) && /\d/.test(confirmPassword) && /[0-9]/.test(confirmPassword)) {
+      this.strengthMessage = 'Strong password';
+    } else {
+      this.strengthMessage = 'Weak password';
+    }
   }
 
   checkPasswordStrength() {

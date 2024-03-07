@@ -170,7 +170,7 @@
                                                 <div class="card-body" formGroupName="posInfo">
                                                     <div class="row mb-3">
 
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
                                                             <div>
                                                                 <label for="basiInput" class="form-label">Merchant (Organization) Name <span class="mnd-fld">*</span> </label>
                                                                 <input type="text" class="form-control" formControlName="organizationName" placeholder="Enter Merchant (Organization) Name" 
@@ -179,20 +179,32 @@
                                                                 <div *ngIf="this.uploadForm.get('posInfo.organizationName')?.errors?.['required']">Organization Name is required</div>                                                        
                                                             <div *ngIf="this.uploadForm.get('posInfo.organizationName')?.errors?.['minlength']">Organization Name least 3 char long                                               </div>
                                                        
-                                                             </div> 
-                                                            
+                                                             </div>                                                             
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
                                                             <div>
-                                                                <label for="basiInput" class="form-label">Location Name   <i class="ri-information-fill infoicon" ngbTooltip="Enter your location name" ></i> </label>
-                                                                <input type="text" class="form-control" formControlName="posname" placeholder="Enter Location Name">
+                                                                <label for="basiInput" class="form-label">Branch Name   <i class="ri-information-fill infoicon" ngbTooltip="Enter your Branch name" ></i> </label>
+                                                                <input type="text" class="form-control" formControlName="posname" placeholder="Enter Branch Name">
                                                                 <!-- <div *ngIf="this.uploadForm.get('posInfo.posname')?.invalid && submitted" class="invalid-feedback d-block">
                                                                     <div *ngIf="this.uploadForm.get('posInfo.posname')?.errors?.['required']">Pos Name is required</div>                                                        
                                                                 <div *ngIf="this.uploadForm.get('posInfo.posname')?.errors?.['minlength']">Pos Name least 3 char long                                               </div>
                                                              </div>  -->
                                                             
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <div>
+                                                                <label for="basiInput" class="form-label">City Name <span class="mnd-fld">*</span> </label>
+                                                                <input type="text" class="form-control" formControlName="city" placeholder="Enter City Name">                                                               
+                                                               
+                                                                <div *ngIf="this.uploadForm.get('posInfo.city')?.invalid && submitted" class="invalid-feedback d-block">
+                                                                    <div *ngIf="this.uploadForm.get('posInfo.city')?.errors?.['required']">city is required</div>                                                        
+                                                                <div *ngIf="this.uploadForm.get('posInfo.city')?.errors?.['minlength']">city least 3 char long                                               </div>
+                                                           
+                                                                 </div> 
                                                             </div>
                                                         </div>
                                                        
@@ -431,14 +443,16 @@
                                                                 <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <div>
+                                                                <div> 
                                                                     <form >
                                                                         <div class="row">                                                                            
                                                                             <div class="col-md-12">                                                                                
                                                                                 <div [id]="id" *ngFor="let id of array" class="qr-code-container">
-                                                                                    <label for="basiInput" class="form-label merchant" style="text-align: center;">Merchant Name: {{MerchantName}}</label>
-                                                                                   <br>
-                                                                                    <img src="assets/images/Logo_squre.jpg" alt="Logo" class="logo" >
+                                                                                    <label for="basiInput" class="form-label merchant" > {{MerchantName}}</label>
+                                                                                   
+                                                                                    <label for="basiInput" class="form-label merchant">{{Address}} {{MerchantCity}} </label>
+                                                                                    
+                                                                                    <img src="assets/images/Logo_squre.jpg" alt="Logo" class="Qrlogo" >
                                                                                     <img  src="{{ qrCode }}" alt="QR Code" class="qr-code">
                                                                                   </div>
                                                                                     <!-- <img src="assets/images/qr.jpg" alt="" height="200" > -->
@@ -475,7 +489,7 @@
                                                     <div class="col-lg-12">
                                                         <div class="text-end d-flex align-items-start gap-2 ">
                                                             <button type="button" (click)="CancelForm()" class="btn btn-info ms-auto"><i class="ri-close-line label-icon align-middle me-2"></i>Cancel</button>
-                                                            <button type="submit" (click)="submit()" class="btn btn-success"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Update</button>
+                                                            <button type="submit" [disabled]="!isButtonEnabled" (click)="submit()" class="btn btn-success"><i class="ri-save-3-fill label-icon align-middle me-2"></i> Update</button>
                                                         </div>
                                                      
                                                              </div> 

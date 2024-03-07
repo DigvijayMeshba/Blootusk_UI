@@ -117,8 +117,7 @@ export class MerchantaddComponent {
     let addUserDeatil = this.tokenStorage.getUser();    
     this.GetCountryList();
     this.getCatagoryList(); 
-    this.GetStateList();
-    
+    this.GetStateList();    
 
     this.uploadForm = this.formBuilder.group({
      
@@ -127,8 +126,7 @@ export class MerchantaddComponent {
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(3)]),
       email: new FormControl('', [Validators.required, Validators.minLength(3)]),
       password: new FormControl('', [this.validateStrongPassword,Validators.required, Validators.minLength(8),Validators.maxLength(15)]),
-      confirmPassword: new FormControl('', [Validators.required]),
-     
+      confirmPassword: new FormControl('', [Validators.required]),     
       contactPersonName: new FormControl('', [Validators.required, Validators.minLength(3)]), 
       isPhoneNumberValidate:new FormControl('', []),
         isEmailValidate: new FormControl('', []),
@@ -145,10 +143,11 @@ export class MerchantaddComponent {
         phoneNumberOTP: new FormControl('',[]),   
         emailOTP : new FormControl('',[]), 
         merchantURL: new FormControl('',[]),    
-       posInfo : this.formBuilder.group({
+        posInfo : this.formBuilder.group({
         posName: new FormControl('', []),
         categoryId: new FormControl('', [Validators.required]),
         organizationName: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        city: new FormControl('', [Validators.required, Validators.minLength(3)]),
         posAddress: new FormControl('',[ Validators.required, Validators.minLength(3)]),
         zip: new FormControl('', [Validators.required, Validators.minLength(5)]),
         stateId: new FormControl('', [Validators.required]),
@@ -162,8 +161,7 @@ export class MerchantaddComponent {
         latitude: new FormControl('', []),
         longitude: new FormControl('', []),
        })      
-    }
-    ,
+    },
      { 
       validators: [Validation.match('password', 'confirmPassword')], 
      },
@@ -334,6 +332,7 @@ export class MerchantaddComponent {
       AddMerchantModel.posInfo.categoryName = ""? "":AddMerchantModel.posInfo.categoryName,
       AddMerchantModel.posInfo.countryName = ""? "":AddMerchantModel.posInfo.countryName,
       AddMerchantModel.organizationName = AddMerchantModel.posInfo.organizationName,
+      AddMerchantModel.city = AddMerchantModel.posInfo.city,
       AddMerchantModel.posInfo.posid = 0;
       AddMerchantModel.posInfo.merchantId = 0;    
       AddMerchantModel.isEmailValidate = 1;

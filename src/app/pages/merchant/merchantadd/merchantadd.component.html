@@ -95,7 +95,7 @@
                                                 <label for="basiInput" class="form-label">Password  <span class="madatory">*</span></label>
                                                 <div class="position-relative auth-pass-inputgroup">
                                                     <input [type]="fieldTextType1 ? 'text' : 'password'"
-                                                    class="form-control pe-5" placeholder="Enter Password"
+                                                    class="form-control pe-5" placeholder="Use Alphanumeric, Special character, Upper & Lower case letter"
                                                     id="password-input" formControlName="password" maxlength="15"
                                                     [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
                                                     minlength="6"  (input)="checkPasswordStrength()">
@@ -105,14 +105,15 @@
                                                      [ngClass]="{'mdi-eye-off-outline': !fieldTextType1, 'mdi-eye-outline': fieldTextType1
                                                      }" (click)="toggleFieldTextType1()"></i></button>
                                                  
-                                                 <div  *ngIf="f['password'].dirty">Password is required Combine Symbols,Numbers, lowercase, and uppercase letters.</div>
                                                          
-                                                     <div *ngIf="submitted && f['password'].errors || (f['password'].dirty && f['password'].touched)"  class="invalid-feedback">
-                                                    <div *ngIf="f['password'].errors!['required']">Password is required</div>
-                                                    <div *ngIf="f['password'].errors!['minlength']">Password at least 8 to 15 digits long</div>
-                                                    <div *ngIf="f['password'].errors!['weakPassword']">Combine Symbols,Numbers, lowercase, and uppercase letters. </div>
-                                               </div>
-                                                </div>
+                                                 <div *ngIf="(submitted && f['password'].errors) || f['password'].dirty" class="invalid-feedback d-block">
+                                                    <div *ngIf="f['password'].errors?.['required']">Password is required</div>
+                                                    <div *ngIf="f['password'].errors?.['minlength']">Password must be at least 8 to 15 characters long</div>
+                                                    <div *ngIf="f['password'].errors?.['weakPassword']"> Combine symbols, numbers, lowercase, and uppercase letters </div>                                                        
+                                                  </div>
+                                               
+                                            
+                                            </div>
                                             </div>
                                         </div>
 
@@ -121,17 +122,18 @@
                                                 <label for="basiInput" class="form-label">Confirm Password  <span class="madatory">*</span></label>
                                                 <div class="position-relative auth-pass-inputgroup">
                                               <input [type]="fieldTextType2? 'text' : 'password'"
-                                                    class="form-control pe-5" placeholder="Enter Confirm Password"
+                                                    class="form-control pe-5" placeholder="Use Alphanumeric, Special character, Upper & Lower case letter"
                                                     id="password-input" formControlName="confirmPassword" maxlength="15"
-                                                    [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }"   minlength="6">
+                                                    [ngClass]="{ 'is-invalid': submitted && f['confirmPassword'].errors }" >
                                                 <button  class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted btn-eye"
                                                     type="button" id="password-addon"><i class="mdi align-middle pass-eye" [ngClass]="{'mdi-eye-off-outline': !fieldTextType2, 'mdi-eye-outline': fieldTextType2
                                                      }" (click)="toggleFieldTextType2()"></i></button>
-                                                 <div  *ngIf="f['password'].dirty">Password and Confirm password must be same.</div>
+                                                 <!-- <div  *ngIf="f['confirmPassword'].dirty">Password and Confirm password must be same.</div> -->
                                                
-                                                     <div *ngIf="f['confirmPassword'].errors && submitted"  class="invalid-feedback d-block">
+                                                <div *ngIf="(f['confirmPassword'].errors && f['confirmPassword'].dirty) || submitted" class="invalid-feedback d-block">
                                                     <div *ngIf="f['confirmPassword'].errors?.['required']">Confirm Password is required</div>
-                                                    <div *ngIf="f['confirmPassword'].errors?.['matching']"> Password and Confirm password must be same</div>
+                                                    <div *ngIf="f['confirmPassword'].errors?.['minlength']">Password must be at least 8 to 15 characters long</div>
+                                                    <div *ngIf="f['confirmPassword'].errors?.['matching']">Password and Confirm Password must match</div>
                                                 </div>
 
                                                 
@@ -158,7 +160,7 @@
                                 <div class="card-body" formGroupName="posInfo">
                                     <div class=" mb-3 col-md-12">
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <label for="basiInput" class="form-label">Merchant (Organization) Name <span class="mnd-fld">*</span></label>
                                                 <input type="text" class="form-control" 
                                                 formControlName="organizationName" required minlength="3"
@@ -173,18 +175,36 @@
                                             
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <label for="basiInput" class="form-label">Branch Name <i class="ri-information-fill infoicon" ngbTooltip="Enter your Branch name" ></i> </label>
                                                 <input type="text" class="form-control" formControlName="posName"   minlength="3"
-                                                 placeholder="Enter Location Name">
+                                                 placeholder="Enter Branch Name">
                                                 
                                                 <!-- <div *ngIf="this.uploadForm.get('posInfo.posName')?.invalid && submitted" class="invalid-feedback d-block">
                                                     <div *ngIf="this.uploadForm.get('posInfo.posName')?.errors?.['required']">Pos Name is required</div>                                                        
                                                 <div *ngIf="this.uploadForm.get('posInfo.posName')?.errors?.['minlength']">Pos Name least 3 char long                                               </div>
                                             
-                                            </div>     -->
+                                            </div>-->
                                               
                                             </div>
+
+
+                                            <div class="col-md-4">
+                                                <label for="basiInput" class="form-label">City Name <span class="mnd-fld">*</span></label>
+                                                <input type="text" class="form-control" 
+                                                formControlName="city" required minlength="3"
+                                               
+                                                placeholder="Enter City Name">
+
+                                               <div *ngIf="this.uploadForm.get('posInfo.city')?.invalid && submitted" class="invalid-feedback d-block">
+                                                            <div *ngIf="this.uploadForm.get('posInfo.city')?.errors?.['required']">city Name is required</div>                                                        
+                                                        <div *ngIf="this.uploadForm.get('posInfo.city')?.errors?.['minlength']">city Name least 3 char long                                            </div>
+                                               </div> 
+                                            
+                                            
+                                            </div>
+
+                                            
                                         </div>
         
                                     </div>

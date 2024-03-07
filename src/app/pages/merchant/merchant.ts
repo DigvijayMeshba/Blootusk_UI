@@ -7,6 +7,7 @@ export interface addMerchant
         email: string;
         password: string;
         organizationName: string;
+        city:string;
         contactPersonName: string;
         deviceId: string;
         deviceOs: string;
@@ -32,6 +33,7 @@ export interface addMerchant
           stateName: string;
           categoryName: string;
           organizationName: string;
+          city:string;
           latitude: string;
           longitude: string;
         }
@@ -72,6 +74,7 @@ export interface editMerchant
        password: string;
        GeneratedBy:string,
        organizationName: string;
+       city:string;
        contactPersonName: string;
        deviceId: string;
        deviceOs: string;
@@ -92,6 +95,7 @@ export interface editMerchant
          organizationName: string;
           stateName: string;
           categoryName: string;
+          city:string;
          zip: string;
          stateId: number;
          countryId: number;

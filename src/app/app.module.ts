@@ -40,6 +40,7 @@ import { RefferalLinkComponent } from './pages/customer/refferal-link/refferal-l
 import { RedeemCouponComponent } from './account/redeem-coupon/redeem-coupon.component';
 
 
+
 export function createTranslateLoader(http: HttpClient): any {
   return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
 }
@@ -54,7 +55,7 @@ if (environment.defaultauth === 'firebase') {
   declarations: [
     AppComponent,
     RefferalLinkComponent,    
-    RedeemCouponComponent,
+    RedeemCouponComponent, 
   ],
   imports: [
     TranslateModule.forRoot({

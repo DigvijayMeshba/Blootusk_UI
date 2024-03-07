@@ -74,6 +74,8 @@ export class SignupuserComponent {
     UserSendOTP!:string;
     CustomerCode!:any;
     referBy!:any;
+    SignupMerchant!:boolean;
+    SucessSms!:string;
     Ismerchant!:boolean;
     MerchantCode!:any;
     constructor(public formBuilder: FormBuilder,public appService: AppService,
@@ -102,10 +104,13 @@ if (SplitCode !== null) {
     if(SplitCode[1] == "M")
     {
       this.Ismerchant = true;
+      this.SignupMerchant =true;
+
     }
     else 
     {
       this.Ismerchant = false;
+      this.SignupMerchant =false;
     }
     this.merchantCode = SplitCode[0];
 }
@@ -177,26 +182,21 @@ if (SplitCode !== null) {
     GetMerchantName(merchantCode:any)
     {
      // this.appService.getByMerchantId("api/Merchant/GetMarchantByCode/",merchantCode,"?isMerchant="Ismerchant).subscribe(data => {
-        this.appService.getByMerchantId("api/Merchant/GetMarchantByCode/", merchantCode, "?isMerchant=" + this.Ismerchant).subscribe(data => {
-       
-
+       this.appService.getByMerchantId("api/Merchant/GetMarchantByCode/", merchantCode, "?isMerchant=" + this.Ismerchant).subscribe(data => {
        this.merchantName = data.responseData.organizationName;
        this.merchantId = data.responseData.merchantID;
        this.MerchantCode = data.responseData.merchantCode;
       });
     }
 
-
     GetCustomerName(customerCode:any)
-    {
-      
+    {      
       this.appService.getById("api/User/GetCustomerByCOde/",customerCode).subscribe(data => {
       console.log('custdata', data.responseData)
-       this.customerName = data.responseData.phoneNumber;
+       this.customerName = data.responseData.name;
        this.customerId = data.responseData.customerID;
        this.CustomerCode = data.responseData.custcode;
-       this.referBy = data.responseData.customerID;
-      
+       this.referBy = data.responseData.customerID;      
       });
     }
   
@@ -218,8 +218,7 @@ if (SplitCode !== null) {
   
       if (controlToCompare && controlToCompare.value !== control.value) {
         return { compareWith: true };
-      }
-  
+      }  
       return null;
     }
 
@@ -455,22 +454,33 @@ if(this.uploadForm.valid)
         this.appService.Add('api/User/AddCustomer', AddUsertDtail).subscribe((data: any) => {
           let statuscode : number = data.responseStatusCode;
         console.log('adddata',data.responseData)
+
+        if(this.SignupMerchant==false)
+        {
+         this.SucessSms =  "Success! Your referral process is complete. Log in to your BlooTusk Portal for rewards."
+        } 
+        else
+        {
+          this.SucessSms = "Success! Your Sign-up process is complete. Log in to your BlooTusk Portal for rewards."
+           
+        }
           switch(statuscode)
           {
-                case 200:
+
+             case 200:
             
               Swal.fire({
                 title:'Success',
-                text: 'User Added Successfully.',
+                text: this.SucessSms,
                 icon: 'success',
                 confirmButtonColor: '#364574',
                 allowOutsideClick: false,
-                allowEscapeKey: false
-               
+                allowEscapeKey: false               
               }).then(function() {
   
           
             });
+            
             this.router.navigate(['/logincustomer'], { relativeTo: this.route });  
               break;
                 case 212 :

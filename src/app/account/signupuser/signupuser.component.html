@@ -43,7 +43,7 @@
                                     <div class="alert alert-borderless alert-warning text-center mb-2 mx-2" role="alert">
                                         <br>
                                   
-                                        <div *ngIf="customerName==null">
+                                        <div *ngIf="SignupMerchant==true">
                                             Thank you for supporting
                                             <span class="merchant-name-placeholder"> {{merchantName}}</span>.
                
@@ -51,11 +51,11 @@
                                         </div>
                                   
          
-           <div *ngIf="customerName!=null">
+           <div *ngIf="SignupMerchant==false">
             You are referred to 
-            <span class="merchant-name-placeholder"> {{merchantName}}</span>.
-            by 
-            <span  class="merchant-name-placeholder">{{customerName}}</span>   
+            <span class="merchant-name-placeholder"> {{merchantName}}</span>
+            by
+            <span  class="merchant-name-placeholder">  {{customerName}}</span>   
         
          </div>                                    
                                         
@@ -103,7 +103,7 @@
                                                         <div *ngIf="f['phoneNumber'].errors['minlength']">Please enter valid Mobile
                                                             No.</div>
                                                     </div>
-                                                    </div>
+                                                  </div>
                                                 </div>                
                                             </div>
                                             <div class="row">
@@ -131,7 +131,7 @@
 
                                                         <!-- <div class="row">
                                                             <div class="">                                                               
-                                                                I want to receive messages via Text as well as emails from BlooTusk” and “I acknowledge that I agree to the <a href="https://blootusk.com/termsconditions.html">Terms 
+                                                                I want to receive messages via Text as well as emails from BlooTusk and I acknowledge that I agree to the <a href="https://blootusk.com/termsconditions.html">Terms 
                                                                 </a>of Use  and have read the 
                                                                     <a href="https://blootusk.com/privacypolicy.html"> Privacy Policy.</a><br>
                                                               </div>

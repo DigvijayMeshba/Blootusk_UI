@@ -134,24 +134,20 @@ copyInputMessage(referralLink: string, index: number): void {
       console.log('adddata',data.responseData)
         switch(statuscode)
         {
-              case 200:
-          
-           
+              case 200:         
 
         }
       })
     }
   
-     shareReferralLink(referralLink: string) {
-      
-      const message = `Check out this referral link: ${referralLink}` ;
-    
+     shareReferralLink(referralLink: string,merchantName :  any) {      
+      const message = `Just found a gem - ${merchantName}!. Use my referral: ${referralLink} for bonus points on signup.`;
+
       if (navigator.share) {
         navigator
           .share({
             title: 'Share Referral Link',
-            text: message,
-            url: referralLink,
+            text: message,           
           })
           .then(() => console.log('Successfully shared'))
           .catch((error) => console.log('Error sharing:', error));

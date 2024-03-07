@@ -36,7 +36,8 @@ export class TopbarComponent implements OnInit {
   cartData!: CartModel[];
   total = 0;
   cart_length: any = 0;
-
+CustName !: string;
+  CustLastName!: string;
   flagvalue: any;
   valueset: any;
   countryName: any;
@@ -46,8 +47,7 @@ export class TopbarComponent implements OnInit {
   sessionuserrole: any;
   sessionuserfullName: any;
     CustId !: number;
-  CustName !: string;
-  CustLastName!: string;
+  
   submitted = false;
   UserName !:string;
 
@@ -418,6 +418,8 @@ export class TopbarComponent implements OnInit {
   
     }
 
+
+    
     public submit() {
    
       this.submitted = true;   

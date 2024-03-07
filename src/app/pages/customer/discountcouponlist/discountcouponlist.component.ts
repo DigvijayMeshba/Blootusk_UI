@@ -34,6 +34,7 @@ export class DiscountcouponlistComponent {
   public count = 12;
   merchantName!:string;
   array = ['Qr'];
+  Address!:string;
 
   constructor(public formBuilder: FormBuilder,private modalService: NgbModal,public appService: AppService,
     private route: ActivatedRoute, private _authService: AuthenticationService,private tokenStorage: TokenStorageService,
@@ -88,13 +89,13 @@ swalMessage(swalTitle:any)
     icon: 'info',
     confirmButtonColor: '#364574',
     allowOutsideClick: false,
-    allowEscapeKey: false
-    
+    allowEscapeKey: false    
   });
 }
 
-  openModalQR(qrcontent: any,CouponCode:any,SourceName:any) {  
+  openModalQR(qrcontent: any,CouponCode:any,SourceName:any,Address:any) {  
     this.merchantName = SourceName;
+    this.Address = Address;
     this.receivedLink = "/" + CouponCode + "/" +  this.CustPhoneNumber;
    // this.receivedLink = 'http://crm.blootusk.com/CouponCode='  + CouponCode + "/" +  this.CustPhoneNumber;
    this.receivedLink = 'http://crm.blootusk.com/#/C/'  + CouponCode + "/" +  this.CustPhoneNumber;
@@ -173,7 +174,6 @@ swalMessage(swalTitle:any)
      
       }
 
-
   shareMessage() {
     const message = 'Check out this amazing message!';
     const websiteUrl = 'https://your-website.com'; // Replace with your actual website URL
@@ -195,10 +195,8 @@ swalMessage(swalTitle:any)
 
 
   shareReferralLink(referralLink: string, sourcename: string) {
+      let messagetitle = "Just found an amazing place," + sourcename + ". Present this exclusive coupon";
       
-      let messagetitle = "Hi, I just discovered a great place called " + sourcename + ". Show this coupon";
-      
-
     const urlParts = window.location.href.split('#');
     const urlWithoutHash = urlParts.length > 0 ? urlParts[0] : '';
 
@@ -210,7 +208,7 @@ swalMessage(swalTitle:any)
   
     navigator.share({
       title: 'Shared Message',
-      text: `${messagetitle}\n\n${testurl} at store and enjoy coupon benefits`,
+      text: `${messagetitle}\n\n${testurl} at the store to unlock special offers. Enjoy!`,
     //  url:  '#/C/' + referralLink // `${messagetitle}\n\n${testurl} at store and enjoy coupon benefits`, // You can include the URL in the 'text' property
   })
   
